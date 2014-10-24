@@ -1,0 +1,84 @@
+
+<!-- HEADER -->
+<html lang="en">
+  <head>
+
+  <title>Learn Prolog Now!</title>
+
+  <link href="lpn_reds2.css" rel="stylesheet" type="text/css">
+
+  </head>
+
+  <body>
+
+  <!-- table is needed because IE doesn't recognize min-width. -->
+  <table width="100%">
+  <tr><td><div style="width:500pt;"></div></td></tr>
+  <tr><td>
+
+  <div class="coloredbar"></div>
+  <div class="lpnheader">
+  <a href="index.php">Learn Prolog Now!</a>
+  </div>
+
+  
+  <div class="authorbar">
+  by <a href="http://www.loria.fr/~blackbur/">Patrick Blackburn</a>, 
+     <a href="http://www.let.rug.nl/bos/">Johan Bos</a>, and 
+     <a href="http://cs.union.edu/~striegnk/">Kristina Striegnitz</a>
+  </div>
+
+<!-- NAVIGATION BAR -->
+  <div class="navbar">
+  <?php
+
+	include "navbar.php";	
+
+	make_navmenu($pageid);
+  ?>
+  </div>
+
+
+<!-- MAIN CONTENT -->
+  <div class="content">
+
+  <?php
+	if ($pagetype == "website")
+	    include $pageid.".php";
+	else	
+  	    include "html/".$pageid.".html";
+  ?>
+
+  </div>
+
+
+<!-- FOOTER -->
+  <div class="foot">
+<div class="tracker">
+<div id="eXTReMe"><a href="http://extremetracking.com/open?login=lpntwo">
+<img src="http://t1.extreme-dm.com/i.gif" style="border: 0;"
+height="38" width="41" id="EXim" alt="eXTReMe Tracker" /></a>
+<script type="text/javascript"><!--
+var EXlogin='lpntwo' // Login
+var EXvsrv='s11' // VServer
+EXs=screen;EXw=EXs.width;navigator.appName!="Netscape"?
+EXb=EXs.colorDepth:EXb=EXs.pixelDepth;
+navigator.javaEnabled()==1?EXjv="y":EXjv="n";
+EXd=document;EXw?"":EXw="na";EXb?"":EXb="na";
+EXd.write("<img src=http://e2.extreme-dm.com",
+"/"+EXvsrv+".g?login="+EXlogin+"&amp;",
+"jv="+EXjv+"&amp;j=y&amp;srw="+EXw+"&amp;srb="+EXb+"&amp;",
+"l="+escape(EXd.referrer)+" height=1 width=1>");//-->
+</script><noscript><div id="neXTReMe"><img height="1" width="1" alt=""
+src="http://e2.extreme-dm.com/s11.g?login=lpntwo&amp;j=n&amp;jv=n" />
+</div></noscript></div>
+</div>
+  &copy 2006-2012 <a href="http://www.patrickblackburn.org/">Patrick Blackburn</a>, <a href="http://www.let.rug.nl/bos/">Johan Bos</a>, <a href="http://cs.union.edu/~striegnk/">Kristina Striegnitz</a>
+  </div>
+
+  </td></tr></table>
+
+
+  </body>
+
+</html>

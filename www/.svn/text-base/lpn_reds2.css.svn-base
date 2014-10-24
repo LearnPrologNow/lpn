@@ -1,0 +1,142 @@
+
+body {
+	background-color:#ffffff; 
+ 	min-width: 500pt;
+}
+
+
+div.coloredbar {
+	background-color:#ffcc33; 
+	margin:0pt; 
+	padding:10pt; 
+	height:50pt;
+} 
+
+div.lpnheader {
+	background-color:#ffcc33; 
+	margin:0pt; 
+	padding:10pt; 
+	text-align:left; 
+	font-family:Helvetica,sans-serif; 
+	font-size:300%;
+}
+
+.lpnheader a {
+	color:black;
+	font-family:Helvetica,sans-serif; 
+	text-decoration:none;
+}
+
+div.authorbar {
+	background-color:#ff9900; 
+	margin:0pt; 
+	padding:7pt; 
+	text-align:right; 
+	font-family:Helvetica,sans-serif; 
+	font-size:100%;
+}	
+
+.authorbar a {
+	color:black;
+	font-family:Helvetica,sans-serif; 
+	text-decoration:none;
+}
+
+div.navbar {
+	float:left; 
+	background-color:#990000; 
+	color:#ffffff;
+	width:150pt; 
+	%overflow:hidden;
+	margin:0pt; 
+	height:400pt; 
+	padding-top:20pt; 
+	font-family:Helvetica,sans-serif;
+}
+
+.navbar ul {
+	margin-left:0pt; 
+	padding-left:0pt;
+}
+
+.navbar li {
+	list-style:none; 
+	margin:10pt 0pt 10pt 8pt;
+}
+
+.navbar li li {
+	margin:3pt 0pt 3pt 15pt;
+	font-size:90%;
+}
+
+div.content {
+	padding:20pt; 
+	padding-left:10pt; 
+	margin-left:170pt;
+	font-family:Helvetica,sans-serif;
+	font-size:80%;
+	overflow:visible;
+}
+
+.content td {
+	font-size:80%;
+}
+
+div.foot {
+	clear:both;
+	padding-top:10pt;
+	font-family:Helvetica,sans-serif;
+	font-size:80%;
+}
+
+div.tracker {
+	float:right;
+	width:50pt;
+}
+
+.content a {
+	color:#990000; %black;
+}
+
+.content h1 {
+	color:#ff9900;
+}
+
+.navbar a {
+	color:#ffffff;
+	font-family:Helvetica,sans-serif; 
+	text-decoration:none;
+}
+
+div.newsbox {
+	float:right;
+	width:180pt;
+	border:3px solid #ff9900; %#990000;
+	padding:10px;
+	margin-right:-10pt;
+	margin-left:20pt;
+	margin-bottom:20pt;
+}
+
+div.newsbar {
+	width:180pt;
+	background-color:#ff9900; %#990000;
+	padding:10px;
+	margin: -10px;
+	margin-bottom: 10px;
+	color:#ffffff;
+	font-size:150%;
+}
+
+.emph {
+	color:#990000;
+}
+
+pre {
+	font-size:130%;
+	overflow:visible;
+}
+
+span.code{
+	font-family:'courier';
+}

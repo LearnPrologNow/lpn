@@ -1,0 +1,827 @@
+
+
+\chapter{Cuts and Negation}\label{CHAPTER10}
+
+\Thischapter{145}{
+
+\noindent
+This chapter has two main goals:  
+  
+\begin{enumerate}
+
+\item{}To explain how to control Prolog's backtracking behaviour with the   
+help of the cut predicate.
+
+\item{}To explain how cut can be packaged into a more structured form,
+namely negation as failure.
+
+\end{enumerate}
+
+
+
+}
+
+\section{The Cut}\label{SEC.L10.CUT}
+
+
+
+Automatic backtracking is one of the most characteristic features of
+Prolog.  But backtracking can lead to inefficiency.  Sometimes Prolog
+can waste time exploring possibilities that lead nowhere.  It would be
+pleasant to have some control over this aspect of its behaviour, but
+so far we have only seen two (rather crude) ways of doing this:
+changing rule order, and changing goal order.  But there is another
+way.  There is a built-in Prolog predicate §!§ (the exclamation mark), called
+\LPNterm{cut},\index{PROLOG !/0@\texttt{!/0}} which offers a more
+direct way of exercising control over the way Prolog looks for
+solutions.
+
+What exactly is cut, and what does it do?  It's simply a special atom   
+that we can use when writing clauses.  For example,  
+\begin{LPNcodedisplay}
+p(X):- b(X), c(X), !, d(X), e(X).
+\end{LPNcodedisplay}
+is a perfectly good Prolog rule.  As for what cut does, first of all,  
+it is a goal that \LPNemph{always} succeeds.  Second, and more importantly,  
+it has a side effect.  Suppose that some goal makes use of this clause  
+(we call this goal the parent goal).  Then the cut commits Prolog to  
+any choices that were made since the parent goal was unified with the  
+left hand side of the rule (including, importantly, the choice of  
+using that particular clause).  Let's look at an example to see what  
+this means.
+
+First consider the following piece of cut-free code:  
+\begin{LPNcodedisplay}
+p(X):- a(X).
+
+p(X):- b(X), c(X), d(X), e(X).
+
+p(X):- f(X).
+
+a(1).  b(1).   c(1).   d(2).  e(2).  f(3).
+       b(2).   c(2).
+\end{LPNcodedisplay}
+  
+If we pose the query §p(X)§ we will get the following   
+responses:  
+\begin{LPNcodedisplay}
+X = 1 ;
+
+X = 2 ;
+
+X = 3 ;
+no
+\end{LPNcodedisplay}
+  
+Here is the search tree that explains how Prolog finds these three
+solutions. Note that it has to backtrack once, namely when it enters
+the second clause for §p/1§ and decides to unify the first goal with
+§b(1)§ instead of §b(2)§.
+
+\begin{center}
+\includegraphics{chap10-pspic1.ps}
+\end{center}
+
+But now suppose we insert a cut in the second clause:  
+\begin{LPNcodedisplay}
+p(X):- b(X), c(X), !, d(X), e(X).
+\end{LPNcodedisplay}
+  
+If we now pose the query §p(X)§ we will get the following   
+responses:  
+\begin{LPNcodedisplay}
+X = 1 ;
+no
+\end{LPNcodedisplay}
+  
+What's going on here? Let's consider.
+
+\begin{enumerate}
+
+\item{}§p(X)§ is first unified with the first rule, so we get a new
+goal §a(X)§.  By instantiating §X§ to §1§, Prolog unifies §a(X)§ with
+the fact §a(1)§ and we have found a solution.  So far, this is exactly
+what happened in the first version of the program.
+
+\item{}We then go on and look for a second solution.  §p(X)§ is
+unified with the second rule, so we get the new goals
+§b(X),c(X),!,d(X),e(X)§.  By instantiating §X§ to §1§, Prolog unifies
+§b(X)§ with the fact §b(1)§, so we now have the goals
+§c(1),!,d(1),e(1)§.  But §c(1)§ is in the database so this simplifies
+to §!,d(1),e(1)§.
+        
+\item{}Now for the big change.  The §!§ goal succeeds (as it always
+does) and commits us to the choices made so far.  In particular, we
+are committed to having §X = 1§, and we are also committed to using
+the second rule.
+
+\item{}But §d(1)§ fails.  And there's no way we can re-satisfy the
+goal §p(X)§.  Sure, if we were allowed to try the value §X=2§ we could
+use the second rule to generate a solution (that's what happened in
+the original version of the program).  But we \LPNemph{can't} do this:
+the cut has removed this possibility from the search tree.  And sure,
+if we were allowed to try the third rule, we could generate the
+solution §X=3§.  But we \LPNemph{can't} do this: once again, the cut
+has removed this possibility from the search tree.
+\end{enumerate}
+  
+If you look at the search tree, you'll see that this all boils down to
+the following: search stops when the goal §d(1)§ doesn't lead to any
+node where an alternative choice is available. The crosses in the
+search tree indicate the branches that the cut  trimmed away.
+
+\begin{center}
+\includegraphics{chap10-pspic4.ps}
+\end{center}
+
+One point is worth emphasising: the cut only commits us to choices  
+made since the parent goal was unified with the left hand side of the  
+clause containing the cut.  For example, in a rule of the form  
+\begin{LPNcodedisplay}
+q:- p1,...,pn, !, r1,...,rm
+\end{LPNcodedisplay}
+when we reach the cut it commits us to using this particular  
+clause for §q§ and it commits us to the choices made when  
+evaluating §p1,...,pn§. However, we \LPNemph{are} free to backtrack  
+among the §r1,...,rm§ and we are also free to backtrack among  
+alternatives for choices that were made before reaching the goal  
+§q§. A concrete example will make this clear.
+
+First consider the following cut-free program:  
+\begin{LPNcodedisplay}
+s(X,Y):- q(X,Y).
+s(0,0).
+
+q(X,Y):- i(X), j(Y).
+
+i(1).
+i(2).
+
+j(1).
+j(2).
+j(3).
+\end{LPNcodedisplay}
+  
+Here's how it behaves:  
+\begin{LPNcodedisplay}
+?- s(X,Y).
+
+X = 1 
+Y = 1 ;
+
+X = 1 
+Y = 2 ;
+
+X = 1 
+Y = 3 ;
+
+X = 2 
+Y = 1 ;
+
+X = 2 
+Y = 2 ;
+
+X = 2 
+Y = 3 ;
+
+X = 0
+Y = 0;
+no
+\end{LPNcodedisplay}
+  
+
+And this is the corresponding search tree:
+
+
+\begin{center}
+\includegraphics{chap10-pspic5.ps}
+\end{center}
+
+
+
+
+
+Suppose we add a cut to the clause defining §q/2§:  
+\begin{LPNcodedisplay}
+q(X,Y):- i(X), !, j(Y).
+\end{LPNcodedisplay}
+  
+Now the program behaves as follows:  
+\begin{LPNcodedisplay}
+?- s(X,Y).
+
+X = 1 
+Y = 1 ;
+
+X = 1 
+Y = 2 ;
+
+X = 1 
+Y = 3 ;
+
+X = 0
+Y = 0;
+no
+\end{LPNcodedisplay}
+  
+Let's see why.
+
+\begin{enumerate}
+
+\item{}§s(X,Y)§ is first unified with the first rule, which gives us a
+new goal §q(X,Y)§.
+
+\item{}§q(X,Y)§ is then unified with the third rule, so we get the new
+goals §i(X),!,j(Y)§.  By instantiating §X§ to §1§, Prolog unifies
+§i(X)§ with the fact §i(1)§. This leaves us with the goal
+§!,j(Y)§. The cut, of course, succeeds, and commits us to the choices
+made so far.
+
+\item{}But what are these choices?  These: that §X = 1§, and that  
+we are using this clause.  But note: we have \LPNemph{not} yet chosen a  
+value for §Y§.  
+        
+\item{}Prolog then goes on, and by instantiating §Y§ to §1§,  
+Prolog unifies §j(Y)§ with the fact §j(1)§.  So we have  
+found a solution.
+
+\item{}But we can find more.  Prolog \LPNemph{is} free to try another value  
+for §Y§. So it backtracks and sets §Y§ to §2§, thus  
+finding a second solution.  And in fact it can find another solution:  
+on backtracking again, it sets §Y§ to §3§, thus finding a  
+third solution.  
+
+\item{}But those are all alternatives for §j(X)§. Backtracking to  
+the left of the cut is not allowed, so it \LPNemph{can't} reset §X§ to  
+§2§, so it won't find the next three solutions that the cut-free  
+program found. Backtracking over goals that were reached before  
+§q(X,Y)§ is allowed however, so that Prolog will find the second  
+clause for §s/2§.
+\end{enumerate}
+  
+Here's the corresponding search tree:
+
+\begin{center}
+\includegraphics{chap10-pspic6.ps}
+\end{center}
+
+\section{Using Cut}\label{SEC.L10.USING.CUT}
+
+Well, we now know what cut is.  But how do we use it in practice, and  
+why is it so useful?  As a first example, let's define a (cut-free)  
+predicate §max/3§ which takes integers as arguments\index{PROLOG max/3@\texttt{max/3}}
+and succeeds if the third argument is the maximum of the first two.  
+For example, the queries  
+\begin{LPNcodedisplay}
+?- max(2,3,3).
+\end{LPNcodedisplay}
+  
+and  
+\begin{LPNcodedisplay}
+?- max(3,2,3).
+\end{LPNcodedisplay}
+  
+and  
+\begin{LPNcodedisplay}
+?- max(3,3,3).
+\end{LPNcodedisplay}
+  
+should succeed,  
+and the queries  
+\begin{LPNcodedisplay}
+?- max(2,3,2).
+\end{LPNcodedisplay}
+  
+and  
+\begin{LPNcodedisplay}
+?- max(2,3,5).
+\end{LPNcodedisplay}
+should fail. And of course, we also want the program to work when the  
+third argument is a variable.  That is, we want the program to be able  
+to find the maximum of the first two arguments for us:  
+\begin{LPNcodedisplay}
+?- max(2,3,Max).
+ 
+Max = 3
+yes  
+
+?- max(2,1,Max).
+ 
+Max = 2
+yes   
+\end{LPNcodedisplay}
+  
+  
+  
+Now, it is easy to write a program that does this. Here's  
+a first attempt:  
+\begin{LPNcodedisplay}
+max(X,Y,Y):- X =< Y.
+max(X,Y,X):- X>Y.
+\end{LPNcodedisplay}
+This is a perfectly correct program, and we might be tempted  
+simply to stop here. But we shouldn't: it's not good enough.  
+  
+What's the problem? There is a potential inefficiency.  Suppose this
+definition is used as part of a larger program, and somewhere along
+the way §max(3,4,Y)§ is called.  The program will correctly set §Y=4§.
+But now consider what happens if at some stage backtracking is forced.
+The program will try to re-satisfy §max(3,4,Y)§ using the second
+clause. This is completely pointless: the maximum of §3§ and §4§ is
+§4§ and that's that. There is no second solution to find.  To put it
+another way: the two clauses in the above program are mutually
+exclusive: if the first succeeds, the second must fail and vice versa.
+So attempting to re-satisfy this clause is a complete waste of time.
+
+With the help of cut, this is easy to fix. We need to insist that  
+Prolog should never try both clauses, and the following code does  
+this:  
+\begin{LPNcodedisplay}
+max(X,Y,Y) :- X =< Y,!.  
+max(X,Y,X) :- X>Y.  
+\end{LPNcodedisplay}
+  
+Note how this works. Prolog will reach the cut if §max(X,Y,Y)§ is  
+called and §X =< Y§ succeeds. In this case, the second argument  
+is the maximum, and that's that, and the cut commits us to this  
+choice. On the other hand, if §X =< Y§ fails, then Prolog goes  
+onto the second clause instead. 
+
+Note that this cut does \LPNemph{not} change the meaning of the
+program.  Our new code gives exactly the same answers as the old one,
+but it's more efficient.  In fact, the program is \LPNemph{exactly}
+the same as the previous version, except for the cut, and this is a
+pretty good sign that the cut is a sensible one. Cuts like this, which
+don't change the meaning of a program, have a special name: they're
+called \LPNterm{green cuts}.
+
+But some readers will dislike this code. After all, isn't the second line
+redundant? If we have to use this line, we already know that the first argument
+is bigger that the second. Couldn't we squeeze out a little more efficiency
+with the help of our new cut construct? Let's try. Here's a first (faulty)
+attempt:
+\begin{LPNcodedisplay}
+max(X,Y,Y) :- X =< Y,!.
+max(X,Y,X).
+\end{LPNcodedisplay}
+Note that is the same as our earlier green cut §max/3§, except that we have got
+rid of the §>§ test in the second clause.  How good is it?  Well, for some
+queries it's fine. In particular, it answers correctly when we pose queries in
+which the third argument is a variable. For example:
+\begin{LPNcodedisplay}
+?- max(100,101,X).  
+
+X = 101  
+yes   
+\end{LPNcodedisplay}
+  
+and  
+\begin{LPNcodedisplay}
+?- max(3,2,X).
+ 
+X = 3
+yes 
+\end{LPNcodedisplay}
+  
+Nonetheless, it's \LPNemph{not} the same as the green cut program: the new
+§max/3§ does \LPNemph{not} work correctly. Consider what happens when all three arguments
+are instantiated.  For example, consider the query
+\begin{LPNcodedisplay}
+?- max(2,3,2).
+\end{LPNcodedisplay}
+Obviously this query should fail.  But in our new version, it will
+succeed!  Why? Well, this query simply won't unify with the head of
+the first clause, so Prolog goes straight to the second clause. And
+the query will unify with the second clause, and (trivially) the query
+succeeds! So maybe getting rid of that §>§ test wasn't quite so smart
+after all.
+
+But there is another way. The problem with the new code is simply that
+we carried out variable unification \LPNemph{before} we traversed the
+cut. Suppose we handle our variables a little more intelligently
+(using three variables instead of two) and explicitly unify
+\LPNemph{after} we have crossed the cut:
+\begin{LPNcodedisplay}
+max(X,Y,Z) :- X =< Y,!, Y = Z.
+max(X,Y,X).
+\end{LPNcodedisplay}
+As the reader should check, this program does work, and (as we hoped
+for) it avoids the explicit comparison made in the second clause of
+our green cut version of §max/3§.
+
+But there is an important difference between the new version of the
+program and the green cut version.  The cut in the new program is a
+classic example of what is known as a \LPNterm{red cut}.  As this
+terminology is supposed to suggest, such cuts are potentially
+dangerous.  Why?  Because if we take out such a cut, we
+\LPNemph{don't} get an equivalent program. That is, if we remove the
+cut, the resulting code does \LPNemph{not} compute the maximum of two
+numbers any more. To put it another way, the presence of the cut is
+\LPNemph{indispensable} to the correct functioning of the
+program. (This was not the case in the  green cut version --- the
+cut there merely
+improved efficiency.) Because red cuts are
+indispensable cuts, their presence means that programs containing them
+are not fully declarative. Now, red cuts can be useful on occasions,
+but beware!  Their use can lead to subtle programming mistakes and
+make code hard to debug.
+
+So, what to do? It's probably best to work as follows.  Try and get a
+good, clear, cut-free program working, and only then try to improve
+its efficiency by using cuts. Use green cuts whenever possible.  Red
+cuts should be used only when absolutely necessary, and it's a good
+idea to explicitly comment on any red cuts in your code. Working this
+way will maximise your chances of striking a good balance between
+declarative clarity and procedural efficiency.
+
+\section{Negation as Failure}\label{SEC.L10.NEGATION.AS.FAILURE}
+
+One of Prolog's most useful features is the simple way it lets us   
+state generalisations.  To say that Vincent enjoys burgers we just   
+write:  
+\begin{LPNcodedisplay}
+enjoys(vincent,X) :- burger(X).
+\end{LPNcodedisplay}
+
+But in real life rules have exceptions.  Perhaps Vincent doesn't like   
+Big Kahuna burgers.  That is, perhaps the correct rule is really:   
+Vincent enjoys burgers, \LPNemph{except} Big Kahuna burgers.  Fine.  
+But how do we state this in Prolog?
+
+As a first step, let's introduce another built-in predicate:  
+§fail/0§.  As its name suggests, §fail/0§ is a special  
+symbol that will immediately fail when Prolog encounters it as a goal.  
+That may not sound too useful, but remember: \LPNemph{when Prolog fails, it  
+tries to backtrack}.  Thus §fail/0§ can be viewed as an instruction  
+to force backtracking.  And when used in combination with cut, which  
+\LPNemph{blocks} backtracking, §fail/0§ enables us to write some  
+interesting programs, and in particular, it lets us define exceptions  
+to general rules.
+
+  
+Consider the following code:  
+\begin{LPNcodedisplay}
+enjoys(vincent,X) :- big_kahuna_burger(X),!,fail.
+enjoys(vincent,X) :- burger(X).
+
+burger(X) :- big_mac(X).
+burger(X) :- big_kahuna_burger(X).
+burger(X) :- whopper(X).
+
+big_mac(a).
+big_kahuna_burger(b).
+big_mac(c).
+whopper(d).
+\end{LPNcodedisplay}
+  
+The first two lines describe Vincent's preferences.  The last six   
+lines describe a world containing four burgers, §a§, §b§,   
+§c§, and §d§.  We're also given information about what kinds of   
+burgers they are.  Given that the first two lines really do describe   
+Vincent's preferences (that is, that he likes all burgers except Big   
+Kahuna burgers) then he should enjoy burgers §a§, §c§ and    
+§d§, but not §b§. And indeed, this is what happens:  
+\begin{LPNcodedisplay}
+?- enjoys(vincent,a).
+yes
+
+?- enjoys(vincent,b).
+no
+
+?- enjoys(vincent,c).
+yes
+
+?- enjoys(vincent,d).
+yes
+\end{LPNcodedisplay}
+  
+How does this work?  The key is the combination of §!§ and  
+§fail/0§ in the first line (this even has a name: it's called the  
+\LPNterm{cut-fail combination}).  When we pose the query  
+§enjoys(vincent,b)§, the first rule applies, and we reach the  
+cut.  This commits us to the choices we have made, and in particular,  
+blocks access to the second rule.  But then we hit §fail/0§.  This  
+tries to force backtracking, but the cut blocks it, and so our query  
+fails.
+
+This is interesting, but it's not ideal.  For a start, note that the  
+ordering of the rules is crucial: if we reverse the first two lines,  
+we \LPNemph{don't} get the behaviour we want.  Similarly, the cut is  
+crucial: if we remove it, the program doesn't behave in the same way  
+(so this is a \LPNemph{red} cut).  In short, we've got two mutually  
+dependent clauses that make intrinsic use of the procedural aspects of  
+Prolog.  Something useful is clearly going on here, but it would be  
+better if we could extract the useful part and package it in a more  
+robust way.
+
+And we can.  The crucial observation is that the first clause is   
+essentially a way of saying that Vincent does \LPNemph{not} enjoy X if X   
+is a Big Kahuna burger.  That is, the cut-fail combination seems to be   
+offering us some form of negation.  And indeed, this is the crucial   
+generalisation: the cut-fail combination lets us define a form of   
+negation called \LPNterm{negation as failure}.  Here's how:  
+\begin{LPNcodedisplay}
+neg(Goal) :- Goal,!,fail.
+neg(Goal).
+\end{LPNcodedisplay}
+For any Prolog goal, §neg(Goal)§ will succeed precisely if  
+§Goal§ does \LPNemph{not} succeed.
+
+Using our new §neg/1§ predicate, we can describe Vincent's   
+preferences in a much clearer way:  
+\begin{LPNcodedisplay}
+enjoys(vincent,X) :- burger(X), 
+                      neg(big_kahuna_burger(X)).
+\end{LPNcodedisplay}
+That is, Vincent enjoys X if X is a burger and X is not a Big Kahuna   
+burger.  This is quite close to our original statement: Vincent enjoys   
+burgers, except Big Kahuna burgers.
+
+Negation as failure is an important tool.  Not only does it offer
+useful expressivity (notably, the ability to describe exceptions) it
+also offers it in a relatively safe form.  By working with negation as
+failure (instead of with the lower level cut-fail combination) we have
+a better chance of avoiding the programming errors that often
+accompany the use of red cuts.  In fact, negation as failure is so
+useful that it comes built-in as part of standard Prolog, so we don't
+have to define it at all.  In standard Prolog the operator §\+§ means
+negation as failure, so we could define Vincent's preferences as
+follows:
+\begin{LPNcodedisplay}
+enjoys(vincent,X) :- burger(X), 
+                      \+ big_kahuna_burger(X).
+\end{LPNcodedisplay}
+  
+  
+Nonetheless, a couple of words of warning are in order: \LPNemph{don't}  
+make the mistake of thinking that negation as failure works just like  
+logical negation.  It doesn't. Consider again our burger world:
+
+\begin{LPNcodedisplay}
+burger(X) :- big_mac(X).
+burger(X) :- big_kahuna_burger(X).
+burger(X) :- whopper(X).
+
+big_mac(a).
+big_kahuna_burger(b).
+big_mac(c).
+whopper(d).
+\end{LPNcodedisplay}
+  
+If we pose the query §enjoys(vincent,X)§ we get  
+the correct sequence of responses:  
+\begin{LPNcodedisplay}
+X = a ;
+
+X = c ;
+
+X = d ;
+no
+\end{LPNcodedisplay}
+  
+But now suppose we rewrite the first line as follows:  
+\begin{LPNcodedisplay}
+enjoys(vincent,X) :- \+ big_kahuna_burger(X), burger(X).
+\end{LPNcodedisplay}
+Note that from a declarative point of view, this should make no
+difference: after all, \LPNemph{burger(x) and not big kahuna
+burger(x)} is logically equivalent to \LPNemph{not big kahuna
+burger(x) and burger(x)}.  That is, no matter what the variable
+\LPNemph{x} denotes, it is impossible for one of these expressions to
+be true and the other false.  Nonetheless, here's what happens
+when we pose the same query:
+  
+  
+\begin{LPNcodedisplay}
+?- enjoys(vincent,X).
+
+no
+\end{LPNcodedisplay}
+
+
+  
+  
+What's going on?  Well, in the modified database, the first thing that  
+Prolog has to check is whether §\+ big_kahuna_burger(X)§ holds,  
+which means that it must check whether §big_kahuna_burger(X)§  
+fails.  But this succeeds. After all, the database contains the  
+information §big_kahuna_burger(b)§. So the query  
+§\+ big_kahuna_burger(X)§ fails, and hence the original query  
+does too.  In a nutshell, the crucial difference between the two  
+programs is that in the original version (the one that works right) we  
+use §\+§ only \LPNemph{after} we have instantiated the  
+variable §X§.  In the new version (which goes wrong) we use  
+§\+§ before we have done this. The difference is crucial.
+
+Summing up, we have seen that negation as failure is not logical
+negation, and that it has a procedural dimension that must be
+understood.  Nonetheless, it is an important programming construct: it
+is generally a better idea to try use negation as failure than to
+write code containing heavy use of red cuts.  Nonetheless,
+``generally'' does not mean ``always''.  There \LPNemph{are} times
+when it is better to use red cuts.
+
+  
+For example, suppose that we need to  
+write code to capture the following condition:  
+\LPNemph{p holds if a and b hold, or if a does not hold and c holds  
+too}. This can be captured with the help of negation  
+as failure very directly:  
+  
+\begin{LPNcodedisplay}
+p :- a,b.
+
+p :- \+ a, c.
+\end{LPNcodedisplay}
+  
+But suppose that §a§ is a very complicated goal, a goal that  
+takes a lot of time to compute.  Programming it this way means we may  
+have to compute §a§ twice, and this may mean that we have  
+unacceptably slow performance. If so, it would be better to use the  
+following program:  
+  
+\begin{LPNcodedisplay}
+p :- a,!,b.
+
+p :- c.
+\end{LPNcodedisplay}
+  
+Note that this is a red cut: removing it changes the meaning  
+of the program. 
+
+When all's said and done, there are no universal guidelines that will   
+cover all the situations you are likely to run across.  Programming is   
+as much an art as a science: that's what makes it so interesting.    
+You need to know as much as possible about the language you are   
+working with (whether it's Prolog, Java, Perl, or whatever), understand   
+the problem you are trying to solve, and know what counts as an   
+acceptable solution. And then: go ahead and try your best!
+
+
+
+
+\section{Exercises}\label{SEC.L10.EXERCISES}
+
+\begin{LPNexercise}{L10.EX1}Suppose we have the following database:  
+\begin{LPNcodedisplay}
+p(1).
+p(2) :- !.
+p(3).
+\end{LPNcodedisplay}
+  
+Write all of Prolog's answers to the following queries:  
+\begin{LPNcodedisplay}
+?- p(X).
+
+?- p(X),p(Y).
+
+?- p(X),!,p(Y).
+\end{LPNcodedisplay}
+\end{LPNexercise}
+
+
+\begin{LPNexercise}{L10.EX2}First, explain what the following program does:  
+\begin{LPNcodedisplay}
+class(Number,positive) :- Number > 0.
+class(0,zero).
+class(Number,negative) :- Number < 0.
+\end{LPNcodedisplay}
+  
+Second, improve it by adding green cuts.
+\end{LPNexercise}
+
+
+\begin{LPNexercise}{L10.EX3}Without using cut, write a predicate §split/3§  
+that splits a list of integers into two lists: one containing the  
+positive ones (and zero), the other containing the negative ones.  For  
+example:  
+\begin{LPNcodedisplay}
+    split([3,4,-5,-1,0,4,-9],P,N)
+\end{LPNcodedisplay}
+should return:  
+\begin{LPNcodedisplay}
+    P = [3,4,0,4]
+
+    N = [-5,-1,-9].
+\end{LPNcodedisplay}
+Then improve this program, without changing its meaning, with the help  
+of the cut.
+\end{LPNexercise}
+
+\begin{LPNexercise}{L10.EX4}
+
+Recall that in Exercise~\ref{L3.EX3} we gave you the following
+knowledge base:
+\begin{LPNcodedisplay}
+directTrain(saarbruecken,dudweiler).
+directTrain(forbach,saarbruecken).
+directTrain(freyming,forbach).
+directTrain(stAvold,freyming).
+directTrain(fahlquemont,stAvold).
+directTrain(metz,fahlquemont).
+directTrain(nancy,metz).
+\end{LPNcodedisplay}
+We asked you to write a recursive predicate §travelFromTo/2§ that
+told us when we could travel by train between two towns.  
+
+Now, it's plausible to assume that whenever it is possible
+to take a direct train from A to B, it is also possible to take a
+direct train from B to A. Add this information to the database.
+Then write a predicate  §route/3§ which gives you a list of towns
+that are visited by taking the train from one town to another.
+For instance:
+
+\begin{LPNcodedisplay}
+?- route(forbach,metz,Route).
+Route = [forbach,freyming,stAvold,fahlquemont,metz]
+\end{LPNcodedisplay}
+
+\end{LPNexercise}
+
+
+\begin{LPNexercise}{L9.EX6}Recall the definition of jealousy given in Chapter~\ref{CHAPTER1}.  
+\begin{LPNcodedisplay}
+jealous(X,Y):- loves(X,Z), loves(Y,Z).
+\end{LPNcodedisplay}
+In a world where both Vincent and Marsellus love Mia, Vincent will be
+jealous of Marsellus, and Marsellus of Vincent. But Marsellus will
+also be jealous of himself, and so will Vincent.  Revise the Prolog
+definition of jealousy in such a way that people can't be jealous
+of themselves.
+\end{LPNexercise}
+
+
+
+
+\section{Practical Session}\label{SEC.L10.PRAXIS}
+
+
+
+The purpose of this session is to help you get familiar with cuts and
+negation as failure.
+First some keyboard exercises:  
+
+\begin{enumerate}
+\item{}Try out all three versions of the  
+§max/3§ predicate defined in the text: the cut-free  
+version, the green cut version, and the red cut version.  As usual,  
+``try out'' means ``run traces on'', and you should make sure that you  
+trace queries in which all three arguments are instantiated  
+to integers, and queries where the third argument is given as a  
+variable.
+\item{}Ok, time for a burger. Try out all the methods discussed in the
+text for coping with Vincent's preferences. That is, try out the
+program that uses a cut-fail combination, the program that uses
+negation as failure correctly, and also the program that mucks it up
+by using negation in the wrong place.
+\end{enumerate}
+  
+  
+Now for some programming:  
+  
+\begin{enumerate}
+\item{}Define a predicate §nu/2§ ("not unifiable") which takes two terms as  
+arguments and succeeds if the two terms do not unify.  
+For example:  
+\begin{LPNcodedisplay}
+    nu(foo,foo).
+    no
+
+    nu (foo,blob).
+    yes
+
+    nu(foo,X).
+    no
+\end{LPNcodedisplay}
+  
+You should define this predicate in three different ways:  
+\begin{enumerate}
+\item{}First (and easiest) write it with the help of §=§ and  
+§\+§.
+\item{}Second write it with the help of §=§, but don't use  
+§\+§.
+\item{}Third, write it using a cut-fail combination. Don't use §=§ and  
+don't use §\+§.
+\end{enumerate}
+
+\item{}Define a predicate §unifiable(List1,Term,List2)§ where  
+§List2§ is the list of all members of §List1§ that unify with 
+§Term§.  The elements of §List2§
+should \LPNemph{not} be instantiated by the unification.  
+For example  
+\begin{LPNcodedisplay}
+    unifiable([X,b,t(Y)],t(a),List]
+\end{LPNcodedisplay}
+  
+should yield  
+\begin{LPNcodedisplay}
+    List = [X,t(Y)].
+\end{LPNcodedisplay}
+  
+Note that §X§ and §Y§ are still \LPNemph{not} instantiated. So the tricky part
+is: how do we check that they unify  with §t(a)§ without instantiating them?
+
+(Hint: consider using tests of the form §\+ term1 = term2§. Why?  Think
+about it.  You might also like to think about tests of the form 
+§\+ \+ term1 = term2§.)
+\end{enumerate}

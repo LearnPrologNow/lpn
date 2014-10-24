@@ -1,0 +1,12 @@
+preamble
+"\\begin{theindex}\n\\thispagestyle{empty}\n"
+
+heading_prefix
+"\\textbf{"
+
+heading_suffix
+"} \\nopagebreak"
+
+headings_flag
+1
+

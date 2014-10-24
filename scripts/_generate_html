@@ -1,0 +1,97 @@
+#!/bin/bash
+
+INDIR=text
+OUTDIR="`pwd`/www/html/"
+SCRIPTSDIR="`pwd`/scripts"
+
+init()
+{
+    echo ${OUTDIR}
+    mkdir -p ${OUTDIR}
+}
+
+convertpix()
+{
+    for p in ${INDIR}/*.eps; do
+	echo "Converting eps file $p"
+	convert -density 150 $p -flatten $p.png
+	mv $p.png ${OUTDIR}
+    done
+    pushd .
+    cd ${INDIR}
+    for p in chap*pspic*.tex; do
+	latex $p
+    done
+    for p in chap*pspic*.dvi; do
+	dvips -E $p
+    done
+    popd
+    for p in ${INDIR}/chap*pspic*.ps; do
+	echo "Converting ps file $p"
+	convert -density 150 $p  -flatten $p.png
+	mv $p.png ${OUTDIR}
+    done
+}
+
+convertlatex()
+{
+    pushd .
+    cd ${INDIR}
+    cp LPNmacros.tex LPNtempmacros1.tex
+    echo "\renewcommand{\Thischapter}[2]{\setcounter{length}{#1}#2}" > LPNtempmacros2.tex
+    cat LPNtempmacros1.tex LPNtempmacros2.tex > LPNmacros.tex
+    cat lpn.tex | grep -v kcp | grep -v bbheadings | grep -v bbanswers | grep -v appendix > lpn-html.tex
+    htlatex lpn-html.tex "lpn-html,xhtml,3,info" "" "-d${OUTDIR}"
+    cp LPNtempmacros1.tex LPNmacros.tex
+    rm -f LPNtempmacros?.tex
+    popd
+}
+
+adjusthtml()
+{
+    pushd .
+    cd ${OUTDIR}
+    for HTML in `ls ${OUTDIR}*.html`; do
+	echo "Adjusting: ${HTML}"
+	cat ${HTML} | ${SCRIPTSDIR}/lpn_get_body.py > temp.html
+	cat temp.html \
+	    | tr "\n" " " \
+	    | tr -s " " \
+	    | sed "s/</\n</g" \
+	    | sed 's/<a href="/<a href="lpnpage.php?pagetype=html\&pageid=/g' \
+            | sed 's/\.html.*"/"/' \
+            | sed 's/<img src="/<img src="html\//' \
+	    | sed 's/Exercise/<strong>Exercise<\/strong>/g' \
+	    > ${HTML}
+	rm -f temp.html
+    done
+    # Generating a new online.php file
+    cat lpn-html.html \
+	| tr "\n" " " \
+	| sed 's/<span/@<span/g' \
+        | tr "@" "\n" \
+	| grep '"chapterToc' \
+        | grep htmlch \
+        | sed 's/&#x00A0;//' \
+        | sed 's/chapterToc">/chapterToc">Chapter/' > ../online.php
+    popd
+}
+
+
+finit()
+{
+    pushd .
+    cd ${INDIR}
+    rm -f lpn-html*.html
+    rm -f *.aux
+    rm -f *.dvi
+    popd
+}
+
+init
+convertpix
+convertlatex
+adjusthtml
+finit
+
+exit 0

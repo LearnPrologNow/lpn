@@ -1,0 +1,709 @@
+
+
+\chapter{Database Manipulation and Collecting Solutions}\label{CHAPTER11}
+
+\Thischapter{115}{
+
+\noindent
+This chapter has two main goals:  
+  
+\begin{enumerate}
+
+\item{}To discuss database manipulation in Prolog.
+
+\item{}To discuss built-in predicates that let us collect all solutions to   
+        a problem into a single list.
+
+\end{enumerate}
+
+}
+
+
+
+\section{Database Manipulation}\label{SEC.L11.DATABASE.MANIP}
+
+Prolog has four database manipulation commands: 
+\LPNterm{assert},\index{PROLOG assert/1@\texttt{assert/1}}
+\LPNterm{retract},\index{PROLOG retract/1@\texttt{retract/1}}
+\LPNterm{asserta}, and 
+\LPNterm{assertz}.  
+Let's see how these are used.  Suppose we start with an empty database.  So if
+we give the command:
+\begin{LPNcodedisplay}
+?- listing.
+\end{LPNcodedisplay}
+then Prolog will simply respond yes; the listing (of course) is empty.
+
+Suppose we now give this command:  
+\begin{LPNcodedisplay}
+?- assert(happy(mia)).
+\end{LPNcodedisplay}
+  
+This succeeds (§assert/1§ commands \LPNemph{always} succeed).  But
+what is important is not that it succeeds, but the side-effect it has
+on the database.  For if we now give the command
+\begin{LPNcodedisplay}
+?- listing.
+\end{LPNcodedisplay}
+we get:
+\begin{LPNcodedisplay}
+happy(mia).
+\end{LPNcodedisplay}
+That is, the database is no longer empty: it now contains the fact we   
+asserted.
+
+Suppose we then made four more assert commands:  
+\begin{LPNcodedisplay}
+?- assert(happy(vincent)).
+yes
+
+?- assert(happy(marcellus)).
+yes
+
+?- assert(happy(butch)).
+yes
+
+?- assert(happy(vincent)).
+yes
+\end{LPNcodedisplay}
+and then ask  for a listing:  
+\begin{LPNcodedisplay}
+?- listing.
+
+happy(mia).
+happy(vincent).
+happy(marcellus).
+happy(butch).
+happy(vincent).
+yes
+\end{LPNcodedisplay}
+All the facts we asserted are now in the knowledge base.  Note that  
+§happy(vincent)§ is in the knowledge base twice. As we asserted  
+it twice, this seems sensible.
+
+The database manipulations we have been making have changed the
+meaning of the predicate §happy/1§.  More generally, database
+manipulation commands give us the ability to change the meaning of
+predicates while we are running programs.  Predicates whose
+definitions change during run-time are called \LPNterm{dynamic
+predicates}, as opposed to the \LPNterm{static predicates} that we have
+previously dealt with.  Most Prolog interpreters insist that we
+explicitly declare the predicates that we wish to be dynamic. We will
+soon examine an example involving dynamic predicates, but let's first
+complete our discussion of the database manipulation commands.
+
+
+So far we have only asserted facts into the database, but we can also
+assert new rules.  Suppose we want to assert the rule that
+everyone who is happy is naive.  That is, suppose we want to assert
+that:
+\begin{LPNcodedisplay}
+naive(X):- happy(X).
+\end{LPNcodedisplay}
+We can do this as follows:  
+\begin{LPNcodedisplay}
+assert( (naive(X):- happy(X)) ).
+\end{LPNcodedisplay}
+Note the syntax of this command: \LPNemph{the rule we are asserting is   
+enclosed in a pair of brackets}.  If we now ask for a listing we get:  
+\begin{LPNcodedisplay}
+happy(mia).
+happy(vincent).
+happy(marcellus).
+happy(butch).
+happy(vincent).
+
+naive(A):-
+   happy(A).
+\end{LPNcodedisplay}
+
+
+Now that we know how to assert new information into the database, we
+should also learn how to remove information when we no longer need
+it.  There is an inverse predicate to §assert/1§, namely §retract/1§.
+For example, if we carry  straight on from the previous example
+by giving  the command:
+\begin{LPNcodedisplay}
+?- retract(happy(marcellus)).
+\end{LPNcodedisplay}
+and then list the database, we get:  
+\begin{LPNcodedisplay}
+happy(mia).
+happy(vincent).
+happy(butch).
+happy(vincent).
+
+naive(A) :-
+    happy(A).
+\end{LPNcodedisplay}
+That is, the fact §happy(marcellus)§ has been removed.  
+
+Suppose  
+we go on further, and say  
+\begin{LPNcodedisplay}
+?- retract(happy(vincent)).
+\end{LPNcodedisplay}
+and then ask for a listing. We get:  
+\begin{LPNcodedisplay}
+happy(mia).
+happy(butch).
+happy(vincent).
+
+naive(A) :-
+    happy(A).
+\end{LPNcodedisplay}
+Note that the first occurrence of §happy(vincent)§, and \LPNemph{only}  
+the first occurrence, was removed.
+
+To remove all of our assertions contributing to the
+definition of the predicate §happy/1§ we can use a variable:  
+\begin{LPNcodedisplay}
+?- retract(happy(X)).
+
+X = mia ;
+
+X = butch ;
+
+X = vincent ;
+no
+\end{LPNcodedisplay}
+A listing reveals that the database is now empty, except for the rule 
+§naive(A) :- happy(A)§.
+\begin{LPNcodedisplay}
+?- listing.
+naive(A) :-
+    happy(A).
+\end{LPNcodedisplay}
+
+\clearpage
+If we want more control over where the asserted material is placed, 
+there are two variants of §assert/1§, namely:  
+\begin{enumerate}
+\item{}\LPNterm{assertz}.  Places asserted material at the \LPNemph{end}\index{PROLOG assertz/1@\texttt{assertz/1}}
+of the database.
+\item{}\LPNterm{asserta}.  Places asserted material at the\index{PROLOG asserta/1@\texttt{asserta/1}}  
+\LPNemph{beginning} of the database.
+\end{enumerate}
+  
+For example, suppose we start with an empty database, and then  
+we give the following command:  
+\begin{LPNcodedisplay}
+assert( p(b) ), assertz( p(c) ), asserta( p(a) ).
+\end{LPNcodedisplay}
+Then a listing reveals that we now have the following  
+database:  
+\begin{LPNcodedisplay}
+?- listing.
+
+p(a).
+p(b).
+p(c).
+yes
+\end{LPNcodedisplay}
+
+Database manipulation is a useful technique.  It is especially useful
+for storing the results to computations, so that if we need to ask the
+same question in the future, we don't need to redo the work: we just look
+up the asserted fact. This technique is called \LPNterm{memoisation}, or
+\LPNterm{caching}, and in some applications it can greatly increase
+efficiency. Here's a simple example of this  technique at work:
+
+\begin{LPNcodedisplay}
+:- dynamic lookup/3.
+
+add_and_square(X,Y,Res):-
+   lookup(X,Y,Res), !.
+
+add_and_square(X,Y,Res):-
+   Res is (X+Y)*(X+Y),
+   assert(lookup(X,Y,Res)).
+\end{LPNcodedisplay}
+  
+What does this program do?  Basically, it takes two numbers X and Y,
+adds X to Y, and then squares the result. For example we have:
+
+\begin{LPNcodedisplay}
+?- add_and_square(3,7,X).
+
+X = 100
+yes
+\end{LPNcodedisplay}
+ 
+But the important point is: \LPNemph{how} does it do this?  First,
+note that we have declared §lookup/3§ as a dynamic predicate.  We need
+to do this as we plan to change the definition of §lookup/3§
+during run-time.  Second, note that there are two clauses defining
+§add_and_square/3§. The second clause performs the required arithmetic
+calculation and asserts the result to the Prolog database using the
+predicate §lookup/3§ (that is, it  caches the result).  The first
+clause checks the Prolog database to see if the calculation has
+already been made in the past. If it has been, the program simply
+returns the result, and the cut prevents it from entering the second
+clause.
+
+Here's an example of the program at work.
+Suppose we give Prolog  another query   
+\begin{LPNcodedisplay}
+?-  add_and_square(3,4,Y).
+
+Y = 49
+yes
+\end{LPNcodedisplay}
+If we now ask for a listing we see that the database now contains  
+\begin{LPNcodedisplay}
+lookup(3, 7, 100).
+lookup(3, 4, 49).
+\end{LPNcodedisplay}
+Should we later ask Prolog to add and square 3 and 4, it wouldn't
+perform the calculations again. Rather, it would just return the
+previously calculated result.
+
+\medskip
+
+
+Question: how do we remove all these new facts when we no longer want  
+them?  After all, if we give the command  
+\begin{LPNcodedisplay}
+?- retract(lookup(X,Y,Z)).
+\end{LPNcodedisplay}
+Prolog will  go through all the facts one by one and ask us whether we want  
+to remove them!  But there's a much simpler way. Simply use the command\index{PROLOG retractall/3@\texttt{retractall/3}}  
+\begin{LPNcodedisplay}
+?- retractall(lookup(_,_,_)).
+\end{LPNcodedisplay}
+This will remove all facts about §lookup/3§ from the database.
+
+
+To conclude our discussion of database manipulation, a word of   
+warning.  Although it is a useful technique, database manipulation   
+can lead to dirty, hard to understand, code.  If you use it heavily in   
+a program with lots of backtracking, understanding what is going on   
+can be a nightmare.  It is a non-declarative, non logical, feature of   
+Prolog that should be used cautiously.
+
+
+
+\section{Collecting Solutions}\label{SEC.L11.COLLECTING.SOL}
+
+There may be many solutions to a query. For example,  
+suppose we are working with the database  
+\begin{LPNcodedisplay}
+child(martha,charlotte).
+child(charlotte,caroline).
+child(caroline,laura).
+child(laura,rose).
+
+descend(X,Y) :- child(X,Y).         
+
+descend(X,Y) :- child(X,Z),         
+                 descend(Z,Y).
+\end{LPNcodedisplay}
+Then if we pose the query  
+\begin{LPNcodedisplay}
+descend(martha,X).
+\end{LPNcodedisplay}
+there are four solutions (namely §X=charlotte§, §X=caroline§,   
+§X=laura§, and §X=rose§).
+
+However Prolog generates these solutions one by one.  Sometimes we
+would like to have \LPNemph{all} the solutions to a query, and we
+would like them handed to us in a neat, usable, form.  Prolog has
+three built-in predicates that do this: \LPNterm{findall},
+\LPNterm{bagof} and \LPNterm{setof}.  In essence, all these predicates
+collect all the solutions to a query and put them in a single list ---
+but there are important differences between them, as we shall see.
+
+
+
+\subsection*{The {\tt findall/3} predicate}\label{SUBSEC.L11.FINDALL}
+
+
+The query  \index{PROLOG findall/3@\texttt{findall/3}}
+\begin{LPNcodedisplay}
+?- findall(Object,Goal,List).
+\end{LPNcodedisplay}
+produces a list §List§ of all the objects §Object§ that  
+satisfy the goal §Goal§.  Often §Object§ is simply a  
+variable, in which case the query can be read as: \LPNemph{Give me a list  
+containing all the instantiations of} §Object§ \LPNemph{which satisfy}  
+§Goal§.  
+
+Here's an example.  Suppose we're working with the above  
+database (that is, with the information about §child§ and the  
+definition of §descend§).  Then if we pose the query  
+\begin{LPNcodedisplay}
+?- findall(X,descend(martha,X),Z).
+\end{LPNcodedisplay}
+we are asking for a list §Z§ containing all the values of §X§   
+that satisfy §descend(martha,X)§. Prolog will respond  
+\begin{LPNcodedisplay}
+X = _7489 
+Z = [charlotte,caroline,laura,rose] 
+\end{LPNcodedisplay}
+
+
+But §Object§ doesn't have to be a variable, it may be a complex term
+that just contains   
+a variable that also occurs in §Goal§.  For example, we might decide that   
+we want to build a new predicate §fromMartha/1§ that is true only   
+of descendants of Martha.  We could do this with the query:  
+\begin{LPNcodedisplay}
+?- findall(fromMartha(X),descend(martha,X),Z).
+\end{LPNcodedisplay}
+That is, we are asking for a list §Z§ containing all the instantiations of   
+§fromMartha(X)§ that satisfy the goal §descend(martha,X)§.    
+Prolog will respond  
+\begin{LPNcodedisplay}
+X = _7616 
+Z = [fromMartha(charlotte),fromMartha(caroline),
+                 fromMartha(laura),fromMartha(rose)] 
+\end{LPNcodedisplay}
+
+
+What happens if we ask the following query?  
+\begin{LPNcodedisplay}
+?- findall(X,descend(mary,X),Z).
+\end{LPNcodedisplay}
+As there are no solutions for the goal §descend(mary,X)§ in the
+knowledge base.  §findall/3§ returns an empty list.
+
+Note that the first two arguments of §findall/3§ typically have (at  
+least) one variable in common. When using §findall/3§, we normally  
+want to know what solutions Prolog finds for certain variables in the  
+goal, and we tell Prolog which variables in Goal we are interested in  
+by building them into the first argument of §findall/3§.
+
+You might encounter situations, however, where §findall/3§ does  
+useful work although the first two arguments don't share any  
+variables. For example, if you are not interested in who exactly is a  
+descendant of Martha, but only in how many descendants Martha has, you  
+can use the following query to find out:  
+\begin{LPNcodedisplay}
+?- findall(Y,descend(martha,X),Z), length(Z,N).
+\end{LPNcodedisplay}
+
+
+
+
+\subsection*{The {\tt bagof/3} predicate}\label{SUBSEC.L11.BAGOF}
+
+The §findall/3§ predicate is useful, but in certain respects  
+it is rather crude. For example, suppose we pose the query 
+\begin{LPNcodedisplay}
+?- findall(Child,descend(Mother,Child),List).
+\end{LPNcodedisplay}
+We get the response  
+\begin{LPNcodedisplay}
+Child = _6947 
+Mother = _6951 
+List = [charlotte,caroline,laura,rose,caroline,
+        laura,rose,laura,rose,rose] 
+\end{LPNcodedisplay}
+Now, this is correct, but sometimes it would be useful if we had a   
+separate list for each of the different instantiations of §Mother§.
+
+This is what §bagof/3§ lets us do.  If we pose the query  \index{PROLOG bagof/3@\texttt{bagof/3}}
+\begin{LPNcodedisplay}
+?- bagof(Child,descend(Mother,Child),List).
+\end{LPNcodedisplay}
+we get the response  
+\begin{LPNcodedisplay}
+Child = _7736 
+Mother = caroline 
+List = [laura,rose] ;
+
+Child = _7736 
+Mother = charlotte 
+List = [caroline,laura,rose] ;
+
+Child = _7736 
+Mother = laura 
+List = [rose] ;
+
+Child = _7736 
+Mother = martha 
+List = [charlotte,caroline,laura,rose] ;
+no
+\end{LPNcodedisplay}
+  
+That is, §bagof/3§ is more fine-grained than §findall/3§. It gives us the   
+opportunity to extract the information we want in a more structured   
+way.  Moreover, §bagof/3§ can also do the same job as §findall/3§, with the   
+help of a special piece of syntax, namely §^§:
+\begin{LPNcodedisplay}
+?- bagof(Child,Mother^descend(Mother,Child),List).
+\end{LPNcodedisplay}
+This says: \LPNemph{give me a list of all the values of} §Child§   
+\LPNemph{such that} §descend(Mother,Child)§, \LPNemph{and put the result   
+in a list, but don't worry about generating a separate list for   
+each value of} §Mother§.  So posing this query yields:  
+\begin{LPNcodedisplay}
+Child = _7870 
+Mother = _7874 
+List = [charlotte,caroline,laura,rose,caroline,
+        laura,rose,laura,rose,rose]
+\end{LPNcodedisplay}
+Note that this is exactly the response that §findall/3§ would have  
+given us. Still, if this is the  
+kind of query you want to make (and it often is) it's simpler to use  
+§findall/3§, because then you don't have to bother explicitly write  
+down the conditions using §^§.
+
+There is one important difference between §findall/3§  
+and §bagof/3§, namely that §bagof/3§ fails if the  
+goal that is specified in its second argument is not satisfied  
+(remember, that §findall/3§ returns the empty list in such  
+cases). So the query  
+§bagof(X,descend(mary,X),Z)§ yields §no§.
+
+One final remark. Consider again the query  
+\begin{LPNcodedisplay}
+?- bagof(Child,descend(Mother,Child),List).
+\end{LPNcodedisplay}
+As we saw above, this has four solutions. But, once again, Prolog  
+generates them one by one. Wouldn't it be nice if  
+we could collect them all into one list?
+
+And we can. The simplest way is to use §findall/3§.  The query
+\begin{LPNcodedisplay}
+?- findall(List,
+           bagof(Child,descend(Mother,Child),List),
+           Z).
+\end{LPNcodedisplay}
+collects all of §bagof/3§'s responses into one list:  
+\begin{LPNcodedisplay}
+List = _8293 
+Child = _8297 
+Mother = _8301 
+Z = [[laura,rose],[caroline,laura,rose],[rose],
+                  [charlotte,caroline,laura,rose]] 
+\end{LPNcodedisplay}
+Another way to do it is with §bagof/3§:  
+\begin{LPNcodedisplay}
+?- bagof(List,
+   Child^Mother^bagof(Child,descend(Mother,Child),List),  
+   Z).
+
+List = _2648 
+Child = _2652 
+Mother = _2655 
+Z = [[laura,rose],[caroline,laura,rose],[rose],
+                  [charlotte,caroline,laura,rose]]
+\end{LPNcodedisplay}
+This may not be the sort of thing you need to do very often, but  
+it does show the flexibility and power offered by these predicates.
+
+
+
+\subsection*{The {\tt setof/3} predicate}\label{SUBSEC.L11.SETOF}
+
+The §setof/3§ predicate is basically the same as  
+§bagof/3§, but with one useful difference: the lists it contains  
+are \LPNemph{ordered} and contain \LPNemph{no redundancies} (that is,  
+no list contains repeated items).
+
+For example, suppose we have the following database  
+\begin{LPNcodedisplay}
+age(harry,13).
+age(draco,14).
+age(ron,13).
+age(hermione,13).
+age(dumbledore,60).
+age(hagrid,30).
+\end{LPNcodedisplay}
+
+Now suppose we want a list of everyone whose  
+age is recorded in the database. We can do this  
+with the query:  
+\begin{LPNcodedisplay}
+?- findall(X,age(X,Y),Out).
+
+X = _8443 
+Y = _8448 
+Out = [harry,draco,ron,hermione,dumbledore,hagrid]
+\end{LPNcodedisplay}
+
+
+But maybe we would like the list to be ordered. We can achieve  
+this with the following query:\index{PROLOG setof/3@\texttt{setof/3}}  
+\begin{LPNcodedisplay}
+?- setof(X,Y^age(X,Y),Out).
+\end{LPNcodedisplay}
+(Note that, just as with §bagof/3§, we have to tell §setof/3§ not to   
+generate separate lists for each value of §Y§, and again we do   
+this with the §^§ symbol.)
+This query yields:  
+\begin{LPNcodedisplay}
+X = _8711 
+Y = _8715 
+Out = [draco,dumbledore,hagrid,harry,hermione,ron]
+\end{LPNcodedisplay}
+Note that the list is alphabetically ordered.
+
+Now suppose we are interested in collecting together all the ages
+which are recorded in the database.  Of course, we could do this with the
+following query:
+\begin{LPNcodedisplay}
+?- findall(Y,age(X,Y),Out).
+
+Y = _8847 
+X = _8851 
+Out = [13,14,13,13,60,30] 
+\end{LPNcodedisplay}
+  
+But this output is rather messy. It is unordered and contains  
+repetitions.  By using §setof/3§ we get the same information in a neater 
+form:  
+\begin{LPNcodedisplay}
+?- setof(Y,X^age(X,Y),Out).
+
+Y = _8981 
+X = _8985 
+Out = [13,14,30,60] 
+\end{LPNcodedisplay}
+
+
+Between them, these three predicates offer us a great deal of
+flexibility when it comes to collecting solutions.  For many purposes,
+all we need is §findall/3§, but if we need more, §bagof/3§ and
+§setof/3§ are there waiting to help us out.  But bear in mind that
+there is an important difference between §findall/3§ on the one hand
+and §bagof/3§ and §setof/3§ on the other: §findall/3§ will return an
+empty list if the goal has no solutions, whereas §bagof/3§ and
+§setof/3§ would fail in such a situation.
+
+
+\section{Exercises}\label{SEC.L11.EXERCISES}
+
+\begin{LPNexercise}{L11.EX1}Suppose we start with an empty database.    
+We then give the command:  
+\begin{LPNcodedisplay}
+assert(q(a,b)), assertz(q(1,2)), asserta(q(foo,blug)).
+\end{LPNcodedisplay}
+What does the database now contain?   
+  
+We then give the command:  
+\begin{LPNcodedisplay}
+retract(q(1,2)), assertz( (p(X) :-  h(X)) ).
+\end{LPNcodedisplay}
+What does the database now contain? 
+
+We then give the command:  
+\begin{LPNcodedisplay}
+retractall(q(_,_)).
+\end{LPNcodedisplay}
+What  does the database now contain?  
+\end{LPNexercise}
+
+
+\begin{LPNexercise}{L11.EX2}Suppose we have the following database:  
+\begin{LPNcodedisplay}
+q(blob,blug).
+q(blob,blag).
+q(blob,blig).
+q(blaf,blag).
+q(dang,dong).
+q(dang,blug).
+q(flab,blob).
+\end{LPNcodedisplay}
+  
+What is Prolog's response to the queries:  
+\begin{LPNcodedisplay}
+findall(X,q(blob,X),List).
+findall(X,q(X,blug),List).
+findall(X,q(X,Y),List).
+bagof(X,q(X,Y),List).
+setof(X,Y^q(X,Y),List).
+\end{LPNcodedisplay}
+\end{LPNexercise}
+
+
+\begin{LPNexercise}{L11.EX3}Write a predicate §sigma/2§ that takes an integer $n >
+0$ and calculates the sum of all integers from 1 to  
+$n$. For example:
+  
+\begin{LPNcodedisplay}
+?- sigma(3,X).
+X = 6
+yes
+?- sigma(5,X).
+X = 15
+yes
+\end{LPNcodedisplay}
+
+Write the predicate so that results are stored in the database
+(there should never be  more than one  entry in the database
+for each value) and are reused whenever possible. For example,
+suppose we make the following query:
+\begin{LPNcodedisplay}
+?- sigma(2,X).
+X = 3
+yes
+?- listing.
+sigmares(2,3).
+\end{LPNcodedisplay}
+Then, if we go on to ask
+\begin{LPNcodedisplay}
+?- sigma(3,X).
+\end{LPNcodedisplay}
+Prolog should not calculate everything new, but should get the result for  
+§sigma(2,3)§ from the database and only add 3 to that. It should then answer: 
+\begin{LPNcodedisplay}
+X = 6
+yes
+?- listing.
+sigmares(2,3).
+sigmares(3,6).
+\end{LPNcodedisplay}
+\end{LPNexercise}
+
+
+\section{Practical Session}\label{SEC.L11.PRAXIS}
+
+Try the following two programming exercises:
+  
+\begin{enumerate}
+\item{}Sets can be thought of as lists that don't contain any repeated  
+elements.  For example, §[a,4,6]§ is a set, but §[a,4,6,a]§  
+is not (as it contains two occurrences of §a)§. Write a Prolog  
+program §subset/2§ that  is satisfied when the first  
+argument is a subset of the second argument (that is, when every  
+element of the first argument is a member of the second argument).  
+For example:  
+\begin{LPNcodedisplay}
+?- subset([a,b],[a,b,c])
+yes
+
+?- subset([c,b],[a,b,c])
+yes
+
+?- subset([],[a,b,c])
+yes
+\end{LPNcodedisplay}
+  
+Your program should be capable of generating all subsets of an input set by   
+backtracking.  For example, if you give it as input  
+\begin{LPNcodedisplay}
+?- subset(X,[a,b,c])
+\end{LPNcodedisplay}
+it should successively generate all eight subsets of §[a,b,c]§.
+\item{}Using the §subset§ predicate you have just written, and  
+§findall/3§, write a predicate §powerset/2§ that takes a  
+set as its first argument, and returns the powerset of this set as the  
+second argument.  (The powerset of a set is the set of all its  
+subsets.) For example:  
+\begin{LPNcodedisplay}
+?- powerset([a,b,c],P)
+\end{LPNcodedisplay}
+should return  
+\begin{LPNcodedisplay}
+P = [[],[a],[b],[c],[a,b],[a,c],[b,c],[a,b,c]]
+\end{LPNcodedisplay}
+It doesn't matter if the sets are returned in some other  
+order. For example,  
+\begin{LPNcodedisplay}
+P = [[a],[b],[c],[a,b,c],[],[a,b],[a,c],[b,c]]
+\end{LPNcodedisplay}
+is fine too.
+\end{enumerate}
+

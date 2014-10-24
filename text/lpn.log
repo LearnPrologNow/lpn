@@ -1,0 +1,508 @@
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2009.2.12)  17 APR 2013 09:13
+entering extended mode
+**lpn
+(./lpn.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+(/sw/share/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2004/02/16 v1.4f Standard LaTeX document class
+(/sw/share/texmf-dist/tex/latex/base/bk10.clo
+File: bk10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (./kcp.sty
+\c@theorem=\count88
+\c@remarknonumber=\count89
+\c@nonumbers=\count90
+\c@paper=\count91
+\c@LastCh=\count92
+\c@LastSec=\count93
+\c@Cchapter=\count94
+) (./kcp-texts.sty)
+(/sw/share/texmf-dist/tex/latex/pstricks/pstricks.sty
+Package: pstricks 2004/05/12 v0.2l LaTeX wrapper for `PSTricks' (RN,HV)
+
+(/sw/share/texmf-dist/tex/generic/pstricks/pstricks.tex
+`PSTricks' v1.04  <2004/06/22> (tvz)
+\pst@dima=\dimen103
+\pst@dimb=\dimen104
+\pst@dimc=\dimen105
+\pst@dimd=\dimen106
+\pst@dimg=\dimen107
+\pst@dimh=\dimen108
+\pst@hbox=\box26
+\pst@boxg=\box27
+\pst@cnta=\count95
+\pst@cntb=\count96
+\pst@cntc=\count97
+\pst@cntd=\count98
+\pst@cntg=\count99
+\pst@cnth=\count100
+\pst@toks=\toks14
+(/sw/share/texmf-dist/tex/generic/pstricks/pstricks.con)
+\psunit=\dimen109
+\psxunit=\dimen110
+\psyunit=\dimen111
+\pslinewidth=\dimen112
+\pst@customdefs=\toks15
+\pslinearc=\dimen113
+\everypsbox=\toks16
+\psframesep=\dimen114
+\pslabelsep=\dimen115
+\theoverlaybox=\box28
+)
+File: pstricks.tex 2004/06/22 v1.04 `PSTricks' (tvz)
+
+(/sw/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2004/07/04 v2.00 LaTeX color extensions (UK)
+
+(/sw/share/texmf-dist/tex/latex/graphics/color.cfg
+File: color.cfg 2005/02/03 v1.3 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Package option `override' ignored on input line 128.
+Package xcolor Info: Driver file: dvips.def on input line 136.
+
+(/sw/share/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)
+Package xcolor Info: Color model `cmy' added on input line 972.
+Package xcolor Info: Color model `HTML' added on input line 1000.
+Package xcolor Info: Color model `HSB' added on input line 1006.
+Package xcolor Info: Color model `Gray' added on input line 1012.
+))
+(/sw/share/texmf-dist/tex/latex/pstricks/pst-node.sty
+Package: pst-node 2004/07/15 package wrapper for pst-node.tex
+
+(/sw/share/texmf-dist/tex/generic/pstricks/pst-node.tex
+ v97 patch 11, 2000/11/09
+\psrow=\count101
+\pscol=\count102
+\psmatrixcnt=\count103
+\psrowsep=\skip43
+\pscolsep=\skip44
+)
+File: pst-node.tex 2000/11/09 97 patch 11 `pst-node' (tvz)
+)
+(/sw/share/texmf-dist/tex/latex/pstricks/pst-tree.sty
+Package: pst-tree 2004/07/15 package wrapper for pst-tree.tex
+
+(/sw/share/texmf-dist/tex/generic/pstricks/pst-tree.tex
+ v97 patch 6, 2004/07/24
+\pstree@rootbox=\box29
+\pstree@box=\box30
+\psnodecnt=\count104
+\pstreelevel=\count105
+\pstreecnt=\count106
+\pstree@cnt=\count107
+\pstree@stop=\count108
+)
+File: pst-tree.tex 2004/07/24 97 patch 6 `pst-tree' (tvz)
+)
+(/sw/share/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 1998/07/17
+
+Style option: `fancyvrb' v2.6, with DG/SPQR fixes <1998/07/17> (tvz)
+(/sw/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+\FV@CodeLineNo=\count109
+\FV@InFile=\read1
+\FV@TabBox=\box31
+\c@FancyVerbLine=\count110
+\FV@StepNumber=\count111
+\FV@OutFile=\write3
+
+No file fancyvrb.cfg.
+) (/sw/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/sw/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/sw/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/sw/share/texmf-dist/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 80.
+)
+\Gin@req@height=\dimen116
+\Gin@req@width=\dimen117
+)
+(/sw/share/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2004/03/15  ver 3.1  Verb mode for urls, etc.
+)
+(/sw/share/texmf-dist/tex/latex/base/makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+\@indexfile=\write4
+\openout4 = `lpn.idx'.
+
+
+Writing index file lpn.idx
+(./LPNmacros.tex
+\c@@EXERCISE=\count112
+\c@length=\count113
+) (./lpn.aux (./preface2.aux) (./preface.aux)
+(./introduction.aux) (./chapter1.aux) (./chapter2.aux) (./chapter3.aux)
+(./chapter4.aux) (./chapter5.aux) (./chapter6.aux) (./chapter7.aux)
+(./chapter8.aux) (./chapter9.aux) (./chapter10.aux) (./chapter11.aux)
+(./chapter12.aux) (./appendix0.aux) (./appendix1.aux) (./appendix2.aux)
+(./LPNindex.aux))
+\openout1 = `lpn.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 55.
+ (/sw/share/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+) (./lpn.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 5.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 5.
+
+[5
+
+
+] [6])
+\tf@toc=\write5
+\openout5 = `lpn.toc'.
+
+ [7]
+\openout2 = `preface2.aux'.
+
+ (./preface2.tex [8
+
+
+
+] [9]) [10
+
+]
+\openout2 = `preface.aux'.
+
+ (./preface.tex
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 12.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 12.
+ [11
+
+
+
+]) [12]
+\openout2 = `introduction.aux'.
+
+
+(./introduction.tex [13
+
+
+
+] [14] [15]) [16]
+\openout2 = `chapter1.aux'.
+
+ (./chapter1.tex [1
+
+
+
+]
+
+LaTeX Font Warning: Font shape `OT1/cmtt/m/rm' undefined
+(Font)              using `OT1/cmtt/m/n' instead on input line 63.
+
+[2
+
+] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 712.
+ [14] [15] [16] [17]
+[18]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 962.
+
+ (/sw/share/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 962.
+) [19] [20]
+\openout2 = `chapter2.aux'.
+
+
+(./chapter2.tex [21
+
+
+
+] [22
+
+] [23] [24] [25] [26] [27] [28] [29]
+Underfull \vbox (badness 1838) has occurred while \output is active []
+
+ [30]
+[31] [32] [33] [34]
+File: chap2-pspic1.ps Graphic file (type eps)
+ <chap2-pspic1.ps>
+File: chap2-pspic2.ps Graphic file (type eps)
+ <chap2-pspic2.ps>
+File: chap2-pspic3.ps Graphic file (type eps)
+ <chap2-pspic3.ps>
+[35] [36]
+File: chap2-pspic4.ps Graphic file (type eps)
+ <chap2-pspic4.ps> [37]
+File: chap2-pspic5.ps Graphic file (type eps)
+ <chap2-pspic5.ps> [38] [39] [40]
+File: crosswd2.eps Graphic file (type eps)
+
+<crosswd2.eps> [41] [42] [43] [44]) [45
+
+]
+\openout2 = `chapter3.aux'.
+
+ (./chapter3.tex [46
+
+
+
+] [47] [48
+
+]
+File: chap3-pspic3.ps Graphic file (type eps)
+
+<chap3-pspic3.ps>
+Overfull \hbox (8.2197pt too wide) in paragraph at lines 95--96
+ [] 
+ []
+
+[49] [50] [51] [52] [53]
+File: chap3-pspic1.ps Graphic file (type eps)
+ <chap3-pspic1.ps> [54] [55] [56] [57] [58]
+File: chap3-pspic2.ps Graphic file (type eps)
+
+<chap3-pspic2.ps> [59] [60] [61] [62] [63]
+File: dolls.eps Graphic file (type eps)
+ <dolls.eps> [64
+
+] [65] [66] [67]
+[68]) [69]
+\openout2 = `chapter4.aux'.
+
+ (./chapter4.tex [70
+
+
+
+] [71] [72
+
+] [73] [74] [75] [76] [77] [78]
+[79] [80] [81] [82] [83] [84] [85] [86]) [87]
+\openout2 = `chapter5.aux'.
+
+ (./chapter5.tex [88
+
+
+
+] [89]
+[90
+
+] [91] [92] [93] [94] [95
+
+] [96] [97] [98] [99] [100] [101]
+
+LaTeX Warning: Marginpar on page 102 moved.
+
+[102
+
+]) [103]
+\openout2 = `chapter6.aux'.
+
+ (./chapter6.tex [104
+
+
+
+] [105] [106
+
+] [107]
+File: chap6-pspic1.ps Graphic file (type eps)
+ <chap6-pspic1.ps> [108]
+[109] [110] [111] [112] [113] [114] [115] [116] [117]) [118]
+\openout2 = `chapter7.aux'.
+
+ (./chapter7.tex
+[119
+
+
+
+] [120
+
+] [121] [122
+
+] [123
+
+] [124] [125] [126] [127] [128] [129] [130]
+[131] [132] [133] [134] [135] [136]) [137]
+\openout2 = `chapter8.aux'.
+
+ (./chapter8.tex [138
+
+
+
+] [139] [140
+
+]
+[141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151] [152]
+[153] [154] [155] [156]) [157]
+\openout2 = `chapter9.aux'.
+
+ (./chapter9.tex [158
+
+
+
+] [159] [160
+
+] [161] [162]
+[163] [164] [165]
+File: listtree.eps Graphic file (type eps)
+ <listtree.eps> [166] [167] [168] [169] [170] [171]
+Missing character: There is no § in font cmtt10!
+ [172]
+[173] [174] [175]
+Underfull \vbox (badness 4531) has occurred while \output is active []
+
+ [176]
+[177] [178] [179] [180] [181] [182]) [183]
+\openout2 = `chapter10.aux'.
+
+ (./chapter10.tex [184
+
+
+
+] [185]
+[186
+
+]
+File: chap10-pspic1.ps Graphic file (type eps)
+ <chap10-pspic1.ps>
+Overfull \hbox (0.1897pt too wide) in paragraph at lines 82--83
+ [] 
+ []
+
+[187]
+File: chap10-pspic4.ps Graphic file (type eps)
+ <chap10-pspic4.ps> [188]
+File: chap10-pspic5.ps Graphic file (type eps)
+ <chap10-pspic5.ps> [189] [190]
+File: chap10-pspic6.ps Graphic file (type eps)
+
+<chap10-pspic6.ps> [191] [192] [193] [194] [195] [196] [197] [198] [199]
+[200] [201]) [202]
+\openout2 = `chapter11.aux'.
+
+ (./chapter11.tex [203
+
+
+
+] [204
+
+] [205] [206] [207
+
+] [208]
+[209] [210] [211] [212] [213] [214] [215]) [216]
+\openout2 = `chapter12.aux'.
+
+ (./chapter12.tex [217
+
+
+
+]
+[218
+
+] [219] [220] [221] [222] [223] [224] [225] [226] [227]) [228] [229]
+\openout2 = `appendix0.aux'.
+
+
+(./appendix0.tex [230
+
+
+
+] [231] [232] [233] [234] [235] [236] [237] [238] [239]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [240]
+[241] [242] [243] [244] [245] [246] [247] [248] [249] [250] [251] [252]
+[253] [254] [255]) [256]
+\openout2 = `appendix1.aux'.
+
+ (./appendix1.tex [257
+
+
+
+]) [258]
+\openout2 = `appendix2.aux'.
+
+ (./appendix2.tex)
+[259
+
+
+
+]
+\openout2 = `LPNindex.aux'.
+
+ (./LPNindex.tex [260
+
+
+
+] (./prolog.ind [261
+
+] [262
+
+]) (./lpn.ind)) [263
+
+
+
+\@writefile{toc}{\contentsline {chapter}{Subject Index}{263}}
+
+] [264] [265] [266] [267] (./lpn.aux (./preface2.aux) (./preface.aux)
+(./introduction.aux) (./chapter1.aux) (./chapter2.aux) (./chapter3.aux)
+(./chapter4.aux) (./chapter5.aux) (./chapter6.aux) (./chapter7.aux)
+(./chapter8.aux) (./chapter9.aux) (./chapter10.aux) (./chapter11.aux)
+(./chapter12.aux) (./appendix0.aux) (./appendix1.aux) (./appendix2.aux)
+(./LPNindex.aux))
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3541 strings out of 94501
+ 42580 string characters out of 1176137
+ 121209 words of memory out of 1500000
+ 6545 multiletter control sequences out of 10000+50000
+ 16090 words of font info for 46 fonts, out of 1200000 for 2000
+ 580 hyphenation exceptions out of 8191
+ 29i,13n,40p,279b,520s stack positions out of 5000i,500n,6000p,200000b,5000s
+
+Output written on lpn.dvi (279 pages, 642324 bytes).

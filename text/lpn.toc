@@ -1,0 +1,75 @@
+\contentsline {chapter}{Preface to the First Reprinting}{ix}
+\contentsline {chapter}{Preface}{xi}
+\contentsline {chapter}{Introduction}{xiii}
+\contentsline {chapter}{Chapter\nobreakspace {}1\hskip 1em\relax \textbf {Facts, Rules, and Queries}}{1}
+\contentsline {section}{\numberline {1}Some Simple Examples}{2}
+\contentsline {section}{\numberline {2}Prolog Syntax}{11}
+\contentsline {section}{\numberline {3}Exercises}{14}
+\contentsline {section}{\numberline {4}Practical Session}{16}
+\contentsline {chapter}{Chapter\nobreakspace {}2\hskip 1em\relax \textbf {Unification and Proof Search}}{21}
+\contentsline {section}{\numberline {1}Unification}{22}
+\contentsline {section}{\numberline {2}Proof Search}{34}
+\contentsline {section}{\numberline {3}Exercises}{39}
+\contentsline {section}{\numberline {4}Practical Session}{42}
+\contentsline {chapter}{Chapter\nobreakspace {}3\hskip 1em\relax \textbf {Recursion}}{47}
+\contentsline {section}{\numberline {1}Recursive Definitions}{48}
+\contentsline {section}{\numberline {2}Rule Ordering, Goal Ordering, and Termination}{59}
+\contentsline {section}{\numberline {3}Exercises}{64}
+\contentsline {section}{\numberline {4}Practical Session}{65}
+\contentsline {chapter}{Chapter\nobreakspace {}4\hskip 1em\relax \textbf {Lists}}{71}
+\contentsline {section}{\numberline {1}Lists}{72}
+\contentsline {section}{\numberline {2}Member}{76}
+\contentsline {section}{\numberline {3}Recursing down Lists}{80}
+\contentsline {section}{\numberline {4}Exercises}{83}
+\contentsline {section}{\numberline {5}Practical Session}{86}
+\contentsline {chapter}{Chapter\nobreakspace {}5\hskip 1em\relax \textbf {Arithmetic}}{89}
+\contentsline {section}{\numberline {1}Arithmetic in Prolog}{90}
+\contentsline {section}{\numberline {2}A Closer Look}{91}
+\contentsline {section}{\numberline {3}Arithmetic and Lists}{94}
+\contentsline {section}{\numberline {4}Comparing Integers}{97}
+\contentsline {section}{\numberline {5}Exercises}{101}
+\contentsline {section}{\numberline {6}Practical Session}{102}
+\contentsline {chapter}{Chapter\nobreakspace {}6\hskip 1em\relax \textbf {More Lists}}{105}
+\contentsline {section}{\numberline {1}Append}{106}
+\contentsline {section}{\numberline {2}Reversing a List}{112}
+\contentsline {section}{\numberline {3}Exercises}{115}
+\contentsline {section}{\numberline {4}Practical Session}{117}
+\contentsline {chapter}{Chapter\nobreakspace {}7\hskip 1em\relax \textbf {Definite Clause Grammars}}{119}
+\contentsline {section}{\numberline {1}Context Free Grammars}{120}
+\contentsline {section}{\numberline {2}Definite Clause Grammars}{128}
+\contentsline {section}{\numberline {3}Exercises}{134}
+\contentsline {section}{\numberline {4}Practical Session}{135}
+\contentsline {chapter}{Chapter\nobreakspace {}8\hskip 1em\relax \textbf {More Definite Clause Grammars}}{139}
+\contentsline {section}{\numberline {1}Extra Arguments}{140}
+\contentsline {section}{\numberline {2}Extra Goals}{150}
+\contentsline {section}{\numberline {3}Concluding Remarks}{154}
+\contentsline {section}{\numberline {4}Exercises}{155}
+\contentsline {section}{\numberline {5}Practical Session}{156}
+\contentsline {chapter}{Chapter\nobreakspace {}9\hskip 1em\relax \textbf {A Closer Look at Terms}}{159}
+\contentsline {section}{\numberline {1}Comparing Terms}{160}
+\contentsline {section}{\numberline {2}Terms with a Special Notation}{162}
+\contentsline {section}{\numberline {3}Examining Terms}{166}
+\contentsline {section}{\numberline {4}Operators}{174}
+\contentsline {section}{\numberline {5}Exercises}{177}
+\contentsline {section}{\numberline {6}Practical Session}{179}
+\contentsline {chapter}{Chapter\nobreakspace {}10\hskip 1em\relax \textbf {Cuts and Negation}}{185}
+\contentsline {section}{\numberline {1}The Cut}{186}
+\contentsline {section}{\numberline {2}Using Cut}{192}
+\contentsline {section}{\numberline {3}Negation as Failure}{195}
+\contentsline {section}{\numberline {4}Exercises}{199}
+\contentsline {section}{\numberline {5}Practical Session}{200}
+\contentsline {chapter}{Chapter\nobreakspace {}11\hskip 1em\relax \textbf {Database Manipulation and Collecting Solutions}}{203}
+\contentsline {section}{\numberline {1}Database Manipulation}{204}
+\contentsline {section}{\numberline {2}Collecting Solutions}{209}
+\contentsline {section}{\numberline {3}Exercises}{214}
+\contentsline {section}{\numberline {4}Practical Session}{216}
+\contentsline {chapter}{Chapter\nobreakspace {}12\hskip 1em\relax \textbf {Working With Files}}{217}
+\contentsline {section}{\numberline {1}Splitting Programs over Files}{218}
+\contentsline {section}{\numberline {2}Writing to Files}{223}
+\contentsline {section}{\numberline {3}Reading from Files}{224}
+\contentsline {section}{\numberline {4}Exercises}{226}
+\contentsline {section}{\numberline {5}Practical Session}{227}
+\contentsline {chapter}{Answers to the Exercises}{231}
+\contentsline {chapter}{Further Reading}{257}
+\contentsline {chapter}{Prolog Environments}{259}
+\contentsline {chapter}{Predicate Index}{261}

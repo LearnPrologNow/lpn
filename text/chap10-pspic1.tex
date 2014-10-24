@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{pstricks,pst-tree,pst-node}
+
+\pagestyle{empty}
+
+
+\newcommand{\stnode}[1]{\TR{\psframebox{\texttt{#1}}}}
+%\newcommand{\stelabel}[1]{\parbox[c]{40mm}{\texttt{#1}}}
+\newcommand{\stelabel}[1]{\texttt{#1}}
+
+%\newcommand{\stnode}[1]{\TR{\psframebox{#1}}}
+%\newcommand{\stelabel}[1]{\psframebox[fillstyle=solid,fillcolor=white,linestyle=none]{#1}\hspace*{-2.5em}}
+
+\begin{document}
+
+\pstree[levelsep=1.5cm]{\stnode{?- p(X)}}
+{
+ \pstree[levelsep=1.5cm]{\stnode{?- a(\_G1)}\tlput{\stelabel{X = \_G1}}}
+ {
+  \stnode{}\trput{\stelabel{\_G1 = 1}}
+ }
+ \pstree{\stnode{?- b(\_G2),c(\_G2),d(\_G2),e(\_G2)}\tlput{\stelabel{X = \_G2}}}
+ {
+  \pstree[levelsep=1cm]{\stnode{?- c(1),d(1),e(1)}\tlput{\stelabel{\_G2 = 1}}}
+  {
+   \pstree[levelsep=2cm]{\stnode{?- d(1),e(1)}}
+     {\psset{linestyle=none}\TR{~}\tvput{\huge \dag}}
+  }
+  \pstree[levelsep=1cm]{\stnode{?- c(2),d(2),e(2)}\trput{\stelabel{\_G2 = 2}}}
+  {
+   \pstree{\stnode{?- d(2),e(2)}}
+   {
+    \pstree{\stnode{?- e(2)}}
+    {
+     \stnode{}
+    }
+   }
+  }
+ }
+ \pstree[levelsep=1.5cm]{\stnode{?- f(\_G3)}\trput{\stelabel{X = \_G3}}}
+ {
+ \stnode{}\tlput{\stelabel{\_G3 = 3}}
+ }
+}
+
+\end{document}

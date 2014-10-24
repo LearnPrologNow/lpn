@@ -1,0 +1,93 @@
+
+\chapter*{Further Reading}\label{Appendix:books}
+
+While we think \textit{Learn Prolog Now!} is a good first book on Prolog, it
+certainly shouldn't be the last one you look at. To help you take the next
+step, we have listed, with comments, some of our favourite Prolog textbooks,
+and Prolog-based books on Artificial Intelligence (AI) and Natural Language
+Processing (NLP).
+
+
+\subsection*{Prolog textbooks}
+
+\begin{itemize}
+
+\item Bratko (1990): \textit{Prolog Programming for Artificial
+Intelligence}. Addison-Wesley.  We strongly recommend this book. If you liked
+\textit{Learn Prolog Now!}  we think you'll find this a natural followup. Its
+strong point is the wide variety of programming styles and applications it
+considers.  This is a big book, and it will take you quite a while to work
+through it. But if you do so, you'll soon be writing very substantial Prolog
+programs indeed, and you'll learn a lot about AI along the way.
+
+\item Clocksin (2003): \textit{Clause and Effect: Prolog Programming
+for the Working Programmer}. Springer.  Strongly recommended. If you
+want a concise practically oriented follow up to \textit{Learn Prolog
+Now!}  that will really hone your Prolog skills, you can't do better
+than this. It explains some interesting theory, but its real strength
+is that it is based around a collection of worksheets. Solve the
+problems they contain, and you'll soon be flying.
+
+\item Clocksin and Mellish (1987): \textit{Programming in Prolog}. Springer.
+  This was one of the earliest, if not the earliest, textbook on Prolog
+  programming. It won't take you far beyond \textit{Learn Prolog Now!}, but it
+  is clearly written, and its discussions of DCGs, and of the link between
+  logic and Prolog, are accessible and worth looking at.
+ 
+
+\item O'Keefe (1990): \textit{Craft of Prolog}. MIT Press.  This is the book
+you should read when you're convinced that you know all about Prolog and have
+nothing left to learn. Unless you truly are a Prolog guru, you will swiftly
+learn that there are far deeper levels of Prolog expertise than you suspected,
+and that you still have a great deal to master. Superb.
+
+\item Sterling (1994): \textit{The Art of Prolog}. MIT Press.  In \textit{Learn
+Prolog Now!} we don't say much about the abstract idea of logic programming. If
+the little we have said has wakened your interest, this is the
+book to go for next. Clearly written, it will give you a good grounding in the
+basic theory of logic programming, and link it to the practical world of
+Prolog.
+
+\end{itemize}
+
+
+
+
+
+
+\subsection*{Applying Prolog in AI and NLP}
+
+\begin{itemize}
+                                       
+\item Blackburn and Bos (2005): \textit{Representation and Inference
+      for Natural Language. A First Course in Computational
+      Semantics}. CSLI Lecture Notes. Introduces natural language
+      semantics from a computational perspective using Prolog as the
+      implementation language.  \textit{Learn Prolog Now!} was
+      originally intended to be an appendix to this book. 
+
+
+\item Covington (1994): \textit{Natural Language Processing for Prolog
+Programmers}. Prentice-Hall. Solid, well-written book on NLP that uses Prolog
+as the implementation language. If you haven't done any NLP before, and want to
+put your Prolog to work, this is a good place to start.
+
+\item Pereira and Shieber (1987): \textit{Prolog and Natural Language
+  Analysis}. CSLI Lecture Notes. A classic. Several generations of PhD
+  students have cut their teeth on this one. Required reading.
+
+\item Reiter (2001): \textit{Knowledge in Action: Logical Foundations for
+ Specifying and Implementing Dynamical Systems}. MIT Press.  This book
+ examines, extends, and implements the Situation Calculus, a well known AI
+ formalism for representing and reasoning about changing information.  It's an
+ important book, and may not be completely accessible if you don't have some
+ theoretical background. But as an example of how Prolog can be put to work, it
+ takes some beating.
+
+\item Shoham (1994): \textit{Artificial Intelligence Techniques in
+Prolog}. Morgan Kaufman.  Discusses and implements a wide range of AI
+problem-solving techniques and concepts, including depth-first search,
+breadth-first search, best-first search, alpha-beta minimax, forward chaining,
+production systems, reasoning with uncertainty, and STRIPS.
+
+\end{itemize}

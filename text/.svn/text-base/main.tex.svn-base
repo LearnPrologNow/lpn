@@ -1,0 +1,61 @@
+\documentclass[12pt]{book}
+
+%\usepackage[LPNconf,3]{tex4ht}
+
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{fancyvrb}
+
+\usepackage{graphicx}
+%%% to be used only with tex4ht
+%\renewcommand{\includegraphics}[2][none]{\Picture{#2.gif}}
+
+
+\input{LPNmacros.tex}
+
+\newcommand{\ignore}[1]{}
+\newcommand{\todo}[1]{{\bf **#1**}}
+
+
+\newcommand{\stnode}[1]{\TR{\psframebox{{\tt #1}}}}
+
+
+
+
+
+\begin{document}
+
+\title{Learn Prolog Now!}
+\author{Patrick Blackburn,
+Johan Bos,
+Kristina Striegnitz}
+\maketitle
+
+\tableofcontents
+
+\include{chapter1}
+
+\include{chapter2}
+
+\include{chapter3}
+
+\include{chapter4}
+
+\include{chapter5}
+
+\include{chapter6}
+
+\include{chapter7}
+
+\include{chapter8}
+
+\include{chapter9}
+
+\include{chapter10}
+
+\include{chapter11}
+
+\include{chapter12}
+
+\end{document}

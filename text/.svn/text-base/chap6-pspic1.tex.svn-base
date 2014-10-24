@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{pstricks,pst-tree,pst-node}
+
+\pagestyle{empty}
+
+
+\newcommand{\stnode}[1]{\TR{\psframebox{\texttt{#1}}}}
+\newcommand{\stelabel}[1]{\parbox[c]{40mm}{\texttt{#1}}}
+
+
+\begin{document}
+
+\pstree{\stnode{?- append([a,b,c],[1,2,3],\_G518)}}
+{
+ \pstree{\stnode{?- append([b,c],[1,2,3],\_G587)}\tlput{\stelabel{\_G518 = [a|\_G587]}}}
+ {
+  \pstree[levelsep=26mm]{\stnode{?- append([c],[1,2,3],\_G590)}\tlput{\stelabel{\_G587 = [b|\_G590]\\\_G518 = [a,b|\_G590]}}}
+  {
+   \pstree[levelsep=26mm]{\stnode{?- append([],[1,2,3],\_G593)}\tlput{\stelabel{\_G590 = [c|\_G593]\\\_G587 = [b,c|\_G593]\\\_G518 = [a,b,c|\_G593]}}}
+   {
+    \stnode{}\tlput{\stelabel{\_G593 = [1,2,3]\\\_G590 = [c,1,2,3]\\\_G587 = [b,c,1,2,3]\\\_G518 = [a,b,c,1,2,3]}}
+   }
+  }
+ }
+}
+
+\end{document}

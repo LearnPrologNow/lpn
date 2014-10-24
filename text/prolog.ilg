@@ -1,0 +1,10 @@
+This is makeindex, version 2.14 [02-Oct-2002] (kpathsea + Thai support).
+Scanning style file ./LPN.isty....done (4 attributes redefined, 0 ignored).
+Scanning input file prolog.idx....
+!! Input index error (file = prolog.idx, line = 40):
+   -- Illegal null field.
+done (63 entries accepted, 1 rejected).
+Sorting entries....done (436 comparisons).
+Generating output file prolog.ind....done (117 lines written, 0 warnings).
+Output written in prolog.ind.
+Transcript written in prolog.ilg.

@@ -1,0 +1,40 @@
+#!/bin/bash
+
+TEXT=text
+
+finit()
+{
+    rm -f ${TEXT}/*.aux    
+    rm -f ${TEXT}/*.dvi
+}
+
+main()
+{
+    pushd .
+    cd ${TEXT}
+    latex lpn
+    popd
+    scripts/splitindex.perl
+    pushd .
+    cd ${TEXT}
+    makeindex -s LPN.isty lpn.idx
+    makeindex -s LPN.isty prolog.idx
+    latex lpn
+    latex lpn
+
+    dvips lpn.dvi -o -Pwww
+#   dvips -Pwww -t a4 lpn.dvi -o
+#   dvips -Ppdf to make nice ps for pdf conversion
+#   dvips -D 2540 to make nice ps for pdf conversion
+
+    ps2pdf lpn.ps lpn.pdf
+#   ps2pdf -dPDFSETTINGS=/printer -dCompatibilityLevel=1.3 -dMaxSubsetPct=100 -dSubsetFonts=true -dEmbedAllFonts=true -sPAPERSIZE=a4 lpn.ps lpn.pdf
+#   ps2pdf13 nice conversion (try 14 too)
+
+    popd
+}
+
+main
+finit
+exit 0
+

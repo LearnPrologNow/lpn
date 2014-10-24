@@ -1,0 +1,81 @@
+
+\thispagestyle{empty}
+\def\sqz{\hskip0pt minus1cm}   
+\vspace*{2cm}
+
+\begin{center}
+{\jlctitleA T\sqz e\sqz x\sqz t\sqz s i\sqz n}\\[3ex]
+{\jlctitleA C\sqz o\sqz m\sqz p\sqz u\sqz t\sqz i\sqz n\sqz g}\\[3ex]
+{\jlctitleB Volume 7}\\[18ex]
+
+{\jlctitleC L\sqz e\sqz a\sqz r\sqz n P\sqz r\sqz o\sqz l\sqz o\sqz g N\sqz o\sqz w\sqz !}
+
+\end{center}
+\newpage\thispagestyle{empty}
+\newpage\thispagestyle{empty}
+
+\mbox{}
+\vfill
+
+\noindent {\sf Volume 1}\\
+{\sf Programming Languages and Semantics}\\
+{\sf Maribel Fernandez}\\[1ex]
+ {\sf Volume 2}\\
+ {\sf An Introduction to Lambda Calculus for Computer Scientists}\\
+ {\sf Chris Hankin}\\[1ex]
+ {\sf Volume 3}\\
+{\sf Logical Reasoning: A First Course}\\
+{\sf Rob Nederpelt and Fairouz Kamareddine}\\[1ex]
+ {\sf Volume 4}\\
+{\sf The Haskell Road to Logic, Maths and Programming}\\
+{\sf Kees Doets and Jan van Eijck}\\[1ex]
+{\sf Volume 5}\\
+{\sf Bridges from Classical to Nonmonotonic Reasoning}\\
+{\sf  David Makinson}\\[1ex]
+{\sf Volume 6}\\
+{\sf Automata and Dictionaries}\\
+{\sf  Denis Maurel and Franz Guenthner}\\[1ex]
+{\sf Volume 7}\\
+{\sf Learn Prolog Now!}\\
+{\sf  Patrick Blackburn, Johan Bos and Kristina Striegniz}\\[1ex]
+
+  \noindent {\sf Texts in Computing Series Editor}\\
+ {\sf Ian Mackie  \hfill  ian.mackie@kcl.ac.uk}\\
+
+\newpage
+\thispagestyle{empty}
+
+    
+\begin{center}
+\vspace*{4cm}
+{\jlctitleC L\sqz e\sqz a\sqz r\sqz n P\sqz r\sqz o\sqz l\sqz o\sqz g N\sqz o\sqz w\sqz !}\\[16ex]
+{\jlctitleB Patrick Blackburn}\\[3ex] 
+{\jlctitleB Johan Bos}\\[3ex] {\jlctitleB Kristina Striegnitz}
+\end{center}
+
+
+\newpage\thispagestyle{empty}
+\mbox{}
+\vspace*{3in}
+
+\vfill 
+\noindent \copyright ~{\sf Individual author and King's College 2006.  
+All rights reserved.}\\[3ex]
+{\sf ISBN 1-904987-17-6}\\
+\noindent {\bf \sf College Publications}\\                              
+{\sf Scientific Director: Dov Gabbay}\\
+{\sf Managing Director: Jane Spurr}\\
+{\sf Department of Computer Science}\\                                  
+{\sf Strand, London WC2R 2LS, UK}\\
+%{\sf kcp@dcs.kcl.ac.uk}\\
+[2ex]                                                                                                                                                                                                
+\noindent 
+{\sf Cover design by Richard Fraser, www.avalonarts.co.uk}\\                                                         
+{\sf Printed by Lightning Source, Milton Keynes, UK}\\[.5ex]                                                 
+%{\sf Distributed by King's College Publications, UK}\\ %[1ex]                                                                                                                                                                               
+                                                                                                                                                                                                                                                   
+                                                                                                                                                                                                                                                   
+\noindent \hrulefill\\                                                                                                                                                                                                                       
+\noindent \footnotesize{\sf All rights reserved.  No part of this publication may be reproduced, stored in a retrieval system or transmitted, in any form, or by any means, electronic, mechanical, photocopying, recording or otherwise, without prior permission, in writing, from the publisher.}
+
+

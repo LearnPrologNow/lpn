@@ -1,0 +1,67 @@
+
+\chapter*{Preface to the First Reprinting}\label{PREFACE2}
+
+
+Well, what a year it's been! Interest in \textit{Learn Prolog Now!}
+continues to grow. College Publications brought out the first
+paperback edition in June 2006, and since then the number of hits on
+the website (\url{www.learnprolognow.org}) has increased steadily. The
+most dramatic month was May 2007 when we had 6,322 unique visitors; a reader
+submitted the LPN! link to Reddit (\url{http://programming.reddit.com})
+and for a heady moment we felt a bit like Smosh!
+
+We've also been pleased by the emails we continue to get from students
+and instructors using the material. Some point out typos, others tell
+us of their experiences in teaching or learning with the book, and
+a pleasing number simply want to say ``Thank you!''.  All in all, it
+was fast becoming clear that it was about time for a first (corrected)
+reprinting.
+
+But what really made us get down to work was the sudden appearance of
+a French translation. H\'{e}l\`{e}ne Manu\'{e}lian, who began
+translating LPN! shortly after its appearance in paperback, finished
+earlier than anticipated --- so suddenly we had \textit{Prolog Tout de
+Suite !}  on our hands too! This inspired us all to get down to the
+task of correcting and improving the English version.
+
+So, here it is again, all squeaky clean. Once again, if you like the
+website, we hope you like the (new!) paperback even more. And, as
+usual, we wish you every success in your endeavours to Learn Prolog
+Now!
+
+\subsection*{Acknowledgments}
+
+Once again we're in debt to many people: everyone who gave us feedback
+on the first printing and the website, and (as ever) to the
+indefatigable Jane Spurr. However this time we owe a particularly deep
+debt to S\'{e}bastien Hinderer, Eric Kow, Matthieu Quignard,
+and (of course) H\'{e}l\`{e}ne Manu\'{e}lian. Their work on
+\textit{Prolog Tout de Suite !}, not only created a beautiful
+translation, it also helped us with the present volume. Warmest thanks
+to all.
+
+% Thanks to Peter Urbak (correction)
+% and Richard Kenyon (correction)
+% and Matt Braithwaite (correction)
+% and Anas Elghafari (correction)
+% and Shannon ``JJ'' Behrens (corrections)
+% and Alejandro Marín Buriticá
+% and Gabriele Medeot
+% and Ali Almiman
+\clearpage
+
+\begin{flushright}
+Patrick Blackburn\\
+TALARIS team\\
+INRIA Nancy Grand-Est, France\\\bigskip
+
+Johan Bos\\
+Department of Computer Science\\
+University of Rome ``La Sapienza'', Italy\\\bigskip
+
+Kristina Striegnitz\\
+Computer Science Department\\
+Union College, Schenectady, NY, United States\\\bigskip
+
+October 2007.
+\end{flushright}

@@ -1,0 +1,94 @@
+
+\chapter*{Preface}\label{PREFACE}
+
+\textit{Learn Prolog Now!} has a long and twisted history.  In 1995,
+all three authors were based at the Department of Computational
+Linguistics, at the University of the Saarland, in Saarbr\"{u}cken,
+Germany. Johan, who was teaching the introduction to Prolog that year,
+was working with Patrick on a Prolog-based introduction to natural
+language semantics.%
+\footnote{\textit{Representation and Inference for Natural Language: A
+First Course in Computational Semantics}, Patrick Blackburn and Johan
+Bos, CSLI Publications, 2005.}  
+He decided to prepare a short set
+of lecture notes on Prolog which could also be used as an Appendix to
+the computational semantics book.
+
+Nice idea, but that's not the way things worked out.  First, between
+1996 and 2000, Patrick and Johan rethought the structure of the Prolog
+courses, and along the way the notes became book-sized.  Then, from
+2001 till 2004, Kristina took over the teaching, added new material
+and (most importantly of all) turned \textit{Learn Prolog Now!}  into
+a web-book.
+
+It quickly became apparent that we had a hit on our hands: the website
+got up to 4,000 visitors a month, and we received many
+emails. Actually, this put us in a bit of a quandary. We wanted to
+publish \textit{Learn Prolog Now!}  as a (low-budget) book --- but at
+the same time we did \textit{not} want a publisher telling us that we
+had to get rid of the free online version.
+
+Luckily, Vincent Hendricks came to the rescue (thanks Vincent!).  He
+told us about College Publications, Dov Gabbay's new publication
+house, which was specifically designed to enable authors to retain
+copyright. It was a marriage made in heaven.  Thanks to College
+Publications we could make \textit{Learn Prolog Now!}  available in
+book form at a reasonable price, and keep the web-book in place.
+
+And that's the book you're now reading. It has been thoroughly tested,
+first on nearly a decade's worth of students at Saarbr\"{u}cken, and
+at the \textit{16th European Summer School in Logic, Language and
+Information} which took place in Nancy, France, in August 2004, where
+Kristina taught a hands-on introduction to Prolog. Though, as we hope
+you will swiftly discover, you \textit{don't} need to be doing a
+course to follow this book. We've tried to make \textit{Learn Prolog
+Now!}  self-contained and easy to follow, so that it can be used
+without a teacher. And as the feedback we have received confirms, this
+is one of the most popular ways of using it.
+
+So --- over to you. We had a lot of fun writing this. We hope you have
+a lot of fun reading it, and that it really will help you to learn
+Prolog now!
+
+\subsection*{Acknowledgments}
+
+Over the years that \textit{Learn Prolog Now!} existed as course notes
+and web-book, we received many emails, ranging from helpful comments to
+requests for answers to problems (a handful of which verged on demands
+that we do their homework assignments!). We can't thank everyone by name,
+but we did receive a lot of useful feedback this way and are very
+grateful. And if we did any homework assignments, we ain't
+telling\ldots
+
+We are extremely grateful to Gertjan van Noord and Robbert Prins, who
+used early versions of \textit{Learn Prolog Now!} in their teaching at
+the University of Groningen. They gave us detailed feedback on its
+weak points, and we've tried to take their advice into account; we
+hope we've succeeded. We'd also like to say \textit{Grazie!} to
+Malvina Nissim, who supplied us with an upgrade of
+Exercise~\ref{L2.EX4}, helped format the final hardcopy version, and
+generally gave us her enthusiastic support over many years.
+
+Some special thanks are in order. First, we'd like to thank Dov Gabbay
+for founding College Publications; may it do for academic publishing
+what the GNU Public License did for software!  Second, heartfelt
+thanks to Jane Spurr; we've \textit{never} had a more helpful,
+competent, or enthusiastic editor, and \textit{nobody} reacts faster
+than Jane. Thirdly, we like to thank Jan Wielemaker (the Linus
+Torvalds of the Prolog world) for making SWI Prolog freely available
+over the internet.  SWI Prolog is a an ISO-compliant Free Software
+Prolog environment, licensed under the Lesser GNU Public License.  We
+don't know what we'd have done without it. We're also very grateful to
+him for the speedy and informative feedback he gave us on a number of
+technical issues, and for encouraging us to go for ISO-standard
+Prolog.  Finally, a big thank you to Ian Mackie and an anonymous
+referee for all the time and energy they put into the penultimate version
+of the book.
+
+\begin{flushright}
+Patrick Blackburn\\
+Johan Bos\\
+Kristina Striegnitz\\
+\textit{May 2006}
+\end{flushright}
+

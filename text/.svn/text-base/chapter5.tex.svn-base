@@ -1,0 +1,699 @@
+
+\chapter{Arithmetic}\label{CHAPTER5}
+
+\Thischapter{120}{
+
+\noindent
+This chapter has two main goals:  
+  
+\begin{enumerate}
+\item{}To introduce Prolog's built-in abilities for performing   
+       arithmetic.
+\item{}To apply them to simple list processing problems, using  
+       accumulators.
+\end{enumerate}
+
+}
+
+\section{Arithmetic in Prolog}\label{SEC.L5.ARITHMETIC}
+
+
+
+Prolog provides a number of basic arithmetic tools for manipulating
+integers (that is, numbers of the form ...-3, -2, -1, 0, 1, 2, 3,
+4...).  Most Prolog implementation also provide tools for handling
+real numbers (or floating point numbers) such as 1.53 or $6.35\times
+10^{5}$, but we're not going to discuss these, for they are not
+particularly useful for the symbolic processing tasks discussed in
+this book.  Integers, on the other hand, are useful in connection with
+symbolic tasks (we use them to state the length of lists, for example)
+so it is important to understand how to work with them.  We'll start
+by looking at how Prolog handles the four basic operations of
+addition, multiplication, subtraction, and division.
+
+\begin{center}\begin{tabular}{ll}
+Arithmetic examples & Prolog Notation\\
+$6+2=8$&§8 is 6+2.§\\
+$6*2=12$&§12 is 6*2.§\\
+$6-2=4$&§4 is 6-2.§\\
+$6-8=-2$&§-2 is 6-8.§\\
+$6\div 2=3$&§3 is 6/2.§\\
+$7\div 2=3$&§3 is 7/2.§\\
+1 is the remainder when 7 is divided by 2&§1 is mod(7,2).§
+\end{tabular}\end{center}  
+Note that as we are working with integers, division gives us back an   
+integer answer.  Thus $7\div 2$ gives 3 as an answer,  leaving   
+remainder 1.
+
+Posing the following queries yields the following responses\index{PROLOG is/2@\texttt{is/2}}:  
+  
+\begin{LPNcodedisplay}
+?- 8 is 6+2.
+yes
+
+?- 12 is 6*2.
+yes
+
+?- -2 is 6-8.
+yes
+
+?- 3 is 6/2.
+yes
+
+?- 1 is mod(7,2).
+yes
+\end{LPNcodedisplay}
+  
+  
+More importantly, we can work out the answers to arithmetic questions   
+by using variables.  For example:  
+  
+\begin{LPNcodedisplay}
+?- X is 6+2.
+
+X = 8 
+
+?- X is 6*2.
+
+X = 12 
+
+?- R is mod(7,2).
+
+R = 1 
+\end{LPNcodedisplay}
+  
+Moreover, we can use arithmetic operations when we define predicates.    
+Here's a simple example.  Let's define a predicate   
+§add_3_and_double/2§ whose arguments are both integers.  This   
+predicate takes its first argument, adds three to it, doubles the   
+result, and returns the number obtained as the second argument.  We   
+define this predicate as follows:  
+\begin{LPNcodedisplay}
+add_3_and_double(X,Y) :- Y is (X+3)*2.
+\end{LPNcodedisplay}
+And indeed, this works:  
+\begin{LPNcodedisplay}
+?- add_3_and_double(1,X).
+
+X = 8 
+
+?- add_3_and_double(2,X).
+
+X = 10 
+\end{LPNcodedisplay}
+  
+  
+One other thing.  Prolog understands the usual conventions we use for   
+disambiguating arithmetical expressions.  For example, when we write   
+$3+2\times 4$ we mean $3+(2\times 4)$ and not $(3+2)\times 4$, and   
+Prolog knows this convention:  
+\begin{LPNcodedisplay}
+?- X is 3+2*4.
+
+X = 11 
+\end{LPNcodedisplay}
+
+
+
+
+
+\section{A Closer Look}\label{SEC.L5.LOOK}
+
+That's the basics, but we need to know more.  The most important to
+grasp is this: +, *, -, $\div$ and §mod§ do \LPNemph{not} carry out
+any arithmetic.  In fact, expressions such as §3+2§, §3-2§ and §3*2§
+are simply terms.  The functors of these terms are §+§, §-§ and §*§
+respectively, and the arguments are §3§ and §2§.  Apart from the fact
+that the functors go between their arguments (instead of in front of
+them) these are ordinary Prolog terms, and unless we do something
+special, Prolog will not actually do any arithmetic.  In
+particular, if we pose the query
+\begin{LPNcodedisplay}
+?- X = 3+2
+\end{LPNcodedisplay}
+we don't get back the answer §X=5§.  
+Instead we get back  
+\begin{LPNcodedisplay}
+X = 3+2
+yes
+\end{LPNcodedisplay}
+That is, Prolog has simply unified the variable §X§ to the complex
+term §3+2§.  It has \LPNemph{not} carried out any arithmetic.  It has
+simply done what it usually does when \texttt{=/2} is used: performed
+unification.
+
+Similarly,   
+if we pose the query  
+\begin{LPNcodedisplay}
+?- 3+2*5 = X
+\end{LPNcodedisplay}
+we get the response  
+\begin{LPNcodedisplay}
+X = 3+2*5 
+yes
+\end{LPNcodedisplay}
+Again, Prolog has simply bound the variable §X§ to the complex   
+term §3+2*5§.  It did not evaluate this expression to 13.  
+  
+To force Prolog to actually evaluate arithmetic expressions we have to   
+use  
+        \begin{LPNcodedisplay}
+is
+\end{LPNcodedisplay}
+just as we did in our  earlier examples.  In fact, §is§ does   
+something very special: it sends a signal to Prolog that says ``Hey!    
+Don't treat this expression as an ordinary complex term!  Call up   
+your built-in arithmetic capabilities and carry out the calculations!''
+
+In short, §is§ forces Prolog to act in an unusual way.  Normally   
+Prolog is quite happy just unifying variables to structures: that's   
+its job, after all.  Arithmetic is something extra that has been   
+bolted on to the basic Prolog engine because it is useful.    
+Unsurprisingly, there are some restrictions on this extra ability, and   
+we need to know what they are.
+
+For a start, the arithmetic expressions to be evaluated must be on   
+the right hand side of §is§.  In our earlier examples we carefully   
+posed the query  
+\begin{LPNcodedisplay}
+?- X is 6+2.
+
+X = 8 
+\end{LPNcodedisplay}
+which is the right way to do it. If instead we  
+had asked  
+\begin{LPNcodedisplay}
+6+2 is X.
+\end{LPNcodedisplay}
+we would have got a message saying §instantiation_error§,   
+or something similar.
+
+Moreover, although we are free to use variables on the right hand side
+of §is§, when we actually carry out evaluation, the variable must
+already have been instantiated to a variable-free arithmetic
+expression.  If the variable is uninstantiated, or if it is
+instantiated to something other than an integer, we will get some sort
+of §instantiation_error§ message.  This is because arithmetic isn't
+performed using Prolog's usual unification and knowledge base search
+mechanisms: it's done by calling up a special black box which knows
+about integer arithmetic.  If we hand the black box the wrong kind of
+data, it's going to complain.
+
+Here's an example. Recall our ``add 3 and double it''
+predicate.  
+\begin{LPNcodedisplay}
+add_3_and_double(X,Y) :- Y is (X+3)*2.
+\end{LPNcodedisplay}
+When we described this predicate, we carefully said that it added 3 to   
+its first argument, doubled the result, and returned the answer in its   
+second argument.  For example, §add_3_and_double(3,X)§ returns   
+§X = 12§.  We didn't say anything about using this predicate in   
+the reverse direction.  For example, we might hope that posing the   
+query  
+\begin{LPNcodedisplay}
+?- add_3_and_double(X,12).
+\end{LPNcodedisplay}
+would return the answer §X=3§.   But it doesn't. Instead we   
+get the §instantiation_error§ message.  Why?  Well, when we pose   
+the query this way round, we are asking Prolog to evaluate   
+§12 is (X+3)*2§, which it \LPNemph{can't} do as §X§   
+is not instantiated.
+
+Two final remarks.  As we've already mentioned, for Prolog §3 + 2§   
+is just a term.  In fact, for Prolog, it really \LPNemph{is} the term   
+\LPNemph{+(3,2)}.  The expression §3 + 2§ is just a user-friendly   
+notation that's nicer for us to use.  This means that, if you 
+want to, you can give Prolog queries like  
+\begin{LPNcodedisplay}
+X is +(3,2)
+\end{LPNcodedisplay}
+and Prolog will correctly reply  
+\begin{LPNcodedisplay}
+X = 5
+\end{LPNcodedisplay}
+Actually, you can even given Prolog the query  
+\begin{LPNcodedisplay}
+?- is(X,+(3,2))
+\end{LPNcodedisplay}
+and Prolog will respond  
+\begin{LPNcodedisplay}
+X = 5
+\end{LPNcodedisplay}
+This is because, for Prolog, the expression §X is +(3,2)§ really is
+the term §is(X,+(3,2))§.  The expression §X is +(3,2)§ is just
+user-friendly notation.  Underneath, as always, Prolog is just working
+away with terms.
+
+Summing up, arithmetic in Prolog is easy to use.  Pretty much all you
+have to remember is to use §is§ to force evaluation, that stuff to be
+evaluated must go to the right of §is§, and to take care that any
+variables are correctly instantiated.  But there is a deeper point
+that is worth reflecting on: bolting on the extra capability to do
+arithmetic in this way has further widened the gap between the
+procedural and declarative meanings of Prolog programs.
+
+
+
+
+
+\section{Arithmetic and Lists}\label{SEC.L5.ARITHMETIC-AND-LISTS}
+
+Probably the most important use of arithmetic in this book is to tell
+us useful facts about data-structures, such as lists.  For example, it
+can be useful to know how long a list is.  We'll give some examples of
+using lists together with arithmetic capabilities.
+
+How long is a list? Here's a recursive definition.  
+\begin{enumerate}
+\item{}The empty list has length zero.
+\item{}A non-empty list has length   
+         1 + \LPNemph{len}(T), where \LPNemph{len}(T) is the length of its   
+        tail.
+\end{enumerate}
+  
+  
+This definition is practically a Prolog program already.  Here's the   
+code we need:  
+\begin{LPNcodedisplay}
+len([],0).
+len([_|T],N) :- len(T,X), N is X+1.
+\end{LPNcodedisplay}
+  
+This predicate works in the expected way.  
+For example:  
+\begin{LPNcodedisplay}
+?- len([a,b,c,d,e,[a,b],g],X).
+
+X = 7 
+\end{LPNcodedisplay}
+  
+\clearpage
+Now, this is quite a good program: it's easy to understand and
+efficient.  But there is another method of finding the length of a
+list.  We'll now look at this alternative, because it introduces the
+idea of \LPNterm{accumu\-lators}. If you're used to other programming
+languages, you're probably used to the idea of using variables to hold
+intermediate results.  An accumulator is the Prolog analog of this
+idea.
+
+
+Here's how to use an accumulator to calculate the length of a list.    
+We shall define a predicate §accLen§/3 which takes the following   
+arguments.  
+\begin{LPNcodedisplay}
+accLen(List,Acc,Length)
+\end{LPNcodedisplay}
+Here §List§ is the list whose length we want to find, and §Length§ is
+its length (an integer).  What about §Acc§?  This is the accumulator
+we will use to keep track of intermediate values for length (so it
+will also be an integer).  Here's what we do.  When we call this
+predicate, we are going to give §Acc§ an initial value of §0§.  We
+then recursively work our way down the list, adding §1§ to §Acc§ each
+time we find a head element, until we reach the empty list.  When we
+reach the empty list, §Acc§ will contain the length of the list.
+Here's the code:
+\begin{LPNcodedisplay}
+accLen([_|T],A,L) :-  Anew is A+1, accLen(T,Anew,L).
+accLen([],A,A).
+\end{LPNcodedisplay}
+
+The base case of the definition, unifies the second and third
+arguments.  Why?  Because this trivial unification is a nice way of
+making sure that the result, that is, the length of the list, is
+returned. When we reach the end of the list, the accumulator (the
+second variable) contains the length of the list.  So we give this
+value (via unification) to the length variable (the third variable).
+Here's an example trace. You can clearly see how the length variable
+gets its value at the bottom of the recursion and passes it upwards as
+Prolog is coming out of the recursion.  
+\begin{LPNcodedisplay}
+?- accLen([a,b,c],0,L).
+   Call: (6) accLen([a, b, c], 0, _G449) ? 
+   Call: (7) _G518 is 0+1 ? 
+   Exit: (7) 1 is 0+1 ? 
+   Call: (7) accLen([b, c], 1, _G449) ? 
+   Call: (8) _G521 is 1+1 ? 
+   Exit: (8) 2 is 1+1 ? 
+   Call: (8) accLen([c], 2, _G449) ? 
+   Call: (9) _G524 is 2+1 ? 
+   Exit: (9) 3 is 2+1 ? 
+   Call: (9) accLen([], 3, _G449) ? 
+   Exit: (9) accLen([], 3, 3) ? 
+   Exit: (8) accLen([c], 2, 3) ? 
+   Exit: (7) accLen([b, c], 1, 3) ? 
+   Exit: (6) accLen([a, b, c], 0, 3) ? 
+\end{LPNcodedisplay}
+  
+As a final step, we'll define a predicate which calls §accLen§   
+for us, and gives it the initial value of 0:  
+\begin{LPNcodedisplay}
+leng(List,Length) :- accLen(List,0,Length).
+\end{LPNcodedisplay}
+So now we can pose queries like this:  
+\begin{LPNcodedisplay}
+?- leng([a,b,c,d,e,[a,b],g],X).
+\end{LPNcodedisplay}
+
+
+Accumulators are extremely common in Prolog programs.  (We'll see
+another accumulator based program in this chapter, and some more in
+later chapters.) But why is this? In what way is §accLen§ better than
+§len§? After all, it looks more difficult. The answer is that §accLen§
+is \LPNterm{tail recursive} while §len§ is not. In tail recursive
+programs, the result is fully calculated once we reached the bottom of
+the recursion and just has to be passed up. In recursive programs
+which are not tail recursive, there are goals at other levels of
+recursion which have to wait for the answer from a lower level of
+recursion before they can be evaluated. To understand this, compare
+the traces for the queries §accLen([a,b,c],0,L)§ (see above) and
+§len([a,b,c],0,L)§ (given below). In the first case the result is
+built while going into the recursion --- once the bottom is reached at
+§accLen([],3,_G449)§, the result is there and only has to be passed
+up. In the second case the result is built while coming out of the
+recursion; the result of §len([b,c], _G481)§, for instance, is only
+computed after the recursive call of §len§ has been completed and the
+result of §len([c],_G489)§ is known. In short, tail recursive programs
+have less bookkeeping overhead, and this makes them more efficient.
+  
+\begin{LPNcodedisplay}
+?- len([a,b,c],L).
+   Call: (6) len([a, b, c], _G418) ? 
+   Call: (7) len([b, c], _G481) ? 
+   Call: (8) len([c], _G486) ? 
+   Call: (9) len([], _G489) ? 
+   Exit: (9) len([], 0) ? 
+   Call: (9) _G486 is 0+1 ? 
+   Exit: (9) 1 is 0+1 ? 
+   Exit: (8) len([c], 1) ? 
+   Call: (8) _G481 is 1+1 ? 
+   Exit: (8) 2 is 1+1 ? 
+   Exit: (7) len([b, c], 2) ? 
+   Call: (7) _G418 is 2+1 ? 
+   Exit: (7) 3 is 2+1 ? 
+   Exit: (6) len([a, b, c], 3) ? 
+\end{LPNcodedisplay}
+
+
+\section{Comparing Integers}\label{SEC.L5.COMPARING-INTEGERS}
+
+
+
+Some Prolog arithmetic predicates actually do carry out arithmetic   
+all by themselves (that is, without the assistance of §is§).    
+These are the operators that compare integers.  
+  
+\begin{center}\begin{tabular}{ll}
+Arithmetic examples & Prolog Notation\\
+$x<y$&§X < Y.§\\ \index{PROLOG </2@\texttt{</2}}
+$x\le y$&§X =< Y.§\\ \index{PROLOG =</2@\texttt{=</2}}
+$x=y$&§X =:= Y.§\\ \index{PROLOG =:=/2@\texttt{=:=/2}}
+$x\not=y$&§X =\= Y.§\\ \index{PROLOG =\=/2@\verb-=\=/2-}
+$x\ge y$&§X >= Y§\\ \index{PROLOG >=/2@\texttt{>=/2}}
+$x>y$&§X > Y§ \index{PROLOG >/2@\texttt{>/2}}
+\end{tabular}\end{center}  
+  
+These operators have the obvious meaning:  
+\begin{LPNcodedisplay}
+?- 2 < 4.
+yes
+
+?- 2 =< 4.
+yes
+
+?- 4 =< 4.
+yes
+
+?- 4=:=4.
+yes
+
+?- 4=\=5.
+yes
+
+?- 4=\=4.
+no
+
+?- 4 >= 4.
+yes
+
+?- 4 > 2.
+yes
+\end{LPNcodedisplay}
+  
+  
+Moreover, they force both their right hand and left hand arguments to   
+be evaluated:  
+\begin{LPNcodedisplay}
+?- 2 < 4+1.
+yes
+
+?- 2+1 < 4.
+yes
+
+?- 2+1 < 3+2.
+yes
+\end{LPNcodedisplay}
+  
+  
+Note that §=:=§ is different from §=§, as the following examples show:
+\begin{LPNcodedisplay}
+?- 4=4.
+yes
+
+?- 2+2 =4.
+no
+
+?- 2+2 =:= 4.
+yes
+\end{LPNcodedisplay}
+That is, §=§ tries to unify its arguments; it does \LPNemph{not}   
+force arithmetic evaluation.  That's §=:=§'s job.
+
+Whenever we use these operators, we have to take care that any   
+variables are instantiated.  For example, all the following queries   
+lead to instantiation errors.  
+\begin{LPNcodedisplay}
+?- X < 3.
+
+?- 3 < Y.
+
+?- X =:= X.
+\end{LPNcodedisplay}
+Moreover, variables have to be instantiated to \LPNemph{integers}.  
+The query  
+\begin{LPNcodedisplay}
+?- X = 3, X < 4.
+\end{LPNcodedisplay}
+succeeds. But the query  
+\begin{LPNcodedisplay}
+?- X = b, X < 4.
+\end{LPNcodedisplay}
+fails.
+
+Ok, let's now look at an example which puts Prolog's abilities to
+compare numbers to work.  We're going to define a predicate which
+takes  a non-empty list of non-negative integers as its first
+argument, and returns the maximum integer in the list as its last
+argument.  Again, we'll use an accumulator.  As we work our way down
+the list, the accumulator will keep track of the highest integer found
+so far.  If we find a higher value, the accumulator will be updated to
+this new value.  When we call the program, we set the accumulator to an
+initial value of 0.  
+
+Here's the code.  Note that there are \LPNemph{two} recursive clauses:
+\begin{LPNcodedisplay}
+accMax([H|T],A,Max) :-
+   H > A,
+   accMax(T,H,Max).
+
+accMax([H|T],A,Max) :-
+   H =< A,
+   accMax(T,A,Max).
+
+accMax([],A,A).
+\end{LPNcodedisplay}
+The first clause tests if the head of the list is larger than the   
+largest value found so far.  If it is, we set the accumulator to this   
+new value, and then recursively work through the tail of the list.    
+The second clause applies when the head is less than or equal to the   
+accumulator; in this case we recursively work through the tail of the   
+list using the old accumulator value.  Finally, the base clause   
+unifies the second and third arguments; it gives the highest value we   
+found while going through the list to the last argument.  
+
+Here's an  
+example query:
+\begin{LPNcodedisplay}
+?- accMax([1,0,5,4],0,Max). 
+\end{LPNcodedisplay}
+Here the first clause of §accMax§ applies, resulting in the following
+goal:
+\begin{LPNcodedisplay}
+?- accMax([0,5,4],1,Max). 
+\end{LPNcodedisplay}
+Note the value of the accumulator has changed to 1.  Now the second
+clause of §accMax§ applies, as 0 (the next element of the list) is
+smaller than 1, the value of the accumulator. 
+This process is repeated until
+we reach the empty list: 
+\begin{LPNcodedisplay}
+?- accMax([5,4],1,Max). 
+
+?- accMax([4],5,Max). 
+
+?- accMax([],5,Max). 
+\end{LPNcodedisplay}
+Now the third clause applies, unifying the variable §Max§
+with the value of the accumulator:
+\begin{LPNcodedisplay}
+Max = 5.
+yes
+\end{LPNcodedisplay}
+  
+Again, it's nice to define a predicate which calls this, and   
+initialises the accumulator.  But wait: what should we initialise the   
+accumulator to?  If you say 0, this means you are assuming that all   
+the numbers in the list are positive. But suppose we give  
+a list of negative integers as input. Then we would have  
+\begin{LPNcodedisplay}
+?- accMax([-11,-2,-7,-4,-12],0,Max).
+
+Max = 0 
+yes
+\end{LPNcodedisplay}
+This is \LPNemph{not} what we want: the biggest number on the list is   
+-2.  Our use of 0 as the initial value of the accumulator has ruined   
+everything, because it's bigger than any number on the list.
+
+There's an easy way around this: since our input list will always be a
+non-empty list of integers, simply initialise the accumulator to the
+head of the list.  That way we guarantee that the accumulator is
+initialised to a number on the list.  The following predicate does
+this for us:
+\begin{LPNcodedisplay}
+max(List,Max) :- 
+     List = [H|_],
+     accMax(List,H,Max).
+\end{LPNcodedisplay}
+So we can simply say:  
+\begin{LPNcodedisplay}
+max([1,2,46,53,0],X).
+
+X = 53
+yes
+\end{LPNcodedisplay}
+And furthermore we have:  
+\begin{LPNcodedisplay}
+max([-11,-2,-7,-4,-12],X).
+
+X = -2 
+yes
+\end{LPNcodedisplay}
+
+
+\newpage
+\section{Exercises}\label{SEC.L5.EXERCISES}
+
+\begin{LPNexercise}{L5.EX1}How does Prolog respond to the following queries?  
+\begin{enumerate}
+\item{}§X = 3*4.§
+\item{}§X is 3*4.§
+\item{}§4 is X.§
+\item{}§X = Y.§
+\item{}§3 is 1+2.§
+\item{}§3 is +(1,2).§
+\item{}§3 is X+2.§
+\item{}§X is 1+2.§
+\item{}§1+2 is 1+2.§
+\item{}§is(X,+(1,2)).§
+\item{}§3+2 = +(3,2).§
+\item{}§*(7,5) = 7*5.§
+\item{}§*(7,+(3,2)) = 7*(3+2).§
+\item{}§*(7,(3+2)) = 7*(3+2).§
+\item{}§7*3+2 = *(7,+(3,2)).§
+\item{}§*(7,(3+2)) = 7*(+(3,2)).§
+\end{enumerate}
+\end{LPNexercise}
+\begin{LPNexercise}{L5.EX2}\begin{enumerate}
+\item{}Define a 2-place predicate §increment§ that holds only when its  
+second argument is an integer one larger than its first argument.  For  
+example, §increment(4,5)§ should hold, but §increment(4,6)§  
+should not.
+\item{}Define a 3-place predicate §sum§ that holds only when its third  
+argument is the sum of the first two arguments. For example,  
+§sum(4,5,9)§ should hold, but §sum(4,6,12)§ should  
+not.
+\end{enumerate}
+\end{LPNexercise}
+
+\clearpage
+\begin{LPNexercise}{L5.EX3}Write a predicate 
+§addone/2§ whose first argument is a list of integers, and whose
+second argument is the list of integers obtained by adding 1 to each
+integer in the first list.  For example, the query
+\begin{LPNcodedisplay}
+?- addone([1,2,7,2],X).
+\end{LPNcodedisplay}
+should give  
+\begin{LPNcodedisplay}
+X = [2,3,8,3].
+\end{LPNcodedisplay}
+\end{LPNexercise}
+
+
+\section{Practical Session}\label{SEC.L5.PRAXIS}
+
+
+
+The purpose of Practical Session 5 is to help you get familiar with  
+Prolog's arithmetic capabilities, and to give you some further  
+practice in list manipulation. To this end, we suggest the following  
+programming exercises:  
+  
+\begin{enumerate}
+\item{}In the text we discussed the 3-place predicate §accMax§  
+which  returned the maximum of a list of integers.  By changing  
+the code slightly, turn this into a 3-place predicate §accMin§  
+which returns the \LPNemph{minimum} of a list of integers.  
+\item{}In mathematics, an n-dimensional vector is a list of numbers of  
+length n. For example, §[2,5,12]§ is a 3-dimensional vector, and  
+§[45,27,3,-4,6]§ is a 5-dimensional vector.  One of the basic  
+operations on vectors is \LPNemph{scalar multiplication}. In this  
+operation, every element of a vector is multiplied by some number.  
+For example, if we scalar multiply the 3-dimensional vector  
+§[2,7,4]§ by §3§ the result is the 3-dimensional vector  
+§[6,21,12]§.  
+  
+  
+Write a 3-place predicate §scalarMult§ whose first  
+argument is an integer, whose second argument is a list of integers,  
+and whose third argument is the result of scalar multiplying  
+the second argument by the first. For example, the query  
+\begin{LPNcodedisplay}
+?- scalarMult(3,[2,7,4],Result).
+\end{LPNcodedisplay}
+  
+should yield  
+\begin{LPNcodedisplay}
+Result = [6,21,12]
+\end{LPNcodedisplay}
+
+\item{}Another fundamental operation on vectors is the \LPNemph{dot  
+product}.  This operation combines two vectors of the same dimension  
+and yields a number as a result. The operation is carried out as  
+follows: the corresponding elements of the two vectors are multiplied,  
+and the results added. For example, the dot product of §[2,5,6]§  
+and §[3,4,1]§ is §6+20+6§, that is, §32§.  Write a  
+3-place predicate §dot§ whose first argument is a list of  
+integers, whose second argument is a list of integers of the same  
+length as the first, and whose third argument is the dot product of  
+the first argument with the second.  For example, the query  
+\begin{LPNcodedisplay}
+?- dot([2,5,6],[3,4,1],Result).
+\end{LPNcodedisplay}
+  
+should yield  
+\begin{LPNcodedisplay}
+Result = 32
+\end{LPNcodedisplay}
+
+\end{enumerate}

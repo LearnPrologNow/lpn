@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{pstricks,pst-tree,pst-node}
+
+\pagestyle{empty}
+
+\newcommand{\stnode}[1]{\TR{\psframebox{\texttt{#1}}}}
+\newcommand{\stelabel}[1]{\texttt{#1}}
+
+\begin{document}
+
+{\small
+\pstree[levelsep=16mm,treesep=5mm]{\stnode{?- descend(anne,donna)}}
+{
+ \pstree{\stnode{?- child(anne,donna)}}
+        {\psset{linestyle=none}\TR{~}\tvput{\huge \dag}}
+
+ \pstree{\stnode{?- \parbox[t]{31mm}{child(anne,\_G43),\\ descend(\_G43,donna)}}}
+ {
+  \pstree{\stnode{?- descend(bridget,donna)}\tlput{\stelabel{\_G43 = bridget}}}
+  {
+   \pstree{\stnode{?- child(bridget,donna)}}
+          {\psset{linestyle=none}\TR{~}\tvput{\huge \dag}}
+   \pstree{\stnode{?- \parbox[t]{36mm}{child(bridget,\_G44),\\ descend(\_G44,donna)}}}
+   {
+    \pstree{\stnode{?- descend(caroline,donna)}\tlput{\stelabel{\_G44 = caroline}}}
+    {
+     \pstree{\stnode{?- child(caroline,donna)}}
+     {
+      \stnode{}
+     }
+    }
+   }
+  }
+ }
+}
+}
+\end{document}

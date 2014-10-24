@@ -1,0 +1,485 @@
+
+\mozartAPPENDIX{Answers To Exercises}
+\begin{mozartANSWER}{L1.EX1}\begin{enumerate}
+\item{}\mozartCODEINLINE{\mozartFACETEXT{vINCENT}} is an atom: it starts with a lower case letter.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{Footmassage}} is a variable: it starts with a capital letter.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{variable23}} is an atom: it starts with a lower case letter.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{Variable2000}} is a variable: it starts with a capital letter.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{big\mozartUNDERSCORE{}kahuna\mozartUNDERSCORE{}burger}} is an atom: it starts with a lower case letter.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{'big\mozartSPACE{}kahuna\mozartSPACE{}burger'}} is an atom: it is between two quotes (\mozartCODEINLINE{\mozartFACETEXT{'}}).
+\item{}\mozartCODEINLINE{\mozartFACETEXT{big\mozartSPACE{}kahuna\mozartSPACE{}burger}} is neither: variables can never contain blanks and atoms cannot either unless the atom starts ends with \mozartCODEINLINE{\mozartFACETEXT{'}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{'Jules'}} is an atom: it is enclosed between \mozartCODEINLINE{\mozartFACETEXT{'}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{\mozartUNDERSCORE{}Jules}} is a variable: it starts with \mozartCODEINLINE{\mozartFACETEXT{\mozartUNDERSCORE{}}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{'\mozartUNDERSCORE{}Jules'}}is an atom: it is enclosed between \mozartCODEINLINE{\mozartFACETEXT{'}}.
+\end{enumerate}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L1.EX2}\begin{enumerate}
+\item{}\mozartCODEINLINE{\mozartFACETEXT{loves(Vincent,mia)}} is a complex term. Functor is \mozartCODEINLINE{\mozartFACETEXT{loves}} with arity 2.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{'loves(Vincent,mia)'}} is an atom: it is enclosed between quotes.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{Butch(boxer)}} is not a term. It starts with a capital \mozartEMPTY
+letter and can therefore not be an atom or a complex term. It cannot \mozartEMPTY
+be a variable either because variables are not supposed to contain parentheses.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{boxer(Butch)}} is a complex term. Functor is \mozartCODEINLINE{\mozartFACETEXT{boxer}} \mozartEMPTY
+with arity 1.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{and(big(burger),kahuna(burger))}} is a complex \mozartEMPTY
+term. Functor is \mozartCODEINLINE{\mozartFACETEXT{and}} with arity 2. The arguments are again \mozartEMPTY
+complex terms.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{and(big(X),kahuna(X))}} is a complex term. Functor is \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{and}} with arity 2.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{\mozartUNDERSCORE{}and(big(X),kahuna(X))}} is not a term. It starts with an \mozartEMPTY
+underscore and can therefore not be an atom or a complex term. It cannot \mozartEMPTY
+be a variable either because variables are not supposed to contain \mozartEMPTY
+parentheses or commas.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{(Butch\mozartSPACE{}kills\mozartSPACE{}Vincent)}} is not a term. It contains \mozartEMPTY
+parentheses and empty spaces and can therefore neither be an atom nor a \mozartEMPTY
+variable. It doesn't have the right format for a complex term either; \mozartEMPTY
+e.g., there is no functor.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{kills(Butch\mozartSPACE{}Vincent)}} is not a term. However, adding a comma \mozartEMPTY
+between \mozartCODEINLINE{\mozartFACETEXT{Butch}} and \mozartCODEINLINE{\mozartFACETEXT{Vincent}} would make it into a complex term.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{kills(Butch,Vincent}} is not a term. However, adding a \mozartEMPTY
+closing parenthesis at the end would make it into a complex term.
+\end{enumerate}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L1.EX3}\begin{mozartCODEDISPLAY}\mozartFACETEXT{woman(vincent).\mozartNEWLINE
+woman(mia).\mozartNEWLINE
+man(jules).\mozartNEWLINE
+person(X)\mozartSPACE{}:-\mozartSPACE{}man(X);\mozartSPACE{}woman(X).\mozartNEWLINE
+loves(X,Y)\mozartSPACE{}:-\mozartSPACE{}knows(Y,X).\mozartNEWLINE
+father(Y,Z)\mozartSPACE{}:-\mozartSPACE{}man(Y),\mozartSPACE{}son(Z,Y).\mozartNEWLINE
+father(Y,Z)\mozartSPACE{}:-\mozartSPACE{}man(Y),\mozartSPACE{}daughter(Z,Y).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+ \mozartEMPTY
+There are \mozartEM{3 facts} and \mozartEM{4 rules} in this knowledge base. This means there \mozartEMPTY
+are \mozartEM{7 clauses}. The \mozartEM{heads} of the rules are \mozartCODEINLINE{\mozartFACETEXT{person(X)}}, \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{loves(X,Y)}}, and \mozartCODEINLINE{\mozartFACETEXT{father(Y,Z)}} (what's on the left hand \mozartEMPTY
+side of the rules), the \mozartEM{goals} are \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{man(X)}}, \mozartCODEINLINE{\mozartFACETEXT{woman(X)}}, \mozartCODEINLINE{\mozartFACETEXT{knows(Y,X)}}, \mozartCODEINLINE{\mozartFACETEXT{man(Y)}}, \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{son(Z,Y)}}, and \mozartCODEINLINE{\mozartFACETEXT{daughter(Z,Y)}} (everything on the right hand \mozartEMPTY
+side of the rules). This knowledge base defines 5 predicates, namley \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{woman/1}}, \mozartCODEINLINE{\mozartFACETEXT{man/1}}, \mozartCODEINLINE{\mozartFACETEXT{person/1}}, \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{loves/2}}, \mozartCODEINLINE{\mozartFACETEXT{father/2}}. \mozartEMPTY
+\end{mozartANSWER}
+\begin{mozartANSWER}{L1.EX4}Butch is a killer: \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{killer(butch).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+Mia and Marsellus are married: \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{married(mia,\mozartSPACE{}marsellus).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+Zed is dead: \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{dead(zed).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+Marsellus kills everyone who gives Mia a footmassage: \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{kill(marsellus,X)\mozartSPACE{}:-\mozartSPACE{}give(X,mia,Y),\mozartSPACE{}footmassage(Y).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+Mia loves everyone who is a good dancer: \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{love(mia,X)\mozartSPACE{}:-\mozartSPACE{}good\mozartUNDERSCORE{}dancer(X).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+Jules eats anything that is nutritious or tasty: \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{eat(jules,X)\mozartSPACE{}:-\mozartSPACE{}nutritious(X).\mozartNEWLINE
+eat(jules,X)\mozartSPACE{}:-\mozartSPACE{}tasty(X).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L1.EX5}\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}wizard(ron).\mozartNEWLINE
+yes}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}witch(ron).\mozartNEWLINE
+no\mozartNEWLINE
+\mozartNEWLINE
+or\mozartNEWLINE
+\mozartNEWLINE
+ERROR:\mozartSPACE{}Undefined\mozartSPACE{}procedure:\mozartSPACE{}witch/1}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}wizard(hermione).\mozartNEWLINE
+no}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}witch(hermione).\mozartNEWLINE
+no\mozartNEWLINE
+\mozartNEWLINE
+or\mozartNEWLINE
+\mozartNEWLINE
+ERROR:\mozartSPACE{}Undefined\mozartSPACE{}procedure:\mozartSPACE{}witch/1}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}wizard(harry).\mozartNEWLINE
+yes}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}wizard(Y).\mozartNEWLINE
+Y\mozartSPACE{}=\mozartSPACE{}ron\mozartSPACE{};\mozartNEWLINE
+Y\mozartSPACE{}=\mozartSPACE{}harry\mozartSPACE{};\mozartNEWLINE
+no}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}witch(Y).\mozartNEWLINE
+no\mozartNEWLINE
+\mozartNEWLINE
+or\mozartNEWLINE
+\mozartNEWLINE
+ERROR:\mozartSPACE{}Undefined\mozartSPACE{}procedure:\mozartSPACE{}witch/1}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L2.EX1}\begin{enumerate}
+\item{}\mozartCODEINLINE{\mozartFACETEXT{bread\mozartSPACE{}=\mozartSPACE{}bread}} matches.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{'Bread'\mozartSPACE{}=\mozartSPACE{}bread}} doesn't match.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{'bread'\mozartSPACE{}=\mozartSPACE{}bread}} matches.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{Bread\mozartSPACE{}=\mozartSPACE{}bread}} matches; the variable \mozartCODEINLINE{\mozartFACETEXT{Bread}} gets instantiated with the atom \mozartCODEINLINE{\mozartFACETEXT{bread}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{bread\mozartSPACE{}=\mozartSPACE{}sausage}} doesn't match.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{food(bread)\mozartSPACE{}=\mozartSPACE{}bread}} doesn't match.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{food(bread)\mozartSPACE{}=\mozartSPACE{}X}} matches; \mozartCODEINLINE{\mozartFACETEXT{X}} gets  instantiated with \mozartCODEINLINE{\mozartFACETEXT{food(bread)}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{food(X)\mozartSPACE{}=\mozartSPACE{}food(bread)}} matches; \mozartCODEINLINE{\mozartFACETEXT{X}} gets  instantiated with \mozartCODEINLINE{\mozartFACETEXT{bread}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{food(bread,X)\mozartSPACE{}=\mozartSPACE{}food(Y,sausage)}} matches; \mozartCODEINLINE{\mozartFACETEXT{X}} gets \mozartEMPTY
+instantiated with \mozartCODEINLINE{\mozartFACETEXT{sausage}} and \mozartCODEINLINE{\mozartFACETEXT{Y}} gets  instantiated with \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{bread}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{food(bread,X,beer)\mozartSPACE{}=\mozartSPACE{}food(Y,sausage,X)}} doesn't match; \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{X}} cannot be instantiated with \mozartCODEINLINE{\mozartFACETEXT{sausage}} as well as \mozartCODEINLINE{\mozartFACETEXT{beer}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{food(bread,X,beer)\mozartSPACE{}=\mozartSPACE{}food(Y,kahuna\mozartUNDERSCORE{}burger)}} doesn't match; \mozartEMPTY
+terms are of different arity.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{food(X)\mozartSPACE{}=\mozartSPACE{}X}} matches; \mozartCODEINLINE{\mozartFACETEXT{X}} is instantiated with the \mozartEMPTY
+circular term \mozartCODEINLINE{\mozartFACETEXT{food(food(food(...)))}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{meal(food(bread),drink(beer))\mozartSPACE{}=\mozartSPACE{}meal(X,Y)}} matches; \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{X}} gets instantiated with \mozartCODEINLINE{\mozartFACETEXT{food(bread)}} and \mozartCODEINLINE{\mozartFACETEXT{Y}} with \mozartCODEINLINE{\mozartFACETEXT{drink(beer)}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{meal(food(bread),X)\mozartSPACE{}=\mozartSPACE{}meal(X,drink(beer))}} doesn't match; \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{X}} cannot get instantiated twice with different things.
+\end{enumerate}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L2.EX2}\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}magic(house\mozartUNDERSCORE{}elf).\mozartNEWLINE
+no}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}wizard(harry).\mozartNEWLINE
+no\mozartNEWLINE
+\mozartNEWLINE
+OR\mozartNEWLINE
+\mozartNEWLINE
+ERROR:\mozartSPACE{}undefined\mozartSPACE{}procedure\mozartSPACE{}wizard/1}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}magic(wizard).\mozartNEWLINE
+no}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}magic('McGonagall').\mozartNEWLINE
+yes}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}magic(Hermione).\mozartNEWLINE
+Hermione\mozartSPACE{}=\mozartSPACE{}dobby\mozartSPACE{};\mozartNEWLINE
+Hermione\mozartSPACE{}=\mozartSPACE{}hermione\mozartSPACE{};\mozartNEWLINE
+Hermione\mozartSPACE{}=\mozartSPACE{}'McGonagall'\mozartSPACE{};\mozartNEWLINE
+Hermione\mozartSPACE{}=\mozartSPACE{}rita\mozartUNDERSCORE{}skeeter\mozartSPACE{};\mozartNEWLINE
+no}\end{mozartCODEDISPLAY}
+
+
+\begin{center}%\newcommand{\stnode}[1]{\TR{\psframebox{\tt #1}}}
+\pstree{\stnode{magic(H)}}
+{
+ \pstree{\stnode{house\_elf(H)}}
+ {
+   \TR{\psframebox{  }}\tlput{{\tt H = dobby}}
+ }
+ \stnode{wizard(H)}
+ \TR[edge=none]{\hspace*{2em}}
+ \pstree{\stnode{witch(H)}}
+ {
+   \TR{\psframebox{  }}\trput{{\tt H = hermione}}
+   \TR[edge=none]{\hspace*{15em}}
+   \TR{\psframebox{  }}\tlput[tpos=0.85]{{\tt H = 'McGonagall'}}
+   \TR{\psframebox{  }}\trput{{\tt H = rita\_skeeter}}
+ }
+}\end{center}\end{mozartANSWER}
+\begin{mozartANSWER}{L2.EX3}\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}sentence(W1,W2,W3,W4,W5).\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}criminal,\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}eats,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}criminal\mozartSPACE{};\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}criminal,\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}eats,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}'big\mozartSPACE{}kahuna\mozartSPACE{}burger'\mozartSPACE{};\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}criminal,\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}eats,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}every,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}criminal\mozartSPACE{};\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}criminal,\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}eats,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}every,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}'big\mozartSPACE{}kahuna\mozartSPACE{}burger'\mozartSPACE{};\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}criminal,\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}likes,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}'criminal'\mozartSPACE{};\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}criminal,\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}likes,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}'big\mozartSPACE{}kahuna\mozartSPACE{}burger'\mozartSPACE{};\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}criminal,\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}likes,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}every,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}criminal\mozartSPACE{};\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}criminal,\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}likes,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}every,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}'big\mozartSPACE{}kahuna\mozartSPACE{}burger'\mozartSPACE{};\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}'big\mozartSPACE{}kahuna\mozartSPACE{}burger',\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}eats,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}a,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}criminal\mozartSPACE{};\mozartNEWLINE
+.\mozartNEWLINE
+.\mozartNEWLINE
+.\mozartNEWLINE
+W1\mozartSPACE{}=\mozartSPACE{}every,\mozartSPACE{}W2\mozartSPACE{}=\mozartSPACE{}'big\mozartSPACE{}kahuna\mozartSPACE{}burger',\mozartSPACE{}W3\mozartSPACE{}=\mozartSPACE{}likes,\mozartSPACE{}W4\mozartSPACE{}=\mozartSPACE{}every,\mozartSPACE{}W5\mozartSPACE{}=\mozartSPACE{}'big\mozartSPACE{}kahuna\mozartSPACE{}burger'\mozartSPACE{};\mozartNEWLINE
+no}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L2.EX4}\begin{mozartCODEDISPLAY}\mozartFACETEXT{crosswd(V1,V2,V3,H1,H2,H3)\mozartSPACE{}:-\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}word(V1,\mozartUNDERSCORE{},A,\mozartUNDERSCORE{},B,\mozartUNDERSCORE{},C,\mozartUNDERSCORE{}),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}word(V2,\mozartUNDERSCORE{},D,\mozartUNDERSCORE{},E,\mozartUNDERSCORE{},F,\mozartUNDERSCORE{}),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}word(V3,\mozartUNDERSCORE{},G,\mozartUNDERSCORE{},H,\mozartUNDERSCORE{},I,\mozartUNDERSCORE{}),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}word(H1,\mozartUNDERSCORE{},A,\mozartUNDERSCORE{},D,\mozartUNDERSCORE{},G,\mozartUNDERSCORE{}),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}word(H2,\mozartUNDERSCORE{},B,\mozartUNDERSCORE{},E,\mozartUNDERSCORE{},H,\mozartUNDERSCORE{}),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}word(H3,\mozartUNDERSCORE{},C,\mozartUNDERSCORE{},F,\mozartUNDERSCORE{},I,\mozartUNDERSCORE{}).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L3.EX1}\begin{mozartCODEDISPLAY}\mozartFACETEXT{\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}directlyIn(X,Y):\mozartSPACE{}X\mozartSPACE{}is\mozartSPACE{}contained\mozartSPACE{}in\mozartSPACE{}Y\mozartNEWLINE
+directlyIn(irina,natasha).\mozartNEWLINE
+directlyIn(natasha,olga).\mozartNEWLINE
+directlyIn(olga,katarina).\mozartNEWLINE
+\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}in(X,Y):\mozartSPACE{}X\mozartSPACE{}is\mozartSPACE{}(directly\mozartSPACE{}or\mozartSPACE{}indirectly)\mozartSPACE{}contained\mozartSPACE{}in\mozartSPACE{}Y\mozartNEWLINE
+in(X,Y)\mozartSPACE{}:-\mozartSPACE{}directlyIn(X,Y).\mozartNEWLINE
+in(X,Y)\mozartSPACE{}:-\mozartSPACE{}directlyIn(X,Z),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}in(Z,Y).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L3.EX2}\begin{mozartCODEDISPLAY}\mozartFACETEXT{greater\mozartUNDERSCORE{}than(succ(X),0).\mozartNEWLINE
+greater\mozartUNDERSCORE{}than(succ(X),succ(Y))\mozartSPACE{}:-\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}greater\mozartUNDERSCORE{}than(X,Y).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L3.EX4}\begin{mozartCODEDISPLAY}\mozartFACETEXT{swap(leaf(X),leaf(X)).\mozartNEWLINE
+swap(tree(B1,B2),tree(B2Swapped,B1Swapped))\mozartSPACE{}:-\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}swap(B1,B1Swapped),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}swap(B2,B2Swapped).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L3.EX5}see musterloesung\end{mozartANSWER}
+\begin{mozartANSWER}{L3.EX3}Answer to part 1. \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{travelFromTo(X,Y)\mozartSPACE{}:-\mozartSPACE{}directTrain(X,Y).\mozartNEWLINE
+travelFromTo(X,Y)\mozartSPACE{}:-\mozartSPACE{}\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}directTrain(X,Z),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}travelFromTo(Z,Y).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+ \mozartEMPTY
+Answer to part 2. The most straightforward way of expressing that \mozartEMPTY
+there is  a direct train from B to A if there is a direct train from A \mozartEMPTY
+to B would be: \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{directTrain(X,Y)\mozartSPACE{}:-\mozartSPACE{}directTrain(Y,X).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+However, this solution makes Prolog end up in an endless loop very quickly. For \mozartEMPTY
+example, when asking the following query. \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}travelFromTo(saarbruecken,metz).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+Prolog will try whether there is a direct train from Saarbruecken to \mozartEMPTY
+Metz (\mozartCODEINLINE{\mozartFACETEXT{directTrain(saarbruecken,metz)}}). Since there is none in \mozartEMPTY
+the database, Prolog will use the new rule. This produces a new goal, \mozartEMPTY
+namely to check whether there is a direct train from Metz to \mozartEMPTY
+Saarbruecken (\mozartCODEINLINE{\mozartFACETEXT{directTrain(metz,saarbruecken)}}). There is no such \mozartEMPTY
+train in the database either, so that Prolog again uses the new rule \mozartEMPTY
+flipping around the starting point and the end point. So, the goal it \mozartEMPTY
+is trying to prove is again \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{directTrain(saarbruecken,metz)}}. This is exactly where we have \mozartEMPTY
+been before, showing that Prolog has ended up in a loop. It will run \mozartEMPTY
+endlessly instead of answering no. \mozartEMPTY
+In fact, there is no solution to this exercise (using only the things \mozartEMPTY
+that we have learned up to now), which will not end up in a loop \mozartEMPTY
+sooner or later. Carefully check your solution to see when this \mozartEMPTY
+happens. Also, try to travel between cities that are not mentioned in \mozartEMPTY
+the database (e.g., \mozartCODEINLINE{\mozartFACETEXT{travelFromTo(paris,madrid)}}). Prolog should \mozartEMPTY
+answer 'no', but it will most probably end up in a loop instead.
+
+A way out of the problem would be to keep track of the cities we have \mozartEMPTY
+already passed and to disallow passing the same city twice. But to \mozartEMPTY
+implement this solution you need to know about lists and about negation.\end{mozartANSWER}
+\begin{mozartANSWER}{L4.EX1}\begin{mozartCODEDISPLAY}\mozartFACETEXT{?-\mozartSPACE{}[a,b,c,d]\mozartSPACE{}=\mozartSPACE{}[a,[b,c,d]].\mozartNEWLINE
+No\mozartNEWLINE
+(The\mozartSPACE{}first\mozartSPACE{}list\mozartSPACE{}has\mozartSPACE{}four\mozartSPACE{}elements;\mozartSPACE{}the\mozartSPACE{}second\mozartSPACE{}only\mozartSPACE{}two.)\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[a,b,c,d]\mozartSPACE{}=\mozartSPACE{}[a\mozartVBAR{}[b,c,d]].\mozartNEWLINE
+Yes\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[a,b,c,d]\mozartSPACE{}=\mozartSPACE{}[a,b,[c,d]].\mozartNEWLINE
+No\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[a,b,c,d]\mozartSPACE{}=\mozartSPACE{}[a,b\mozartVBAR{}[c,d]].\mozartNEWLINE
+Yes\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[a,b,c,d]\mozartSPACE{}=\mozartSPACE{}[a,b,c,[d]].\mozartNEWLINE
+No\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[a,b,c,d]\mozartSPACE{}=\mozartSPACE{}[a,b,c\mozartVBAR{}[d]].\mozartNEWLINE
+Yes\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[a,b,c,d]\mozartSPACE{}=\mozartSPACE{}[a,b,c,d,[]].\mozartNEWLINE
+No\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[a,b,c,d]\mozartSPACE{}=\mozartSPACE{}[a,b,c,d\mozartVBAR{}[]].\mozartNEWLINE
+Yes\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[]\mozartSPACE{}=\mozartSPACE{}\mozartUNDERSCORE{}.\mozartNEWLINE
+Yes\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[]\mozartSPACE{}=\mozartSPACE{}[\mozartUNDERSCORE{}].\mozartNEWLINE
+No\mozartNEWLINE
+(The\mozartSPACE{}first\mozartSPACE{}list\mozartSPACE{}is\mozartSPACE{}empty;\mozartSPACE{}the\mozartSPACE{}second\mozartSPACE{}list\mozartSPACE{}has\mozartSPACE{}one\mozartSPACE{}element.)\mozartNEWLINE
+\mozartNEWLINE
+?-\mozartSPACE{}[]\mozartSPACE{}=\mozartSPACE{}[\mozartUNDERSCORE{}\mozartVBAR{}[]].\mozartNEWLINE
+No\mozartNEWLINE
+(The\mozartSPACE{}first\mozartSPACE{}list\mozartSPACE{}is\mozartSPACE{}empty;\mozartSPACE{}the\mozartSPACE{}second\mozartSPACE{}list\mozartSPACE{}has\mozartSPACE{}one\mozartSPACE{}element.)}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L4.EX1.2}\begin{enumerate}
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[1\mozartVBAR{}[2,3,4]]}} is correct. The list has 4 elements.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[1,2,3\mozartVBAR{}[]]}} is correct. The list has 3 elements. 
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[1\mozartVBAR{}2,3,4]}} is not correct. The tail of the list, i.e., what's right of \mozartCODEINLINE{\mozartFACETEXT{\mozartVBAR{}}}, has to be a list again, such as in the first example.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[1,2,3\mozartVBAR{}.(4,[])]}} is correct. The list has 4 elements.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[1\mozartVBAR{}.(2,[3,4])]}} is correct. The list has 4 elements. 
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[1\mozartVBAR{}[2\mozartVBAR{}[3\mozartVBAR{}[4]]]]}} is correct. The list has 4 elements. 
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[1,2,3,4\mozartVBAR{}[]]}} is correct. The list has 4 elements. 
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[[]\mozartVBAR{}[]]}} is correct. The list has 1 element, namely the empty list. 
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[[1,2]\mozartVBAR{}4]}} is not correct. As in no. 3, the tail is not a list.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[[1,2],[3,4]\mozartVBAR{}[5,6,7]]}} is correct. The list has 5 elements.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{.(1\mozartVBAR{}.(2,.(3,[4])))}} is not correct. \mozartCODEINLINE{\mozartFACETEXT{\mozartVBAR{}}} can only be used together with \mozartCODEINLINE{\mozartFACETEXT{[}} and \mozartCODEINLINE{\mozartFACETEXT{]}}. It cannot be used in the 'dot' notation.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{[1\mozartVBAR{}.(2,.(3,[4]))]}} is correct. The list has 4 elements.
+\end{enumerate}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L4.EX2}\begin{mozartCODEDISPLAY}\mozartFACETEXT{\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}base\mozartSPACE{}case:\mozartSPACE{}the\mozartSPACE{}input\mozartSPACE{}list\mozartSPACE{}is\mozartSPACE{}empty.\mozartSPACE{}There\mozartSPACE{}is\mozartSPACE{}nothing\mozartSPACE{}to\mozartSPACE{}translate,\mozartSPACE{}\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}so\mozartSPACE{}that\mozartSPACE{}the\mozartSPACE{}output\mozartSPACE{}list\mozartSPACE{}is\mozartSPACE{}empty\mozartSPACE{}as\mozartSPACE{}well.\mozartSPACE{}\mozartNEWLINE
+\mozartNEWLINE
+listtran([],[]).\mozartSPACE{}\mozartNEWLINE
+\mozartNEWLINE
+\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}recursive\mozartSPACE{}case:\mozartSPACE{}We\mozartSPACE{}translate\mozartSPACE{}the\mozartSPACE{}head\mozartSPACE{}G\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}input\mozartSPACE{}list\mozartSPACE{}using\mozartSPACE{}\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}the\mozartSPACE{}predicate\mozartSPACE{}tran/2.\mozartSPACE{}The\mozartSPACE{}result\mozartSPACE{}is\mozartSPACE{}E\mozartSPACE{}and\mozartSPACE{}becomes\mozartSPACE{}the\mozartSPACE{}head\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}output\mozartSPACE{}list.\mozartSPACE{}Then\mozartSPACE{}we\mozartSPACE{}recursively\mozartSPACE{}translate\mozartSPACE{}the\mozartSPACE{}rest\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}input.\mozartSPACE{}\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}The\mozartSPACE{}result\mozartSPACE{}becomes\mozartSPACE{}the\mozartSPACE{}rest\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}output.\mozartSPACE{}\mozartNEWLINE
+\mozartNEWLINE
+listtran([G\mozartVBAR{}GT],[E\mozartVBAR{}ET])\mozartSPACE{}:-\mozartSPACE{}tran(G,E),\mozartSPACE{}listtran(GT,ET).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L4.EX3}\begin{mozartCODEDISPLAY}\mozartFACETEXT{\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}base\mozartSPACE{}case:\mozartSPACE{}input\mozartSPACE{}list\mozartSPACE{}is\mozartSPACE{}empty.\mozartSPACE{}So\mozartSPACE{}there\mozartSPACE{}is\mozartSPACE{}nothing\mozartSPACE{}to\mozartSPACE{}write\mozartSPACE{}to\mozartSPACE{}\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}the\mozartSPACE{}output\mozartSPACE{}list\mozartSPACE{}which\mozartSPACE{}therefore\mozartSPACE{}is\mozartSPACE{}empty\mozartSPACE{}as\mozartSPACE{}well.\mozartSPACE{}\mozartNEWLINE
+\mozartNEWLINE
+twice([],[]).\mozartSPACE{}\mozartNEWLINE
+\mozartNEWLINE
+\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}The\mozartSPACE{}first\mozartSPACE{}two\mozartSPACE{}elements\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}output\mozartSPACE{}list\mozartSPACE{}are\mozartSPACE{}both\mozartSPACE{}identical\mozartSPACE{}to\mozartSPACE{}the\mozartSPACE{}\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}head\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}input\mozartSPACE{}list.\mozartSPACE{}A\mozartSPACE{}recursive\mozartSPACE{}call\mozartSPACE{}produces\mozartSPACE{}the\mozartSPACE{}tail\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}\mozartNEWLINE
+\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}output\mozartSPACE{}list\mozartSPACE{}from\mozartSPACE{}the\mozartSPACE{}tail\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}input\mozartSPACE{}list.\mozartSPACE{}\mozartNEWLINE
+\mozartNEWLINE
+twice([H\mozartVBAR{}TIn],[H,H\mozartVBAR{}TOut])\mozartSPACE{}:-\mozartSPACE{}twice(TIn,\mozartSPACE{}TOut).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L4.EX4}\begin{center}%\newcommand{\stnode}[1]{\TR{\psframebox{{\tt #1}}}}
+\pstree{\stnode{member(a,[c,b,a,y])}}
+{
+ \pstree{\stnode{member(a,[b,a,y])}}
+ {
+  \pstree{\stnode{member(a,[a,y])}}
+  {
+   \stnode{}
+  }
+ }
+}
+\hspace{1cm}
+\pstree{\stnode{member(x,[c,b,a,y])}}
+{
+ \pstree{\stnode{member(x,[b,a,y])}}
+ {
+  \pstree{\stnode{member(x,[a,y])}}
+  {
+   \pstree{\stnode{member(x,[y])}}
+   {
+    \stnode{member(x,[])}
+   }
+  }
+ }
+}\vspace{0.5cm}
+
+\pstree{\stnode{member(I1,[a,b,c])}}
+{
+ \stnode{}\tlput{I1 = a}
+ \pstree{\stnode{member(I1,[b,c])}}
+ {
+  \stnode{}\tlput{I1 = b}
+  \pstree{\stnode{member(I1,[c])}}
+  {
+   \stnode{}\tlput{I1 = c}
+   \stnode{member(I1,[])}
+  }
+ }
+}\end{center}\end{mozartANSWER}
+\begin{mozartANSWER}{L5.EX1}\begin{enumerate}
+\item{}\mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}=\mozartSPACE{}3*4.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}=\mozartSPACE{}3*4}}. Variable \mozartCODEINLINE{\mozartFACETEXT{X}} is \mozartEMPTY
+instantiated with complex term \mozartCODEINLINE{\mozartFACETEXT{3*4}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}is\mozartSPACE{}3*4.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}=\mozartSPACE{}12}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{4\mozartSPACE{}is\mozartSPACE{}X.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{ERROR:\mozartSPACE{}Arguments\mozartSPACE{}are\mozartSPACE{}not\mozartSPACE{}sufficiently\mozartSPACE{}instantiated}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}=\mozartSPACE{}Y.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}=\mozartSPACE{}Y}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{3\mozartSPACE{}is\mozartSPACE{}1+2.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{yes}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{3\mozartSPACE{}is\mozartSPACE{}+(1,2).}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{yes}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{3\mozartSPACE{}is\mozartSPACE{}X+2.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{ERROR:\mozartSPACE{}Arguments\mozartSPACE{}are\mozartSPACE{}not\mozartSPACE{}sufficiently\mozartSPACE{}instantiated}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}is\mozartSPACE{}1+2.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}=\mozartSPACE{}3}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{1+2\mozartSPACE{}is\mozartSPACE{}1+2.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{no}}. Prolog evaluates \mozartEMPTY
+the arithmetic expression to the right of \mozartCODEINLINE{\mozartFACETEXT{is}}. Then it tries to \mozartEMPTY
+match the result to the term to the left of \mozartCODEINLINE{\mozartFACETEXT{is}}. This fails as \mozartEMPTY
+the number \mozartCODEINLINE{\mozartFACETEXT{3}} does not match the complex term \mozartCODEINLINE{\mozartFACETEXT{1+2}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{is(X,+(1,2)).}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{X\mozartSPACE{}=\mozartSPACE{}3}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{3+2\mozartSPACE{}=\mozartSPACE{}+(3,2).}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{yes}}. \mozartCODEINLINE{\mozartFACETEXT{3+2}} and \mozartEMPTY
+\mozartCODEINLINE{\mozartFACETEXT{+(3,2)}} are two ways of writing the same term.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{*(7,5)\mozartSPACE{}=\mozartSPACE{}7*5.}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{yes}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{*(7,+(3,2))\mozartSPACE{}=\mozartSPACE{}7*(3+2).}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{yes}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{*(7,(3+2))\mozartSPACE{}=\mozartSPACE{}7*(3+2).}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{yes}}.
+\item{}\mozartCODEINLINE{\mozartFACETEXT{*(7,(3+2))\mozartSPACE{}=\mozartSPACE{}7*(+(3,2)).}} Prolog answers: \mozartCODEINLINE{\mozartFACETEXT{yes}}.
+\end{enumerate}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L5.EX2}\begin{mozartCODEDISPLAY}\mozartFACETEXT{increment(X,Y)\mozartSPACE{}:-\mozartSPACE{}Y\mozartSPACE{}is\mozartSPACE{}X\mozartSPACE{}+\mozartSPACE{}1.}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{sum(X,Y,Z)\mozartSPACE{}:-\mozartSPACE{}Z\mozartSPACE{}is\mozartSPACE{}X\mozartSPACE{}+\mozartSPACE{}Y.}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L5.EX3}\begin{mozartCODEDISPLAY}\mozartFACETEXT{addone([],[]).\mozartNEWLINE
+addone([H\mozartVBAR{}T],\mozartSPACE{}[H1\mozartVBAR{}T1])\mozartSPACE{}:-\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}H1\mozartSPACE{}is\mozartSPACE{}H\mozartSPACE{}+\mozartSPACE{}1,\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}addone(T,T1).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L6.EX1}\begin{mozartCODEDISPLAY}\mozartFACETEXT{doubled(L)\mozartSPACE{}:-\mozartSPACE{}append(L1,L1,L).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L6.EX2}A solution using reverse. \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{palindrome(L)\mozartSPACE{}:-\mozartSPACE{}reverse(L,L).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+ \mozartEMPTY
+A solution using no built-in predicates. \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{palindrome(L)\mozartSPACE{}:-\mozartSPACE{}check\mozartUNDERSCORE{}palindrome(L,[]).\mozartNEWLINE
+\mozartNEWLINE
+check\mozartUNDERSCORE{}palindrome(L,L).\mozartNEWLINE
+check\mozartUNDERSCORE{}palindrome([\mozartUNDERSCORE{}\mozartVBAR{}L],L).\mozartNEWLINE
+check\mozartUNDERSCORE{}palindrome([H\mozartVBAR{}T],LPal)\mozartSPACE{}:-\mozartSPACE{}check\mozartUNDERSCORE{}palindrome(T,[H\mozartVBAR{}LPal]).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L6.EX3}\begin{mozartCODEDISPLAY}\mozartFACETEXT{second(X,[\mozartUNDERSCORE{},X\mozartVBAR{}\mozartUNDERSCORE{}]).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{swap12([H1,H2\mozartVBAR{}T],[H2,H1\mozartVBAR{}T]).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{final(X,[X]).\mozartNEWLINE
+final(X,[\mozartUNDERSCORE{}\mozartVBAR{}T])\mozartSPACE{}:-\mozartSPACE{}final(X,T).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{toptail([H\mozartVBAR{}TInList],OutList)\mozartSPACE{}:-\mozartSPACE{}append(OutList,[\mozartUNDERSCORE{}],TInList).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{swapfl([H1\mozartVBAR{}T1],[H2\mozartVBAR{}T2])\mozartSPACE{}:-\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}append(Middle,[H2],T1),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}append(Middle,[H1],T2).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L6.EX4}\begin{mozartCODEDISPLAY}\mozartFACETEXT{zebra(N)\mozartSPACE{}:-\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}the\mozartSPACE{}street\mozartSPACE{}is\mozartSPACE{}represented\mozartSPACE{}as\mozartSPACE{}list\mozartSPACE{}of\mozartSPACE{}3\mozartSPACE{}houses\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}Street\mozartSPACE{}=\mozartSPACE{}[House1,House2,House3],\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}a\mozartSPACE{}house\mozartSPACE{}is\mozartSPACE{}represented\mozartSPACE{}as\mozartSPACE{}a\mozartSPACE{}3-place\mozartSPACE{}(color,\mozartSPACE{}nationality,\mozartSPACE{}pet)\mozartSPACE{}complex\mozartSPACE{}term\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}there\mozartSPACE{}is\mozartSPACE{}a\mozartSPACE{}red\mozartSPACE{}house\mozartSPACE{}in\mozartSPACE{}the\mozartSPACE{}street\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}member(house(red,\mozartUNDERSCORE{},\mozartUNDERSCORE{}),\mozartSPACE{}Street),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}there\mozartSPACE{}is\mozartSPACE{}a\mozartSPACE{}blue\mozartSPACE{}house\mozartSPACE{}in\mozartSPACE{}the\mozartSPACE{}street\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}member(house(blue,\mozartUNDERSCORE{},\mozartUNDERSCORE{}),\mozartSPACE{}Street),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}there\mozartSPACE{}is\mozartSPACE{}a\mozartSPACE{}green\mozartSPACE{}house\mozartSPACE{}in\mozartSPACE{}the\mozartSPACE{}street\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}member(house(green,\mozartUNDERSCORE{},\mozartUNDERSCORE{}),\mozartSPACE{}Street),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}the\mozartSPACE{}Englishman\mozartSPACE{}lives\mozartSPACE{}in\mozartSPACE{}the\mozartSPACE{}red\mozartSPACE{}house\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}member(house(red,english,\mozartUNDERSCORE{}),\mozartSPACE{}Street),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}the\mozartSPACE{}jaguar\mozartSPACE{}is\mozartSPACE{}the\mozartSPACE{}pet\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}Spanish\mozartSPACE{}family\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}member(house(\mozartUNDERSCORE{},spanish,jaguar),\mozartSPACE{}Street),\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}the\mozartSPACE{}Japanese\mozartSPACE{}lives\mozartSPACE{}to\mozartSPACE{}the\mozartSPACE{}right\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}snail\mozartSPACE{}keeper\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}sublist([house(\mozartUNDERSCORE{},\mozartUNDERSCORE{},snail),house(\mozartUNDERSCORE{},japanese,\mozartUNDERSCORE{})],\mozartSPACE{}Street),\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartPERCENT{}\mozartPERCENT{}\mozartSPACE{}the\mozartSPACE{}snail\mozartSPACE{}keeper\mozartSPACE{}lives\mozartSPACE{}to\mozartSPACE{}the\mozartSPACE{}left\mozartSPACE{}of\mozartSPACE{}the\mozartSPACE{}blue\mozartSPACE{}house\mozartNEWLINE
+\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}\mozartSPACE{}sublist([house(blue,\mozartUNDERSCORE{},\mozartUNDERSCORE{}),house(\mozartUNDERSCORE{},snail,\mozartUNDERSCORE{})],\mozartSPACE{}Street).}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L7.EX1}The internal representation of the DCG rules that Prolog will work with: \mozartEMPTY
+\begin{mozartCODEDISPLAY}\mozartFACETEXT{s(A,B)\mozartSPACE{}:-\mozartSPACE{}foo(A,C),\mozartSPACE{}bar(C,D),\mozartSPACE{}wiggle(D,B).\mozartNEWLINE
+foo([choo\mozartVBAR{}A],A).\mozartNEWLINE
+foo(A,B)\mozartSPACE{}:-\mozartSPACE{}foo(A,C),\mozartSPACE{}foo(C,B).\mozartNEWLINE
+bar(A,B)\mozartSPACE{}:-\mozartSPACE{}mar(A,C),\mozartSPACE{}zar(C,B).\mozartNEWLINE
+mar(A,B)\mozartSPACE{}:-\mozartSPACE{}me(A,C),\mozartSPACE{}my(C,B).\mozartNEWLINE
+me([i\mozartVBAR{}A],A).\mozartNEWLINE
+my([am\mozartVBAR{}A],A).\mozartNEWLINE
+zar(A,B)\mozartSPACE{}:-\mozartSPACE{}blar(A,C),\mozartSPACE{}car(C,B),\mozartNEWLINE
+blar([a\mozartVBAR{}A],A).\mozartNEWLINE
+car([train\mozartVBAR{}A],A).\mozartNEWLINE
+wiggle([toot\mozartVBAR{}A],A).\mozartNEWLINE
+wiggle(A,B)\mozartSPACE{}:-\mozartSPACE{}wiggle(A,C),\mozartSPACE{}wriggle(C,B).}\end{mozartCODEDISPLAY}
+ \mozartEMPTY
+The first three sentences that Prolog will generate: \mozartEMPTY
+\begin{enumerate}
+\item{}choo i am a train toot
+\item{}choo i am a train toot toot
+\item{}choo i am a train toot toot toot
+\end{enumerate}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L7.EX2}\begin{mozartCODEDISPLAY}\mozartFACETEXT{s\mozartSPACE{}--\mozartGT{}\mozartSPACE{}[a,b].\mozartNEWLINE
+s\mozartSPACE{}--\mozartGT{}\mozartSPACE{}a,\mozartSPACE{}s,\mozartSPACE{}b.\mozartNEWLINE
+a\mozartSPACE{}--\mozartGT{}\mozartSPACE{}[a].\mozartNEWLINE
+b\mozartSPACE{}--\mozartGT{}\mozartSPACE{}[b].}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\begin{mozartANSWER}{L7.EX3}\begin{mozartCODEDISPLAY}\mozartFACETEXT{s\mozartSPACE{}--\mozartGT{}\mozartSPACE{}[].\mozartNEWLINE
+s\mozartSPACE{}--\mozartGT{}\mozartSPACE{}a,\mozartSPACE{}s,\mozartSPACE{}b.\mozartNEWLINE
+a\mozartSPACE{}--\mozartGT{}\mozartSPACE{}[a].\mozartNEWLINE
+b\mozartSPACE{}--\mozartGT{}\mozartSPACE{}[b,b].}\end{mozartCODEDISPLAY}
+\end{mozartANSWER}
+\end{document}

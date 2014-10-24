@@ -1,0 +1,20 @@
+
+% splitindex.perl        (creates a new names.idx and prolog.idx files)
+% makeindex -s LPN.isty lpn.idx
+% makeindex -s LPN.isty prolog.idx
+
+%\renewcommand*{\indexname}{Author Index}
+%\input{names.ind}
+
+\cleardoublepage
+\renewcommand*{\indexname}{\hfill Predicate Index}
+\addcontentsline{toc}{chapter}{Predicate Index}
+\pagestyle{bbpindex}
+\thispagestyle{empty}
+\input{prolog.ind}
+
+\cleardoublepage
+\renewcommand*{\indexname}{\hfill Subject Index}
+\addcontentsline{toc}{chapter}{Subject Index}
+\pagestyle{bbsindex}
+\printindex

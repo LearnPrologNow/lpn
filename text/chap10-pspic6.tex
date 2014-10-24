@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{pstricks,pst-tree,pst-node}
+
+\pagestyle{empty}
+
+
+\newcommand{\stnode}[1]{\TR{\psframebox{\texttt{#1}}}}
+%\newcommand{\stelabel}[1]{\parbox[c]{40mm}{\texttt{#1}}}
+\newcommand{\stelabel}[1]{\texttt{#1}}
+
+
+\begin{document}
+
+\pstree[levelsep=1.3cm]{\stnode{?- s(X,Y)}}
+{
+ \pstree[levelsep=1.3cm]{\stnode{?- q(\_G4,\_G5)}\tlput{\stelabel{X = \_G4, Y = \_G5}}}
+ {
+  \pstree[levelsep=1.3cm]{\stnode{?- i(\_G4),!,j(\_G5)}}
+  {
+   \pstree[levelsep=1.3cm]{\stnode{?- !,j(\_G5)}\tlput{\stelabel{\_G4 = 1}}}
+    { 
+     \pstree[levelsep=1.3cm]{\stnode{?- j(\_G5)}}
+      {
+       \stnode{\strut\hspace{0.3cm}\strut}\tlput{\stelabel{\_G5 = 1}}
+       \stnode{\strut\hspace{0.3cm}\strut}\tvput{\stelabel{\_G5 = 2}}
+       \stnode{\strut\hspace{0.3cm}\strut}\trput{\stelabel{\_G5 = 3}}
+      }
+    }
+     \psset{linestyle=dashed}\stnode{$\ldots$}\tvput{\huge $\times$}
+   }
+  }
+  \stnode{\strut\hspace{0.3cm}\strut}\trput{\stelabel{X = 0, Y = 0}}
+}
+
+\end{document}
