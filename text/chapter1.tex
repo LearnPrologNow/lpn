@@ -305,8 +305,8 @@ establish §playsAirGuitar(vincent)§, and our query fails.
 Incidentally, the spacing used in this rule is irrelevant. For  
 example, we could have written it as
 \begin{LPNcodedisplay}
-playsAirGuitar(vincent):- happy(vincent),
-                           listens2Music(vincent). 
+playsAirGuitar(vincent):- listens2Music(vincent),
+			   happy(vincent).
 \end{LPNcodedisplay}
 and it would have meant exactly the same thing. Prolog offers us a lot
 of freedom in the way we set out knowledge bases, and we can take
