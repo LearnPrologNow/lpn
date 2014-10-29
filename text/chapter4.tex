@@ -5,8 +5,8 @@
 \Thischapter{145}{
 
 \noindent
-This chapter has three main goals:  
-  
+This chapter has three main goals:
+
 \begin{enumerate}
 \item{}To introduce lists, an important recursive data structure
 often used in Prolog programming.
@@ -22,26 +22,26 @@ lists.
 
 
 
-As its name suggests, a list is just a plain old list of  
-items. Slightly more precisely, it is a finite sequence of elements.  
-Here are some examples of lists in Prolog:  
-  
-  
+As its name suggests, a list is just a plain old list of
+items. Slightly more precisely, it is a finite sequence of elements.
+Here are some examples of lists in Prolog:
+
+
 \begin{LPNcodedisplay}
 [mia, vincent, jules, yolanda]
-        
+
 [mia, robber(honey_bunny), X, 2, mia]
-        
+
 []
-        
+
 [mia, [vincent, jules], [butch, girlfriend(butch)]]
-        
+
 [[], dead(z), [2, [b, c]], [], Z, [2, [b, c]]]
 \end{LPNcodedisplay}
-  
-  
-          
-We can learn some important things from these examples.  
+
+
+
+We can learn some important things from these examples.
 \begin{enumerate}
 \item{}We can specify lists in Prolog by enclosing the
 \LPNterm{elements} of the list in square brackets (that is, the symbols
@@ -50,44 +50,44 @@ first list shown above, §[mia, vincent, jules, yolanda]§, is a list with
 four elements, namely §mia§, §vincent§, §jules§, and §yolanda§.  The
 \LPNterm{length} of a list is the number of elements it has, so our
 first example is a list of length four.
-\item{}From §[mia,robber(honey_bunny),X,2,mia]§,   
-our second example,   
-we learn that all sorts of Prolog  
-objects can be elements of a list.  The first element of this list is  
-§mia§, an atom; the second element is §robber(honey_bunny)§,  
-a complex term; the third element is §X§, a variable; the fourth  
-element is §2§, a number.  Moreover, we also learn that the same  
-item may occur more than once in the same list: for example, the fifth  
-element of this list is §mia§, which is same as the first  
+\item{}From §[mia,robber(honey_bunny),X,2,mia]§,
+our second example,
+we learn that all sorts of Prolog
+objects can be elements of a list.  The first element of this list is
+§mia§, an atom; the second element is §robber(honey_bunny)§,
+a complex term; the third element is §X§, a variable; the fourth
+element is §2§, a number.  Moreover, we also learn that the same
+item may occur more than once in the same list: for example, the fifth
+element of this list is §mia§, which is same as the first
 element.
-\item{}The third example shows that there is a special list,   
-        the \LPNterm{empty list}.  The empty list (as its name   
-        suggests) is the list that contains no elements.  What is the   
-        length of the empty list?  Zero, of course (for the length of a   
-        list is the number of members it contains, and the empty list   
+\item{}The third example shows that there is a special list,
+        the \LPNterm{empty list}.  The empty list (as its name
+        suggests) is the list that contains no elements.  What is the
+        length of the empty list?  Zero, of course (for the length of a
+        list is the number of members it contains, and the empty list
         contains nothing).
-\item{}The fourth example teaches us something extremely important:   
-        lists can contain other lists as elements.  For example, the   
-        second element of   
+\item{}The fourth example teaches us something extremely important:
+        lists can contain other lists as elements.  For example, the
+        second element of
         \begin{LPNcodedisplay}
 [mia, [vincent, jules], [butch,girlfriend(butch)]
 \end{LPNcodedisplay}
- is   
-        §[vincent,jules]§. The   
-        third is §[butch,girlfriend(butch)]§. 
-          
-        What is the length of the fourth list?  The answer is: three.  
-If you thought it was five (or indeed, anything else) you're not  
-thinking about lists in the right way.  The elements of the list are  
-the things between the outermost square brackets separated by commas.  
-So this list contains \LPNemph{three} elements: the first element is  
-§mia§, the second element is §[vincent, jules]§, and the  
+ is
+        §[vincent,jules]§. The
+        third is §[butch,girlfriend(butch)]§.
+
+        What is the length of the fourth list?  The answer is: three.
+If you thought it was five (or indeed, anything else) you're not
+thinking about lists in the right way.  The elements of the list are
+the things between the outermost square brackets separated by commas.
+So this list contains \LPNemph{three} elements: the first element is
+§mia§, the second element is §[vincent, jules]§, and the
 third element is §[butch, girlfriend(butch)]§.
-\item{}The last example mixes all these ideas together.  We have   
-        here a list which contains the empty list (in fact, it contains it   
-        twice), the complex term §dead(z)§, two copies of the list  
-        §[2, [b, c]]§, and the variable §Z§.  Note that   
-        the third (and the last) elements are lists which themselves   
+\item{}The last example mixes all these ideas together.  We have
+        here a list which contains the empty list (in fact, it contains it
+        twice), the complex term §dead(z)§, two copies of the list
+        §[2, [b, c]]§, and the variable §Z§.  Note that
+        the third (and the last) elements are lists which themselves
         contain lists (namely §[b, c]§).
 \end{enumerate}
 
@@ -99,20 +99,20 @@ else. To put it more precisely, the tail is the list
 that remains when we take the first element away; that is,
 \LPNemph{the tail of a list is always a list}. For example, the head
 of
-  
+
 \begin{LPNcodedisplay}
         [mia, vincent, jules, yolanda]
 \end{LPNcodedisplay}
-is §mia§ and the tail is § [vincent, jules, yolanda]§.  
-Similarly, the head of  
+is §mia§ and the tail is § [vincent, jules, yolanda]§.
+Similarly, the head of
   \begin{LPNcodedisplay}
 [[], dead(z), [2, [b, c]], [], Z, [2, [b, c]]]
 \end{LPNcodedisplay}
-is §[]§, and the   
-tail is §[dead(z), [2,[b,c]],[],Z,[2,[b, c]]]§.  
-And what are the head and the tail of the list §[dead(z)]§?  
-Well, the head is the first element of the list, which is  
-§dead(z)§, and the tail is the list that remains if we take  
+is §[]§, and the
+tail is §[dead(z), [2,[b,c]],[],Z,[2,[b, c]]]§.
+And what are the head and the tail of the list §[dead(z)]§?
+Well, the head is the first element of the list, which is
+§dead(z)§, and the tail is the list that remains if we take
 the head away, which, in this case, is the empty list §[]§.
 
 What about the empty list? It has neither a head nor a tail.
@@ -130,68 +130,68 @@ The most obvious use of §|§ is to extract information from lists.  We
 do this by using §|§ together with unification.  For example, to get
 hold of the head and tail of §[mia,vincent,§ §jules,yolanda]§ we can
 pose the following query:
-  
+
 \begin{LPNcodedisplay}
 ?- [Head|Tail] = [mia, vincent, jules, yolanda].
 
-Head = mia 
+Head = mia
 Tail = [vincent,jules,yolanda]
-yes 
+yes
 \end{LPNcodedisplay}
-That is, the head of the list has become bound to §Head§ and the  
-tail of the list has become bound to §Tail§.  Note that there is  
-nothing special about §Head§ and §Tail§, they are simply  
-variables.  We could just as well have posed the query:  
-  
-  
+That is, the head of the list has become bound to §Head§ and the
+tail of the list has become bound to §Tail§.  Note that there is
+nothing special about §Head§ and §Tail§, they are simply
+variables.  We could just as well have posed the query:
+
+
 \begin{LPNcodedisplay}
 ?- [X|Y] = [mia, vincent, jules, yolanda].
 
-X = mia 
-Y = [vincent,jules,yolanda] 
+X = mia
+Y = [vincent,jules,yolanda]
 yes
 \end{LPNcodedisplay}
-  
-  
-  
-As we mentioned above, only non-empty lists have heads and tails.  If   
-we try to use §|§ to pull §[]§ apart, Prolog will fail:  
-  
+
+
+
+As we mentioned above, only non-empty lists have heads and tails.  If
+we try to use §|§ to pull §[]§ apart, Prolog will fail:
+
 \begin{LPNcodedisplay}
 ?- [X|Y] = [].
 
 no
 \end{LPNcodedisplay}
-That is, Prolog treats §[]§ as a special list.  This observation   
+That is, Prolog treats §[]§ as a special list.  This observation
 is extremely  important.  We'll see why later.
 
-Let's look at some other examples.  We can extract the head and tail   
-of the following list just as we saw above:  
-  
+Let's look at some other examples.  We can extract the head and tail
+of the following list just as we saw above:
+
 \begin{LPNcodedisplay}
 ?- [X|Y] = [[], dead(z), [2, [b, c]], [], Z].
 
-X = [] 
-Y = [dead(z),[2,[b,c]],[],_7800] 
-Z = _7800 
+X = []
+Y = [dead(z),[2,[b,c]],[],_7800]
+Z = _7800
 yes
 \end{LPNcodedisplay}
-That is: the head of the list is bound to §X§, the tail is bound   
-to §Y§.  (We also learn that Prolog has bound   
+That is: the head of the list is bound to §X§, the tail is bound
+to §Y§.  (We also learn that Prolog has bound
 §Z§ to the internal variable §_7800§.)
 
-But we  can do a lot more with §|§; it really is a  
-flexible tool.  For example, suppose we wanted to know what the first  
-\LPNemph{two} elements of the list were, and also the remainder of the  
-list after the second element.  Then we'd pose the following query:  
-  
+But we  can do a lot more with §|§; it really is a
+flexible tool.  For example, suppose we wanted to know what the first
+\LPNemph{two} elements of the list were, and also the remainder of the
+list after the second element.  Then we'd pose the following query:
+
 \begin{LPNcodedisplay}
 ?- [X,Y | W] = [[], dead(z), [2, [b, c]], [], Z].
 
-X = [] 
-Y = dead(z) 
-W = [[2,[b,c]],[],_8327] 
-Z = _8327 
+X = []
+Y = dead(z)
+W = [[2,[b,c]],[],_8327]
+Z = _8327
 yes
 \end{LPNcodedisplay}
 
@@ -202,50 +202,50 @@ away the first two elements). So §|§ can not only be used to split a
 list into its head and its tail, we can also use it to split a list at
 any point. To the left of §|§ we simply indicate how many elements we
 want to take away from the front of the list, and then to right of the
-§|§ we will get what remains. 
+§|§ we will get what remains.
 
-This is a good time to introduce the \LPNterm{anonymous variable}.  
-Suppose we were interested in getting hold of the second and fourth  
-elements of the list:  
+This is a good time to introduce the \LPNterm{anonymous variable}.
+Suppose we were interested in getting hold of the second and fourth
+elements of the list:
 \begin{LPNcodedisplay}
 [[], dead(z), [2, [b, c]], [], Z].
 \end{LPNcodedisplay}
-  
-Now, we could find out like this:  
+
+Now, we could find out like this:
 \begin{LPNcodedisplay}
-?- [X1,X2,X3,X4 | Tail] = 
+?- [X1,X2,X3,X4 | Tail] =
             [[], dead(z), [2, [b, c]], [], Z].
 
-X1 = [] 
-X2 = dead(z) 
-X3 = [2,[b,c]] 
-X4 = [] 
-Tail = [_8910] 
-Z = _8910 
+X1 = []
+X2 = dead(z)
+X3 = [2,[b,c]]
+X4 = []
+Tail = [_8910]
+Z = _8910
 yes
 \end{LPNcodedisplay}
-  
-Ok, we have got the information we wanted: the values we are  
-interested in are bound to the variables §X2§ and §X4§.  But  
-we've got a lot of other information too (namely the values bound to  
-§X1§, §X3§ and §Tail§). And perhaps we're not  
-interested in all this other stuff. If so, it's a bit silly having to  
-explicitly introduce variables §X1§, §X3§ and §Tail§ to  
-deal with it.  And in fact, there is a simpler way to obtain \LPNemph{only}  
-the information we want: we can pose the following query  
-instead:  
-  
-  
+
+Ok, we have got the information we wanted: the values we are
+interested in are bound to the variables §X2§ and §X4§.  But
+we've got a lot of other information too (namely the values bound to
+§X1§, §X3§ and §Tail§). And perhaps we're not
+interested in all this other stuff. If so, it's a bit silly having to
+explicitly introduce variables §X1§, §X3§ and §Tail§ to
+deal with it.  And in fact, there is a simpler way to obtain \LPNemph{only}
+the information we want: we can pose the following query
+instead:
+
+
 \begin{LPNcodedisplay}
 ?- [_,X,_,Y|_] = [[], dead(z), [2, [b, c]], [], Z].
 
-X = dead(z) 
-Y = [] 
-Z = _9593 
+X = dead(z)
+Y = []
+Z = _9593
 yes
 \end{LPNcodedisplay}
-  
-  
+
+
 The §_§ symbol (that is, underscore) is the anonymous variable.  We
 use it when we need to use a variable, but we're not interested in
 what Prolog instantiates the variable to.  As you can see in the above
@@ -257,18 +257,18 @@ meant to be ordinary. It's simply a way of telling Prolog to bind
 something to a given position, completely independently of any other
 bindings.
 
-Let's look at one last example. The third element of our working  
-example is a list (namely §[2, [b, c]]§).  Suppose we  
-wanted to extract the tail of this internal list, and that we are not  
-interested in any other information.  How could we do this?  As  
-follows:  
-  
+Let's look at one last example. The third element of our working
+example is a list (namely §[2, [b, c]]§).  Suppose we
+wanted to extract the tail of this internal list, and that we are not
+interested in any other information.  How could we do this?  As
+follows:
+
 \begin{LPNcodedisplay}
-?- [_,_,[_|X]|_] = 
+?- [_,_,[_|X]|_] =
       [[], dead(z), [2, [b, c]], [], Z, [2, [b, c]]].
 
-X = [[b,c]] 
-Z = _10087 
+X = [[b,c]]
+Z = _10087
 yes
 \end{LPNcodedisplay}
 
@@ -287,105 +287,105 @@ usually called \LPNterm{member}\index{PROLOG
 member/2@\texttt{member/2}}, and it is the simplest example of a
 Prolog program that exploits the recursive structure of lists.  Here
 it is:
-  
-  
+
+
 \begin{LPNcodedisplay}
 member(X,[X|T]).
 member(X,[H|T]) :- member(X,T).
 \end{LPNcodedisplay}
-  
-  
-That's all there is to it: one fact (namely §member(X,[X|T])§)  
-and one rule (namely §member(X,[H|T]) :- member(X,T)§). But note  
-that the rule is recursive (after all, the functor §member§  
-occurs in both the rule's head and body) and it is this that explains  
-why such a short program is all that is required.  
+
+
+That's all there is to it: one fact (namely §member(X,[X|T])§)
+and one rule (namely §member(X,[H|T]) :- member(X,T)§). But note
+that the rule is recursive (after all, the functor §member§
+occurs in both the rule's head and body) and it is this that explains
+why such a short program is all that is required.
 Let's take a closer look.
 
-We'll start by reading the program declaratively. And read this way,  
-it is obviously sensible.  The first clause (the fact) simply says: an  
-object §X§ is a member of a list if it is the head of that list.  
-Note that we used the built-in §|§ operator to state this (simple  
+We'll start by reading the program declaratively. And read this way,
+it is obviously sensible.  The first clause (the fact) simply says: an
+object §X§ is a member of a list if it is the head of that list.
+Note that we used the built-in §|§ operator to state this (simple
 but important) principle about lists.
 
- What about the second clause, the recursive rule?  This says: an  
-object §X§ is member of a list if it is a member of the tail of  
-the list.  Again, note that we used the §|§ operator to state  
+ What about the second clause, the recursive rule?  This says: an
+object §X§ is member of a list if it is a member of the tail of
+the list.  Again, note that we used the §|§ operator to state
 this principle.
 
-Now, clearly this definition makes good declarative sense.  But does  
-this program actually \LPNemph{do} what it is supposed to do?  That is,  
-will it really tell us whether an object §X§ belongs to a list  
-§L§? And if so, how exactly does it do this?  To answer such  
-questions, we need to think about its procedural meaning.  Let's work  
+Now, clearly this definition makes good declarative sense.  But does
+this program actually \LPNemph{do} what it is supposed to do?  That is,
+will it really tell us whether an object §X§ belongs to a list
+§L§? And if so, how exactly does it do this?  To answer such
+questions, we need to think about its procedural meaning.  Let's work
 our way through a few examples.
 
-Suppose we posed the following query:  
-  
+Suppose we posed the following query:
+
 \begin{LPNcodedisplay}
 ?- member(yolanda,[yolanda,trudy,vincent,jules]).
 \end{LPNcodedisplay}
-Prolog will immediately answer yes.  Why?  Because it can unify  
-§yolanda§ with both occurrences of §X§ in the first clause  
-(the fact) in the definition of §member/2§, so it succeeds  
+Prolog will immediately answer yes.  Why?  Because it can unify
+§yolanda§ with both occurrences of §X§ in the first clause
+(the fact) in the definition of §member/2§, so it succeeds
 immediately.
 
-Next consider the following query:  
-  
+Next consider the following query:
+
 \begin{LPNcodedisplay}
 ?- member(vincent,[yolanda,trudy,vincent,jules]).
 \end{LPNcodedisplay}
-Now the first rule won't help (§vincent§ and §yolanda§ are  
-distinct atoms) so Prolog goes to the second clause, the recursive  
-rule. This gives Prolog a new goal: it now has to see if  
-  
+Now the first rule won't help (§vincent§ and §yolanda§ are
+distinct atoms) so Prolog goes to the second clause, the recursive
+rule. This gives Prolog a new goal: it now has to see if
+
 \begin{LPNcodedisplay}
 member(vincent,[trudy,vincent,jules]).
 \end{LPNcodedisplay}
-Once again the first clause won't help, so Prolog goes (again) to  
-the recursive rule. This gives it a new goal, namely  
-  
+Once again the first clause won't help, so Prolog goes (again) to
+the recursive rule. This gives it a new goal, namely
+
 \begin{LPNcodedisplay}
 member(vincent,[vincent,jules]).
 \end{LPNcodedisplay}
 This time, the first clause does help, and the query succeeds.
 
-So far so good, but we need to ask an important question.  What  
-happens when we pose a query that \LPNemph{fails}?  For example, what  
-happens if we pose the query  
-  
+So far so good, but we need to ask an important question.  What
+happens when we pose a query that \LPNemph{fails}?  For example, what
+happens if we pose the query
+
 \begin{LPNcodedisplay}
 member(zed,[yolanda,trudy,vincent,jules]).
 \end{LPNcodedisplay}
-  
-  
-Now, this should obviously fail (after all, §zed§ is not on the  
-list).  So how does Prolog handle this?  In particular, how can we be  
-sure that Prolog really will \LPNemph{stop}, and say \LPNemph{no}, instead  
+
+
+Now, this should obviously fail (after all, §zed§ is not on the
+list).  So how does Prolog handle this?  In particular, how can we be
+sure that Prolog really will \LPNemph{stop}, and say \LPNemph{no}, instead
 going into an endless recursive loop?
 
-Let's think this through systematically.  Once again, the first clause  
-cannot help, so Prolog uses the recursive rule, which gives it a new  
-goal  
-  
+Let's think this through systematically.  Once again, the first clause
+cannot help, so Prolog uses the recursive rule, which gives it a new
+goal
+
 \begin{LPNcodedisplay}
 member(zed,[trudy,vincent,jules]).
 \end{LPNcodedisplay}
-Again, the first clause doesn't help, so Prolog reuses the recursive  
-rule and tries to show that  
-  
+Again, the first clause doesn't help, so Prolog reuses the recursive
+rule and tries to show that
+
 \begin{LPNcodedisplay}
 member(zed,[vincent,jules]).
 \end{LPNcodedisplay}
-Similarly, the first rule doesn't help, so Prolog reuses the second  
-rule yet again and   
-tries the goal  
+Similarly, the first rule doesn't help, so Prolog reuses the second
+rule yet again and
+tries the goal
 \begin{LPNcodedisplay}
 member(zed,[jules]).
 \end{LPNcodedisplay}
-Again the first clause doesn't help, so Prolog uses the second rule,  
-which gives it the goal  
-  
+Again the first clause doesn't help, so Prolog uses the second rule,
+which gives it the goal
+
 \begin{LPNcodedisplay}
 member(zed,[])
 \end{LPNcodedisplay}
@@ -399,24 +399,24 @@ searching for more solutions and announces no.  That is, it tells us
 that §zed§ does not belong to the list, which is just what it ought to
 do.
 
-We could summarise the §member/2§ predicate as follows.  It  
-is a recursive predicate, which systematically searches down the  
-length of the list for the required item.  It does this by stepwise  
-breaking down the list into smaller lists, and looking at the first  
-item of each smaller list.  This mechanism that drives this  
-search is recursion, and the reason that this recursion is safe (that  
-is, the reason it does not go on forever) is that at the end of the  
-line Prolog has to ask a question about the empty list.  The empty  
-list \LPNemph{cannot} be broken down into smaller parts, and this allows a  
+We could summarise the §member/2§ predicate as follows.  It
+is a recursive predicate, which systematically searches down the
+length of the list for the required item.  It does this by stepwise
+breaking down the list into smaller lists, and looking at the first
+item of each smaller list.  This mechanism that drives this
+search is recursion, and the reason that this recursion is safe (that
+is, the reason it does not go on forever) is that at the end of the
+line Prolog has to ask a question about the empty list.  The empty
+list \LPNemph{cannot} be broken down into smaller parts, and this allows a
 way out of the recursion.
 
-Well, we've now seen why §member/2§ works, but in fact it's  
-far more useful than the previous example might suggest.  Up till now  
-we've only been using it to answer yes/no questions.  But we can also  
-pose questions containing variables.  For example, we can have the  
-following dialog with Prolog:  
-  
-  
+Well, we've now seen why §member/2§ works, but in fact it's
+far more useful than the previous example might suggest.  Up till now
+we've only been using it to answer yes/no questions.  But we can also
+pose questions containing variables.  For example, we can have the
+following dialog with Prolog:
+
+
 \begin{LPNcodedisplay}
 member(X,[yolanda,trudy,vincent,jules]).
 
@@ -430,8 +430,8 @@ X = jules ;
 
 no
 \end{LPNcodedisplay}
-  
-  
+
+
 That is, Prolog has told us what every member of a list is.  This is
 an extremely common use of §member/2§. In effect, by using the
 variable we are saying to Prolog: ``Quick! Give me some element of the
@@ -440,27 +440,27 @@ a list, and this is the way it is typically done.
 
 
 
-One final remark.  The way we defined §member/2§ above is  
+One final remark.  The way we defined §member/2§ above is
 certainly correct, but in one respect it is a little messy.
 
-Think about it. The first clause is there to deal with the head of the  
-list. But although the tail is irrelevant to the first clause, we  
-named the tail using the variable §T§. Similarly,  
-the recursive rule is there to deal with the tail of the list.  But  
-although the head is irrelevant here, we named it  
-using the variable  §H§. These unnecessary variable  
-names are distracting: it's better to write predicates in a way that  
-focuses attention on what is really important in each clause, and the  
-anonymous variable gives us a nice way of doing this. That is, we  can rewrite  
-§member/2§ as follows:  
+Think about it. The first clause is there to deal with the head of the
+list. But although the tail is irrelevant to the first clause, we
+named the tail using the variable §T§. Similarly,
+the recursive rule is there to deal with the tail of the list.  But
+although the head is irrelevant here, we named it
+using the variable  §H§. These unnecessary variable
+names are distracting: it's better to write predicates in a way that
+focuses attention on what is really important in each clause, and the
+anonymous variable gives us a nice way of doing this. That is, we  can rewrite
+§member/2§ as follows:
 \begin{LPNcodedisplay}
 member(X,[X|_]).
 member(X,[_|T]) :- member(X,T).
 \end{LPNcodedisplay}
-  
-This version is exactly the same, both declaratively and procedurally.  
-But it's just that little bit clearer: when you read it, you are  
-forced to concentrate on what is essential.  
+
+This version is exactly the same, both declaratively and procedurally.
+But it's just that little bit clearer: when you read it, you are
+forced to concentrate on what is essential.
 
 
 \section{Recursing down Lists}\label{SEC.L4.RDAL}
@@ -472,22 +472,22 @@ this way is extremely common in Prolog; so common, in fact, that it is
 important that you really master the technique. So let's look at another
 example.
 
-When working with lists, we often want to compare one list  
-with another, or to copy bits of one list into another, or to  
-translate the contents of one list into another, or something similar.  
-Here's an example. Let's suppose we need a predicate  
-§a2b/2§ that takes two lists as arguments, and succeeds if  
-the first argument is a list of §a§s, and the second argument is  
-a list of §b§s of exactly the same length.  For example, if we  
-pose the following query  
+When working with lists, we often want to compare one list
+with another, or to copy bits of one list into another, or to
+translate the contents of one list into another, or something similar.
+Here's an example. Let's suppose we need a predicate
+§a2b/2§ that takes two lists as arguments, and succeeds if
+the first argument is a list of §a§s, and the second argument is
+a list of §b§s of exactly the same length.  For example, if we
+pose the following query
 \begin{LPNcodedisplay}
 a2b([a,a,a,a],[b,b,b,b]).
 \end{LPNcodedisplay}
-we want Prolog to say yes. On the other hand, if we pose the query  
+we want Prolog to say yes. On the other hand, if we pose the query
 \begin{LPNcodedisplay}
 a2b([a,a,a,a],[b,b,b]).
 \end{LPNcodedisplay}
-or the query  
+or the query
 \begin{LPNcodedisplay}
 a2b([a,c,a,a],[b,b,5,4]).
 \end{LPNcodedisplay}
@@ -505,67 +505,67 @@ needs to contain is
 \begin{LPNcodedisplay}
 a2b([],[]).
 \end{LPNcodedisplay}
-This records the obvious fact that the empty list contains exactly as  
-many §a§s as §b§s. But although obvious, this fact turns out  
+This records the obvious fact that the empty list contains exactly as
+many §a§s as §b§s. But although obvious, this fact turns out
 to play an important role in our program, as we shall see.
 
- So far so good: but how do we proceed? Here's the idea: for longer  
-lists, \LPNemph{think recursively}. So: when should §a2b/2§  
-decide that two non-empty lists are a list of §a§s and a list of  
-§b§s of exactly the same length? Simple: when the head of the  
-first list is an §a§, and the head of the second list is a  
-§b§, and §a2b/2§ decides that the two tails are lists  
-of §a§s and §b§s of exactly the same length!  This  
-immediately gives us the following rule:  
+ So far so good: but how do we proceed? Here's the idea: for longer
+lists, \LPNemph{think recursively}. So: when should §a2b/2§
+decide that two non-empty lists are a list of §a§s and a list of
+§b§s of exactly the same length? Simple: when the head of the
+first list is an §a§, and the head of the second list is a
+§b§, and §a2b/2§ decides that the two tails are lists
+of §a§s and §b§s of exactly the same length!  This
+immediately gives us the following rule:
 \begin{LPNcodedisplay}
 a2b([a|Ta],[b|Tb]) :- a2b(Ta,Tb).
 \end{LPNcodedisplay}
-This says: the §a2b/2§ predicate should succeed if its  
-first argument is a list with head §a§, its second argument is a  
-list with head §b§, and §a2b/2§ succeeds on the two  
+This says: the §a2b/2§ predicate should succeed if its
+first argument is a list with head §a§, its second argument is a
+list with head §b§, and §a2b/2§ succeeds on the two
 tails.
 
-Now, this definition make good sense declaratively. It is a simple and  
-natural recursive predicate, the base clause dealing with the empty  
-list, the recursive clause dealing with non-empty lists.  But how does  
-it work in practice? That is, what is its procedural meaning?  For  
-example, if we pose the query  
+Now, this definition make good sense declaratively. It is a simple and
+natural recursive predicate, the base clause dealing with the empty
+list, the recursive clause dealing with non-empty lists.  But how does
+it work in practice? That is, what is its procedural meaning?  For
+example, if we pose the query
 \begin{LPNcodedisplay}
 a2b([a,a,a],[b,b,b]).
 \end{LPNcodedisplay}
-Prolog will say yes, which is what we want --- but \LPNemph{why} exactly does  
+Prolog will say yes, which is what we want --- but \LPNemph{why} exactly does
 this happen?
 
-Let's work the example through. In this query, neither list is empty,  
-so the fact does not help. Thus Prolog goes on to try the recursive  
-rule. Now, the query does match the rule (after all, the head of the  
-first list is §a§ and the head of the second is §b§) so  
-Prolog now has a new goal, namely  
+Let's work the example through. In this query, neither list is empty,
+so the fact does not help. Thus Prolog goes on to try the recursive
+rule. Now, the query does match the rule (after all, the head of the
+first list is §a§ and the head of the second is §b§) so
+Prolog now has a new goal, namely
 \begin{LPNcodedisplay}
 a2b([a,a],[b,b]).
 \end{LPNcodedisplay}
-Once again, the fact does not help with this, but the recursive rule  
-can be used again, leading to the following goal:  
+Once again, the fact does not help with this, but the recursive rule
+can be used again, leading to the following goal:
 \begin{LPNcodedisplay}
 a2b([a],[b]).
 \end{LPNcodedisplay}
-Yet again the fact does not help, but the recursive rule does, so we  
-get the following goal:  
+Yet again the fact does not help, but the recursive rule does, so we
+get the following goal:
 \begin{LPNcodedisplay}
 a2b([],[]).
 \end{LPNcodedisplay}
-At last we can use the fact: this tells us that, yes, we really do  
-have two lists here that contain exactly the same number of §a§s  
-and §b§s (namely, none at all). And because this goal succeeds,  
-this means that the goal  
+At last we can use the fact: this tells us that, yes, we really do
+have two lists here that contain exactly the same number of §a§s
+and §b§s (namely, none at all). And because this goal succeeds,
+this means that the goal
 \begin{LPNcodedisplay}
 a2b([a],[b]).
 \end{LPNcodedisplay}
-succeeds too. This in turn means that the goal  
+succeeds too. This in turn means that the goal
 \begin{LPNcodedisplay}
 a2b([a,a],[b,b]).
 \end{LPNcodedisplay}
-succeeds, and thus that the original goal  
+succeeds, and thus that the original goal
 \begin{LPNcodedisplay}
 a2b([a,a,a],[b,b,b]).
 \end{LPNcodedisplay}
@@ -583,8 +583,8 @@ ended up with empty lists.  At this point, our rather trivial looking
 fact was able to play a vital role: it said yes. This halted the
 recursion, and ensured that the original query succeeded.
 
-It's is also important to think about what  happens with queries  
-that \LPNemph{fail}. For example, if we pose the query  
+It's is also important to think about what  happens with queries
+that \LPNemph{fail}. For example, if we pose the query
 \begin{LPNcodedisplay}
 a2b([a,a,a,a],[b,b,b]).
 \end{LPNcodedisplay}
@@ -594,8 +594,8 @@ times, it will be left with the query
 \begin{LPNcodedisplay}
 a2b([a],[]).
 \end{LPNcodedisplay}
-But this goal cannot be satisfied.   
-And if we pose the query  
+But this goal cannot be satisfied.
+And if we pose the query
 \begin{LPNcodedisplay}
 a2b([a,c,a,a],[b,b,5,4]).
 \end{LPNcodedisplay}
@@ -607,50 +607,50 @@ a2b([c,a,a],[b,5,4]).
 \end{LPNcodedisplay}
 and again, this cannot be satisfied.
 
-Well, that's how §a2b/2§ works in simple cases, but we  
-haven't exhausted its possibilities yet. As always with Prolog, it's a  
-good idea to investigate what happens when variables as used as  
-input. And with §a2b/2§ something interesting happens: it  
-acts as a translator, translating lists of §a§s to lists of  
-§b§s, and vice versa.  For example the query  
+Well, that's how §a2b/2§ works in simple cases, but we
+haven't exhausted its possibilities yet. As always with Prolog, it's a
+good idea to investigate what happens when variables as used as
+input. And with §a2b/2§ something interesting happens: it
+acts as a translator, translating lists of §a§s to lists of
+§b§s, and vice versa.  For example the query
 \begin{LPNcodedisplay}
 a2b([a,a,a,a],X).
 \end{LPNcodedisplay}
-yields the response  
+yields the response
 \begin{LPNcodedisplay}
 X = [b,b,b,b].
 \end{LPNcodedisplay}
-That is, the list of §a§s has been translated to a list of   
-§b§s. Similarly, by using a variable in the first argument  
-position, we can use it to translate lists of §b§s  
-to lists of §a§s:  
+That is, the list of §a§s has been translated to a list of
+§b§s. Similarly, by using a variable in the first argument
+position, we can use it to translate lists of §b§s
+to lists of §a§s:
 \begin{LPNcodedisplay}
 a2b(X,[b,b,b,b]).
 
 X = [a,a,a,a]
 \end{LPNcodedisplay}
-  
-And of course, we can use variables in both argument positions:  
+
+And of course, we can use variables in both argument positions:
 \begin{LPNcodedisplay}
 a2b(X,Y).
 \end{LPNcodedisplay}
 Can you work out what happens in this case?
 
-To sum up: §a2b/2§ is an extremely simple example of a  
-program that works by recursing its way down a pair of lists. But  
-don't be fooled by its simplicity: the kind of programming it  
-illustrates is fundamental to Prolog.  Both its declarative form (a  
-base clause dealing with the empty list, a recursive clause dealing  
-with non-empty lists) and the procedural idea it trades on (do  
-something to the heads, and then recursively do the same thing to the  
-tails) come up again and again in Prolog programming. In fact, in the  
-course of your Prolog career, you'll find that you'll write what is  
-essentially the §a2b/2§ predicate, or a more complex  
+To sum up: §a2b/2§ is an extremely simple example of a
+program that works by recursing its way down a pair of lists. But
+don't be fooled by its simplicity: the kind of programming it
+illustrates is fundamental to Prolog.  Both its declarative form (a
+base clause dealing with the empty list, a recursive clause dealing
+with non-empty lists) and the procedural idea it trades on (do
+something to the heads, and then recursively do the same thing to the
+tails) come up again and again in Prolog programming. In fact, in the
+course of your Prolog career, you'll find that you'll write what is
+essentially the §a2b/2§ predicate, or a more complex
 variant of it, many times over in many different guises.
 
 \section{Exercises}\label{SEC.L4.EXERCISES}
 
-\begin{LPNexercise}{L4.EX1}How does Prolog respond to the following queries?  
+\begin{LPNexercise}{L4.EX1}How does Prolog respond to the following queries?
 \begin{enumerate}
 \item{}§[a,b,c,d] = [a,[b,c,d]].§
 \item{}§[a,b,c,d] = [a|[b,c,d]].§
@@ -665,7 +665,7 @@ variant of it, many times over in many different guises.
 \item{}§[] = [_|[]].§
 \end{enumerate}
 \end{LPNexercise}
-\begin{LPNexercise}{L4.EX1.2}Which of the following are syntactically correct lists? If the representation is correct, how many elements does the list have?  
+\begin{LPNexercise}{L4.EX1.2}Which of the following are syntactically correct lists? If the representation is correct, how many elements does the list have?
 
 \begin{enumerate}
 \item{}§[1|[2,3,4]]§
@@ -685,20 +685,20 @@ variant of it, many times over in many different guises.
 
 
 \begin{LPNexercise}{L6.EX3a}
-Write a predicate §second(X,List)§ which checks  
+Write a predicate §second(X,List)§ which checks
 whether §X§ is the second element of §List§.
 \end{LPNexercise}
 
 
 \begin{LPNexercise}{L6.EX3b}
-Write a predicate §swap12(List1,List2)§ which checks  
-whether §List1§ is identical to §List2§, except that the  
+Write a predicate §swap12(List1,List2)§ which checks
+whether §List1§ is identical to §List2§, except that the
 first two elements are exchanged.
 \end{LPNexercise}
 
 
-\begin{LPNexercise}{L4.EX2}Suppose we are given a knowledge base with the following facts:  
-  
+\begin{LPNexercise}{L4.EX2}Suppose we are given a knowledge base with the following facts:
+
 \begin{LPNcodedisplay}
 tran(eins,one).
 tran(zwei,two).
@@ -710,67 +710,67 @@ tran(sieben,seven).
 tran(acht,eight).
 tran(neun,nine).
 \end{LPNcodedisplay}
-  
-  
-         
-Write a predicate §listtran(G,E)§ which translates a list of   
-German number words to the corresponding list of English number words.    
-For example:  
+
+
+
+Write a predicate §listtran(G,E)§ which translates a list of
+German number words to the corresponding list of English number words.
+For example:
 \begin{LPNcodedisplay}
 listtran([eins,neun,zwei],X).
 \end{LPNcodedisplay}
-should give:  
+should give:
 \begin{LPNcodedisplay}
 X = [one,nine,two].
 \end{LPNcodedisplay}
 
-Your program should also work in the other direction. For example, if   
-you give it the query  
+Your program should also work in the other direction. For example, if
+you give it the query
 \begin{LPNcodedisplay}
 listtran(X,[one,seven,six,two]).
 \end{LPNcodedisplay}
-it should return:  
+it should return:
 \begin{LPNcodedisplay}
 X = [eins,sieben,sechs,zwei].
 \end{LPNcodedisplay}
-  
-  
-(Hint: to answer this question, first ask yourself ``How do I  
-translate the \LPNemph{empty} list of number words?''.  That's the base  
-case.  For non-empty lists, first translate the head of the list, then  
+
+
+(Hint: to answer this question, first ask yourself ``How do I
+translate the \LPNemph{empty} list of number words?''.  That's the base
+case.  For non-empty lists, first translate the head of the list, then
 use recursion to translate the tail.)
 \end{LPNexercise}
 
 
-\begin{LPNexercise}{L4.EX3}Write a predicate §twice(In,Out)§ 
-whose left argument is a list,   
+\begin{LPNexercise}{L4.EX3}Write a predicate §twice(In,Out)§
+whose left argument is a list,
 and whose right argument is a list consisting of every element in the
 left list written twice.  For example, the query
 \begin{LPNcodedisplay}
 twice([a,4,buggle],X).
 \end{LPNcodedisplay}
-should return  
+should return
 \begin{LPNcodedisplay}
 X = [a,a,4,4,buggle,buggle]).
 \end{LPNcodedisplay}
-And the query  
+And the query
 \begin{LPNcodedisplay}
 twice([1,2,1,1],X).
 \end{LPNcodedisplay}
-should return  
+should return
 \begin{LPNcodedisplay}
 X = [1,1,2,2,1,1,1,1].
 \end{LPNcodedisplay}
-  
-(Hint: to answer this question, first ask yourself ``What should happen  
-when the first argument is the \LPNemph{empty} list?''.  That's the base case.  
-For non-empty lists, think about what you should do with the head, and  
+
+(Hint: to answer this question, first ask yourself ``What should happen
+when the first argument is the \LPNemph{empty} list?''.  That's the base case.
+For non-empty lists, think about what you should do with the head, and
 use recursion to handle the tail.)
 \end{LPNexercise}
 
 
-\begin{LPNexercise}{L4.EX4}Draw the search trees for the following three queries:  
-  
+\begin{LPNexercise}{L4.EX4}Draw the search trees for the following three queries:
+
 \begin{LPNcodedisplay}
 ?- member(a,[c,b,a,y]).
 
@@ -787,43 +787,43 @@ use recursion to handle the tail.)
 
 
 
-The purpose of Practical Session 4 is to help you get familiar with  
-the idea of recursing down lists.  We first suggest some traces for  
+The purpose of Practical Session 4 is to help you get familiar with
+the idea of recursing down lists.  We first suggest some traces for
 you to carry out, and then some programming exercises.
 
-First, systematically carry out a number of traces on  
-§a2b/2§ to make sure you fully understand how it   
-works. In particular:  
-  
+First, systematically carry out a number of traces on
+§a2b/2§ to make sure you fully understand how it
+works. In particular:
+
 \begin{enumerate}
 \item{}Trace some examples, not involving variables, that succeed. For
 example, trace the query §a2b([a,a,a,a],[b,b,b,b])§ and relate the
 output to the discussion in the text.
-\item{}Trace some simple examples that fail. Try  
-examples involving  lists of different lengths  
-(such as §a2b([a,a,a,a],[b,b,b])§) and  
-examples involving  symbols other than §a§ and §b§  
-(such as §a2b([a,c,a,a],[b,b,5,4])§). 
-\item{}Trace some examples involving variables. For example, try  
+\item{}Trace some simple examples that fail. Try
+examples involving  lists of different lengths
+(such as §a2b([a,a,a,a],[b,b,b])§) and
+examples involving  symbols other than §a§ and §b§
+(such as §a2b([a,c,a,a],[b,b,5,4])§).
+\item{}Trace some examples involving variables. For example, try
 tracing §a2b([a,a,a,a],X)§ and §a2b(X,[b,b,b,b])§.
-\item{}Make sure you understand what happens when  
-both arguments in the query are variables. For example, carry  
+\item{}Make sure you understand what happens when
+both arguments in the query are variables. For example, carry
 out a trace on the query §a2b(X,Y)§.
-\item{}Carry out a series of similar traces involving  
-§member/2§. That is, carry out traces involving simple queries that  
-succeed (such as §member(a,[1,2,a,b])§), simple queries that fail  
-(such as §member(z,[1,2,a,b])§), and queries involving variables  
-(such as §member(X,[1,2,a,b])§).  In all cases, make sure that  
+\item{}Carry out a series of similar traces involving
+§member/2§. That is, carry out traces involving simple queries that
+succeed (such as §member(a,[1,2,a,b])§), simple queries that fail
+(such as §member(z,[1,2,a,b])§), and queries involving variables
+(such as §member(X,[1,2,a,b])§).  In all cases, make sure that
 you understand why the recursion halts.
 \end{enumerate}
 
 
-Having done this, try the following.  
-  
+Having done this, try the following.
+
 \begin{enumerate}
-\item{}Write a 3-place predicate §combine1§ which takes three  
-lists as arguments and combines the elements of the first two lists  
-into the third as follows:  
+\item{}Write a 3-place predicate §combine1§ which takes three
+lists as arguments and combines the elements of the first two lists
+into the third as follows:
 \begin{LPNcodedisplay}
 ?- combine1([a,b,c],[1,2,3],X).
 
@@ -834,9 +834,9 @@ X = [a,1,b,2,c,3]
 Result = [f,glu,b,gla,yip,gli,yup,glo]
 \end{LPNcodedisplay}
 
-\item{}Now write a 3-place predicate §combine2§ which takes three  
-lists as arguments and combines the elements of the first two lists  
-into the third as follows:  
+\item{}Now write a 3-place predicate §combine2§ which takes three
+lists as arguments and combines the elements of the first two lists
+into the third as follows:
 \begin{LPNcodedisplay}
 ?- combine2([a,b,c],[1,2,3],X).
 
@@ -847,9 +847,9 @@ X = [[a,1],[b,2],[c,3]]
 Result = [[f,glu],[b,gla],[yip,gli],[yup,glo]]
 \end{LPNcodedisplay}
 
-\item{}Finally, write a 3-place predicate §combine3§ which takes  
-three lists as arguments and combines the elements of the first two lists  
-into the third as follows:  
+\item{}Finally, write a 3-place predicate §combine3§ which takes
+three lists as arguments and combines the elements of the first two lists
+into the third as follows:
 \begin{LPNcodedisplay}
 ?- combine3([a,b,c],[1,2,3],X).
 
@@ -861,7 +861,7 @@ R = [j(f,glu),j(b,gla),j(yip,gli),j(yup,glo)]
 \end{LPNcodedisplay}
 
 \end{enumerate}
-  
+
 All three programs are pretty much the same as §a2b/2§ (though they
 manipulate three lists, not two).  That is, all three can be written
 by recursing down the lists, doing something to the heads, and then

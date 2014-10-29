@@ -4,8 +4,8 @@
 
 \Thischapter{190}{
 
-\noindent This chapter has two main goals:  
-  
+\noindent This chapter has two main goals:
+
 \begin{enumerate}
 
 \item{}To discuss unification in Prolog, and to explain how Prolog
@@ -13,7 +13,7 @@
   introduce \texttt{=/2}, the built-in predicate for Prolog
   unification, and \texttt{unify\_with\_occurs\_check/2}, the built-in
   predicate for standard unification.
-  
+
 \item{}To explain the search strategy Prolog uses when it tries to
   deduce new information from old using modus ponens.
 
@@ -31,10 +31,10 @@ example, that Prolog unifies §woman(X)§ with §woman(mia)§, thereby
 closer look at unification, for it is one of the most fundamental
 ideas in Prolog.
 
-Recall that there are three types of term:  
-  
+Recall that there are three types of term:
+
 \begin{enumerate}
-\item{}Constants. These can either be atoms (such as §vincent§) or numbers   
+\item{}Constants. These can either be atoms (such as §vincent§) or numbers
 (such as §24§).
 \item{}Variables. (Such as §X§, §Z3§, and §List§.)
 \item{}Complex terms. These have the form:\\ §functor(term_1,...,term_n)§.
@@ -48,9 +48,9 @@ light on detail:
 \begin{center}\parbox{0.9\textwidth}{
     \LPNemph{Two terms unify if they are the same term or if they
     contain variables that can be uniformly instantiated with terms in
-    such a way that the resulting terms are equal.}  
+    such a way that the resulting terms are equal.}
 }
-\end{center}  
+\end{center}
 %
 This means, for example, that the terms §mia§ and §mia§ unify, because
 they are the same atom. Similarly, the terms §42§ and §42§ unify,
@@ -80,14 +80,14 @@ Prolog unifies two terms it performs all the necessary \LPNterm{instantia\-tions
 so that the terms really are equal afterwards. This functionality,
 together with the fact that we are allowed to build complex terms
 (that is, \LPNterm{recursively structured} terms) makes unification a
-powerful programming mechanism. 
+powerful programming mechanism.
 
 The basic intuitions should now be clear.  Here's the definition which
 makes them precise. It tells us not only which terms Prolog will
 unify, but also what it will do to the variables to achieve this.
 \begin{enumerate}
-\item{}\LPNemph{If} §term1§ \LPNemph{and} §term2§ \LPNemph{are constants, then} 
-§term1§ \LPNemph{and} §term2§ \LPNemph{unify if and only if they are the same  
+\item{}\LPNemph{If} §term1§ \LPNemph{and} §term2§ \LPNemph{are constants, then}
+§term1§ \LPNemph{and} §term2§ \LPNemph{unify if and only if they are the same
 atom, or the same number.}
 \item{}\LPNemph{If} §term1§ \LPNemph{is a variable and} §term2§
 \LPNemph{is any type of term, then} §term1§ \LPNemph{and} §term2§
@@ -98,8 +98,8 @@ atom, or the same number.}
 \LPNemph{(So if they are both variables, they're both instantiated to
 each other, and we say that they \LPNterm{share values}.)}
 
-\item{}\LPNemph{If} §term1§ \LPNemph{and} §term2§ \LPNemph{are complex terms, then   
-                they unify if and only if:} 
+\item{}\LPNemph{If} §term1§ \LPNemph{and} §term2§ \LPNemph{are complex terms, then
+                they unify if and only if:}
 \begin{enumerate}
 \item{}\LPNemph{They have the same functor and arity, and}
 \item{}\LPNemph{all their corresponding arguments unify, and}
@@ -110,10 +110,10 @@ it is not possible to instantiate variable} §X§ \LPNemph{to} §mia§
 arguments}.)
 \end{enumerate}
 
-\item{}\LPNemph{Two terms unify if and only if it follows from the  
+\item{}\LPNemph{Two terms unify if and only if it follows from the
 previous three clauses that they unify.}
 \end{enumerate}
-  
+
 Let's have a look at the form of this definition. The first clause
 tells us when two constants unify. The second clause tells us when two
 terms, one of which is a variable, unify (such terms will always
@@ -149,8 +149,8 @@ unify. For example, if we pose the query
 \begin{LPNcodedisplay}
 ?- =(mia,mia).
 \end{LPNcodedisplay}
-% 
-Prolog will respond yes, and if we pose the query  
+%
+Prolog will respond yes, and if we pose the query
 \begin{LPNcodedisplay}
 ?- =(mia,vincent).
 \end{LPNcodedisplay}
@@ -174,8 +174,8 @@ Let's return to our first example:
 ?- mia = mia.
 yes
 \end{LPNcodedisplay}
-% 
- 
+%
+
 Why does Prolog say yes? This may seem like a silly question: surely
 it's obvious that the terms unify! That's true, but how does this
 follow from the definition given above? It is important to learn to
@@ -191,7 +191,7 @@ relevant to our example.  This tells us that two constants unify if
 and only if they are exactly the same object. As §mia§ and §mia§
 are the same atom, unification succeeds.
 
-A similar argument explains the following responses:  
+A similar argument explains the following responses:
 \begin{LPNcodedisplay}
 ?- 2 = 2.
 yes
@@ -199,7 +199,7 @@ yes
 ?- mia = vincent.
 no
 \end{LPNcodedisplay}
-% 
+%
 Once again, clause~1 is relevant here (after all, §2§, §mia§, and
 §vincent§ are all constants). And as §2§ is the same number as §2§,
 and as §mia§ is \LPNemph{not} the same atom as §vincent§, Prolog
@@ -211,31 +211,31 @@ following query:
 ?- 'mia' = mia.
 yes
 \end{LPNcodedisplay}
-% 
+%
 What's going on here? Why do these two terms unify? Well, as far as
 Prolog is concerned, §'mia'§ and §mia§ are the same atom. In fact, for
 Prolog, any atom of the form §'symbols'§ is considered the same entity
 as the atom of the form §symbols§. This can be a useful feature in
 certain kinds of programs, so don't forget it.
 
-On the other hand, to the query  
+On the other hand, to the query
 \begin{LPNcodedisplay}
 ?- '2' = 2.
 \end{LPNcodedisplay}
-% 
+%
 Prolog will respond no. And if you think about the definitions given
 in Chapter~\ref{CHAPTER1}, you will see that this has to be the way
 things work.  After all, §2§ is a number, but §'2'§ is an atom. They
 simply cannot be the same.
 
-Let's try an example with a variable:  
+Let's try an example with a variable:
 \begin{LPNcodedisplay}
 ?- mia = X.
 
-X = mia 
+X = mia
 yes
 \end{LPNcodedisplay}
-% 
+%
 Again, this in an easy example: clearly the variable §X§ can be
 unified with the constant §mia§, and Prolog does so, and tells us that
 it has made this unification. Fine, but how does this follow from our
@@ -248,26 +248,26 @@ is possible, and also says that the variable is instantiated to the
 first argument, namely §mia§. And this, of course, is exactly what
 Prolog does.
 
-Now for an important example: what happens with the following query?  
+Now for an important example: what happens with the following query?
 \begin{LPNcodedisplay}
 ?- X = Y.
 \end{LPNcodedisplay}
-% 
+%
 Well, depending on your Prolog implementation, you may just get back
 the output
 \begin{LPNcodedisplay}
 ?- X = Y.
 yes
 \end{LPNcodedisplay}
-% 
+%
 Prolog is simply agreeing that the two terms unify (after all,
 variables unify with anything, so they certainly unify with each
 other) and making a note that from now on, §X§ and §Y§ denote the same
 object, that is, share values.
 
-On the other hand, you may get the following output:  
+On the other hand, you may get the following output:
 \begin{LPNcodedisplay}
-X = _5071 
+X = _5071
 Y = _5071
 yes
 \end{LPNcodedisplay}
@@ -290,7 +290,7 @@ think will Prolog respond?
 ?- X = mia, X = vincent.
 \end{LPNcodedisplay}
 
- 
+
 Prolog will respond no. This query involves two goals, §X = mia§ and
 §X = vincent§. Taken separately, Prolog would succeed at both of them,
 instantiating §X§ to §mia§ in the first case and to §vincent§ in the
@@ -300,15 +300,15 @@ to) §mia§, so that it simply can't unify with §vincent§ anymore.
 Hence the second goal fails. An \LPNemph{instantiated} variable isn't
 really a variable anymore: it has become what it was instantiated with.
 
-Now let's look at an example involving complex terms:  
+Now let's look at an example involving complex terms:
 \begin{LPNcodedisplay}
 ?- k(s(g),Y) = k(X,t(k)).
 
-X = s(g) 
+X = s(g)
 Y = t(k)
 yes
 \end{LPNcodedisplay}
-% 
+%
 Clearly the two complex terms unify if the stated variable
 instantiations are carried out. But how does this follow from the
 definition? Well, first of all, clause~3 has to be used here because
@@ -320,24 +320,24 @@ arguments, §s(g)§ and §X§, unify? By clause~2, yes, and we instantiate
 §X§ to §s(g)§. So do the second arguments, §Y§ and §t(k)§, unify?
 Again by clause~2, yes, and we instantiate §Y§ to §t(k)§.
 
-Here's another example with complex terms:  
+Here's another example with complex terms:
 \begin{LPNcodedisplay}
 ?- k(s(g), t(k)) = k(X,t(Y)).
 
-X = s(g) 
-Y = k 
+X = s(g)
+Y = k
 yes
 \end{LPNcodedisplay}
-% 
+%
 It should be clear that the two terms unify if these instantiations
 are carried out. But can you explain, step by step, how this relates
 to the definition?
 
-Here is a last example:  
+Here is a last example:
 \begin{LPNcodedisplay}
 ?- loves(X,X) = loves(marcellus,mia).
 \end{LPNcodedisplay}
-% 
+%
 Do these terms unify? No, they don't. It's true that they are both
 complex terms and have the same functor and arity, but clause~3 also
 demands that all corresponding arguments have to unify, and that the
@@ -356,11 +356,11 @@ unification algorithm when it performs its version of
 unification. Instead it takes a shortcut.  You need to know about this
 shortcut.
 
-Consider the following query:  
+Consider the following query:
 \begin{LPNcodedisplay}
 ?- father(X) = X.
 \end{LPNcodedisplay}
-%  
+%
 Do these terms unify or not?  A standard unification algorithm would
 say: ``No, they don't''. Why is that? Well, pick any term and instantiate §X§
 to the term you picked.  For example, if you instantiate §X§ to
@@ -396,7 +396,7 @@ what happens.  You would get a message like:
 Not enough memory to complete query!
 \end{LPNcodedisplay}
 %
-and a long string of symbols like:   
+and a long string of symbols like:
 \begin{LPNcodedisplay}
 X = father(father(father(father(father(father
    (father(father(father(father(father(father
@@ -414,7 +414,7 @@ that the effect of the extra §father§ functor on the left hand side
 was cancelled out.  But the terms we compute with are \LPNemph{finite}
 entities. Infinite terms are an interesting mathematical abstraction,
 but they're not something we can work with.  No matter how hard Prolog
-tries, it can never build one. 
+tries, it can never build one.
 
 Now, it's annoying to have Prolog running out of memory like this, and
 sophisticated Prolog implementations have found  ways of coping more
@@ -440,7 +440,7 @@ implementation.  In some systems you cannot do much with them. For
 example, posing the query
 \begin{LPNcodedisplay}
 ?- X = father(X), Y = father(Y), X = Y.
-\end{LPNcodedisplay} 
+\end{LPNcodedisplay}
 would result in a crash (note that the \texttt{X = Y} demands that we
 unify two finite representations of infinite terms). Nonetheless, in some
 modern systems unification works robustly with such representations
@@ -532,15 +532,15 @@ Here's a simple example of this, due to Ivan Bratko.%
 \footnote{See his book
 \textit{Prolog Programing for Artificial Intelligence},
 Addison-Wesley Publishing Company, 1990, second edition, pages
-41--43.}  
+41--43.}
 The following two line knowledge base defines two
 predicates, namely §vertical/1§ and §horizontal/1§, which specify what
 it means for a line to be vertical or horizontal respectively:
-%  
+%
 \begin{LPNcodedisplay}
 vertical(line(point(X,Y),point(X,Z))).
 
-horizontal(line(point(X,Y),point(Z,Y))).    
+horizontal(line(point(X,Y),point(Z,Y))).
 \end{LPNcodedisplay}
 
 
@@ -582,25 +582,25 @@ To capture the effect of ``the same y-coordinate'', we use the same
 variable §Y§ as the second argument of the two complex terms
 representing the points.
 
-What can we do with this knowledge base? Let's look at some examples:  
+What can we do with this knowledge base? Let's look at some examples:
 \begin{LPNcodedisplay}
 ?- vertical(line(point(1,1),point(1,3))).
-yes  
+yes
 \end{LPNcodedisplay}
-% 
+%
 This should be clear: the query unifies with the definition of
 §vertical/1§ in our little knowledge base (and in particular, the
 representations of the two points have the same first argument) so
 Prolog says yes.  Similarly we have:
 \begin{LPNcodedisplay}
 ?- vertical(line(point(1,1),point(3,2))).
-no  
+no
 \end{LPNcodedisplay}
 This query does not unify with the definition of §vertical/1§ (the
 representations of the two points have different first arguments) so
 Prolog says no.
 
-But we can also ask more general questions:  
+But we can also ask more general questions:
 \begin{LPNcodedisplay}
 ?- horizontal(line(point(1,1),point(2,Y))).
 
@@ -608,7 +608,7 @@ Y = 1 ;
 
 no
 \end{LPNcodedisplay}
-% 
+%
 Here our query is: if we want a horizontal line between a point at
 (1,1), and point whose x-coordinate is 2, what should the y-coordinate
 of that second point be?  Prolog correctly tells us that the
@@ -616,7 +616,7 @@ y-coordinate should be 1. If we then ask Prolog for a second
 possibility (note the §;§) it tells us that no other possibilities
 exist.
 
-Now consider the following:  
+Now consider the following:
 \begin{LPNcodedisplay}
 ?- horizontal(line(point(2,3),P)).
 
@@ -624,7 +624,7 @@ P = point(_1972,3) ;
 
 no
 \end{LPNcodedisplay}
-% 
+%
 This query is: if we want a horizontal line between a point at (2,3),
 and some other point, what other points are permissible?  The answer
 is: any point whose y-coordinate is 3. Note that the §_1972§ in the
@@ -658,14 +658,14 @@ determiners and nouns, and so on).
 
 
 \section{Proof Search}\label{SEC.L2.PROOFSEARCH}
-  
+
 Now that we know about unification, we are in a position to learn how
 Prolog actually searches a knowledge base to see if a query is
 satisfied. That is, we are  ready to learn about \LPNterm{proof
   search}.  We will introduce the basic ideas involved by working
 through a simple example.
 
-Suppose we are working with the following knowledge base  
+Suppose we are working with the following knowledge base
 \begin{LPNcodedisplay}
 f(a).
 f(b).
@@ -677,12 +677,12 @@ h(b).
 
 k(X) :- f(X), g(X), h(X).
 \end{LPNcodedisplay}
-% 
-Suppose we  then pose the query   
+%
+Suppose we  then pose the query
 \begin{LPNcodedisplay}
 ?- k(Y).
 \end{LPNcodedisplay}
-%  
+%
 It is probably clear that there is only one answer to this query,
 namely §k(b)§, but how exactly does Prolog work this out? Let's see.
 
@@ -693,15 +693,15 @@ possible. Here there is only one possibility: it must unify §k(Y)§ to
 the head of the rule §k(X) :- f(X), g(X), h(X)§.
 
 When Prolog unifies the variable in a query to a variable in a fact or
-rule, it generates a brand new variable 
+rule, it generates a brand new variable
 (say §_G34§)
-to represent the shared 
+to represent the shared
 variables. So the original query now reads:
 \begin{LPNcodedisplay}
 k(_G34)
 \end{LPNcodedisplay}
 %
-and Prolog knows that  
+and Prolog knows that
 \begin{LPNcodedisplay}
 k(_G34) :- f(_G34), g(_G34), h(_G34).
 \end{LPNcodedisplay}
@@ -723,7 +723,7 @@ and succinct if we think graphically. Consider the following diagram:
 \begin{center}
 \includegraphics{chap2-pspic1.ps}
 \end{center}
-% 
+%
 Everything in a box is either a query or a goal.  In particular, our
 original goal was to prove §k(Y)§, thus this is shown in the top box.
 When we unified §k(Y)§ with the head of the rule in the knowledge
@@ -744,7 +744,7 @@ list of goals. So the list now looks like this:
 \begin{LPNcodedisplay}
 g(a),h(a)
 \end{LPNcodedisplay}
-%  
+%
 and our graphical representation of the proof search now looks like this:
 %
 \begin{center}
@@ -752,12 +752,12 @@ and our graphical representation of the proof search now looks like this:
 \end{center}
 %
 
-But the fact §g(a)§ is in the knowledge base, so the first goal we  
-have to prove is satisfied too. So the goal list becomes 
+But the fact §g(a)§ is in the knowledge base, so the first goal we
+have to prove is satisfied too. So the goal list becomes
 \begin{LPNcodedisplay}
 h(a)
 \end{LPNcodedisplay}
-%  
+%
 and the graphical representation is now
 %
 \begin{center}
@@ -782,7 +782,7 @@ the previous choice point and try something else instead. This process
 is called \LPNterm{backtracking}, and it is fundamental to proof search
 in Prolog.
 
-So let's carry on with our example. 
+So let's carry on with our example.
 Prolog backtracks to the last choice point. This is the
 point in the graphical representation where the list of goals was:
 \begin{LPNcodedisplay}
@@ -855,12 +855,12 @@ loves(marcellus,mia).
 
 jealous(A,B):- loves(A,C), loves(B,C).
 \end{LPNcodedisplay}
-%  
-Now we pose the query  
+%
+Now we pose the query
 \begin{LPNcodedisplay}
 ?- jealous(X,Y).
 \end{LPNcodedisplay}
-%  
+%
 The search tree for the query looks like this:
 %
 \begin{center}
@@ -872,8 +872,8 @@ knowledge base, namely by using the rule
 \begin{LPNcodedisplay}
 jealous(A,B):- loves(A,C), loves(B,C).
 \end{LPNcodedisplay}
-%  
-So the new goals that have to be satisfied are:  
+%
+So the new goals that have to be satisfied are:
 \begin{LPNcodedisplay}
 loves(_G5,_G6),loves(_G7,_G6)
 \end{LPNcodedisplay}
@@ -887,13 +887,13 @@ that there are four ways of satisfying the original query. The
 variable instantiations for each solution can be read off the path
 from the root to the leaf node. So the four solutions are:
 \begin{enumerate}
-\item{}§X = _G5 = vincent§ and   
+\item{}§X = _G5 = vincent§ and
 §Y = _G7 = vincent§
-\item{}§X = _G5 = vincent§ and   
+\item{}§X = _G5 = vincent§ and
 §Y = _G7 = marcellus§
-\item{}§X = _G5 = marcellus§ and   
+\item{}§X = _G5 = marcellus§ and
 §Y = _G7 = vincent§
-\item{}§X = _G5 = marcellus§ and   
+\item{}§X = _G5 = marcellus§ and
 §Y = _G7 = marcellus§
 \end{enumerate}
 Work through this example carefully, and make sure you understand it.
@@ -901,8 +901,8 @@ Work through this example carefully, and make sure you understand it.
 %\pagebreak
 \section{Exercises}\label{SEC.L2.EXERCISES}
 
-\begin{LPNexercise}{L2.EX1}Which of the following pairs of terms unify?  
-Where relevant, give the  
+\begin{LPNexercise}{L2.EX1}Which of the following pairs of terms unify?
+Where relevant, give the
 variable instantiations that lead to successful unification.
 \begin{enumerate}
 \item{}§bread = bread§
@@ -922,7 +922,7 @@ variable instantiations that lead to successful unification.
 \end{enumerate}
 \end{LPNexercise}
 
-\begin{LPNexercise}{L2.EX2}We are working with the following knowledge base:  
+\begin{LPNexercise}{L2.EX2}We are working with the following knowledge base:
 \begin{LPNcodedisplay}
 house_elf(dobby).
 witch(hermione).
@@ -952,7 +952,7 @@ Draw the search tree for the query §magic(Hermione)§.
 consisting of one syntactic rule (which defines a sentence to be an
 entity consisting of five words in the following order: a determiner,
 a noun, a verb, a determiner, a noun).
-  
+
 \begin{LPNcodedisplay}
 word(determiner,a).
 word(determiner,every).
@@ -970,22 +970,22 @@ sentence(Word1,Word2,Word3,Word4,Word5):-
 \end{LPNcodedisplay}
 What query do you have to pose in order to find out which sentences
 the grammar can generate?  List all sentences that this grammar can
-generate in the order that Prolog will generate them in. 
+generate in the order that Prolog will generate them in.
 \end{LPNexercise}
 
 
 
 \begin{LPNexercise}{L2.EX4}Here are six Italian words:
 
-\LPNemph{astante}, \LPNemph{astoria}, \LPNemph{baratto},   
+\LPNemph{astante}, \LPNemph{astoria}, \LPNemph{baratto},
 \LPNemph{cobalto}, \LPNemph{pistola}, \LPNemph{statale}.
 
 \noindent
-They are to be arranged, crossword puzzle   
-fashion, in the following grid:  
+They are to be arranged, crossword puzzle
+fashion, in the following grid:
 
 \bigskip
-\begin{center}  
+\begin{center}
 \includegraphics{crosswd2.eps}
 \end{center}
 \bigskip
@@ -1007,8 +1007,8 @@ to bottom.\end{LPNexercise}
 
 
 \section{Practical Session}\label{SEC.L2.PRAXIS}
-  
-  
+
+
 By this stage, you should have had your first taste of running Prolog
 programs. The purpose of the second practical session is to suggest
 two sets of keyboard exercises which will help you get familiar with
@@ -1029,7 +1029,7 @@ predicate. For example, to test whether §food(bread,X)§ and
 \begin{LPNcodedisplay}
 food(bread,X) = food(Y,sausage).
 \end{LPNcodedisplay}
-%  
+%
 and hit return.
 
 You should also look at what happens when your Prolog implementation
@@ -1043,7 +1043,7 @@ If it handles such examples, try the trickier one mentioned in the
 text:
 \begin{LPNcodedisplay}
 X = f(X), Y = f(Y), X = Y.
-\end{LPNcodedisplay} 
+\end{LPNcodedisplay}
 
 Once you've experimented with that, it's time to move on to something
 new.  There is another built-in Prolog predicate for
@@ -1073,7 +1073,7 @@ return to see if you are right.
 \item{}§g(a,b,c) \= g(A,C)§
 \item{}§f(X) \= X§
 \end{enumerate}
-  
+
 Thus the §\=/2§ predicate is (essentially) the negation of
 the §=/2§ predicate: a query involving one of these predicates will be
 satisfied when the corresponding query involving the other is not, and
@@ -1082,7 +1082,7 @@ mechanism for handling negation.  We discuss Prolog negation (and its
 peculiarities) in Chapter~\ref{CHAPTER10}.
 
 It's time to move on and introduce one of the most helpful tools in
-Prolog: §trace§.\index{PROLOG trace/0@\texttt{trace/0}} This is a built-in 
+Prolog: §trace§.\index{PROLOG trace/0@\texttt{trace/0}} This is a built-in
 Prolog predicate that changes the
 way Prolog runs: it forces Prolog to evaluate queries one step at a
 time, indicating what it is doing at each step. Prolog waits for you
@@ -1106,7 +1106,7 @@ h(b).
 
 k(X):- f(X), g(X), h(X).
 \end{LPNcodedisplay}
-  
+
 Suppose this knowledge base is in file §proof.pl§. We first consult
 it:
 \begin{LPNcodedisplay}
@@ -1114,38 +1114,38 @@ it:
 yes
 \end{LPNcodedisplay}
 %
-We then type §trace§, followed by a full stop,  and hit return:  
+We then type §trace§, followed by a full stop,  and hit return:
 \begin{LPNcodedisplay}
 ?- trace.
 yes
 \end{LPNcodedisplay}
-% 
+%
 Prolog is now in \LPNterm{trace mode}, and will evaluate all queries step by
 step.  For example, if we pose the query §k(X)§, and then hit return
 every time Prolog comes back with a §?§, we obtain (something like)
 the following:
 \begin{LPNcodedisplay}
 [trace] 2 ?- k(X).
-   Call: (6) k(_G34) ? 
-   Call: (7) f(_G34) ? 
-   Exit: (7) f(a) ? 
-   Call: (7) g(a) ? 
-   Exit: (7) g(a) ? 
-   Call: (7) h(a) ? 
-   Fail: (7) h(a) ? 
-   Fail: (7) g(a) ? 
-   Redo: (7) f(_G34) ? 
-   Exit: (7) f(b) ? 
-   Call: (7) g(b) ? 
-   Exit: (7) g(b) ? 
-   Call: (7) h(b) ? 
-   Exit: (7) h(b) ? 
-   Exit: (6) k(b) ? 
+   Call: (6) k(_G34) ?
+   Call: (7) f(_G34) ?
+   Exit: (7) f(a) ?
+   Call: (7) g(a) ?
+   Exit: (7) g(a) ?
+   Call: (7) h(a) ?
+   Fail: (7) h(a) ?
+   Fail: (7) g(a) ?
+   Redo: (7) f(_G34) ?
+   Exit: (7) f(b) ?
+   Call: (7) g(b) ?
+   Exit: (7) g(b) ?
+   Call: (7) h(b) ?
+   Exit: (7) h(b) ?
+   Exit: (6) k(b) ?
 
-X = b 
+X = b
 yes
 \end{LPNcodedisplay}
-  
+
 Study this carefully. That is, try doing the same thing yourself, and
 relate this output to the discussion of the example in the text, and
 in particular, to the nodes in the search tree.  To get you started,

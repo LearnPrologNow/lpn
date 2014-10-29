@@ -4,8 +4,8 @@
 \Thischapter{115}{
 
 \noindent
-This chapter has three main goals:  
-  
+This chapter has three main goals:
+
 \begin{enumerate}
 
 \item{}To introduce the \texttt{==} predicate.
@@ -42,41 +42,41 @@ The reason Prolog gives these answers should be clear, though pay
 attention to the last one.  It tells us that, as far as Prolog is
 concerned, §a§ and §'a'§ are the same object.
 
-Now let's look at examples involving variables, and explicitly compare   
-§==§ with the unification predicate §=§.  
-  
+Now let's look at examples involving variables, and explicitly compare
+§==§ with the unification predicate §=§.
+
 \begin{LPNcodedisplay}
 ?- X==Y.
 no
 
 ?- X=Y.
-X = _2808 
-Y = _2808 
+X = _2808
+Y = _2808
 yes
 \end{LPNcodedisplay}
-In these queries, §X§ and §Y§ are \LPNemph{uninstantiated}   
-variables; we haven't given them any value.  Thus the first answer is   
-correct: §X§ and §Y§ are \LPNemph{not} identical objects, so the   
-§==§ test fails.  On the other hand, the use of §=§ succeeds,   
+In these queries, §X§ and §Y§ are \LPNemph{uninstantiated}
+variables; we haven't given them any value.  Thus the first answer is
+correct: §X§ and §Y§ are \LPNemph{not} identical objects, so the
+§==§ test fails.  On the other hand, the use of §=§ succeeds,
 for §X§ and §Y§ can be unified.
 
-Let's now look at queries involving \LPNemph{instantiated} variables:  
+Let's now look at queries involving \LPNemph{instantiated} variables:
 \begin{LPNcodedisplay}
 ?- a=X, a==X.
 
-X = a 
+X = a
 yes
 \end{LPNcodedisplay}
-The first conjunct, §a=X§, binds §X§ to §a§.  Thus when   
-§a==X§ is evaluated, the left hand side and right hand sides are   
+The first conjunct, §a=X§, binds §X§ to §a§.  Thus when
+§a==X§ is evaluated, the left hand side and right hand sides are
 exactly the same Prolog object, and §a==X§ succeeds.
 
-A similar thing happens in the following query:   
+A similar thing happens in the following query:
 \begin{LPNcodedisplay}
 ?- X=Y, X==Y.
 
-X = _4500 
-Y = _4500 
+X = _4500
+Y = _4500
 yes
 \end{LPNcodedisplay}
 The conjunct §X=Y§ first unifies the variables §X§ and §Y§.  Thus when
@@ -108,19 +108,19 @@ answers we got above when we used §==§. Now consider:
 \begin{LPNcodedisplay}
 ?- X \== a.
 
-X = _3719 
+X = _3719
 yes
 \end{LPNcodedisplay}
 Why this response?  Well, we know from above that the query §X==a§
 \LPNemph{fails} (recall the way §==§ treats uninstantiated variables).
 Thus the query §X\==a§ should \LPNemph{succeed}, and it does.
 
-Similarly:  
+Similarly:
 \begin{LPNcodedisplay}
 ?- X \== Y.
 
-X = _798 
-Y = _799 
+X = _798
+Y = _799
 yes
 \end{LPNcodedisplay}
 Again, we know from above that the query §X==Y§ fails, thus the query
@@ -167,11 +167,11 @@ yes
 ?- 2*(7+2) == *(2,+(7,2)).
 yes
 \end{LPNcodedisplay}
-In short, the familiar arithmetic notation is there for \LPNemph{our}   
-convenience.  Prolog doesn't regard it as different from the usual   
+In short, the familiar arithmetic notation is there for \LPNemph{our}
+convenience.  Prolog doesn't regard it as different from the usual
 term notation.
 
-Similar remarks to the arithmetic comparison predicates §<§, §=<§, §=:=§, §=\=§, §>§ and §>=§:  
+Similar remarks to the arithmetic comparison predicates §<§, §=<§, §=:=§, §=\=§, §>§ and §>=§:
 \begin{LPNcodedisplay}
 ?- (2 < 3) == <(2,3).
 yes
@@ -199,7 +199,7 @@ arguments in brackets. For example, we didn't ask
 \begin{LPNcodedisplay}
 ?- 2 =:= 3 == =:=(2,3).
 \end{LPNcodedisplay}
-we asked  
+we asked
 \begin{LPNcodedisplay}
 ?- (2 =:= 3) == =:=(2,3).
 \end{LPNcodedisplay}
@@ -209,25 +209,25 @@ this expression as §(2 =:= 3) == =:=(2,3)§ (which is what we want), or
 as §2 =:= (3 == =:=(2,3))§.  So we need to state the grouping
 explicitly.
 
-One final remark.  We have now introduced three rather similar looking   
-symbols, namely §=§, §==§, and §=:=§ (and indeed, there are  
-also §\=§, §\==§, and §=\=§).  Here's a summary:  
-  
+One final remark.  We have now introduced three rather similar looking
+symbols, namely §=§, §==§, and §=:=§ (and indeed, there are
+also §\=§, §\==§, and §=\=§).  Here's a summary:
+
 \begin{center}\begin{tabular}{ll}
 §=§&The unification predicate.\\
-\strut&Succeeds if it can   
+\strut&Succeeds if it can
         unify its arguments, fails otherwise.\\
 §\=§&The negation of the  unification predicate.\\
 \strut&Succeeds if §=§ fails, and vice-versa.\\
 §==§&The identity predicate.\\
-\strut&Succeeds if its arguments   
+\strut&Succeeds if its arguments
         are identical, fails otherwise.\\
 §\==§&The negation of the  identity predicate.\\
 \strut&Succeeds if §==§ fails, and vice-versa.\\
 §=:=§&The arithmetic equality predicate.\\
 \strut&Succeeds if its arguments evaluate to the same integer.\\
 §=\=§&The arithmetic inequality predicate.\\
-\strut&Succeeds if its   
+\strut&Succeeds if its
 arguments evaluate to different integers.
 \end{tabular}\end{center}
 
@@ -241,9 +241,9 @@ Lists are another good example of Prolog working with one internal
 representation, while giving us another, more user-friendly, notation
 to work with.  Let's start with a quick look at the user-friendly list
 notation it provides (that is, the square brackets §[§ and §]§).  In
-fact, because Prolog also offers the §|§ constructor, there are 
+fact, because Prolog also offers the §|§ constructor, there are
 many ways of writing the same list, even at the user-friendly level:
-  
+
 \begin{LPNcodedisplay}
 ?- [a,b,c,d] == [a|[b,c,d]].
 yes
@@ -254,12 +254,12 @@ yes
 ?- [a,b,c,d] == [a,b,c|[d]].
 yes
 
-?- [a,b,c,d] == [a,b,c,d|[]]. 
+?- [a,b,c,d] == [a,b,c,d|[]].
 yes
 \end{LPNcodedisplay}
-  
-  
-  
+
+
+
 But how does Prolog view lists internally?  In fact, it sees lists as
 terms which are built out of two special terms, namely §[]§, which
 represents the empty list, and ``§.§'' (the full-stop), a functor
@@ -269,20 +269,20 @@ constructors}.
 
 This is how these constructors are used to build lists.  Needless to
 say, the definition is recursive:
-  
+
 \begin{itemize}
-\item{}The empty list is the term $[ \ ]$. It 
+\item{}The empty list is the term $[ \ ]$. It
         has length 0.
-\item{}A non-empty list is any term of the form $.(\textit{term},\textit{list})$,   
-        where \textit{term} is any Prolog term, and \textit{list} is any   
-        list.  If \textit{list} has length $n$, then $.(\textit{term},\textit{list})$ has 
+\item{}A non-empty list is any term of the form $.(\textit{term},\textit{list})$,
+        where \textit{term} is any Prolog term, and \textit{list} is any
+        list.  If \textit{list} has length $n$, then $.(\textit{term},\textit{list})$ has
         length $n+1$.
 \end{itemize}
 
 Let's make sure we fully understand this definition by working our way
 through a few examples.
-  
-  
+
+
 \begin{LPNcodedisplay}
 ?- .(a,[]) == [a].
 yes
@@ -314,8 +314,8 @@ yes
 ?- .(.(a,[]),.(.(b,.(c,[])),[])) == [[a],[b,c]].
 yes
 \end{LPNcodedisplay}
-  
-  
+
+
 Prolog's internal notation for lists is not as user-friendly as the
 use of the square bracket notation.  But it's not as bad as it seems
 at first sight. In fact, it works similarly to the §|§ notation. It
@@ -328,26 +328,26 @@ the subtree under the right daughter represents the rest of the list.
 For example, the tree representation of
 §.(a,.(.(b,.(c,[])),.(d,[])))§, that is, §[a, [b,c], d]§, looks like
 this:
-  
+
 \begin{center}
-\includegraphics[scale=.7]{listtree.eps}  
+\includegraphics[scale=.7]{listtree.eps}
 \end{center}
 
-  
+
 One final remark. Prolog is very polite. Not only are you free to talk
 to it in the user-friendly notation, it will reply in the same way:
 \begin{LPNcodedisplay}
 ?- .(f(d,e),[]) = Y.
 
-Y = [f(d,e)] 
+Y = [f(d,e)]
 yes
 
 
 ?- .(a,.(b,[])) = X, Z= .(.(c,[]),[]), W = [1,2,X].
 
-X = [a,b] 
-Z = [[c]] 
-W = [1,2,[a,b]] 
+X = [a,b]
+Z = [[c]]
+W = [1,2,[a,b]]
 yes
 \end{LPNcodedisplay}
 
@@ -370,8 +370,8 @@ there are four different kinds, namely variables, atoms, numbers and
 complex terms.  Furthermore, atoms and numbers are grouped together
 under the name constants, and constants and variables constitute the
 simple terms. The following tree diagram summarises this:
- 
-\begin{center} 
+
+\begin{center}
   \pstree[levelsep=10mm,nodesep=2mm]{\TR{terms}}
     { \pstree[levelsep=10mm,nodesep=2mm]{\TR{simple terms}}
          { \TR{variables}
@@ -380,15 +380,15 @@ simple terms. The following tree diagram summarises this:
                  \TR{numbers} }}
       \TR{complex terms} }
 
-%\includegraphics{termtypes.eps}  
+%\includegraphics{termtypes.eps}
 \end{center}
-  
+
 Sometimes it is useful to be able to determine what type a given term
 is. You might, for example, want to write a predicate that has to deal
 with different kinds of terms, but has to treat them in different
 ways.  Prolog provides several built-in predicates that test whether a
 given term is of a certain type:
-  
+
 \begin{center}\begin{tabular}{ll}
 §atom/1§&Is the argument an atom?\\ \index{PROLOG atom/1@\texttt{atom/1}}
 §integer/1§&Is  the argument  an integer?\\ \index{PROLOG integer/1@\texttt{integer/1}}
@@ -397,11 +397,11 @@ given term is of a certain type:
 §atomic/1§&Is the  argument a constant?\\ \index{PROLOG atomic/1@\texttt{atomic/1}}
 §var/1§&Is the argument an uninstantiated variable?\\ \index{PROLOG var/1@\texttt{var/1}}
 §nonvar/1§&\parbox[t]{0.75\textwidth}{Is  the argument an instantiated variable or another term that is not an \LPNemph{un}instantiated variable?} \index{PROLOG nonvar/1@\texttt{nonvar/1}}
-\end{tabular}\end{center}  
+\end{tabular}\end{center}
 
-  
-Let's see how they behave.  
-  
+
+Let's see how they behave.
+
 \begin{LPNcodedisplay}
 ?- atom(a).
 yes
@@ -426,8 +426,8 @@ However if we instantiate §X§ with an atom first and then ask
 X = a
 yes
 \end{LPNcodedisplay}
-But it is important that the instantiation is done \LPNemph{before} the  
-test:   
+But it is important that the instantiation is done \LPNemph{before} the
+test:
 \begin{LPNcodedisplay}
 ?- atom(X), X = a.
 no
@@ -443,7 +443,7 @@ for §atomic/1§, this tests whether a given term is a constant, that
 is, whether it is either an atom or a number. So §atomic/1§ will
 evaluate to true whenever either §atom/1§ or §number/1§ evaluate to
 true and it fails when both fail.
-  
+
 \begin{LPNcodedisplay}
 ?- atomic(mia).
 yes
@@ -460,7 +460,7 @@ no
 ?- atomic(X)
 no
 \end{LPNcodedisplay}
-  
+
 What about variables?  First there is the §var/1§ predicate. This
 tests whether the argument is an \LPNemph{uninstantiated} variable:
 \begin{LPNcodedisplay}
@@ -499,11 +499,11 @@ yes
 ?- nonvar(loves(vincent,mia)).
 yes
 \end{LPNcodedisplay}
-  
+
 Note that a complex term which contains uninstantiated variables is
 not itself an uninstantiated variable (it is a  complex
 term). Therefore we have:
-  
+
 \begin{LPNcodedisplay}
 ?- var(loves(_,mia)).
 no
@@ -511,17 +511,17 @@ no
 ?- nonvar(loves(_,mia)).
 yes
 \end{LPNcodedisplay}
-  
-And  when the variable §X§ gets instantiated §var(X)§  
-and §nonvar(X)§ behave differently depending on whether they are  
-called before or after the instantiation: 
-  
+
+And  when the variable §X§ gets instantiated §var(X)§
+and §nonvar(X)§ behave differently depending on whether they are
+called before or after the instantiation:
+
 \begin{LPNcodedisplay}
 ?- X = a, var(X).
-no 
+no
 
 ?- X = a, nonvar(X).
-X = a 
+X = a
 yes
 
 ?- var(X), X = a.
@@ -546,7 +546,7 @@ information. Information about the functor\index{PROLOG
 functor/3@\texttt{functor/3}} and arity is supplied by the predicate
 §functor/3§.  Given a complex term, §functor/3§ will tell us what its
 functor and arity are:
-  
+
 \begin{LPNcodedisplay}
 ?- functor(f(a,b),F,A).
 A = 2
@@ -555,7 +555,7 @@ yes
 
 ?- functor([a,b,c],X,Y).
 X = '.'
-Y = 2 
+Y = 2
 yes
 \end{LPNcodedisplay}
 Note that when asked about a list, Prolog returns the functor ., which
@@ -581,7 +581,7 @@ yes
 
 So we can use the predicate §functor/3§ to find out the functor and the
 arity of a term, and this usage also works for the special case of 0
-arity terms (constants). 
+arity terms (constants).
 
 We can also use
 §functor/3§ to \LPNemph{construct} terms. How?
@@ -590,7 +590,7 @@ undetermined.  The query
 \begin{LPNcodedisplay}
 ?- functor(T,f,7).
 \end{LPNcodedisplay}
-for example, returns the following answer:  
+for example, returns the following answer:
 \begin{LPNcodedisplay}
 T = f(_G286, _G287, _G288, _G289, _G290, _G291, _G292)
 yes
@@ -612,7 +612,7 @@ predicate. It is easy to do so using §functor/3§.  All we have to do
 is to check that there is a suitable functor, and that the input has
 arguments (that is, that its arity is greater than zero).  Here is the
 definition:
-  
+
 \begin{LPNcodedisplay}
 complexterm(X):-
    nonvar(X),
@@ -632,13 +632,13 @@ of an argument
 X = mia
 yes
 \end{LPNcodedisplay}
-or to instantiate an argument  
+or to instantiate an argument
 \begin{LPNcodedisplay}
 ?- arg(2,loves(vincent,X),mia).
 X = mia
 yes
 \end{LPNcodedisplay}
-Trying to access an argument which doesn't exist, of course, fails:  
+Trying to access an argument which doesn't exist, of course, fails:
 \begin{LPNcodedisplay}
 ?- arg(2,happy(yolanda),X).
 no
@@ -651,7 +651,7 @@ namely §'=..'/2§. This takes a complex term and returns a list that
 has the functor as its head, and then all the arguments, in order, as
 the elements of the tail.  So to the query
 \begin{LPNcodedisplay}
-?- '=..'(loves(vincent,mia),X) 
+?- '=..'(loves(vincent,mia),X)
 \end{LPNcodedisplay}
 Prolog will respond
 \begin{LPNcodedisplay}
@@ -662,23 +662,23 @@ infix operator. Here are some examples showing various ways of
 using\index{PROLOG =..@\texttt{=../2}} this (very useful) tool:
 \begin{LPNcodedisplay}
 ?- cause(vincent,dead(zed)) =.. X.
-X = [cause, vincent, dead(zed)] 
+X = [cause, vincent, dead(zed)]
 yes
 
 ?- X =.. [a,b(c),d].
-X = a(b(c), d) 
+X = a(b(c), d)
 yes
 
 ?- footmassage(Y,mia) =.. X.
 Y = _G303
-X = [footmassage, _G303, mia] 
+X = [footmassage, _G303, mia]
 yes
 \end{LPNcodedisplay}
-  
+
 Univ really comes into its own when something has to be done to all
 arguments of a complex term. Since it returns the arguments as a list,
 normal list processing strategies can be used to traverse the
-arguments.  
+arguments.
 
 
 \subsection*{Strings}\label{SUBSEC.L9.STRINGS}
@@ -734,7 +734,7 @@ N = abcabc
 
 One last thing you need to know about the \texttt{atom\_codes/2} predicate is
 that it is related to another other built-in predicate, namely
-\texttt{number\_codes/2}\index{PROLOG number\_codes/2@\texttt{number\_codes/2}}. 
+\texttt{number\_codes/2}\index{PROLOG number\_codes/2@\texttt{number\_codes/2}}.
 This predicate behaves in a similar way, but, as the names suggest, only works for numbers.
 
 
@@ -755,8 +755,8 @@ properties of operators, and then learn how to define our own.
 
 Let's start with an example from arithmetic.  Internally, Prolog uses
 the expression §is(11,+(2,*(3,3)))§, but we are free to write the
-functors §*§ and §+§ between their arguments, to form the more 
-user-friendly 
+functors §*§ and §+§ between their arguments, to form the more
+user-friendly
 expression §11 is 2 + 3 * 3§.  Functors that can be written
 between their arguments are called \LPNterm{infix operators}. Other
 examples of infix operators in Prolog are §:-§, §-->§, §;§, §','§,
@@ -776,7 +776,7 @@ operator has a certain \LPNterm{precedence}. The precedence of §+§ is
 greater than the precedence of §*§, and that's why §+§ is taken to be
 the main functor of the expression §2 + 3 * 3§. (Note that Prolog's
 internal representation §+(2,*(3,3))§ is not ambiguous.)  Similarly,
-the precedence of §is§ is higher than the precedence of §+§, so 
+the precedence of §is§ is higher than the precedence of §+§, so
 §11 is 2 + 3 * 3§ is interpreted as §is(11,+(2,*(3,3)))§ and not as the
 (nonsensical) expression §+(is(11,2),*(3,3))§.  In Prolog, precedence
 is expressed by a number between 0 and 1200; the higher the number,
@@ -794,23 +794,23 @@ the correct bracketing is because §==§ and §=:=§ have the same
 precedence. In such cases, explicit bracketings must be supplied by
 the programmer.
 
-What about the following query though?  
+What about the following query though?
 \begin{LPNcodedisplay}
 ?- X is 2 + 3 + 4.
 \end{LPNcodedisplay}
 Does Prolog find this  confusing? Not at all: it deals with it happily
 and correctly answers §X = 9§.  But which bracketing did Prolog
-choose: §is(X,+(2,+(3,4)))§ or §is(X,+(+(2,3),4))§? 
+choose: §is(X,+(2,+(3,4)))§ or §is(X,+(+(2,3),4))§?
 As the following queries show, it chose the second:
-  
+
 \begin{LPNcodedisplay}
 ?- 2 + 3 + 4 = +(2,+(3,4)).
 no
 ?- 2 + 3 + 4 = +(+(2,3),4).
 yes
 \end{LPNcodedisplay}
-  
-  
+
+
 Here Prolog has used information about the \LPNterm{associativity} of
 §+§  to disambiguate:  §+§ is \LPNterm{left
 associative}, which means that the expression to the right of §+§ must
@@ -822,12 +822,12 @@ interpreting §2 + 3 + 4§ as §+(2,+(3,4))§ would mean that the
 expression to the right of the first §+§ has the same precedence as
 §+§ itself, which is illegal. It has to be lower.
 
-The operators §==§, §=:=§, and §is§ are defined to be  
-\LPNterm{non-associative}, which means that both of their arguments must have  
+The operators §==§, §=:=§, and §is§ are defined to be
+\LPNterm{non-associative}, which means that both of their arguments must have
 a lower precedence. Therefore §2 =:= 3 == =:=(2,3)§ is an illegal
-expression,  
-since no matter how you bracket it you'll get a conflict:  
-§2 =:= 3§ has the same precedence as §==§, and   
+expression,
+since no matter how you bracket it you'll get a conflict:
+§2 =:= 3§ has the same precedence as §==§, and
 §3 == =:=(2,3)§ has the same precedence as §=:=§.
 
 The type of an operator (infix, prefix, or postfix), its precedence,
@@ -852,7 +852,7 @@ Operator definitions in Prolog look like this:  \index{PROLOG op/3@\texttt{op/3}
 :- op(Precedence,Type,Name).
 \end{LPNcodedisplay}
 As we mentioned above, precedence is a number between 0 and 1200, and
-the higher the number, the greater the  precedence.  
+the higher the number, the greater the  precedence.
 Type is an
 atom specifying the type and associativity of the operator. In the
 case of §+§ this atom is §yfx§, which says that §+§ is an infix
@@ -860,25 +860,25 @@ operator; the §f§ represents the operator,  and the §x§ and §y§ the
 arguments.  Furthermore, §x§ stands for an argument which has a
 precedence which is lower than the precedence of §+§ and §y§ stands
 for an argument which has a precedence which lower or equal to the
-precedence of §+§.  There are the following possibilities for 
+precedence of §+§.  There are the following possibilities for
 type:
 \begin{center}\begin{tabular}{ll}
 infix&§xfx§, §xfy§, §yfx§\\
 prefix&§fx§, §fy§\\
 suffix&§xf§, §yf§
-\end{tabular}\end{center}  
+\end{tabular}\end{center}
 
-So  your operator definition for §is_dead§ might be as follows:  
+So  your operator definition for §is_dead§ might be as follows:
 \begin{LPNcodedisplay}
 :- op(500, xf, is_dead).
 \end{LPNcodedisplay}
-  
-  
-Here are the definitions for some of the built-in operators. You can see  
-that operators with the same properties can be specified in one statement  
-by giving a list of their names (instead of a single name) as the third   
-argument of §op§.  
-  
+
+
+Here are the definitions for some of the built-in operators. You can see
+that operators with the same properties can be specified in one statement
+by giving a list of their names (instead of a single name) as the third
+argument of §op§.
+
 \begin{center}\begin{tabular}{l}
 §:- op( 1200, xfx, [ :-, --> ]).§\\
 §:- op( 1200,  fx, [ :-, ?- ]).§\\
@@ -900,10 +900,10 @@ evaluate to true, it merely extends the \LPNemph{syntax} of
 Prolog. So if the operator §is_dead§ is defined as above, and you pose
 the query §zed is_dead§, Prolog won't complain about illegal syntax
 (as it would without this definition) but  will try to prove the
-goal §is_dead(zed)§, which is Prolog's internal representation of 
+goal §is_dead(zed)§, which is Prolog's internal representation of
 §zed is_dead§. And this is all operator definitions do --- they just tell
 Prolog how to translate a user-friendly notation into real Prolog
-notation. So, what would be Prolog's answer to the query 
+notation. So, what would be Prolog's answer to the query
 §zed is_dead§? It would be §no§, because Prolog would try to prove
 §is_dead(zed)§, but would not find any matching clause in the
 database.  But suppose we extended the database as follows:
@@ -913,12 +913,12 @@ database.  But suppose we extended the database as follows:
 kill(marsellus,zed).
 is_dead(X) :- kill(_,X).
 \end{LPNcodedisplay}
-Now Prolog would answer §yes§ to the query.   
+Now Prolog would answer §yes§ to the query.
 
 
 \section{Exercises}\label{SEC.L9.EXERCISES}
 
-\begin{LPNexercise}{L9.EX1}Which of the following queries succeed, and which fail?  
+\begin{LPNexercise}{L9.EX1}Which of the following queries succeed, and which fail?
 \begin{LPNcodedisplay}
 ?- 12 is 2*6.
 
@@ -951,7 +951,7 @@ Now Prolog would answer §yes§ to the query.
 \end{LPNcodedisplay}
 \end{LPNexercise}
 
-\begin{LPNexercise}{L9.EX2}How does Prolog respond to the following queries?  
+\begin{LPNexercise}{L9.EX2}How does Prolog respond to the following queries?
 \begin{LPNcodedisplay}
 ?- .(a,.(b,.(c,[]))) = [a,b,c].
 
@@ -963,11 +963,11 @@ Now Prolog would answer §yes§ to the query.
 \end{LPNcodedisplay}
 \end{LPNexercise}
 
-\begin{LPNexercise}{L9.EX3}Write a two-place predicate §termtype(Term,Type)§ that  
-takes a term and gives back the type(s) of that term (atom, number,  
-constant, variable, and so on). The types should be given back in the order  
-of their generality. The predicate should  behave in the  
-following way.   
+\begin{LPNexercise}{L9.EX3}Write a two-place predicate §termtype(Term,Type)§ that
+takes a term and gives back the type(s) of that term (atom, number,
+constant, variable, and so on). The types should be given back in the order
+of their generality. The predicate should  behave in the
+following way.
 \begin{LPNcodedisplay}
 ?- termtype(Vincent,variable).
 yes
@@ -985,7 +985,7 @@ no
 \end{LPNexercise}
 
 
-\begin{LPNexercise}{L9.EX4}Write a 
+\begin{LPNexercise}{L9.EX4}Write a
 Prolog program that defines the predicate §groundterm(Term)§ which
 tests whether or not §Term§ is a ground term. Ground terms are terms
 that don't contain variables. Here are examples of how the predicate
@@ -1000,16 +1000,16 @@ no
 \end{LPNcodedisplay}
 \end{LPNexercise}
 
-\begin{LPNexercise}{L9.EX5}Assume that we have the following operator definitions.  
+\begin{LPNexercise}{L9.EX5}Assume that we have the following operator definitions.
 \begin{LPNcodedisplay}
 :- op(300, xfx, [are, is_a]).
 :- op(300, fx, likes).
 :- op(200, xfy, and).
 :- op(100, fy, famous).
 \end{LPNcodedisplay}
-Which of the following are well-formed terms?  
-What are the main operators? Give the bracketings.  
-  
+Which of the following are well-formed terms?
+What are the main operators? Give the bracketings.
+
 \begin{LPNcodedisplay}
 X is_a witch
 harry and ron and hermione are friends
@@ -1043,19 +1043,19 @@ yes
 But the really important point about §display/1§, as the following
 examples demonstrate, is that it prints Prolog's \LPNemph{internal
 representation} of terms to the screen:
-  
+
 \begin{LPNcodedisplay}
 ?- display(2+3+4).
 +(+(2, 3), 4)
 
 yes
 \end{LPNcodedisplay}
-  
-  
+
+
 This property of §display/1§ makes it a very useful tool for learning
 how operators work in Prolog. So, before going on, try the following
 queries. Make sure you understand why Prolog answers the way it does.
-  
+
 \begin{LPNcodedisplay}
 ?- display([a,b,c]).
 ?- display(3 is 4 + 5 / 3).
@@ -1063,17 +1063,17 @@ queries. Make sure you understand why Prolog answers the way it does.
 ?- display((a:-b,c,d)).
 ?- display(a:-b,c,d).
 \end{LPNcodedisplay}
-  
-  
+
+
 So §display/1§ is useful when we want to look at the internal
 representation of terms in operator notation. But often we would
 prefer to see the user-friendly notation instead. For example, when
 reading lists it is usually more pleasant to see §[a,b,c]§ rather
-than §.(a.(b.(c,[])))§. The built-in predicate §write/1§ lets us 
+than §.(a.(b.(c,[])))§. The built-in predicate §write/1§ lets us
 view terms like
 this.\index{PROLOG write/1@\texttt{write/1}} This predicate takes a
 term and prints it to the screen in the user-friendly notation.
-  
+
 \begin{LPNcodedisplay}
 ?- write(2+3+4).
 2+3+4
@@ -1091,11 +1091,11 @@ yes
 [a, b]
 yes
 \end{LPNcodedisplay}
-  
-  
-And here is what happens when the term  to be written contains  
-variables:  
-  
+
+
+And here is what happens when the term  to be written contains
+variables:
+
 \begin{LPNcodedisplay}
 ?- write(X).
 _G204
@@ -1107,10 +1107,10 @@ a
 X = a
 yes
 \end{LPNcodedisplay}
-  
-  
+
+
 The following example shows what happens when you give two  §write/1§
-commands one after the other: 
+commands one after the other:
 \begin{LPNcodedisplay}
 ?- write(a),write(b).
 ab
@@ -1127,17 +1127,17 @@ a b
 
 yes
 \end{LPNcodedisplay}
-And if you want more than one space, for example five blanks, you   
-can tell Prolog to write §'     '§.  
+And if you want more than one space, for example five blanks, you
+can tell Prolog to write §'     '§.
 \begin{LPNcodedisplay}
 ?- write(a),write('     '),write(b).
 a     b
 
 yes
 \end{LPNcodedisplay}
-  
-Another way of printing spaces is by using the predicate   
-§tab/1§.\index{PROLOG tab/1@\texttt{tab/1}} This takes a number as argument and then  
+
+Another way of printing spaces is by using the predicate
+§tab/1§.\index{PROLOG tab/1@\texttt{tab/1}} This takes a number as argument and then
 prints  that number of spaces:
 \begin{LPNcodedisplay}
 ?- write(a),tab(5),write(b).
@@ -1145,11 +1145,11 @@ a     b
 
 yes
 \end{LPNcodedisplay}
-  
-  
-Another predicate useful for formatting is §nl§.\index{PROLOG nl/0@\texttt{nl/0}}  
-This  tells Prolog to make a line-break and to go on printing on  
-the next line.  
+
+
+Another predicate useful for formatting is §nl§.\index{PROLOG nl/0@\texttt{nl/0}}
+This  tells Prolog to make a line-break and to go on printing on
+the next line.
 \begin{LPNcodedisplay}
 ?- write(a),nl,write(b).
 a
@@ -1159,14 +1159,14 @@ yes
 
 
 Time to apply what you have just learned.
-In the last chapter we saw how extra arguments in DCGs could be used  
-to build  parse trees. For example, to the query  
+In the last chapter we saw how extra arguments in DCGs could be used
+to build  parse trees. For example, to the query
 \begin{LPNcodedisplay}
 s(T,[a,man,shoots,a,woman],[])
 \end{LPNcodedisplay}
-Prolog would answer  
+Prolog would answer
 \begin{LPNcodedisplay}
-s(np(det(a),n(man)),vp(v(shoots),np(det(a),n(woman)))). 
+s(np(det(a),n(man)),vp(v(shoots),np(det(a),n(woman)))).
 \end{LPNcodedisplay}
 This term is a representation of the parse tree, but it is not a very readable
 representation. It would be nicer if Prolog printed
@@ -1183,9 +1183,9 @@ s(
       det(a)
       n(woman))))
 \end{LPNcodedisplay}
-Write a predicate §pptree/1§ that takes a complex term  
-representing a tree 
-as its argument and prints 
+Write a predicate §pptree/1§ that takes a complex term
+representing a tree
+as its argument and prints
 the tree in a more readable form.
 
 Time to  practice writing operator definitions.

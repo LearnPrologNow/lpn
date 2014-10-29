@@ -4,14 +4,14 @@
 \Thischapter{145}{
 
 \noindent
-This chapter has two main goals:  
-  
+This chapter has two main goals:
+
 \begin{enumerate}
-\item{}To introduce context free grammars (CFGs) and some related  
+\item{}To introduce context free grammars (CFGs) and some related
 concepts.
 
-\item{}To introduce definite clause grammars (DCGs), a built-in Prolog  
-mechanism for working with context free grammars (and other kinds of  
+\item{}To introduce definite clause grammars (DCGs), a built-in Prolog
+mechanism for working with context free grammars (and other kinds of
 grammar too).
 \end{enumerate}
 
@@ -41,13 +41,13 @@ beings use), they can certainly handle most aspects of the syntax of
 many natural languages (for example, English and French) in a
 reasonably natural way.
 
- So what is a context free grammar?  In essence, a finite  
-collection of rules which tell us that certain sentences are  
-grammatical (that is, syntactically correct) and what their  
-grammatical structure actually is.  Here's a simple context free  
-grammar for a small fragment of English:  
-  
-  
+ So what is a context free grammar?  In essence, a finite
+collection of rules which tell us that certain sentences are
+grammatical (that is, syntactically correct) and what their
+grammatical structure actually is.  Here's a simple context free
+grammar for a small fragment of English:
+
+
 \begin{center}\begin{tabular}{l}
 §s -> np vp§\\
 §np -> det n§\\
@@ -58,8 +58,8 @@ grammar for a small fragment of English:
 §n ->§ \LPNemph{woman}\\
 §n ->§ \LPNemph{man}\\
 §v ->§ \LPNemph{shoots}
-\end{tabular}\end{center}  
-  
+\end{tabular}\end{center}
+
 What are the ingredients of this little grammar?  Well, first note
 that it contains three types of symbol.  There's §->§, which is used
 to define the rules.  Then there are the symbols written like this:
@@ -89,9 +89,9 @@ simply use a verb.  The last five rules tell us that \LPNemph{a} and
 \LPNemph{the} are determiners, that \LPNemph{man} and \LPNemph{woman}
 are nouns, and that \LPNemph{shoots} is a verb.
 
-Now consider the string of words \LPNemph{a woman shoots a man}.  Is   
-this grammatical according to our little grammar?  And if it is, what   
-structure does it have?  The following tree answers both questions:  
+Now consider the string of words \LPNemph{a woman shoots a man}.  Is
+this grammatical according to our little grammar?  And if it is, what
+structure does it have?  The following tree answers both questions:
 
 \begin{quote}
   \pstree[levelsep=10mm,nodesep=2mm]{\TR{\texttt{s}}}
@@ -110,23 +110,23 @@ structure does it have?  The following tree answers both questions:
                              {\TR{\texttt{man}}}}}}
 \end{quote}
 
-%\includegraphics{parse.eps}  
+%\includegraphics{parse.eps}
 
-  
-Right at the top we have a node marked §s§. This node has two  
-daughters, one marked §np§, and one marked §vp§. Note that  
-this part of the diagram agrees with the first rule of the grammar,  
-which says that an §s§ can be built out of an §np§ and a  
-§vp§. (A linguist would say that this part of the tree is  
-\LPNterm{licensed} by the first rule.)  In fact, as you can see,  
-\LPNemph{every} part of the tree is licensed by one of our rules.  For  
-example, the two nodes marked §np§ are licensed by the rule that  
-says that an §np§ can consist of a §det§ followed by an  
-§n§. And, right at the bottom of the diagram, all the words in  
-\LPNemph{a woman shoots a man} are licensed by a rule. Incidentally, note  
-that the terminal symbols only decorate the nodes right at the bottom  
-of the tree (the terminal nodes) while non-terminal symbols only  
-decorate nodes that are higher up in the tree (the non-terminal  
+
+Right at the top we have a node marked §s§. This node has two
+daughters, one marked §np§, and one marked §vp§. Note that
+this part of the diagram agrees with the first rule of the grammar,
+which says that an §s§ can be built out of an §np§ and a
+§vp§. (A linguist would say that this part of the tree is
+\LPNterm{licensed} by the first rule.)  In fact, as you can see,
+\LPNemph{every} part of the tree is licensed by one of our rules.  For
+example, the two nodes marked §np§ are licensed by the rule that
+says that an §np§ can consist of a §det§ followed by an
+§n§. And, right at the bottom of the diagram, all the words in
+\LPNemph{a woman shoots a man} are licensed by a rule. Incidentally, note
+that the terminal symbols only decorate the nodes right at the bottom
+of the tree (the terminal nodes) while non-terminal symbols only
+decorate nodes that are higher up in the tree (the non-terminal
 nodes).
 
 \clearpage
@@ -137,27 +137,27 @@ about \LPNterm{structure}. This is an important distinction to grasp,
 so let's have a closer look, and learn some important terminology
 while we are doing so.
 
-First, if we are given a string of words, and a grammar, and it turns  
-out that we \LPNemph{can} build a parse tree like the one above (that is, a  
-tree that has §s§ at the top node, and every node in the tree is  
-licensed by the grammar, and the string of words we were given is  
-listed in the correct order along the terminal nodes) then we say that  
-the string is \LPNterm{gramma\-tical} (according to the given grammar).  For  
-example, the string \LPNemph{a woman shoots a man} is grammatical according  
-to our little grammar (and indeed, any reasonable grammar of English  
-would classify it as grammatical). On the other hand, if there isn't  
-any such tree, the string is ungrammatical (according to the  
-given grammar). For example, the string \LPNemph{woman a woman man a  
-shoots} is ungrammatical according to our little grammar (and any  
-reasonable grammar of English would classify it as ungrammatical).  
-The \LPNterm{language generated by a grammar} consists of all the strings  
-that the grammar classifies as grammatical.  For example, \LPNemph{a woman  
-shoots a man} also belongs to the language generated by our little  
-grammar, and so does \LPNemph{a man shoots the woman}. A context free  
-\LPNterm{recogniser} is a program which correctly tells us whether or not a  
-string belongs to the language generated by a context free grammar.  
-To put it another way, a recogniser is a program that correctly classifies strings  
-as grammatical or ungrammatical (relative to some grammar).  
+First, if we are given a string of words, and a grammar, and it turns
+out that we \LPNemph{can} build a parse tree like the one above (that is, a
+tree that has §s§ at the top node, and every node in the tree is
+licensed by the grammar, and the string of words we were given is
+listed in the correct order along the terminal nodes) then we say that
+the string is \LPNterm{gramma\-tical} (according to the given grammar).  For
+example, the string \LPNemph{a woman shoots a man} is grammatical according
+to our little grammar (and indeed, any reasonable grammar of English
+would classify it as grammatical). On the other hand, if there isn't
+any such tree, the string is ungrammatical (according to the
+given grammar). For example, the string \LPNemph{woman a woman man a
+shoots} is ungrammatical according to our little grammar (and any
+reasonable grammar of English would classify it as ungrammatical).
+The \LPNterm{language generated by a grammar} consists of all the strings
+that the grammar classifies as grammatical.  For example, \LPNemph{a woman
+shoots a man} also belongs to the language generated by our little
+grammar, and so does \LPNemph{a man shoots the woman}. A context free
+\LPNterm{recogniser} is a program which correctly tells us whether or not a
+string belongs to the language generated by a context free grammar.
+To put it another way, a recogniser is a program that correctly classifies strings
+as grammatical or ungrammatical (relative to some grammar).
 
 But often, in both linguistics and computer science, we are not merely
 interested in whether a string is grammatical or not, we also want to
@@ -189,8 +189,8 @@ other hand, some dialects of Swiss-German are \LPNemph{not} context
 free. It can be proved mathematically that no context free grammar can
 generate all (and only) the sentences that native speakers of
 Swiss-German find acceptable.%
-\footnote{``Evidence against the context-freeness of natural language'', 
-Stuart M. Shieber, 
+\footnote{``Evidence against the context-freeness of natural language'',
+Stuart M. Shieber,
 \textit{Linguistics and Philosophy}, 8:333--343, 1985.}
 So if you wanted to write a grammar for
 such dialects, you would have to employ additional grammatical
@@ -215,10 +215,10 @@ tool.  In the following chapter we'll look at definite clause grammars
 in more detail, and learn (among other things) how to use them to
 define parsers.
 
-So: given a context free grammar, how do we define a recogniser in  
-Prolog?  In fact, Prolog offers a very direct answer to this question:  
-we can simply write down Prolog clauses that correspond, in an obvious  
-way, to the grammar rules.  That is, we can simply turn the grammar  
+So: given a context free grammar, how do we define a recogniser in
+Prolog?  In fact, Prolog offers a very direct answer to this question:
+we can simply write down Prolog clauses that correspond, in an obvious
+way, to the grammar rules.  That is, we can simply turn the grammar
 into Prolog.
 
 Here's a simple (though as we shall learn, inefficient) way of doing
@@ -236,7 +236,7 @@ rules that tell us about individual words?  Even easier: we can simply
 view §n ->§ \LPNemph{woman} as saying that the list §[woman]§ is an
 §n§ list.
 
-If we turn these ideas into Prolog, this is what we get:  
+If we turn these ideas into Prolog, this is what we get:
 \begin{LPNcodedisplay}
 s(Z):- np(X), vp(Y), append(X,Y,Z).
 
@@ -254,20 +254,20 @@ n([man]).
 
 v([shoots]).
 \end{LPNcodedisplay}
-  
-  
-The correspondence between the CFG rules and the Prolog code should be  
-clear.  And to use this program as a recogniser, we simply pose the  
-obvious queries.  For example:  
+
+
+The correspondence between the CFG rules and the Prolog code should be
+clear.  And to use this program as a recogniser, we simply pose the
+obvious queries.  For example:
 \begin{LPNcodedisplay}
 ?- s([a,woman,shoots,a,man]).
 yes
 \end{LPNcodedisplay}
-  
-In fact, because this is a simple declarative Prolog program, we can  
-do more than this: we can also \LPNterm{generate} all the sentences this  
-grammar produces.  Our little grammar generates 20 sentences.  
-Here are the first five:  
+
+In fact, because this is a simple declarative Prolog program, we can
+do more than this: we can also \LPNterm{generate} all the sentences this
+grammar produces.  Our little grammar generates 20 sentences.
+Here are the first five:
 \begin{LPNcodedisplay}
 ?- s(X).
 
@@ -281,46 +281,46 @@ X = [the,woman,shoots,a,man] ;
 
 X = [the,woman,shoots]
 \end{LPNcodedisplay}
-  
-Moreover, we're not restricted to posing questions about sentences: we   
-can ask about other grammatical categories. For example:  
+
+Moreover, we're not restricted to posing questions about sentences: we
+can ask about other grammatical categories. For example:
 \begin{LPNcodedisplay}
 ?- np([a,woman]).
 yes
 \end{LPNcodedisplay}
-  
-And we can generate noun phrases with the following query.  
+
+And we can generate noun phrases with the following query.
 \begin{LPNcodedisplay}
 ?- np(X).
 \end{LPNcodedisplay}
-  
-  
-Now this is rather nice.  We have a simple, easy to understand program  
-which corresponds with our CFG in an obvious way.  Moreover, if we  
-added more rules to our CFG, it would be easy to alter the program to  
+
+
+Now this is rather nice.  We have a simple, easy to understand program
+which corresponds with our CFG in an obvious way.  Moreover, if we
+added more rules to our CFG, it would be easy to alter the program to
 cope with the new rules.
 
-But there is a problem: the program doesn't use the input sentence to  
-guide the search. Make a trace for the query §s([a,man,shoots])§  
+But there is a problem: the program doesn't use the input sentence to
+guide the search. Make a trace for the query §s([a,man,shoots])§
 and you will see that the program chooses
-noun phrases and verb  
-phrases and only afterwards checks whether these can be combined to  
-form the sentence §[a,man,shoots]§. For example, Prolog will find that  
-§[the,woman]§ is a noun phrase and §[shoots,the,woman]§ a  
-verb phrase and only then will it check whether concatenating these  
-lists happens to yield §[a,man,shoots]§, which of course  
-it won't. So, Prolog starts to backtrack, and the next thing it will try  
-is whether concatenating the noun phrase §[the,woman]§ and the  
-verb phrase §[shoots,the,man]§ happens to yield  
+noun phrases and verb
+phrases and only afterwards checks whether these can be combined to
+form the sentence §[a,man,shoots]§. For example, Prolog will find that
+§[the,woman]§ is a noun phrase and §[shoots,the,woman]§ a
+verb phrase and only then will it check whether concatenating these
+lists happens to yield §[a,man,shoots]§, which of course
+it won't. So, Prolog starts to backtrack, and the next thing it will try
+is whether concatenating the noun phrase §[the,woman]§ and the
+verb phrase §[shoots,the,man]§ happens to yield
 §[a,man,shoots]§, another non-starter.
-It will go on like this until it (finally)  
-produces the noun phrase §[a,man]§ and the verb phrase  
-§[shoots]§. The problem is that the goals  
-§np(X)§ and §vp(Y)§ are called with uninstantiated variables  
-as arguments. 
+It will go on like this until it (finally)
+produces the noun phrase §[a,man]§ and the verb phrase
+§[shoots]§. The problem is that the goals
+§np(X)§ and §vp(Y)§ are called with uninstantiated variables
+as arguments.
 
-So, how about changing the rules in such a way that §append§  
-becomes the first goal:  
+So, how about changing the rules in such a way that §append§
+becomes the first goal:
 \begin{LPNcodedisplay}
 s(Z):- append(X,Y,Z), np(X), vp(Y).
 
@@ -359,10 +359,10 @@ sentences. We need to do something about this.
 
 
 
-A more efficient implementation can be obtained by making use of  
-\LPNemph{difference lists}. This is a sophisticated (and, once you've  
-grasped it, beautiful) Prolog technique that can be used for a  
-variety of purposes.  
+A more efficient implementation can be obtained by making use of
+\LPNemph{difference lists}. This is a sophisticated (and, once you've
+grasped it, beautiful) Prolog technique that can be used for a
+variety of purposes.
 
 
 The key idea underlying difference lists is to represent the
@@ -371,22 +371,22 @@ the difference between two lists.  For example, instead of
 representing \LPNemph{a woman shoots a man} as
 §[a,woman,shoots,a,man]§ we can represent it as the pair of lists
 \begin{LPNcodedisplay}
-[a,woman,shoots,a,man] [].  
+[a,woman,shoots,a,man] [].
 \end{LPNcodedisplay}
- Think of the first list as  
-\LPNemph{what needs to be consumed} (or if you prefer:  the \LPNemph{input  
-list}), and the second list as \LPNemph{what we should leave behind} (or:  
-the \LPNemph{output list}).  Viewed from this (rather procedural) perspective  
-the difference list  
+ Think of the first list as
+\LPNemph{what needs to be consumed} (or if you prefer:  the \LPNemph{input
+list}), and the second list as \LPNemph{what we should leave behind} (or:
+the \LPNemph{output list}).  Viewed from this (rather procedural) perspective
+the difference list
 \begin{LPNcodedisplay}
-[a,woman,shoots,a,man] []. 
+[a,woman,shoots,a,man] [].
 \end{LPNcodedisplay}
- represents the sentence \LPNemph{a woman  
-shoots a man} because it says:  
-\LPNemph{If I consume all the symbols on the left, and leave  
-        behind the symbols on the right, then I have the sentence  
+ represents the sentence \LPNemph{a woman
+shoots a man} because it says:
+\LPNemph{If I consume all the symbols on the left, and leave
+        behind the symbols on the right, then I have the sentence
         I am interested in.}
-That is, the sentence we are interested in is the difference   
+That is, the sentence we are interested in is the difference
 between the contents of these two lists.
 
 
@@ -412,7 +412,7 @@ n([man|W],W).
 
 v([shoots|W],W).
 \end{LPNcodedisplay}
-  
+
 Consider these rules carefully. For example, the §s§ rule says:
 \LPNemph{I know that the pair of lists} §X§ \LPNemph{and} §Z§
 \LPNemph{represents a sentence if (1) I can consume} §X§ \LPNemph{and
@@ -442,22 +442,22 @@ sentences:
 ?- s([a,woman,shoots,a,man],[]).
 yes
 \end{LPNcodedisplay}
-This asks whether we can get an §s§ by consuming the symbols   
+This asks whether we can get an §s§ by consuming the symbols
 in §[a,woman,shoots,a,man]§, leaving nothing behind.
-Similarly, to generate all the sentences in the grammar,  
-we ask  
+Similarly, to generate all the sentences in the grammar,
+we ask
 \begin{LPNcodedisplay}
 ?- s(X,[]).
 \end{LPNcodedisplay}
 This asks: what values can you give to §X§, such that we get an §s§ by
 consuming the symbols in §X§, leaving nothing behind?
 
-The queries for other grammatical categories also work the same way.    
-For example, to find out if \LPNemph{a woman} is a noun phrase we ask:  
+The queries for other grammatical categories also work the same way.
+For example, to find out if \LPNemph{a woman} is a noun phrase we ask:
 \begin{LPNcodedisplay}
 ?- np([a,woman],[]).
 \end{LPNcodedisplay}
-And we generate all the noun phrases in the grammar as follows:  
+And we generate all the noun phrases in the grammar as follows:
 \begin{LPNcodedisplay}
 ?- np(X,[]).
 \end{LPNcodedisplay}
@@ -469,28 +469,28 @@ more efficient than our §append/3§ based program.  Moreover, as no use
 is made of §append/3§, the trace is a lot easier to grasp.  So we have
 taken a big step forward.
 
-On the other hand, it has to be admitted that the second recogniser is  
-not as easy to understand, at least at first, and it's a pain having  
-to keep track of all those difference list variables.  If only it were  
-possible to have a recogniser as simple as the first and as efficient  
-as the second. And in fact, it \LPNemph{is} possible: this is  where  
+On the other hand, it has to be admitted that the second recogniser is
+not as easy to understand, at least at first, and it's a pain having
+to keep track of all those difference list variables.  If only it were
+possible to have a recogniser as simple as the first and as efficient
+as the second. And in fact, it \LPNemph{is} possible: this is  where
 DCGs come in.
 
 
 
 \section{Definite Clause Grammars}\label{SEC.L7.DCG}
 
-So, what are DCGs?  Quite simply, a nice notation for writing  
-grammars that hides the underlying difference list variables.  
-Let's look at three examples.  
-  
+So, what are DCGs?  Quite simply, a nice notation for writing
+grammars that hides the underlying difference list variables.
+Let's look at three examples.
+
 
 
 \subsection*{A first example}\label{SUBSEC.L7.FIRSTEXAMPLE}
 
-As our first example, here's our little  
-grammar written as a DCG:  
-  
+As our first example, here's our little
+grammar written as a DCG:
+
 \begin{LPNcodedisplay}
 s --> np,vp.
 
@@ -514,34 +514,34 @@ But how do we use this DCG? In fact, we use it in \LPNemph{exactly}
 the same way as we used our difference list recogniser.  For example,
 to find out whether \LPNemph{a woman shoots a man} is a sentence, we
 pose the query:
-  
+
 \begin{LPNcodedisplay}
 ?- s([a,woman,shoots,a,man],[]).
 \end{LPNcodedisplay}
-That is, just as in the difference list recogniser, we ask   
-whether we can get an §s§ by consuming the symbols in   
+That is, just as in the difference list recogniser, we ask
+whether we can get an §s§ by consuming the symbols in
 §[a,woman,shoots,a,man]§, leaving nothing behind.
 
-Similarly, to generate all the sentences in the grammar,  
-we pose the query:  
+Similarly, to generate all the sentences in the grammar,
+we pose the query:
 \begin{LPNcodedisplay}
 ?- s(X,[]).
 \end{LPNcodedisplay}
-This asks what values we can give to §X§, such that we get an  
+This asks what values we can give to §X§, such that we get an
 §s§ by consuming the symbols in §X§, leaving nothing behind.
 
-Moreover, the queries for other grammatical categories also work the   
-same way.  For example, to find out if \LPNemph{a woman} is a noun phrase   
-we pose the query:  
+Moreover, the queries for other grammatical categories also work the
+same way.  For example, to find out if \LPNemph{a woman} is a noun phrase
+we pose the query:
 \begin{LPNcodedisplay}
 ?- np([a,woman],[]).
 \end{LPNcodedisplay}
-And we generate all the noun phrases in the grammar as follows:  
+And we generate all the noun phrases in the grammar as follows:
 \begin{LPNcodedisplay}
 ?- np(X,[]).
 \end{LPNcodedisplay}
-  
-  
+
+
 What's going on?  Quite simply, this DCG \LPNemph{is} our difference
 list recogniser!  To put it another way, DCG notation is essentially
 syntactic sugar, user-friendly notation that lets us write grammars in
@@ -556,45 +556,45 @@ Prolog has already consulted the rules).  Then if you pose the query:
 \begin{LPNcodedisplay}
 ?- listing(s).
 \end{LPNcodedisplay}
-you will get the response  
+you will get the response
 \begin{LPNcodedisplay}
 s(A,B) :-
     np(A,C),
     vp(C,B).
 \end{LPNcodedisplay}
-This is what Prolog has translated §s --> np,vp§ into. Note  
-that (apart from the choice of variables) this is exactly the  
+This is what Prolog has translated §s --> np,vp§ into. Note
+that (apart from the choice of variables) this is exactly the
 difference list rule we used in our second recogniser.
 
-Similarly, if you pose the query  
+Similarly, if you pose the query
 \begin{LPNcodedisplay}
 ?- listing(np).
 \end{LPNcodedisplay}
-you will get  
+you will get
 \begin{LPNcodedisplay}
 np(A,B) :-
     det(A,C),
     n(C,B).
 \end{LPNcodedisplay}
-This is what Prolog has translated §np --> det,n§ into. Again  
-(apart from the choice of variables) this is  the  
+This is what Prolog has translated §np --> det,n§ into. Again
+(apart from the choice of variables) this is  the
 difference list rule we used in our second recogniser.
 
-To get a complete listing of the translations of all the rules, simply  
-type  
+To get a complete listing of the translations of all the rules, simply
+type
 \begin{LPNcodedisplay}
 ?- listing.
 \end{LPNcodedisplay}
-There is one thing you may observe. Some Prolog implementations  
-translate rules such as  
+There is one thing you may observe. Some Prolog implementations
+translate rules such as
 \begin{LPNcodedisplay}
 det --> [the].
 \end{LPNcodedisplay}
-not into  
+not into
 \begin{LPNcodedisplay}
 det([the|W],W).
 \end{LPNcodedisplay}
-which was the form we used in our difference list recogniser, but into  
+which was the form we used in our difference list recogniser, but into
 \begin{LPNcodedisplay}
 det(A,B) :-
     'C'(A,the,B).
@@ -608,17 +608,17 @@ that §'C'§ is an atom. \index{PROLOG c/3@\texttt{'C'/3}}
 \subsection*{Adding recursive rules}\label{SUBSEC.L7.RECURSIVE.RULES}
 
 
-Our original context free grammar generated only 20 sentences.  
-However it is easy to write context free grammars that generate  
-infinitely many sentences: simply use recursive rules. Here's  
-an example. Let's add the following rules to our little grammar:  
-  
+Our original context free grammar generated only 20 sentences.
+However it is easy to write context free grammars that generate
+infinitely many sentences: simply use recursive rules. Here's
+an example. Let's add the following rules to our little grammar:
+
 \begin{center}\begin{tabular}{l}
 §s -> s conj s§\\
 §conj ->§ \LPNemph{and}\\
 §conj ->§ \LPNemph{or}\\
 §conj ->§ \LPNemph{but}
-\end{tabular}\end{center}  
+\end{tabular}\end{center}
 This rule allows us to join as many sentences together as we like
 using the words \LPNemph{and}, \LPNemph{but}, and \LPNemph{or}. So this
 grammar classifies sentences such as \LPNemph{The woman shoots the man
@@ -641,12 +641,12 @@ knowledge base, before the rule §s --> np,vp§. What happens if we then
 pose the query §s([a,woman,shoots],[])§? Prolog immediately goes into
 a loop.
 
-Can you see why? The point is this. Prolog translates DCG rules into  
-ordinary Prolog rules. If we place the recursive rule   
-§s --> s,conj,s§ in the knowledge base before the non-recursive  
-rule   
-§s --> np,vp§ then the knowledge base will contain the following two  
-Prolog rules, in this order:  
+Can you see why? The point is this. Prolog translates DCG rules into
+ordinary Prolog rules. If we place the recursive rule
+§s --> s,conj,s§ in the knowledge base before the non-recursive
+rule
+§s --> np,vp§ then the knowledge base will contain the following two
+Prolog rules, in this order:
 \begin{LPNcodedisplay}
 s(A, B) :-
         s(A, C),
@@ -761,16 +761,16 @@ of length zero followed by a block of \LPNemph{b}s of length zero.)
 On the other hand, \LPNemph{aba} and \LPNemph{abba} do not belong to
 $a^nb^n$.
 
-Now, it is easy to write a context free grammar that generates this  
-language:  
-  
+Now, it is easy to write a context free grammar that generates this
+language:
+
 \begin{center}\begin{tabular}{l}
 §s -> §$\epsilon$\\
 §s -> l s r§\\
 §l -> a §\\
 §r -> b§
-\end{tabular}\end{center}  
-  
+\end{tabular}\end{center}
+
 The first rule says that an \LPNemph{s} can be realised as nothing at
 all.  The second rule says that an \LPNemph{s} can be made up of an
 \LPNemph{l} (for left) element, followed by an \LPNemph{s}, followed
@@ -780,8 +780,8 @@ by an \LPNemph{r} (for right) element. The last two rules say that
 this grammar really does generate all and only the elements of
 $a^nb^n$, including the empty string.
 
-Moreover, it is easy to turn this grammar into DCG. We can do so as  
-follows:  
+Moreover, it is easy to turn this grammar into DCG. We can do so as
+follows:
 \begin{LPNcodedisplay}
 s --> [].
 s --> l,s,r.
@@ -795,21 +795,21 @@ example, to the query
 \begin{LPNcodedisplay}
 ?- s([a,a,a,b,b,b],[]).
 \end{LPNcodedisplay}
-we get the answer yes, while to the query  
+we get the answer yes, while to the query
 \begin{LPNcodedisplay}
 ?- s([a,a,a,b,b,b,b],[]).
 \end{LPNcodedisplay}
-we get the answer no. The query  
+we get the answer no. The query
 \begin{LPNcodedisplay}
 ?- s(X,[]).
 \end{LPNcodedisplay}
-enumerates  the strings in the language, starting  
-from §[]§.  
+enumerates  the strings in the language, starting
+from §[]§.
 
 
 \section{Exercises}\label{SEC.L7.EXERCISES}
 
-\begin{LPNexercise}{L7.EX1}Suppose we are working with the following DCG:  
+\begin{LPNexercise}{L7.EX1}Suppose we are working with the following DCG:
 \begin{LPNcodedisplay}
 s --> foo,bar,wiggle.
 foo --> [choo].
@@ -824,25 +824,25 @@ car --> [train].
 wiggle --> [toot].
 wiggle --> wiggle,wiggle.
 \end{LPNcodedisplay}
-Write down the ordinary Prolog rules that correspond to these  
-DCG rules.  
-What are the first three responses that Prolog gives to the query  
+Write down the ordinary Prolog rules that correspond to these
+DCG rules.
+What are the first three responses that Prolog gives to the query
 §s(X,[])§?
 \end{LPNexercise}
 
 
-\begin{LPNexercise}{L7.EX2}The formal language $a^nb^n - \{\epsilon\}$ consists of all the strings in  
-$a^nb^n$ except the empty string. Write a DCG that generates this  
+\begin{LPNexercise}{L7.EX2}The formal language $a^nb^n - \{\epsilon\}$ consists of all the strings in
+$a^nb^n$ except the empty string. Write a DCG that generates this
 language.
 \end{LPNexercise}
 
 
-\begin{LPNexercise}{L7.EX3}Let $a^nb^{2n}$ be the formal language which contains all strings of  
-the following form: an unbroken block of \LPNemph{a}s of length \LPNemph{n}  
-followed by an unbroken block of \LPNemph{b}s of length \LPNemph{2n}, and  
-nothing else. For example, \LPNemph{abb}, \LPNemph{aabbbb}, and \LPNemph{aaabbbbbb}  
-belong to $a^nb^{2n}$, and so does the empty string.  Write a DCG that  
-generates this language.  
+\begin{LPNexercise}{L7.EX3}Let $a^nb^{2n}$ be the formal language which contains all strings of
+the following form: an unbroken block of \LPNemph{a}s of length \LPNemph{n}
+followed by an unbroken block of \LPNemph{b}s of length \LPNemph{2n}, and
+nothing else. For example, \LPNemph{abb}, \LPNemph{aabbbb}, and \LPNemph{aaabbbbbb}
+belong to $a^nb^{2n}$, and so does the empty string.  Write a DCG that
+generates this language.
  \end{LPNexercise}
 
 
@@ -858,7 +858,7 @@ discussed. Nonetheless, what you have learned so far is certainly the
 core, and it is important that you are comfortable with the basic
 ideas before moving on.
 
-First some keyboard exercises:  
+First some keyboard exercises:
 \begin{enumerate}
 
 \item{}Type in or download the simple §append/3§ based recognisers
@@ -867,47 +867,47 @@ were not exaggerating when we said that their performance is
 poor. Even for such simple sentences as \LPNemph{The woman shot a man}
 you will see that the traces are long and difficult to follow.
 
-\item{}Next, type in or download our second recogniser, the one based  
-on difference lists, and run more traces. As you will see, there is a  
-dramatic gain in efficiency. Moreover, you will see that the traces  
-are \LPNemph{very} simple to understand, especially when compared with the  
+\item{}Next, type in or download our second recogniser, the one based
+on difference lists, and run more traces. As you will see, there is a
+dramatic gain in efficiency. Moreover, you will see that the traces
+are \LPNemph{very} simple to understand, especially when compared with the
 monsters produced by the §append/3§ based implementations.
 
-\item{}Next, type in or download the DCG discussed in the text.  Type  
-§listing§ so that you can see what Prolog translates the rules  
+\item{}Next, type in or download the DCG discussed in the text.  Type
+§listing§ so that you can see what Prolog translates the rules
 to. How does your system translate rules of the form   \index{PROLOG c/3@\texttt{'C'/3}}
-§Det --> [the]§? That is, does it translate them to rules like  
-§det([the|X],X)§, or does is make use of rules  
+§Det --> [the]§? That is, does it translate them to rules like
+§det([the|X],X)§, or does is make use of rules
 containing the \texttt{'C'} predicate?
 
-\item{}Now run some traces. Apart from variable names, the traces you  
-observe here should be very similar to the traces you observed when  
-running the difference list recogniser. 
+\item{}Now run some traces. Apart from variable names, the traces you
+observe here should be very similar to the traces you observed when
+running the difference list recogniser.
 
 \end{enumerate}
-  
-  
-And now it's time to write some DCGs:  
-  
+
+
+And now it's time to write some DCGs:
+
 \begin{enumerate}
-\item{}The formal language \LPNemph{Even} is very simple: it consists of  
-all strings containing an even number of \LPNemph{a}s, and nothing else.  
-Note that the empty string $\epsilon$ belongs to \LPNemph{Even}.  
+\item{}The formal language \LPNemph{Even} is very simple: it consists of
+all strings containing an even number of \LPNemph{a}s, and nothing else.
+Note that the empty string $\epsilon$ belongs to \LPNemph{Even}.
 Write a DCG that generates \LPNemph{Even}.
-\item{}The formal language $a^nb^{2m}c^{2m}d^{n}$ consists of all  
-strings of the following form: an unbroken block of \LPNemph{a}s followed  
-by an unbroken block of \LPNemph{b}s followed by an unbroken block of  
-\LPNemph{c}s followed by an unbroken block of \LPNemph{d}s, such that the \LPNemph{a}  
-and \LPNemph{d} blocks are exactly the same length, and the \LPNemph{b} and  
-\LPNemph{c} blocks are also exactly the same length and furthermore consist of   
-an even number of \LPNemph{b}s and \LPNemph{c}s respectively. For example, $\epsilon$,   
-\LPNemph{abbccd}, and \LPNemph{aabbbbccccdd} all belong to  
-$a^nb^{2m}c^{2m}d^{n}$.  Write a DCG that generates this  
+\item{}The formal language $a^nb^{2m}c^{2m}d^{n}$ consists of all
+strings of the following form: an unbroken block of \LPNemph{a}s followed
+by an unbroken block of \LPNemph{b}s followed by an unbroken block of
+\LPNemph{c}s followed by an unbroken block of \LPNemph{d}s, such that the \LPNemph{a}
+and \LPNemph{d} blocks are exactly the same length, and the \LPNemph{b} and
+\LPNemph{c} blocks are also exactly the same length and furthermore consist of
+an even number of \LPNemph{b}s and \LPNemph{c}s respectively. For example, $\epsilon$,
+\LPNemph{abbccd}, and \LPNemph{aabbbbccccdd} all belong to
+$a^nb^{2m}c^{2m}d^{n}$.  Write a DCG that generates this
 language.
-\item{}The language that logicians call ``propositional logic   
-over the propositional symbols \LPNemph{p},  
-\LPNemph{q}, and \LPNemph{r}'' can be defined  
-by the following context free grammar:  
+\item{}The language that logicians call ``propositional logic
+over the propositional symbols \LPNemph{p},
+\LPNemph{q}, and \LPNemph{r}'' can be defined
+by the following context free grammar:
 \begin{center}\begin{tabular}{l}
 §prop -> p§\\
 §prop -> q§\\
@@ -916,17 +916,17 @@ by the following context free grammar:
 §prop ->§ §(prop §$\wedge$§ prop)§\\
 §prop ->§ §(prop §$\vee$§ prop)§\\
 §prop ->§ §(prop §$\rightarrow$§ prop)§
-\end{tabular}\end{center}  
+\end{tabular}\end{center}
 
-Write a DCG that generates this language. Actually, because we don't  
-know about Prolog operators yet, you will have to make a few rather  
-clumsy looking compromises. For example, instead of getting it to  
-recognise  
+Write a DCG that generates this language. Actually, because we don't
+know about Prolog operators yet, you will have to make a few rather
+clumsy looking compromises. For example, instead of getting it to
+recognise
 \begin{center}\begin{tabular}{l}$\neg$§(p § $\rightarrow$§ q)§
-\end{tabular}\end{center}  
-you will have to get it recognise things like  
+\end{tabular}\end{center}
+you will have to get it recognise things like
 \begin{center}\begin{tabular}{l}§[not, '(', p, implies, q, ')']§
-\end{tabular}\end{center}  
+\end{tabular}\end{center}
 instead. We will learn in Chapter~\ref{CHAPTER9} how to deal with
 propositional logic somewhat more naturally; in the meantime, write a
 DCG that accepts a clumsy looking version of this language. Use

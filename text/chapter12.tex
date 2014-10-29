@@ -3,15 +3,15 @@
 
 \Thischapter{170}{
 
-\noindent This chapter is concerned with various aspect of file handling and modularity.  
+\noindent This chapter is concerned with various aspect of file handling and modularity.
 We will learn three things:
 
 \begin{enumerate}
-\item{}How predicate definitions can be spread across different  
+\item{}How predicate definitions can be spread across different
         files.
 \item{}How to write modular software systems.
 
-\item{}How to write results to files and how to read input from  
+\item{}How to write results to files and how to read input from
         files.
 \end{enumerate}
 
@@ -81,8 +81,8 @@ files.
 
 The built-in predicate
 §ensure_loaded/1§ behaves more intelligently  in this respect.  It
-works as follows. On encountering the following 
-directive\index{PROLOG ensure_loaded/1@\texttt{ensure\_loaded/1}} 
+works as follows. On encountering the following
+directive\index{PROLOG ensure_loaded/1@\texttt{ensure\_loaded/1}}
 \begin{LPNcodedisplay}
 :- ensure_loaded([listPredicates]).
 \end{LPNcodedisplay}
@@ -142,8 +142,8 @@ load both programs by placing the statements
 :- [printMovies].
 \end{LPNcodedisplay}
 at the top of the main file. Consulting the main file will
-evoke a message that  looks something like the  
-following:  
+evoke a message that  looks something like the
+following:
 
 \begin{LPNcodedisplay}
 ?- [main].
@@ -154,13 +154,13 @@ following:
 The procedure displayList/1 is being redefined.
     Old file: printActors.pl
     New file: printMovies.pl
-Do you really want to redefine it? (y, n, p, or ?) 
+Do you really want to redefine it? (y, n, p, or ?)
 \end{LPNcodedisplay}
-  
-What has happened? Well, as both files §printActors.pl§  
+
+What has happened? Well, as both files §printActors.pl§
 and §printMovies.pl§  define a predicate called §displayList/1§, Prolog
 needs to choose one of the two definitions (it can't have two different
-definitions for one predicate in its knowledge base). 
+definitions for one predicate in its knowledge base).
 
 What to do? Well, perhaps in some of these situations you really do
 want to redefine a predicate.  But here you don't --- you want two
@@ -186,17 +186,17 @@ auxiliary role in  both §printActors/1§ and  §printMovies/1,§
 and the  details of the
 role it plays for one predicate are not relevant to the other.
 
-You can turn a file into a module by putting a \LPNterm{module declaration} at  
+You can turn a file into a module by putting a \LPNterm{module declaration} at
 the top. Module declarations are of the form   \index{PROLOG module/2@\texttt{module/2}}
 
 \begin{LPNcodedisplay}
 :- module(ModuleName,
-          List_of_Predicates_to_be_Exported). 
+          List_of_Predicates_to_be_Exported).
 \end{LPNcodedisplay}
-Such declarations  specify the name of the module and the list of public  
-predicates, that is, the list of predicates that you want to  
-\LPNterm{export}. These will be the only predicates that are  
-accessible from outside the module. 
+Such declarations  specify the name of the module and the list of public
+predicates, that is, the list of predicates that you want to
+\LPNterm{export}. These will be the only predicates that are
+accessible from outside the module.
 
 Let's modularise our movie database programs. We only need to
 include the following line at the top of the first file:
@@ -215,12 +215,12 @@ displayList([X|L]):-
    write(X), tab(1),
    displayList(L).
 \end{LPNcodedisplay}
-Here we have introduced a module called §printActors§, 
+Here we have introduced a module called §printActors§,
 with one public predicate §printActors/1§. The predicate
 §displayList/1§ is only known in the scope of the module
 §printActors§, so its definition won't affect any other
 modules.
-  
+
 Likewise we can turn the second file into a module:
 
 \begin{LPNcodedisplay}
@@ -237,7 +237,7 @@ displayList([X|L]):-
    write(X), nl,
    displayList(L).
 \end{LPNcodedisplay}
-Again, the  definition of the 
+Again, the  definition of the
 §displayList/1§ is only known in the scope of the module
 §printMovies§, so there won't be any
 clash when loading both modules at the same time.
@@ -282,7 +282,7 @@ SWI Prolog, for example, you will probably have noticed that
 predicates like §append/3§ and §member/2§ come as part of the
 system. That's a speciality of SWI, however. Other Prolog
 implementations, like SICStus for example, don't have them built-in,
-but  provide them as part of a \LPNterm{library}.  
+but  provide them as part of a \LPNterm{library}.
 
 Libraries are modules defining common predicates, and can be loaded
 using the normal commands for importing modules. When specifying the
@@ -294,8 +294,8 @@ For example, putting the directive
 \begin{LPNcodedisplay}
 :- use_module(library(lists)).
 \end{LPNcodedisplay}
-at the top of your file tells Prolog to load a  
-library called §lists§. In SICStus Prolog, this library contains a set of 
+at the top of your file tells Prolog to load a
+library called §lists§. In SICStus Prolog, this library contains a set of
 commonly used list processing predicates.
 
 Libraries can be very useful and they can save you a lot of
@@ -356,7 +356,7 @@ And that's more or less all there is to it.  As promised, we were not
 interested in the name of the stream --- we used the variable §Stream§
 to pass it around. Also note that the §write/2§ predicate we used here
 is basically a more general form of the §write/1§ predicates we used
-in Chapter~\ref{CHAPTER9} for writing to the screen. 
+in Chapter~\ref{CHAPTER9} for writing to the screen.
 
 What if you don't want to overwrite an existing file but
 \LPNterm{append} to an existing one? This is done by choosing a
@@ -407,7 +407,7 @@ there is nothing to read. Is there an elegant way to overcome this
 second problem?
 
 There is. The built-in predicate §at_end_of_stream/1§ checks whether
-the \LPNterm{end of a stream} has been reached, and can be 
+the \LPNterm{end of a stream} has been reached, and can be
 used as a safety-net.  For a stream §X§, §at_end_of_stream(X)§
 will\index{PROLOG at_end_of_stream/1@\texttt{at\_end\_of\_stream/1}}
 evaluate to true  when the end of the stream §X§ is reached (in other
@@ -429,9 +429,9 @@ read_houses(Stream,[]):-
 read_houses(Stream,[X|L]):-
    \+ at_end_of_stream(Stream),
    read(Stream,X),
-   read_houses(Stream,L).   
+   read_houses(Stream,L).
 \end{LPNcodedisplay}
-  
+
 Now for the nastier problem.  Recall that §read/2§ only reads in
 Prolog terms. If you want to read in arbitrary input, things become
 rather unpleasant, as Prolog forces you to read information on the
@@ -449,7 +449,7 @@ that\index{PROLOG atom\_codes/2@\texttt{atom\_codes/2}} we introduced in
 Chapter~\ref{CHAPTER9} to convert a list of integers into the
 corresponding atom. We'll use this technique in the following example,
 a predicate that reads in a word from a
-stream. 
+stream.
 
 \begin{LPNcodedisplay}
 readWord(InStream,W):-
@@ -458,11 +458,11 @@ readWord(InStream,W):-
    atom_codes(W,Chars).
 
 
-checkCharAndReadRest(10,[],_):- !.  
+checkCharAndReadRest(10,[],_):- !.
 
-checkCharAndReadRest(32,[],_):- !.  
+checkCharAndReadRest(32,[],_):- !.
 
-checkCharAndReadRest(-1,[],_):- !.  
+checkCharAndReadRest(-1,[],_):- !.
 
 checkCharAndReadRest(end_of_file,[],_):- !.
 
@@ -507,7 +507,7 @@ the second argument is the frequency of that word.
 In this practical session, we want to combine what we have learned
 about file handling with some topics we met in earlier chapters. The
 goal is to write a program for running a DCG grammar on a testsuite,
-so that the performance of the grammar can be checked. 
+so that the performance of the grammar can be checked.
 
 What is a testsuite? It is a file that contains lots of possible
 inputs (and expected outputs) for some program. In this case, a
@@ -535,17 +535,17 @@ returns the parse tree as its first argument.
 
 \subsection*{Step 2}\label{L12.PRAXIS.STEP2}
 
-In the practical session of Chapter~\ref{CHAPTER9}, you  
-had to write a program for pretty printing parse trees onto the  
+In the practical session of Chapter~\ref{CHAPTER9}, you
+had to write a program for pretty printing parse trees onto the
 screen. Turn that into a module as well.
 
 
 
 \subsection*{Step 3}\label{L12.PRAXIS.STEP3}
 
-Now modify the program so that it prints the tree not to the  
-screen but to a given stream. That means that the predicate  
-§pptree§ should now be a two-place predicate taking the Prolog  
+Now modify the program so that it prints the tree not to the
+screen but to a given stream. That means that the predicate
+§pptree§ should now be a two-place predicate taking the Prolog
 representation of a parse tree and a stream as arguments.
 
 
@@ -553,10 +553,10 @@ representation of a parse tree and a stream as arguments.
 
 \subsection*{Step 4}\label{L12.PRAXIS.STEP4}
 
-Import both modules into a file and define a two-place predicate  
-§test§ which takes a list representing a sentence (such as  
-§[a,woman,shoots]§), parses it,  and writes the result to the file  
-specified by the second argument of §test§.  
+Import both modules into a file and define a two-place predicate
+§test§ which takes a list representing a sentence (such as
+§[a,woman,shoots]§), parses it,  and writes the result to the file
+specified by the second argument of §test§.
 Check that everything is working as it should.
 
 
@@ -571,9 +571,9 @@ looked like this:
 \begin{LPNcodedisplay}
 [the,cow,under,the,table,shoots].
 
-[a,dead,woman,likes,he]. 
+[a,dead,woman,likes,he].
 \end{LPNcodedisplay}
-  
+
 the output file should look something like this:
 \begin{LPNcodedisplay}
 [the, cow, under, the, table, shoots]
@@ -602,20 +602,20 @@ no
 
 \subsection*{Step 6}\label{L12.PRAXIS.STEP6}
 
-Now (if you are in for some real Prolog hacking) try to write a module  
-that reads in sentences terminated by a full stop or a line break from  
-a file, so that you can give your testsuite as  
+Now (if you are in for some real Prolog hacking) try to write a module
+that reads in sentences terminated by a full stop or a line break from
+a file, so that you can give your testsuite as
 \begin{LPNcodedisplay}
 the cow under the table shoots .
 
 a dead woman likes he .
 \end{LPNcodedisplay}
-  
-instead of  
+
+instead of
 \begin{LPNcodedisplay}
 [the,cow,under,the,table,shoots].
 
-[a,dead,woman,likes,he]. 
+[a,dead,woman,likes,he].
 \end{LPNcodedisplay}
 
 

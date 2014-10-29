@@ -78,7 +78,7 @@ This really is your very last chance!
 
 
 
-\subsection*{Answer~\ref{L1.EX3}} 
+\subsection*{Answer~\ref{L1.EX3}}
 
 There are three facts and four rules in this knowledge base. This means that
 there are seven clauses. The heads of the rules are
@@ -103,32 +103,32 @@ property of being a killer by the predicate §k/1§.
 
 \begin{enumerate}
 
-\item 
+\item
 \begin{LPNcodedisplay}
 killer(butch).
 \end{LPNcodedisplay}
 
-\item 
+\item
 \begin{LPNcodedisplay}
 married(mia, marsellus).
 \end{LPNcodedisplay}
 
-\item 
+\item
 \begin{LPNcodedisplay}
 dead(zed).
 \end{LPNcodedisplay}
 
-\item 
+\item
 \begin{LPNcodedisplay}
 kill(marsellus,X):- give(X,mia,Y), footmassage(Y).
 \end{LPNcodedisplay}
 
-\item 
+\item
 \begin{LPNcodedisplay}
 love(mia,X):- good_dancer(X).
 \end{LPNcodedisplay}
 
-\item 
+\item
 \begin{LPNcodedisplay}
 eat(jules,X):- nutritious(X).
 eat(jules,X):- tasty(X).
@@ -137,11 +137,11 @@ eat(jules,X):- tasty(X).
 \end{enumerate}
 
 
-\subsection*{Answer~\ref{L1.EX5}} 
+\subsection*{Answer~\ref{L1.EX5}}
 
 \begin{enumerate}
 
-\item 
+\item
 \begin{LPNcodedisplay}
 ?- wizard(ron).
 yes
@@ -169,7 +169,7 @@ no
 no
 \end{LPNcodedisplay}
         or
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ERROR: Undefined procedure: witch/1
 \end{LPNcodedisplay}
 
@@ -191,9 +191,9 @@ no
 \begin{LPNcodedisplay}
 ?- witch(Y).
 no
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
         or
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ERROR: Undefined procedure: witch/1
 \end{LPNcodedisplay}
 
@@ -203,7 +203,7 @@ ERROR: Undefined procedure: witch/1
 
 
 
-\subsection*{Answer~\ref{L2.EX1}} 
+\subsection*{Answer~\ref{L2.EX1}}
 
 \begin{enumerate}
 \item \texttt{bread = bread} unifies.
@@ -217,12 +217,12 @@ ERROR: Undefined procedure: witch/1
 \item \texttt{food(X) = food(bread)} unifies; \texttt{X} gets instantiated with \texttt{bread}.
 
 \item \texttt{food(bread,X) = food(Y,sausage)} unifies; \texttt{X}
-  gets instantiated with \texttt{sausage} 
+  gets instantiated with \texttt{sausage}
   and \texttt{Y} gets instantiated with \texttt{bread}.
 
 \item \texttt{food(bread,X,beer) = food(Y,sausage,X)} doesn't unify; \texttt{X} cannot be instantiated with \texttt{sausage} as well as \texttt{beer}.
 
-\item \texttt{food(bread,X,beer) = food(Y,kahuna\_burger)} doesn't unify; 
+\item \texttt{food(bread,X,beer) = food(Y,kahuna\_burger)} doesn't unify;
 the functors are of different arity.
 
 \item \texttt{food(X) = X} is trickier. According to the basic
@@ -243,38 +243,38 @@ understand why such unifications need to be handled with care.
 
 
 
-\subsection*{Answer~\ref{L2.EX2}} 
+\subsection*{Answer~\ref{L2.EX2}}
 \begin{enumerate}
 
-\item 
-\begin{LPNcodedisplay}         
+\item
+\begin{LPNcodedisplay}
 ?- magic(house_elf).  no
 \end{LPNcodedisplay}
 
 \item
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ?- wizard(harry).
 no
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 or
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ERROR: undefined procedure wizard/1
 \end{LPNcodedisplay}
 
 \item
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ?- magic(wizard).
 no
 \end{LPNcodedisplay}
 
 \item
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ?- magic('McGonagall').
 yes
 \end{LPNcodedisplay}
 
 \item
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ?- magic(Hermione).
 Hermione = dobby ;
 Hermione = hermione ;
@@ -284,7 +284,7 @@ no
 \end{LPNcodedisplay}
 
 The search tree for the last query is:
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
               ?- magic(Hermione)
               /     |        \
 Hermione=_G65  Hermione=_G76  Hermione=_G87
@@ -303,84 +303,84 @@ Hermione=_G65  Hermione=_G76  Hermione=_G87
                           |       |  _G87=r_skeeter
                           |       |          |
                       success  success    success
-\end{LPNcodedisplay}                                 
+\end{LPNcodedisplay}
 \end{enumerate}
 
 
-\subsection*{Answer~\ref{L2.EX3}} 
+\subsection*{Answer~\ref{L2.EX3}}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ?- sentence(W1,W2,W3,W4,W5).
-W1 = a, 
-W2 = criminal, 
-W3 = eats, 
-W4 = a, 
+W1 = a,
+W2 = criminal,
+W3 = eats,
+W4 = a,
 W5 = criminal ;
 
-W1 = a, 
-W2 = criminal, 
-W3 = eats, 
-W4 = a, 
+W1 = a,
+W2 = criminal,
+W3 = eats,
+W4 = a,
 W5 = 'big kahuna burger' ;
 
-W1 = a, 
-W2 = criminal, 
-W3 = eats, 
-W4 = every, 
+W1 = a,
+W2 = criminal,
+W3 = eats,
+W4 = every,
 W5 = criminal ;
 
-W1 = a, 
-W2 = criminal, 
-W3 = eats, 
-W4 = every, 
+W1 = a,
+W2 = criminal,
+W3 = eats,
+W4 = every,
 W5 = 'big kahuna burger' ;
 
-W1 = a, 
-W2 = criminal, 
-W3 = likes, 
-W4 = a, 
+W1 = a,
+W2 = criminal,
+W3 = likes,
+W4 = a,
 W5 = criminal ;
 
-W1 = a, 
-W2 = criminal, 
-W3 = likes, 
-W4 = a, 
+W1 = a,
+W2 = criminal,
+W3 = likes,
+W4 = a,
 W5 = 'big kahuna burger' ;
 
-W1 = a, 
-W2 = criminal, 
-W3 = likes, 
-W4 = every, 
+W1 = a,
+W2 = criminal,
+W3 = likes,
+W4 = every,
 W5 = criminal ;
 
-W1 = a, 
-W2 = criminal, 
-W3 = likes, 
-W4 = every, 
+W1 = a,
+W2 = criminal,
+W3 = likes,
+W4 = every,
 W5 = 'big kahuna burger' ;
 
-W1 = a, 
-W2 = 'big kahuna burger', 
-W3 = eats, 
-W4 = a, 
+W1 = a,
+W2 = 'big kahuna burger',
+W3 = eats,
+W4 = a,
 W5 = criminal ;
 
         .
         .
         .
 
-W1 = every, 
-W2 = 'big kahuna burger', 
-W3 = likes, 
-W4 = every, 
+W1 = every,
+W2 = 'big kahuna burger',
+W3 = likes,
+W4 = every,
 W5 = 'big kahuna burger' ;
 no
 \end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L2.EX4}} 
+\subsection*{Answer~\ref{L2.EX4}}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 crossword(V1,V2,V3,H1,H2,H3):-
    word(V1,_,A,_,B,_,C,_),
    word(V2,_,D,_,E,_,F,_),
@@ -390,7 +390,7 @@ crossword(V1,V2,V3,H1,H2,H3):-
    word(H3,_,C,_,F,_,I,_).
 \end{LPNcodedisplay}
 
-\subsection*{Answer~\ref{L3.EX5}} 
+\subsection*{Answer~\ref{L3.EX5}}
 
 No, it's not a good idea to reformulate \texttt{descend/2} in that
 way: it will get in an infinite loop for certain queries. For
@@ -400,9 +400,9 @@ clause tries to find a solution for \texttt{?- descend(rose,Z)},
 and so on.
 
 
-\subsection*{Answer~\ref{L3.EX1}} 
+\subsection*{Answer~\ref{L3.EX1}}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 directlyIn(irina,natasha).
 directlyIn(natasha,olga).
 directlyIn(olga,katarina).
@@ -413,13 +413,13 @@ in(X,Y):- directlyIn(X,Z), in(Z,Y).
 
 
 
-\subsection*{Answer~\ref{L3.EX3}} 
+\subsection*{Answer~\ref{L3.EX3}}
 
-\begin{LPNcodedisplay}         
-travelFromTo(X,Y):- 
+\begin{LPNcodedisplay}
+travelFromTo(X,Y):-
    directTrain(X,Y).
 
-travelFromTo(X,Y):-  
+travelFromTo(X,Y):-
    directTrain(X,Z),
    travelFromTo(Z,Y).
 \end{LPNcodedisplay}
@@ -440,15 +440,15 @@ travelFromTo(X,Y):-
 
 \subsection*{Answer~\ref{L3.EX2}}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 greater_than(succ(X),0).
 greater_than(succ(X),succ(Y)):- greater_than(X,Y).
 \end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L3.EX4}} 
+\subsection*{Answer~\ref{L3.EX4}}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 swap(leaf(X),leaf(X)).
 swap(tree(B1,B2),tree(B2Swapped,B1Swapped)):-
    swap(B1,B1Swapped),
@@ -458,65 +458,65 @@ swap(tree(B1,B2),tree(B2Swapped,B1Swapped)):-
 
 
 
-\subsection*{Answer~\ref{L4.EX1}} 
+\subsection*{Answer~\ref{L4.EX1}}
 
 \begin{enumerate}
-\item \begin{LPNcodedisplay}         
+\item \begin{LPNcodedisplay}
 ?- [a,b,c,d] = [a,[b,c,d]].
 No
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 (The first list has four elements; the second only two.)
 
-\item \begin{LPNcodedisplay}         
+\item \begin{LPNcodedisplay}
 ?- [a,b,c,d] = [a|[b,c,d]].
 Yes
-\end{LPNcodedisplay}         
-         
-\item \begin{LPNcodedisplay}         
+\end{LPNcodedisplay}
+
+\item \begin{LPNcodedisplay}
 ?- [a,b,c,d] = [a,b,[c,d]].
 No
-\end{LPNcodedisplay}         
-         
-\item \begin{LPNcodedisplay}         
+\end{LPNcodedisplay}
+
+\item \begin{LPNcodedisplay}
 ?- [a,b,c,d] = [a,b|[c,d]].
 Yes
-\end{LPNcodedisplay}         
-         
-\item \begin{LPNcodedisplay}         
+\end{LPNcodedisplay}
+
+\item \begin{LPNcodedisplay}
 ?- [a,b,c,d] = [a,b,c,[d]].
 No
-\end{LPNcodedisplay}         
-         
-\item \begin{LPNcodedisplay}         
+\end{LPNcodedisplay}
+
+\item \begin{LPNcodedisplay}
 ?- [a,b,c,d] = [a,b,c|[d]].
 Yes
-\end{LPNcodedisplay}         
-         
-\item \begin{LPNcodedisplay}         
+\end{LPNcodedisplay}
+
+\item \begin{LPNcodedisplay}
 ?- [a,b,c,d] = [a,b,c,d,[]].
 No
-\end{LPNcodedisplay}         
-         
-\item \begin{LPNcodedisplay}         
+\end{LPNcodedisplay}
+
+\item \begin{LPNcodedisplay}
 ?- [a,b,c,d] = [a,b,c,d|[]].
 Yes
-\end{LPNcodedisplay}         
-         
-\item \begin{LPNcodedisplay}         
+\end{LPNcodedisplay}
+
+\item \begin{LPNcodedisplay}
 ?- [] = _.
 Yes
-\end{LPNcodedisplay}         
-         
-\item \begin{LPNcodedisplay}         
+\end{LPNcodedisplay}
+
+\item \begin{LPNcodedisplay}
 ?- [] = [_].
 No
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 (The first list is empty; the second list has one element.)
-         
-\item \begin{LPNcodedisplay}         
+
+\item \begin{LPNcodedisplay}
 ?- [] = [_|[]].
 No
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 (The first list is empty; the second list has one element.)
 
 \end{enumerate}
@@ -549,60 +549,60 @@ not.
 
 
 
-\subsection*{Answer~\ref{L6.EX3a}} 
-\begin{LPNcodedisplay}         
+\subsection*{Answer~\ref{L6.EX3a}}
+\begin{LPNcodedisplay}
 second(X,[_,X|_]).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
-\subsection*{Answer~\ref{L6.EX3b}} 
-\begin{LPNcodedisplay}         
+\subsection*{Answer~\ref{L6.EX3b}}
+\begin{LPNcodedisplay}
 swap12([H1,H2|T],[H2,H1|T]).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
 \subsection*{Answer~\ref{L4.EX2}}
 
 The base clause: the input list is empty. There is nothing to translate, so the
 output list is empty as well.
-         
-\begin{LPNcodedisplay}         
-listtran([],[]).  
-\end{LPNcodedisplay}         
-         
+
+\begin{LPNcodedisplay}
+listtran([],[]).
+\end{LPNcodedisplay}
+
 The recursive clause: we translate the head \texttt{G} of the input list using
 the predicate \texttt{tran/2}. The result is \texttt{E} and becomes the head of
 the output list. Then we recursively translate the rest of the input. The
 result becomes the rest of the output.
-         
-\begin{LPNcodedisplay}         
-listtran([G|GT],[E|ET]):- 
-   tran(G,E), 
+
+\begin{LPNcodedisplay}
+listtran([G|GT],[E|ET]):-
+   tran(G,E),
    listtran(GT,ET).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L4.EX3}} 
+\subsection*{Answer~\ref{L4.EX3}}
 
 The base clause: the input list is empty. So there is nothing to write to the
 output list. So that is empty as well.
-         
-\begin{LPNcodedisplay}         
-twice([],[]).  
-\end{LPNcodedisplay}                  
+
+\begin{LPNcodedisplay}
+twice([],[]).
+\end{LPNcodedisplay}
 
 The recursive clause: the first two elements of the output list are
 both identical to the head of the input list. The recursive call
 simply produces the tail of the output list from the tail of the input
 list.
-         
-\begin{LPNcodedisplay}         
-twice([H|TIn],[H,H|TOut]):- 
+
+\begin{LPNcodedisplay}
+twice([H|TIn],[H,H|TOut]):-
    twice(TIn, TOut).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L4.EX4}} 
-\begin{LPNcodedisplay}         
+\subsection*{Answer~\ref{L4.EX4}}
+\begin{LPNcodedisplay}
 ?- member(a,[c,b,a,y]).
            |
 ?- member(a,[b,a,y])
@@ -610,9 +610,9 @@ twice([H|TIn],[H,H|TOut]):-
  ?- member(a,[a,y])
            |
         success
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ?- member(x,[a,b,c]).
          |
 ?- member(x,[b,c]).
@@ -622,9 +622,9 @@ twice([H|TIn],[H,H|TOut]):-
   ?- member(x,[]).
          |
         fail
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 ?- member(X,[a,b,c]).
    /          \
 X=a            X=_G65
@@ -636,10 +636,10 @@ success   ?-member(_G65,[b,c]).
       success           _G65=c
                              |
                           success
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L5.EX1}} 
+\subsection*{Answer~\ref{L5.EX1}}
 
 \begin{enumerate}
 \item Prolog answers: \texttt{X = 3*4}. Variable \texttt{X} is instantiated
@@ -671,133 +671,133 @@ ways of writing the same term.
 
 
 
-\subsection*{Answer~\ref{L5.EX2}} 
-\begin{LPNcodedisplay}         
-increment(X,Y):- 
+\subsection*{Answer~\ref{L5.EX2}}
+\begin{LPNcodedisplay}
+increment(X,Y):-
    Y is X + 1.
 
-sum(X,Y,Z):- 
+sum(X,Y,Z):-
    Z is X + Y.
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 \subsection*{Answer~\ref{L5.EX3}}
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 addone([],[]).
 
 addone([H|T],[H1|T1]):-
    H1 is H + 1,
    addone(T,T1).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
 
 
 
 
-\subsection*{Answer~\ref{L6.EX1}} 
-\begin{LPNcodedisplay}         
-doubled(L):- 
+\subsection*{Answer~\ref{L6.EX1}}
+\begin{LPNcodedisplay}
+doubled(L):-
    append(L1,L1,L).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
 
-\subsection*{Answer~\ref{L6.EX2}} 
+\subsection*{Answer~\ref{L6.EX2}}
 
 A solution using \texttt{rev/2}:
 
-\begin{LPNcodedisplay}         
-palindrome(L):- 
+\begin{LPNcodedisplay}
+palindrome(L):-
    rev(L,L).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 \noindent A solution that is not using a reverse predicate:
 
-\begin{LPNcodedisplay}         
-palindrome(L):- 
+\begin{LPNcodedisplay}
+palindrome(L):-
    check_palindrome(L,[]).
-         
+
 check_palindrome(L,L).
 
 check_palindrome([_|L],L).
 
-check_palindrome([H|T],LPal):- 
+check_palindrome([H|T],LPal):-
    check_palindrome(T,[H|LPal]).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L6.EX3c}} 
-\begin{LPNcodedisplay}         
+\subsection*{Answer~\ref{L6.EX3c}}
+\begin{LPNcodedisplay}
 toptail([H|TInList],OutList):-
    append(OutList,[_],TInList).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
-\subsection*{Answer~\ref{L6.EX3d}} 
+\subsection*{Answer~\ref{L6.EX3d}}
 A solution using \texttt{reverse/2}:
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 last(L,X):-
    reverse(L,[X|_]).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 \noindent An alternative solution:
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 last([X],X).
 
 last([_|L],X):-
    last(L,X).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L6.EX3e}} 
+\subsection*{Answer~\ref{L6.EX3e}}
 A solution using \texttt{append/3}:
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 swapfl([H1|T1],[H2|T2]):-
    append(Middle,[H2],T1),
    append(Middle,[H1],T2).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 \noindent An alternative solution:
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 swapfl([First,Last],[Last,First]).
 
-swapfl([First,Next|L1],[Last,Next|L2]):-  
+swapfl([First,Next|L1],[Last,Next|L2]):-
    swapfl([First|L1],[Last|L2]).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
 
 
 
-\subsection*{Answer~\ref{L6.EX4}} 
+\subsection*{Answer~\ref{L6.EX4}}
 
 In this solution the street is represented as list of three houses.
 A house is represented as a 3-place (colour, nationality, pet) complex
 term. With the help of \texttt{member/2} and \texttt{sublist/2} we
 check the constraints of the puzzle.
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 zebra(N) :-
  Street = [House1,House2,House3],
  member(house(red,_,_),Street),
  member(house(blue,_,_),Street),
  member(house(green,_,_),Street),
  member(house(red,english,_),Street),
- member(house(_,spanish,jaguar),Street),        
+ member(house(_,spanish,jaguar),Street),
  sublist([house(_,_,snail),house(_,japanese,_)],Street),
  sublist([house(blue,_,_),house(_,_,snail)],Street),
  member(house(_,N,zebra),Street).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
 
-\subsection*{Answer~\ref{L7.EX1}} 
+\subsection*{Answer~\ref{L7.EX1}}
 
 The internal representation of the DCG rules that Prolog will work with:
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 s(A,B) :- foo(A,C), bar(C,D), wiggle(D,B).
 foo([choo|A],A).
 foo(A,B) :- foo(A,C), foo(C,B).
@@ -810,7 +810,7 @@ blar([a|A],A).
 car([train|A],A).
 wiggle([toot|A],A).
 wiggle(A,B) :- wiggle(A,C), wiggle(C,B).
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 The first three sentences that Prolog will generate:
 \begin{enumerate}
@@ -819,26 +819,26 @@ The first three sentences that Prolog will generate:
 \item          choo i am a train toot toot toot
 \end{enumerate}
 
-\subsection*{Answer~\ref{L7.EX2}} 
+\subsection*{Answer~\ref{L7.EX2}}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 s --> [a,b].
 s --> a, s, b.
 a --> [a].
 b --> [b].
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
-\subsection*{Answer~\ref{L7.EX3}} 
+\subsection*{Answer~\ref{L7.EX3}}
 
-\begin{LPNcodedisplay}         
+\begin{LPNcodedisplay}
 s --> [].
 s --> a, s, b.
 a --> [a].
 b --> [b,b].
-\end{LPNcodedisplay}         
+\end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L8.EX1}} 
+\subsection*{Answer~\ref{L8.EX1}}
 
 \begin{LPNcodedisplay}
 s --> np(Num),vp(Num).
@@ -865,7 +865,7 @@ v(pl) --> [eat].
 \end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L8.EX2}} 
+\subsection*{Answer~\ref{L8.EX2}}
 \begin{LPNcodedisplay}
 kanga(A,B,C,D,E):-
    roo(A,B,D,F),
@@ -921,33 +921,33 @@ kanga(A,B,C,D,E):-
 
 \subsection*{Answer~\ref{L9.EX3}}
 \begin{LPNcodedisplay}
-termtype(Term,variable):- 
+termtype(Term,variable):-
    var(Term).
 
-termtype(Term,atom):- 
+termtype(Term,atom):-
    atom(Term).
 
-termtype(Term,number):- 
+termtype(Term,number):-
    number(Term).
 
-termtype(Term,constant):- 
+termtype(Term,constant):-
    atomic(Term).
 
-termtype(Term,simple_term):- 
+termtype(Term,simple_term):-
    atomic(Term).
 
-termtype(Term,simple_term):- 
+termtype(Term,simple_term):-
    var(Term).
 
-termtype(Term,complex_term):- 
+termtype(Term,complex_term):-
    nonvar(Term),
-   functor(Term,_,Arity), 
+   functor(Term,_,Arity),
    Arity > 0.
 
-termtype(Term,term):- 
+termtype(Term,term):-
    termtype(Term,simple_term).
 
-termtype(Term,term):- 
+termtype(Term,term):-
    termtype(Term,complex_term).
 \end{LPNcodedisplay}
 
@@ -956,7 +956,7 @@ termtype(Term,term):-
 
 First, a solution that doesn't use univ:
 \begin{LPNcodedisplay}
-groundterm(Term):- 
+groundterm(Term):-
    atomic(Term).
 
 groundterm(Term):-
@@ -1076,7 +1076,7 @@ split([Number|L],Pos,[X|Neg]):-
 \end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L10.EX4}}  
+\subsection*{Answer~\ref{L10.EX4}}
 \begin{LPNcodedisplay}
 directTrain(saarbruecken,dudweiler).
 directTrain(forbach,saarbruecken).
@@ -1103,7 +1103,7 @@ route(A,C,SoFar,Route):-
 \end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L11.EX1}}  
+\subsection*{Answer~\ref{L11.EX1}}
 
 After the first query the database contains:
 
@@ -1112,7 +1112,7 @@ q(foo,blug).
 q(a,b).
 q(1,2).
 \end{LPNcodedisplay}
-\noindent  
+\noindent
 After the second command the database contains:
 
 \begin{LPNcodedisplay}
@@ -1120,7 +1120,7 @@ q(foo,blug).
 q(a,b).
 p(X):- h(X).
 \end{LPNcodedisplay}
-\noindent  
+\noindent
 After the third command the database contains:
 
 \begin{LPNcodedisplay}
@@ -1129,7 +1129,7 @@ p(X):- h(X).
 
 
 
-\subsection*{Answer~\ref{L11.EX2}}  
+\subsection*{Answer~\ref{L11.EX2}}
 
 \begin{enumerate}
 \item \begin{LPNcodedisplay}
@@ -1168,7 +1168,7 @@ No
 
 
 
-\subsection*{Answer~\ref{L11.EX3}}  
+\subsection*{Answer~\ref{L11.EX3}}
 
 \begin{LPNcodedisplay}
 :- dynamic sigmares/2.
@@ -1186,29 +1186,29 @@ sigma(Number,Total):-
    Total is SubTotal + Number,
    assert(sigmares(Number,Total)).
 \end{LPNcodedisplay}
-  
 
 
-\subsection*{Answer~\ref{L12.EX1}}  
+
+\subsection*{Answer~\ref{L12.EX1}}
 
 \begin{LPNcodedisplay}
 piece_of_code:-
    open('hogwart.houses',write,Stream),
-   tab(Stream,6), 
-   write(Stream,gryffindor), 
+   tab(Stream,6),
+   write(Stream,gryffindor),
    nl(Stream),
-   write(Stream,hufflepuf), 
-   tab(Stream,6), 
-   write(Stream,ravenclaw), 
+   write(Stream,hufflepuf),
+   tab(Stream,6),
+   write(Stream,ravenclaw),
    nl(Stream),
-   tab(Stream,6), 
-   write(Stream,slytherin), 
+   tab(Stream,6),
+   write(Stream,slytherin),
    nl(Stream),
    close(Stream).
 \end{LPNcodedisplay}
 
 
-\subsection*{Answer~\ref{L12.EX2}}  
+\subsection*{Answer~\ref{L12.EX2}}
 
 \begin{LPNcodedisplay}
 :- dynamic word/2.
@@ -1218,9 +1218,9 @@ readWord(Stream,W,Status):-
    checkCharAndReadRest(Char,Chars,Stream,Status),
    atom_codes(W,Chars).
 
-checkCharAndReadRest(10,[],_,ok):- !.  
-checkCharAndReadRest(32,[],_,ok):- !.  
-checkCharAndReadRest(-1,[],_,eof):- !.  
+checkCharAndReadRest(10,[],_,ok):- !.
+checkCharAndReadRest(32,[],_,ok):- !.
+checkCharAndReadRest(-1,[],_,eof):- !.
 checkCharAndReadRest(end_of_file,[],_,eof):- !.
 checkCharAndReadRest(Char,[Char|Chars],Stream,Status):-
    get_code(Stream,NextChar),
@@ -1242,7 +1242,7 @@ read_words(Stream,PrevStatus):-
 addWord(Word):-
    word(Word,Freq), !,
    retract( word(Word,Freq) ),
-   NewFreq is Freq + 1, 
+   NewFreq is Freq + 1,
    assert( word(Word,NewFreq) ).
 
 addWord(Word):-

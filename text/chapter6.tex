@@ -5,10 +5,10 @@
 \Thischapter{145}{
 
 \noindent
-This chapter has two main goals:  
-  
+This chapter has two main goals:
+
 \begin{enumerate}
-\item{}To define \texttt{append/3}, a predicate for concatenating two lists,  
+\item{}To define \texttt{append/3}, a predicate for concatenating two lists,
         and illustrate what can be done with it.
 
 \item{}To discuss two ways of reversing a list: a naive method using
@@ -32,65 +32,65 @@ For example, if we pose the query
 \begin{LPNcodedisplay}
 ?- append([a,b,c],[1,2,3],[a,b,c,1,2,3]).
 \end{LPNcodedisplay}
-or the query  
+or the query
 \begin{LPNcodedisplay}
 ?- append([a,[foo,gibble],c],[1,2,[[],b]],
           [a,[foo,gibble],c,1,2,[[],b]).
 \end{LPNcodedisplay}
-we will get the response yes. On the other hand, if we pose  
-the query  
+we will get the response yes. On the other hand, if we pose
+the query
 \begin{LPNcodedisplay}
 ?- append([a,b,c],[1,2,3],[a,b,c,1,2]).
 \end{LPNcodedisplay}
-or the query  
+or the query
 \begin{LPNcodedisplay}
 ?- append([a,b,c],[1,2,3],[1,2,3,a,b,c]).
 \end{LPNcodedisplay}
-we will get the answer no.  
+we will get the answer no.
 
 
-From a procedural perspective, the most obvious use of §append/3§  
-is to concatenate two lists together. We can do this simply by using a  
-variable as the third argument: the query  
+From a procedural perspective, the most obvious use of §append/3§
+is to concatenate two lists together. We can do this simply by using a
+variable as the third argument: the query
 \begin{LPNcodedisplay}
 ?- append([a,b,c],[1,2,3],L3).
 \end{LPNcodedisplay}
-yields the response  
+yields the response
 \begin{LPNcodedisplay}
 L3 = [a,b,c,1,2,3]
 yes
 \end{LPNcodedisplay}
-  
-But (as we shall soon see) we can also use §append/3§ to split up a  
-list.  In fact, §append/3§ is a real workhorse.  There's lots we  
-can do with it, and studying it is a good way to gain a better  
+
+But (as we shall soon see) we can also use §append/3§ to split up a
+list.  In fact, §append/3§ is a real workhorse.  There's lots we
+can do with it, and studying it is a good way to gain a better
 understanding of list processing in Prolog.
 
 \subsection*{Defining append}\label{SUBSEC.L6.DEFINING.APPEND}
 
 
 
-Here's how §append/3§ is defined:  
+Here's how §append/3§ is defined:
 \begin{LPNcodedisplay}
 append([],L,L).
 append([H|T],L2,[H|L3]) :- append(T,L2,L3).
 \end{LPNcodedisplay}
-  
-This is a recursive definition. The base case simply says that  
-appending the empty list to any list whatsoever yields that same list,  
+
+This is a recursive definition. The base case simply says that
+appending the empty list to any list whatsoever yields that same list,
 which is obviously true.
 
-But what about the recursive step?  This says that when we concatenate  
-a non-empty list §[H|T]§ with a list §L2§, we end up with  
-the list whose head is §H§ and whose tail is the result of  
-concatenating §T§ with §L2§. It may be useful to think about  
-this definition pictorially:  
-  
+But what about the recursive step?  This says that when we concatenate
+a non-empty list §[H|T]§ with a list §L2§, we end up with
+the list whose head is §H§ and whose tail is the result of
+concatenating §T§ with §L2§. It may be useful to think about
+this definition pictorially:
+
 %\includegraphics{append.eps}
 
 \begin{quote}
 Input:  [ H $\mid$ \fbox{\ T \ } ] + \fbox{\ L2 \ } \\[5mm]
-Result: [ H $\mid \underbrace{\fbox{\ L3 \ }}_{\fbox{T}+\fbox{L2}}$ ] 
+Result: [ H $\mid \underbrace{\fbox{\ L3 \ }}_{\fbox{T}+\fbox{L2}}$ ]
 \end{quote}
 
 
@@ -100,21 +100,21 @@ Result: [ H $\mid \underbrace{\fbox{\ L3 \ }}_{\fbox{T}+\fbox{L2}}$ ]
 
 
 
-But what is the procedural meaning of this definition?  What actually  
-goes on when we use §append/3§ to glue two lists together?  
-Let's take a detailed look at what happens when we pose the query  
+But what is the procedural meaning of this definition?  What actually
+goes on when we use §append/3§ to glue two lists together?
+Let's take a detailed look at what happens when we pose the query
 §?- append([a,b,c],[1,2,3],X)§.
 
-When we pose this query, Prolog will match it to the  
-head of the recursive rule, generating a new internal variable  
-(say §_G518§) in the process. If we carried out a trace of what  
-happens next, we would get something like the following:  
-  
+When we pose this query, Prolog will match it to the
+head of the recursive rule, generating a new internal variable
+(say §_G518§) in the process. If we carried out a trace of what
+happens next, we would get something like the following:
+
 \begin{LPNcodedisplay}
 append([a, b, c], [1, 2, 3], _G518)
 append([b, c], [1, 2, 3], _G587)
 append([c], [1, 2, 3], _G590)
-append([], [1, 2, 3], _G593) 
+append([], [1, 2, 3], _G593)
 append([], [1, 2, 3], [1, 2, 3])
 append([c], [1, 2, 3], [c, 1, 2, 3])
 append([b, c], [1, 2, 3], [b, c, 1, 2, 3])
@@ -123,19 +123,19 @@ append([a, b, c], [1, 2, 3], [a, b, c, 1, 2, 3])
 X = [a, b, c, 1, 2, 3]
 yes
 \end{LPNcodedisplay}
-  
-The basic pattern should be clear: in the first four lines we see that  
-Prolog recurses its way down the list in its first argument until it  
-can apply the base case of the recursive definition.  Then, as the  
-next four lines show, it then stepwise `fills in' the result.  How is  
-this `filling in' process carried out?  By successively instantiating  
-the variables §_G593§, §_G590§, §_G587§, and  
-§_G518§. But while it's important to grasp this basic pattern, it  
-doesn't tell us all we need to know about the way §append/3§ works,  
-so let's dig deeper. Here is the search tree for the query  
-§append([a,b,c],[1,2,3],X)§. We'll work carefully through  
-all the steps, making a careful note of what our goals are,  
-and what the variables are instantiated to. 
+
+The basic pattern should be clear: in the first four lines we see that
+Prolog recurses its way down the list in its first argument until it
+can apply the base case of the recursive definition.  Then, as the
+next four lines show, it then stepwise `fills in' the result.  How is
+this `filling in' process carried out?  By successively instantiating
+the variables §_G593§, §_G590§, §_G587§, and
+§_G518§. But while it's important to grasp this basic pattern, it
+doesn't tell us all we need to know about the way §append/3§ works,
+so let's dig deeper. Here is the search tree for the query
+§append([a,b,c],[1,2,3],X)§. We'll work carefully through
+all the steps, making a careful note of what our goals are,
+and what the variables are instantiated to.
 
 \begin{center}
 \includegraphics{chap6-pspic1.ps}
@@ -144,61 +144,61 @@ and what the variables are instantiated to.
 
 \begin{enumerate}
 
-\item{}Goal 1: §append([a,b,c],[1,2,3],_G518)§.  Prolog  
-matches this to the head of the recursive rule (that is,  
-§append([H|T],L2,[H|L3])§).  Thus §_G518§ is unified to  
-§[a|L3]§, and Prolog has the new goal   
-§append([b,c],[1,2,3],L3)§.   
-It generates a new variable §_G587§ for  
-§L3§, thus we have that §_G518 = [a|_G587]§.  
+\item{}Goal 1: §append([a,b,c],[1,2,3],_G518)§.  Prolog
+matches this to the head of the recursive rule (that is,
+§append([H|T],L2,[H|L3])§).  Thus §_G518§ is unified to
+§[a|L3]§, and Prolog has the new goal
+§append([b,c],[1,2,3],L3)§.
+It generates a new variable §_G587§ for
+§L3§, thus we have that §_G518 = [a|_G587]§.
 
-\item{}Goal 2: §append([b,c],[1,2,3],_G587)§.  Prolog matches  
-this to the head of the recursive rule, thus §_G587§ is unified  
-to §[b|L3]§, and Prolog has the new goal   
-§append([c],[1,2,3],L3)§.   
-It generates the internal variable §_G590§ for  
+\item{}Goal 2: §append([b,c],[1,2,3],_G587)§.  Prolog matches
+this to the head of the recursive rule, thus §_G587§ is unified
+to §[b|L3]§, and Prolog has the new goal
+§append([c],[1,2,3],L3)§.
+It generates the internal variable §_G590§ for
 §L3§, thus we have that §_G587 = [b|_G590]§.
 
-\item{}Goal 3: §append([c],[1,2,3],_G590§).  Prolog matches this  
-to the head of the recursive rule, thus §_G590§ is unified  to  
-§[c|L3]§, and Prolog has the new goal   
-§append([],[1,2,3],L3)§.   
-It generates the internal variable §_G593§ for §L3§,  
+\item{}Goal 3: §append([c],[1,2,3],_G590§).  Prolog matches this
+to the head of the recursive rule, thus §_G590§ is unified  to
+§[c|L3]§, and Prolog has the new goal
+§append([],[1,2,3],L3)§.
+It generates the internal variable §_G593§ for §L3§,
 thus we have that §_G590 = [c|_G593]§.
 
-\item{}Goal 4: §append([],[1,2,3],_G593§).  At last: Prolog  
-can use the base clause (that is, §append([],L,L)§).  And in the  
-four successive matching steps, Prolog will obtain answers to Goal 4,  
-Goal 3, Goal 2, and Goal 1. Here's how.  
+\item{}Goal 4: §append([],[1,2,3],_G593§).  At last: Prolog
+can use the base clause (that is, §append([],L,L)§).  And in the
+four successive matching steps, Prolog will obtain answers to Goal 4,
+Goal 3, Goal 2, and Goal 1. Here's how.
 
-\item{}Answer to Goal 4: §append([],[1,2,3],[1,2,3])§. This  
-is because when we match Goal 4 (that is,   
-§append([],[1,2,3],_G593)§ to the base clause, §_G593§ is  
-unified to §[1,2,3]§.  
+\item{}Answer to Goal 4: §append([],[1,2,3],[1,2,3])§. This
+is because when we match Goal 4 (that is,
+§append([],[1,2,3],_G593)§ to the base clause, §_G593§ is
+unified to §[1,2,3]§.
 
 \item{}Answer to Goal 3: §append([c],[1,2,3],[c,1,2,3])§.  Why?
 Because Goal 3 is §append([c],[1,2,3],_G590])§, and §_G590§ is the
 list §[c|_G593]§, and we have just unified §_G593§ to §[1,2,3]§. So
 §_G590§ is unified to §[c,1,2,3]§.
 
-\item{}Answer to Goal 2: §append([b,c],[1,2,3],[b,c,1,2,3])§.  
-Why? Because Goal 2 is §append([b,c],[1,2,3],_G587])§, and  
-§_G587§ is the list  §[b|_G590]§, and we have just unified §_G590§ to  
+\item{}Answer to Goal 2: §append([b,c],[1,2,3],[b,c,1,2,3])§.
+Why? Because Goal 2 is §append([b,c],[1,2,3],_G587])§, and
+§_G587§ is the list  §[b|_G590]§, and we have just unified §_G590§ to
 §[c,1,2,3]§. So §_G587§ is unified to §[b,c,1,2,3]§.
 
-\item{}Answer to Goal 1: §append([a,b,c],[1,2,3],[a,b,c,1,2,3])§.  
+\item{}Answer to Goal 1: §append([a,b,c],[1,2,3],[a,b,c,1,2,3])§.
 Why? Because Goal 2 is §append([a,b,c],[1,2,3],_G518])§,  and
-§_G518§ is the list §[a|_G587]§, and we have just unified §_G587§ to  
+§_G518§ is the list §[a|_G587]§, and we have just unified §_G587§ to
 §[b,c,1,2,3]§. So §_G518§ is unified to §[a,b,c,1,2,3]§.
 
-\item{}Thus Prolog now knows how to instantiate §X§, the original  
-query variable.  It tells us that §X = [a,b,c,1,2,3]§, which  
+\item{}Thus Prolog now knows how to instantiate §X§, the original
+query variable.  It tells us that §X = [a,b,c,1,2,3]§, which
 is what we want.
 \end{enumerate}
 
 
-Work through this example carefully, and make sure you fully  
-understand the pattern of variable instantiations, namely:  
+Work through this example carefully, and make sure you fully
+understand the pattern of variable instantiations, namely:
 \begin{LPNcodedisplay}
 _G518 = [a|_G587]
       = [a|[b|_G590]]
@@ -212,65 +212,65 @@ answer. When Prolog finally instantiates the innermost variable
 §_G593§ to §[1, 2, 3]§, the answer crystallises out, like a snowflake
 forming around a grain of dust. But it is unification, not magic, that
 produces the result.
-  
+
 
 
 \subsection*{Using append}\label{SUBSEC.L6.USING.APPEND}
 
 
 
-Now that we understand how §append/3§ works,  
+Now that we understand how §append/3§ works,
 let's see how we can put it to work.
 
-One important use of §append/3§ is to split up a list into two  
-consecutive lists.  For example:  
+One important use of §append/3§ is to split up a list into two
+consecutive lists.  For example:
 \begin{LPNcodedisplay}
 ?- append(X,Y,[a,b,c,d]).
 
-X = [] 
+X = []
 Y = [a,b,c,d] ;
 
-X = [a] 
+X = [a]
 Y = [b,c,d] ;
 
-X = [a,b] 
+X = [a,b]
 Y = [c,d] ;
 
-X = [a,b,c] 
+X = [a,b,c]
 Y = [d] ;
 
-X = [a,b,c,d] 
+X = [a,b,c,d]
 Y = [] ;
 
 no
 \end{LPNcodedisplay}
-  
-That is, we give the list we want to split up (here§[a,b,c,d]§)  
-to §append/3§ as the third argument, and we use variables for the  
-first two arguments.  Prolog then searches for ways of instantiating  
-the variables to two lists that concatenate to give the third  
-argument, thus splitting up the list in two. Moreover, as this example  
-shows, by backtracking, Prolog can find all possible ways of splitting  
+
+That is, we give the list we want to split up (here§[a,b,c,d]§)
+to §append/3§ as the third argument, and we use variables for the
+first two arguments.  Prolog then searches for ways of instantiating
+the variables to two lists that concatenate to give the third
+argument, thus splitting up the list in two. Moreover, as this example
+shows, by backtracking, Prolog can find all possible ways of splitting
 up a list into two consecutive lists.
 
-This ability means it is easy to define some useful predicates with  
-§append/3§.  Let's consider some examples.  First, we can define a  
-program which finds \LPNterm{prefixes} of lists.  For example, the  
-prefixes of §[a,b,c,d]§ are §[]§, §[a]§, §[a,b]§,  
-§[a,b,c]§, and §[a,b,c,d]§.  With the help of §append/3§  
-it is straightforward to define a program §prefix/2§, whose  
-arguments are both lists, such that §prefix(P,L)§ will hold when  
-§P§ is a prefix of §L§.  Here's how:  
+This ability means it is easy to define some useful predicates with
+§append/3§.  Let's consider some examples.  First, we can define a
+program which finds \LPNterm{prefixes} of lists.  For example, the
+prefixes of §[a,b,c,d]§ are §[]§, §[a]§, §[a,b]§,
+§[a,b,c]§, and §[a,b,c,d]§.  With the help of §append/3§
+it is straightforward to define a program §prefix/2§, whose
+arguments are both lists, such that §prefix(P,L)§ will hold when
+§P§ is a prefix of §L§.  Here's how:
 \begin{LPNcodedisplay}
 prefix(P,L):- append(P,_,L).
 \end{LPNcodedisplay}
-  
-This says that list §P§ is a prefix of list §L§ when there  
-is some list such that §L§ is the result of concatenating  
-§P§ with that list.  (We use the anonymous variable since we  
-don't care what that other list is: we only care that there is some such  
-list or other.) This predicate successfully finds prefixes of lists,  
-and moreover, via backtracking, finds them all:  
+
+This says that list §P§ is a prefix of list §L§ when there
+is some list such that §L§ is the result of concatenating
+§P§ with that list.  (We use the anonymous variable since we
+don't care what that other list is: we only care that there is some such
+list or other.) This predicate successfully finds prefixes of lists,
+and moreover, via backtracking, finds them all:
 \begin{LPNcodedisplay}
 ?- prefix(X,[a,b,c,d]).
 
@@ -288,20 +288,20 @@ no
 \end{LPNcodedisplay}
 
 
-In a similar fashion, we can define a program which finds   
-\LPNterm{suffixes} of lists.  For example, the suffixes of  
-§[a,b,c,d]§ are §[]§, §[d]§, §[c,d]§,  
-§[b,c,d]§, and §[a,b,c,d]§.  Again, using §append/3§ it  
-is easy to define §suffix/2§, a predicate whose arguments  
-are both lists, such that §suffix(S,L)§ will hold when §S§  
-is a suffix of §L§:  
+In a similar fashion, we can define a program which finds
+\LPNterm{suffixes} of lists.  For example, the suffixes of
+§[a,b,c,d]§ are §[]§, §[d]§, §[c,d]§,
+§[b,c,d]§, and §[a,b,c,d]§.  Again, using §append/3§ it
+is easy to define §suffix/2§, a predicate whose arguments
+are both lists, such that §suffix(S,L)§ will hold when §S§
+is a suffix of §L§:
 \begin{LPNcodedisplay}
 suffix(S,L):- append(_,S,L).
 \end{LPNcodedisplay}
-That is, list §S§ is a suffix of list §L§ if there is some  
-list such that §L§ is the result of concatenating that list with  
-§S§.  This predicate successfully finds suffixes of lists, and  
-moreover, via backtracking, finds them all:  
+That is, list §S§ is a suffix of list §L§ if there is some
+list such that §L§ is the result of concatenating that list with
+§S§.  This predicate successfully finds suffixes of lists, and
+moreover, via backtracking, finds them all:
 \begin{LPNcodedisplay}
 ?- suffix(X,[a,b,c,d]).
 
@@ -317,19 +317,19 @@ X = [] ;
 
 no
 \end{LPNcodedisplay}
-  
+
 Make sure you understand why the results come out in this order.
 
 \bigskip
 
-And now it's very easy to define a program that finds   
-\LPNterm{sublists} of lists.  The sublists of §[a,b,c,d]§ are §[]§,  
-§[a]§, §[b]§, §[c]§, §[d]§, §[a,b]§,  
-§[b,c]§, §[c,d]§, §[a,b,c]§,  
-§[b,c,d]§, and §[a,b,c,d]§.  A little thought reveals  
-that the sublists of a list L are simply the \LPNemph{prefixes of suffixes  
-of} L. Think about it pictorially:  
-  
+And now it's very easy to define a program that finds
+\LPNterm{sublists} of lists.  The sublists of §[a,b,c,d]§ are §[]§,
+§[a]§, §[b]§, §[c]§, §[d]§, §[a,b]§,
+§[b,c]§, §[c,d]§, §[a,b,c]§,
+§[b,c,d]§, and §[a,b,c,d]§.  A little thought reveals
+that the sublists of a list L are simply the \LPNemph{prefixes of suffixes
+of} L. Think about it pictorially:
+
 
 \begin{quote}
 Take suffix: \fbox{$a,b,c,d,e,f,g,\underbrace{h,i,j,k,l,m,n,o,p}$}\\[3mm]
@@ -359,35 +359,35 @@ put it to work. But it is just as important to know that it can be a
 source of inefficiency, and that you probably don't want to use it all
 the time.
 
-Why is §append/3§ a source of inefficiency?  If you think about  
-the way it works, you'll notice a weakness: §append/3§ doesn't join  
-two lists in one simple action. Rather, it needs to work its way down  
-its first argument until it finds the end of the list, and only then  
+Why is §append/3§ a source of inefficiency?  If you think about
+the way it works, you'll notice a weakness: §append/3§ doesn't join
+two lists in one simple action. Rather, it needs to work its way down
+its first argument until it finds the end of the list, and only then
 can it carry out the concatenation.
 
-Now, often this causes no problems. For example, if we have two lists  
-and we just want to concatenate them, it's probably not too bad. Sure,  
-Prolog will need to work down the length of the first list, but if the  
-list is not too long, that's probably not too high a price  
+Now, often this causes no problems. For example, if we have two lists
+and we just want to concatenate them, it's probably not too bad. Sure,
+Prolog will need to work down the length of the first list, but if the
+list is not too long, that's probably not too high a price
 to pay for the ease of working with §append/3§.
 
-But matters may be very different if the first two arguments are given  
-as variables. As we've just seen, it can be very useful to give  
-§append/3§ variables in its first two arguments, for this lets  
-Prolog search for ways of splitting up the lists. But there is a price  
-to pay: a lot of searching is going on, and this can lead to very  
+But matters may be very different if the first two arguments are given
+as variables. As we've just seen, it can be very useful to give
+§append/3§ variables in its first two arguments, for this lets
+Prolog search for ways of splitting up the lists. But there is a price
+to pay: a lot of searching is going on, and this can lead to very
 inefficient programs.
 
-To illustrate this, we shall examine the problem of reversing a list.  
-That is, we will examine the problem of defining a predicate which  
-takes a list (say §[a,b,c,d]§) as input and returns a list  
-containing the same elements in the reverse order (here  
+To illustrate this, we shall examine the problem of reversing a list.
+That is, we will examine the problem of defining a predicate which
+takes a list (say §[a,b,c,d]§) as input and returns a list
+containing the same elements in the reverse order (here
 §[d,c,b,a]§).
 
 Now, a reverse predicate is a useful predicate to have around. As you
 will have realised by now, lists in Prolog are far easier to access
 from the front than from the back. For example, to pull out the head
-of a list §L§, all we have to do is perform the unification 
+of a list §L§, all we have to do is perform the unification
 §[H|_] = L§; this results in §H§ being instantiated to the head of §L§. But
 pulling out the last element of an arbitrary list is harder: we can't
 do it simply using unification.  On the other hand, if we had a
@@ -398,44 +398,44 @@ be a useful tool.  However, as we may have to reverse large lists, we
 would like this tool to be efficient.  So we need to think about the
 problem carefully.
 
-And that's what we're going to do now.  We will define two reverse  
-predicates: a naive one, defined with the help of §append/3§, and a  
-more efficient (and indeed, more natural) one defined using  
+And that's what we're going to do now.  We will define two reverse
+predicates: a naive one, defined with the help of §append/3§, and a
+more efficient (and indeed, more natural) one defined using
 accumulators.
 
 \subsection*{Naive reverse using append}\label{SUBSEC.L6.REVERSE.NAIVE}
 
 
 
-Here's a recursive definition of what is involved in reversing a list:  
-  
+Here's a recursive definition of what is involved in reversing a list:
+
 \begin{enumerate}
-\item{}If we reverse the empty list, we obtain the  
+\item{}If we reverse the empty list, we obtain the
         empty list.
-\item{}If we reverse the list §[H|T]§, we end up with the list   
+\item{}If we reverse the list §[H|T]§, we end up with the list
         obtained by reversing §T§ and concatenating with §[H]§.
 \end{enumerate}
-To see that the recursive clause is correct, consider the list   
-§[a,b,c,d]§.  If we reverse the tail of this list we obtain   
-§[d,c,b]§.  Concatenating this with §[a]§ yields   
+To see that the recursive clause is correct, consider the list
+§[a,b,c,d]§.  If we reverse the tail of this list we obtain
+§[d,c,b]§.  Concatenating this with §[a]§ yields
 §[d,c,b,a]§, which is the reverse of §[a,b,c,d]§.
 
-With the help of §append/3§ it is easy to turn this recursive   
-definition into Prolog:  
-  
+With the help of §append/3§ it is easy to turn this recursive
+definition into Prolog:
+
 \begin{LPNcodedisplay}
 naiverev([],[]).
 naiverev([H|T],R):- naiverev(T,RevT), append(RevT,[H],R).
 \end{LPNcodedisplay}
-  
-Now, this definition is correct, but it does an awful lot of work.  
-It is \LPNemph{very} instructive to look at a trace of this program.  This  
-shows that the program is spending a lot of time carrying out appends.  
-This shouldn't be too surprising: after, all, we are calling  
-§append/3§ recursively.  The result is very  
-inefficient (if you run a trace, you will find that it takes about 90  
-steps to reverse an eight element list) and hard to understand (the  
-predicate spends most of its time in the recursive calls to  
+
+Now, this definition is correct, but it does an awful lot of work.
+It is \LPNemph{very} instructive to look at a trace of this program.  This
+shows that the program is spending a lot of time carrying out appends.
+This shouldn't be too surprising: after, all, we are calling
+§append/3§ recursively.  The result is very
+inefficient (if you run a trace, you will find that it takes about 90
+steps to reverse an eight element list) and hard to understand (the
+predicate spends most of its time in the recursive calls to
 §append/3§, making it very hard to see what is going on).
 
 Not nice. But as we shall now see, there \LPNemph{is} a better way.
@@ -444,24 +444,24 @@ Not nice. But as we shall now see, there \LPNemph{is} a better way.
 
 \subsection*{Reverse using an accumulator}\label{SUBSEC.L6.REVERSE.ACC}
 
-The better way is to use an accumulator.  The underlying idea is  
-simple and natural.  Our accumulator will be a list, and when we start  
-it will be empty.  Suppose we want to reverse §[a,b,c,d]§.  At  
-the start, our accumulator will be §[]§.  So we simply take the  
-head of the list we are trying to reverse and add it as the head of  
-the accumulator.  We then carry on processing the tail, thus we are  
-faced with the task of reversing §[b,c,d]§, and our accumulator  
-is §[a]§.  Again we take the head of the list we are trying to  
-reverse and add it as the head of the accumulator (thus our new  
-accumulator is §[b,a]§) and carry on trying to reverse §[c,d]§.  
-Again we use the same idea, so we get a new accumulator  
-§[c,b,a]§, and try to reverse §[d]§.  Needless to say, the  
-next step yields an accumulator §[d,c,b,a]§ and the new goal of  
-trying to reverse §[]§.  This is where the process stops: \LPNemph{and  
-our accumulator contains the reversed list we want}.  To summarise:  
-the idea is simply to work our way through the list we want to  
-reverse, and push each element in turn onto the head of the  
-accumulator, like this:  
+The better way is to use an accumulator.  The underlying idea is
+simple and natural.  Our accumulator will be a list, and when we start
+it will be empty.  Suppose we want to reverse §[a,b,c,d]§.  At
+the start, our accumulator will be §[]§.  So we simply take the
+head of the list we are trying to reverse and add it as the head of
+the accumulator.  We then carry on processing the tail, thus we are
+faced with the task of reversing §[b,c,d]§, and our accumulator
+is §[a]§.  Again we take the head of the list we are trying to
+reverse and add it as the head of the accumulator (thus our new
+accumulator is §[b,a]§) and carry on trying to reverse §[c,d]§.
+Again we use the same idea, so we get a new accumulator
+§[c,b,a]§, and try to reverse §[d]§.  Needless to say, the
+next step yields an accumulator §[d,c,b,a]§ and the new goal of
+trying to reverse §[]§.  This is where the process stops: \LPNemph{and
+our accumulator contains the reversed list we want}.  To summarise:
+the idea is simply to work our way through the list we want to
+reverse, and push each element in turn onto the head of the
+accumulator, like this:
 \begin{LPNcodedisplay}
 List: [a,b,c,d]  Accumulator: []
 List: [b,c,d]    Accumulator: [a]
@@ -469,36 +469,36 @@ List: [c,d]      Accumulator: [b,a]
 List: [d]        Accumulator: [c,b,a]
 List: []         Accumulator: [d,c,b,a]
 \end{LPNcodedisplay}
-This will be efficient because we simply blast our way through the list once:  
-we don't have to waste time carrying out concatenation or other  
+This will be efficient because we simply blast our way through the list once:
+we don't have to waste time carrying out concatenation or other
 irrelevant work.
 
-It's also easy to put this idea in Prolog.  Here's the accumulator  
-code:  
+It's also easy to put this idea in Prolog.  Here's the accumulator
+code:
 \begin{LPNcodedisplay}
 accRev([H|T],A,R):- accRev(T,[H|A],R).
 accRev([],A,A).
 \end{LPNcodedisplay}
-This is classic accumulator code: it follows the same pattern   
-as the arithmetic examples we examined in the previous chapter.  The   
-recursive clause is responsible for chopping off the head of the input   
-list, and pushing it onto the accumulator.  The base case halts the   
+This is classic accumulator code: it follows the same pattern
+as the arithmetic examples we examined in the previous chapter.  The
+recursive clause is responsible for chopping off the head of the input
+list, and pushing it onto the accumulator.  The base case halts the
 program, and copies the accumulator to the final argument.
 
-As is usual with accumulator code, it's a good idea to write a   
-predicate which carries out the required initialisation of the   
-accumulator for us:  
+As is usual with accumulator code, it's a good idea to write a
+predicate which carries out the required initialisation of the
+accumulator for us:
 \begin{LPNcodedisplay}
 rev(L,R):- accRev(L,[],R).
 \end{LPNcodedisplay}
-  
-Again, it is instructive to run some traces on this program and  
-compare it with §naiverev/2§.  The accumulator based version is  
-\LPNemph{clearly} better. For example, it takes about 20 steps to reverse  
-an eight element list, as opposed to 90 for the naive version.  
-Moreover, the trace is far easier to follow. The idea underlying the  
-accumulator based version is simpler and more natural than the  
-recursive calls to §append/3§.  
+
+Again, it is instructive to run some traces on this program and
+compare it with §naiverev/2§.  The accumulator based version is
+\LPNemph{clearly} better. For example, it takes about 20 steps to reverse
+an eight element list, as opposed to 90 for the naive version.
+Moreover, the trace is far easier to follow. The idea underlying the
+accumulator based version is simpler and more natural than the
+recursive calls to §append/3§.
 
 
 Summing up, §append/3§ is a useful program, and you certainly should not
@@ -506,32 +506,32 @@ be scared of using it. However, you also need to be aware that it is a
 source of inefficiency, so when you use it, ask yourself whether there
 is a better way.  And often there is. The use of accumulators is often
 better, and (as the §rev/2§ example show) accumulators can be a
-natural way of handling list processing tasks. 
+natural way of handling list processing tasks.
 
 \section{Exercises}\label{SEC.L6.EXERCISES}
 
 
-\begin{LPNexercise}{L6.EX1}Let's call a list \LPNemph{doubled}  
-if it is made of two consecutive blocks of elements that are  
-exactly the same.  
-For example, §[a,b,c,a,b,c]§ is doubled (it's  
-made up of §[a,b,c]§ followed by §[a,b,c]§)  
-and so is §[foo,gubble,foo,gubble]§. On the other hand,  
-§[foo,gubble,foo]§ is not doubled. Write a predicate  
-§doubled(List)§ which succeeds when §List§  
+\begin{LPNexercise}{L6.EX1}Let's call a list \LPNemph{doubled}
+if it is made of two consecutive blocks of elements that are
+exactly the same.
+For example, §[a,b,c,a,b,c]§ is doubled (it's
+made up of §[a,b,c]§ followed by §[a,b,c]§)
+and so is §[foo,gubble,foo,gubble]§. On the other hand,
+§[foo,gubble,foo]§ is not doubled. Write a predicate
+§doubled(List)§ which succeeds when §List§
 is a doubled list.\end{LPNexercise}
-\begin{LPNexercise}{L6.EX2}A palindrome is a word or phrase that spells the same forwards and  
-backwards.  For example, `rotator', `eve', and `nurses run' are all  
-palindromes.  Write a predicate §palindrome(List)§, which checks  
-whether §List§ is a palindrome. For example, to the queries  
+\begin{LPNexercise}{L6.EX2}A palindrome is a word or phrase that spells the same forwards and
+backwards.  For example, `rotator', `eve', and `nurses run' are all
+palindromes.  Write a predicate §palindrome(List)§, which checks
+whether §List§ is a palindrome. For example, to the queries
 \begin{LPNcodedisplay}
 ?- palindrome([r,o,t,a,t,o,r]).
 \end{LPNcodedisplay}
-and  
+and
 \begin{LPNcodedisplay}
 ?- palindrome([n,u,r,s,e,s,r,u,n]).
 \end{LPNcodedisplay}
-Prolog should respond yes, but to the query  
+Prolog should respond yes, but to the query
 \begin{LPNcodedisplay}
 ?- palindrome([n,o,t,h,i,s]).
 \end{LPNcodedisplay}
@@ -540,22 +540,22 @@ it should respond no.\end{LPNexercise}
 
 
 \begin{LPNexercise}{L6.EX3c}
-Write a predicate §toptail(InList,OutList)§ which says  
-no if §InList§ is a list containing fewer than 2 elements, and  
-which deletes the first and the last elements of §InList§ and  
-returns the result as §OutList§, when §InList§ is a  
-list containing at least 2 elements. For example:  
+Write a predicate §toptail(InList,OutList)§ which says
+no if §InList§ is a list containing fewer than 2 elements, and
+which deletes the first and the last elements of §InList§ and
+returns the result as §OutList§, when §InList§ is a
+list containing at least 2 elements. For example:
 \begin{LPNcodedisplay}
     toptail([a],T).
     no
-  
+
     toptail([a,b],T).
     T=[]
- 
+
     toptail([a,b,c],T).
-    T=[b] 
+    T=[b]
 \end{LPNcodedisplay}
-  
+
 (Hint: here's where §append/3§ comes in useful.)
 \end{LPNexercise}
 
@@ -582,8 +582,8 @@ is also possible to write a recursive definition without appealing to
 
 
 \begin{LPNexercise}{L6.EX4}
-Here is an exercise for those of you who like logic  
-puzzles.  
+Here is an exercise for those of you who like logic
+puzzles.
 
 There is a street with three neighbouring houses that all have a
 different colour, namely red, blue, and green. People of different
@@ -596,12 +596,12 @@ different pet. Here are some more facts about them:
 \item{}The snail keeper lives to the left of the blue house.
 \end{itemize}
 Who keeps the zebra? Don't work it out for yourself:
-define a predicate §zebra/1§ that tells you the nationality  
+define a predicate §zebra/1§ that tells you the nationality
 of the owner of the zebra!
 
-(Hint: Think of a representation for the houses and the street. Code the  
-four constraints in Prolog. You may find §member/2§ and §sublist/2§  
-useful.) 
+(Hint: Think of a representation for the houses and the street. Code the
+four constraints in Prolog. You may find §member/2§ and §sublist/2§
+useful.)
 \end{LPNexercise}
 
 
@@ -609,87 +609,87 @@ useful.)
 
 
 
-The purpose of Practical Session 6 is to help you get more experience  
-with list manipulation.  We first suggest some traces for you to carry  
+The purpose of Practical Session 6 is to help you get more experience
+with list manipulation.  We first suggest some traces for you to carry
 out, and then some programming exercises.
 
-The following traces will help you get to grips with the  
-predicates  discussed in the text:  
-  
+The following traces will help you get to grips with the
+predicates  discussed in the text:
+
 \begin{enumerate}
 
-\item{}Carry out traces of §append/3§ with the  
-first two arguments instantiated, and the third argument  
-uninstantiated. For example, §append([a,b,c],[[],[2,3],b],X)§  
+\item{}Carry out traces of §append/3§ with the
+first two arguments instantiated, and the third argument
+uninstantiated. For example, §append([a,b,c],[[],[2,3],b],X)§
 Make sure the basic pattern is clear.
 
-\item{}Next, carry out traces on §append/3§ as used to split up a  
-list, that is, with the first two arguments given as variables, and the  
-last argument instantiated. For example,  
+\item{}Next, carry out traces on §append/3§ as used to split up a
+list, that is, with the first two arguments given as variables, and the
+last argument instantiated. For example,
 §append(L,R,[foo,wee,blup]).§
 
-\item{}Carry out some traces on §prefix/2§ and §suffix/2§. Why  
-does §prefix/2§ find shorter lists first, and   
+\item{}Carry out some traces on §prefix/2§ and §suffix/2§. Why
+does §prefix/2§ find shorter lists first, and
 §suffix/2§ longer lists first?
 
-\item{}Carry out some traces on §sublist/2§. As we said in the text,  
-via backtracking this predicate generates all possible sublists, but  
-as you'll see, it generates several sublists more than once. Do you  
+\item{}Carry out some traces on §sublist/2§. As we said in the text,
+via backtracking this predicate generates all possible sublists, but
+as you'll see, it generates several sublists more than once. Do you
 understand why?
 
-\item{}Carry out traces on both §naiverev/2§ and §rev/2§, and  
+\item{}Carry out traces on both §naiverev/2§ and §rev/2§, and
 compare their behaviour.
 \end{enumerate}
 
 
-Now for some programming work:  
-  
+Now for some programming work:
+
 \begin{enumerate}
-\item{}It is possible to write a one line definition of the  
-§member§ predicate by making use of §append/3§. Do so. How  
-does this new version of §member§ compare in efficiency with the  
+\item{}It is possible to write a one line definition of the
+§member§ predicate by making use of §append/3§. Do so. How
+does this new version of §member§ compare in efficiency with the
 standard one?
-\item{}Write a predicate §set(InList,OutList)§ which takes as  
-input an arbitrary list, and returns a list in which each element of  
-the input list appears only once. For example, the query   
+\item{}Write a predicate §set(InList,OutList)§ which takes as
+input an arbitrary list, and returns a list in which each element of
+the input list appears only once. For example, the query
 \begin{LPNcodedisplay}
- 
-set([2,2,foo,1,foo, [],[]],X).  
+
+set([2,2,foo,1,foo, [],[]],X).
 \end{LPNcodedisplay}
-   
-should yield the  
-result   
+
+should yield the
+result
 \begin{LPNcodedisplay}
- 
+
 X = [2,foo,1,[]].
 \end{LPNcodedisplay}
-  
-(Hint: use  the §member§ predicate to test for repetitions  
+
+(Hint: use  the §member§ predicate to test for repetitions
 of items you have already found.)
 
-\item{}We `flatten' a list by removing all the square brackets around  
-any lists it contains as elements, and around any lists that its  
-elements contain as elements, and so on, for all nested lists. For  
-example, when we flatten the list  
+\item{}We `flatten' a list by removing all the square brackets around
+any lists it contains as elements, and around any lists that its
+elements contain as elements, and so on, for all nested lists. For
+example, when we flatten the list
 \begin{LPNcodedisplay}
 [a,b,[c,d],[[1,2]],foo]
 \end{LPNcodedisplay}
-  
-we get the list  
+
+we get the list
 \begin{LPNcodedisplay}
 [a,b,c,d,1,2,foo]
 \end{LPNcodedisplay}
-  
-and when we flatten the list  
+
+and when we flatten the list
 \begin{LPNcodedisplay}
 [a,b,[[[[[[[c,d]]]]]]],[[1,2]],foo,[]]
 \end{LPNcodedisplay}
-we also get  
+we also get
 \begin{LPNcodedisplay}
 [a,b,c,d,1,2,foo].
 \end{LPNcodedisplay}
-Write a predicate §flatten(List,Flat)§ that holds when the first  
-argument §List§ flattens to the second argument §Flat§.  
+Write a predicate §flatten(List,Flat)§ that holds when the first
+argument §List§ flattens to the second argument §Flat§.
 This should be done without making use of §append/3§.
 \end{enumerate}
 

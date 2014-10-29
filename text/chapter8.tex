@@ -3,10 +3,10 @@
 \chapter{More Definite Clause Grammars}\label{CHAPTER8}
 
 \Thischapter{130}{
- 
+
 \noindent
-This chapter has two main goals:  
-  
+This chapter has two main goals:
+
 \begin{enumerate}
 
 \item{}To examine two important capabilities offered by DCG notation:
@@ -32,12 +32,12 @@ purposes; we'll examine three.
 
 \subsection*{Context free grammars with features}\label{SUBSEC.L8.GRAMMARS.FEATURES}
 
- 
-As a first example, let's see how extra arguments can be used to add  
+
+As a first example, let's see how extra arguments can be used to add
 \LPNemph{features} to context-free grammars.
 
-Here's the  DCG we worked with in the previous chapter:  
-  
+Here's the  DCG we worked with in the previous chapter:
+
 \begin{LPNcodedisplay}
 s --> np,vp.
 
@@ -54,7 +54,7 @@ n --> [man].
 
 v --> [shoots].
 \end{LPNcodedisplay}
-  
+
 Now, suppose we wanted to deal with sentences like ``She shoots him'',
 and ``He shoots her''.  What should we do?  Well, obviously we should
 add rules saying that ``he'', ``she'', ``him'', and ``her'' are
@@ -65,21 +65,21 @@ pro --> [she].
 pro --> [him].
 pro --> [her].
 \end{LPNcodedisplay}
-Furthermore, we should add a rule saying that noun phrases can be   
-pronouns:  
+Furthermore, we should add a rule saying that noun phrases can be
+pronouns:
 \begin{LPNcodedisplay}
 np --> pro.
 \end{LPNcodedisplay}
-  
+
 In this new DCG any good? Well, up to a point, it works. For example:
 \begin{LPNcodedisplay}
 ?- s([she,shoots,him],[]).
 yes
 \end{LPNcodedisplay}
-  
-But there's an obvious problem.  The DCG will also accept a lot of   
-sentences that are clearly wrong, such as ``A woman shoots she'',   
-``Her shoots a man'', and ``Her shoots she'':  
+
+But there's an obvious problem.  The DCG will also accept a lot of
+sentences that are clearly wrong, such as ``A woman shoots she'',
+``Her shoots a man'', and ``Her shoots she'':
 \begin{LPNcodedisplay}
 ?- s([a,woman,shoots,she],[]).
 yes
@@ -90,20 +90,20 @@ yes
 ?- s([her,shoots,she],[]).
 yes
 \end{LPNcodedisplay}
-  
-That is, the grammar doesn't know that ``she'' and ``he'' are \LPNemph{subject} pronouns and cannot be used in \LPNemph{object} position;   
-thus ``A woman shoots she'' is bad because it violates this basic fact   
-about English.  Moreover, the grammar doesn't know that ``her'' and   
-``him'' are \LPNemph{object} pronouns and cannot be used in \LPNemph{subject} position; thus ``Her shoots a man'' is bad because it   
-violates this constraint.  As for ``Her shoots she'', this manages to   
+
+That is, the grammar doesn't know that ``she'' and ``he'' are \LPNemph{subject} pronouns and cannot be used in \LPNemph{object} position;
+thus ``A woman shoots she'' is bad because it violates this basic fact
+about English.  Moreover, the grammar doesn't know that ``her'' and
+``him'' are \LPNemph{object} pronouns and cannot be used in \LPNemph{subject} position; thus ``Her shoots a man'' is bad because it
+violates this constraint.  As for ``Her shoots she'', this manages to
 get both matters wrong at once.
 
-Now, it's pretty obvious \LPNemph{what} we have to do to put this right:   
-we need to extend the DCG with information about which pronouns can   
-occur in subject position and which in object position.  The   
-interesting question: \LPNemph{how} exactly are we to do this?  First   
-let's look at a naive way of correcting this, namely adding new rules:  
-  
+Now, it's pretty obvious \LPNemph{what} we have to do to put this right:
+we need to extend the DCG with information about which pronouns can
+occur in subject position and which in object position.  The
+interesting question: \LPNemph{how} exactly are we to do this?  First
+let's look at a naive way of correcting this, namely adding new rules:
+
 \begin{LPNcodedisplay}
 s --> np_subject,vp.
 
@@ -128,14 +128,14 @@ pro_object --> [her].
 
 v --> [shoots].
 \end{LPNcodedisplay}
-  
-  
-Now this solution ``works''. For example,   
+
+
+Now this solution ``works''. For example,
 \begin{LPNcodedisplay}
 ?- s([her,shoots,she],[]).
 no
 \end{LPNcodedisplay}
-  
+
 But neither computer scientists nor linguists would consider this a
 good solution.  The trouble is, a small addition to the lexicon has
 led to quite a big change in the DCG. Let's face it: ``she'' and
@@ -149,7 +149,7 @@ is a more delicate programming mechanism that allows us to cope with
 such facts without being forced to add rules all the time.  And here's
 where the extra arguments come into play.  Look at the following
 grammar:
-  
+
 \begin{LPNcodedisplay}
 s --> np(subject),vp.
 
@@ -172,10 +172,10 @@ pro(object) --> [her].
 
 v --> [shoots].
 \end{LPNcodedisplay}
-  
-  
-  
-  
+
+
+
+
 The key thing to note is that this new grammar contains only one new
 noun phrase rule.  In fact, it is very similar to the first grammar
 that we wrote, except that now the symbol §np§ is associated with a
@@ -187,7 +187,7 @@ pronouns can occur in subject position, and which can occur in object
 position. Thus these rules are the most fundamental, for they give us
 the basic facts about how these pronouns can be used.
 
-So what do the other rules do? Well, intuitively, the rule  
+So what do the other rules do? Well, intuitively, the rule
 \begin{LPNcodedisplay}
 np(X) --> pro(X).
 \end{LPNcodedisplay}
@@ -202,38 +202,38 @@ pronoun we use is ``her'' (in which case §X=object§), then the extra
 argument for np will be marked §X=object§ too. And this, of course, is
 exactly the behaviour we want.
 
-On the other hand, although noun phrases built using the rule  
+On the other hand, although noun phrases built using the rule
 \begin{LPNcodedisplay}
 np(_) --> det,n.
 \end{LPNcodedisplay}
-also have an extra argument, we've used the anonymous variable as its   
-value.  Essentially this means \LPNemph{can be either}, which is   
-correct, for expressions built using this rule (such as ``the man''   
-and ``a woman'') can be used in both subject and object position.  
+also have an extra argument, we've used the anonymous variable as its
+value.  Essentially this means \LPNemph{can be either}, which is
+correct, for expressions built using this rule (such as ``the man''
+and ``a woman'') can be used in both subject and object position.
 
-Now consider the rule  
+Now consider the rule
 \begin{LPNcodedisplay}
 vp --> v,np(object).
 \end{LPNcodedisplay}
-This says that to apply this rule we need to use a noun phrase whose  
-extra argument unifies with §object§.  This can be \LPNemph{either}  
-noun phrases built from object pronouns \LPNemph{or} noun phrases such as  
-``the man'' and ``a woman'' which have the anonymous variable as the  
-value of the extra argument.  Crucially, pronouns marked has having  
-§subject§ as the value of the extra argument \LPNemph{can't} be used  
-here: the atoms §object§ and §subject§ don't unify.  Note  
-that the rule  
+This says that to apply this rule we need to use a noun phrase whose
+extra argument unifies with §object§.  This can be \LPNemph{either}
+noun phrases built from object pronouns \LPNemph{or} noun phrases such as
+``the man'' and ``a woman'' which have the anonymous variable as the
+value of the extra argument.  Crucially, pronouns marked has having
+§subject§ as the value of the extra argument \LPNemph{can't} be used
+here: the atoms §object§ and §subject§ don't unify.  Note
+that the rule
 \begin{LPNcodedisplay}
 s --> np(subject),vp.
 \end{LPNcodedisplay}
-works in an analogous fashion to prevent noun phrases made of object   
+works in an analogous fashion to prevent noun phrases made of object
 pronouns from ending up in subject position.
 
-This works.  You can check it out by posing the query:  
+This works.  You can check it out by posing the query:
 \begin{LPNcodedisplay}
-?- s(X,[]).     
+?- s(X,[]).
 \end{LPNcodedisplay}
-As you step through the responses, you'll see that only acceptable   
+As you step through the responses, you'll see that only acceptable
 English is generated.
 
 But while the intuitive explanation just given is correct, what's
@@ -243,29 +243,29 @@ rule
 \begin{LPNcodedisplay}
 s --> np,vp.
 \end{LPNcodedisplay}
-is really syntactic sugar for  
+is really syntactic sugar for
 \begin{LPNcodedisplay}
 s(A,B) :-
     np(A,C),
     vp(C,B).
 \end{LPNcodedisplay}
-That is, as we learned in the previous chapter, the DCG notation is a   
-way of hiding the two arguments responsible for the difference list   
-representation, so that we don't have to think about them.  We work   
-with the nice user-friendly notation, and Prolog translates it into   
+That is, as we learned in the previous chapter, the DCG notation is a
+way of hiding the two arguments responsible for the difference list
+representation, so that we don't have to think about them.  We work
+with the nice user-friendly notation, and Prolog translates it into
 the clauses just given.
 
-Ok, so we obviously need to ask what  
+Ok, so we obviously need to ask what
 \begin{LPNcodedisplay}
 s --> np(subject),vp.
 \end{LPNcodedisplay}
-translates into. Here's the answer:  
+translates into. Here's the answer:
 \begin{LPNcodedisplay}
 s(A,B) :-
     np(subject,A,C),
     vp(C,B).
 \end{LPNcodedisplay}
-  
+
 As should now be clear, the name ``extra argument'' is a good one: as
 this translation makes clear, the §subject§ symbol really
 \LPNemph{is} just one more argument in an ordinary Prolog rule.
@@ -282,10 +282,10 @@ is the extra argument, and the last two are the ordinary, hidden DCG
 arguments (the two hidden arguments are always the last two
 arguments).
 
-Incidentally, how do you think we would use the grammar to list the   
-grammatical noun phrases?  Well, if we had been working with the DCG   
-rule §np --> det,n§ (that is, a rule with no extra arguments)   
-we would have made the query  
+Incidentally, how do you think we would use the grammar to list the
+grammatical noun phrases?  Well, if we had been working with the DCG
+rule §np --> det,n§ (that is, a rule with no extra arguments)
+we would have made the query
 \begin{LPNcodedisplay}
 ?- np(NP,[]).
 \end{LPNcodedisplay}
@@ -296,36 +296,36 @@ not too surprising that we need to pose the query
 \end{LPNcodedisplay}
 when working with our new DCG. And here's what the response would be:
 \begin{LPNcodedisplay}
-X = _2625 
+X = _2625
 NP = [the,woman] ;
 
-X = _2625 
+X = _2625
 NP = [the,man] ;
 
-X = _2625 
+X = _2625
 NP = [a,woman] ;
 
-X = _2625 
+X = _2625
 NP = [a,man] ;
 
-X = subject 
+X = subject
 NP = [he] ;
 
-X = subject 
+X = subject
 NP = [she] ;
 
-X = object 
+X = object
 NP = [him] ;
 
-X = object 
+X = object
 NP = [her] ;
 
 no
 \end{LPNcodedisplay}
-  
-  
-  
-  
+
+
+
+
 One final remark: don't be misled by this simplicity of our example
 grammar.  Extra arguments can be used to cope with some complex
 syntactic problems.  DCGs are no longer the state-of-the-art grammar
@@ -337,21 +337,21 @@ fairly sophisticated grammars.
 
 
 
-So far, the programs we have discussed have been able to  
-\LPNemph{recognise}   
-grammatical structure (that is, they could correctly   
-answer yes  or  no when asked whether the input was a sentence,   
-a noun phrase, and so on) and to \LPNemph{generate} grammatical   
-output.  This is pleasant, but we would also like to be able to   
-\LPNemph{parse}.  That is, we would like our programs not only   
-to tell us \LPNemph{which} sentences are grammatical, but also to give   
-us an analysis of their structure.  In particular, we would like to   
+So far, the programs we have discussed have been able to
+\LPNemph{recognise}
+grammatical structure (that is, they could correctly
+answer yes  or  no when asked whether the input was a sentence,
+a noun phrase, and so on) and to \LPNemph{generate} grammatical
+output.  This is pleasant, but we would also like to be able to
+\LPNemph{parse}.  That is, we would like our programs not only
+to tell us \LPNemph{which} sentences are grammatical, but also to give
+us an analysis of their structure.  In particular, we would like to
 see the trees the grammar assigns to sentences.
 
-Well, using only standard Prolog tools we can't actually draw nice  
-pictures of trees, but we \LPNemph{can} build data structures which  
-describe trees in a clear way.  For example, corresponding to the tree  
-  
+Well, using only standard Prolog tools we can't actually draw nice
+pictures of trees, but we \LPNemph{can} build data structures which
+describe trees in a clear way.  For example, corresponding to the tree
+
 \begin{quote}
   \pstree[levelsep=10mm,nodesep=2mm]{\TR{\texttt{s}}}
     { \pstree[levelsep=10mm,nodesep=2mm]{\TR{\texttt{np}}}
@@ -364,20 +364,20 @@ describe trees in a clear way.  For example, corresponding to the tree
                      {\TR{\texttt{shoots}}}
              }}
 \end{quote}
-%\includegraphics{parse2.eps}  
-we could have the following term:  
+%\includegraphics{parse2.eps}
+we could have the following term:
 \begin{LPNcodedisplay}
 s(np(det(a),n(woman)),vp(v(shoots))).
 \end{LPNcodedisplay}
-Sure: it doesn't \LPNemph{look} as nice, but all the information in   
-the picture is there.  And, with the aid of a decent graphics package,   
+Sure: it doesn't \LPNemph{look} as nice, but all the information in
+the picture is there.  And, with the aid of a decent graphics package,
 it would be easy to turn this term into a picture.
 
-But how do we get DCGs to build such terms?  Actually, it's pretty   
-easy.  After all, in effect a DCG has to work out what the tree   
-structure is when recognising a sentence.  So we just need to find a   
-way of keeping track of the structure that the DCG finds.  We do this   
-by adding extra arguments.  Here's how:  
+But how do we get DCGs to build such terms?  Actually, it's pretty
+easy.  After all, in effect a DCG has to work out what the tree
+structure is when recognising a sentence.  So we just need to find a
+way of keeping track of the structure that the DCG finds.  We do this
+by adding extra arguments.  Here's how:
 \begin{LPNcodedisplay}
 s(s(NP,VP)) --> np(NP),vp(VP).
 
@@ -406,12 +406,12 @@ perhaps §V§ will be instantiated to
 \begin{LPNcodedisplay}
 v(shoots)
 \end{LPNcodedisplay}
-and §NP§ will be instantiated to  
+and §NP§ will be instantiated to
 \begin{LPNcodedisplay}
 np(det(a),n(woman)).
 \end{LPNcodedisplay}
-What is the term corresponding to a vp made out of these  
-two structures? Obviously it should be this:  
+What is the term corresponding to a vp made out of these
+two structures? Obviously it should be this:
 \begin{LPNcodedisplay}
 vp(v(shoots),np(det(a),n(woman))).
 \end{LPNcodedisplay}
@@ -421,35 +421,35 @@ whose functor is §vp§, and whose first and second arguments are the
 values of §V§ and §NP§ respectively. To put it informally: it plugs
 the §V§ and the §NP§ terms together under a §vp§ functor.
 
-To parse the sentence ``A woman shoots'' we pose the query:  
+To parse the sentence ``A woman shoots'' we pose the query:
 \begin{LPNcodedisplay}
 ?- s(T,[a,woman,shoots],[]).
 \end{LPNcodedisplay}
-That is, we ask for the extra argument §T§ to be instantiated   
-to a parse tree for the sentence.  And we get:  
+That is, we ask for the extra argument §T§ to be instantiated
+to a parse tree for the sentence.  And we get:
 \begin{LPNcodedisplay}
-T = s(np(det(a),n(woman)),vp(v(shoots))) 
+T = s(np(det(a),n(woman)),vp(v(shoots)))
 yes
 \end{LPNcodedisplay}
-  
-Furthermore, we can generate all parse trees by making the following   
-query:  
+
+Furthermore, we can generate all parse trees by making the following
+query:
 \begin{LPNcodedisplay}
 ?- s(T,S,[]).
 \end{LPNcodedisplay}
-The first three responses are:  
+The first three responses are:
 \begin{LPNcodedisplay}
 T = s(np(det(the),n(woman)),
-      vp(v(shoots),np(det(the),n(woman)))) 
+      vp(v(shoots),np(det(the),n(woman))))
 S = [the,woman,shoots,the,woman] ;
 
 T = s(np(det(the),n(woman)),
-      vp(v(shoots),np(det(the),n(man)))) 
+      vp(v(shoots),np(det(the),n(man))))
 S = [the,woman,shoots,the,man] ;
 
 T = s(np(det(the),n(woman)),
-      vp(v(shoots),np(det(a),n(woman)))) 
-S = [the,woman,shoots,a,woman] 
+      vp(v(shoots),np(det(a),n(woman))))
+S = [the,woman,shoots,a,woman]
 \end{LPNcodedisplay}
 In short, we have just seen an elegant (and useful) example of how to
 build structure using unification.
@@ -482,14 +482,14 @@ CSLI Publications, 2005.}
 
 
 
-In the previous chapter we introduced DCGs as a useful Prolog tool for  
-representing and working with context free grammars. Now, this is  
-certainly a good way of thinking about DCGs, but it's not the whole  
-story. For the fact of the matter is: DCGs can deal with a lot more  
-than just context free languages. The extra arguments we have been  
-discussing (and indeed, the extra goals we shall introduce shortly)  
-give us the tools for coping with any computable language  
-whatsoever. We shall illustrate this by presenting a simple DCG for the  
+In the previous chapter we introduced DCGs as a useful Prolog tool for
+representing and working with context free grammars. Now, this is
+certainly a good way of thinking about DCGs, but it's not the whole
+story. For the fact of the matter is: DCGs can deal with a lot more
+than just context free languages. The extra arguments we have been
+discussing (and indeed, the extra goals we shall introduce shortly)
+give us the tools for coping with any computable language
+whatsoever. We shall illustrate this by presenting a simple DCG for the
 formal language $a^nb^nc^n \backslash \{ \epsilon \}$.
 
 The formal language $a^nb^nc^n \backslash \{ \epsilon \}$  consists
@@ -497,14 +497,14 @@ of all non-null strings made up of §a§s, §b§s, and §c§s which consist
 of an unbroken block of §a§s, followed by an unbroken block of §b§s,
 followed by an unbroken block of §c§s, all three blocks having the
 same length. For example, §abc§, and §aabbcc§ and §aaabbbccc§ all
-belong to 
+belong to
 $a^nb^nc^n \backslash \{ \epsilon \}$.
 
-The interesting thing about this language is that it is \LPNemph{not}  
-context free. Try whatever you like, you will not succeed in writing a  
-context free grammar that generates precisely these strings. Proving  
-this would take us too far afield, but the proof is not particularly  
-difficult, and you can find it in many books on formal language  
+The interesting thing about this language is that it is \LPNemph{not}
+context free. Try whatever you like, you will not succeed in writing a
+context free grammar that generates precisely these strings. Proving
+this would take us too far afield, but the proof is not particularly
+difficult, and you can find it in many books on formal language
 theory.
 
  On the other hand, as we shall now see, it is very easy to write a
@@ -526,10 +526,10 @@ cblock(succ(Count)) --> [c],cblock(Count).
 \end{LPNcodedisplay}
 
 
-The idea underlying this DCG is fairly simple: we use an extra  
-argument to keep track of the length of the blocks. The §s§ rule  
-simply says that we want a block of §a§s followed by a block of  
-§b§s followed by block of §c§s, and all three blocks are to  
+The idea underlying this DCG is fairly simple: we use an extra
+argument to keep track of the length of the blocks. The §s§ rule
+simply says that we want a block of §a§s followed by a block of
+§b§s followed by block of §c§s, and all three blocks are to
 have the same length, namely §Count§.
 
 What should the values of §Count§ be? The obvious answer is: §1§, §2§,
@@ -543,33 +543,33 @@ just as we did it in Chapter~3 (as we said in Chapter~3, you can read
 enables us to count using unification.
 
 And this is precisely what our new  DCG does.
-For example, suppose we pose the following query:  
+For example, suppose we pose the following query:
 \begin{LPNcodedisplay}
 ?- s(Count,L,[]).
 \end{LPNcodedisplay}
-which asks Prolog to generate the lists §L§ of symbols that  
-belong to this language, and to give the value of §Count§ needed  
-to produce each item. Then the first four responses are:  
+which asks Prolog to generate the lists §L§ of symbols that
+belong to this language, and to give the value of §Count§ needed
+to produce each item. Then the first four responses are:
 \begin{LPNcodedisplay}
 Count = 0
 L = [] ;
 
 Count = succ(0)
 L = [a, b, c] ;
- 
+
 Count = succ(succ(0))
 L = [a, a, b, b, c, c] ;
- 
+
 Count = succ(succ(succ(0)))
 L = [a, a, a, b, b, b, c, c, c]
 \end{LPNcodedisplay}
-  
-The value of §Count§ clearly corresponds to the  
+
+The value of §Count§ clearly corresponds to the
 length of the blocks.
 
- So: DCGs are not just a tool for working with context free  
-grammars. They are strictly more powerful than that, and (as we've  
-just seen) part of the extra power comes from the use of extra  
+ So: DCGs are not just a tool for working with context free
+grammars. They are strictly more powerful than that, and (as we've
+just seen) part of the extra power comes from the use of extra
 arguments.
 
 \section{Extra Goals}\label{SEC.L8.TESTS}
@@ -591,18 +591,18 @@ generated. Here's the code:
 s --> ablock(Count),bblock(Count),cblock(Count).
 
 ablock(0) --> [].
-ablock(NewCount) --> [a],ablock(Count), 
+ablock(NewCount) --> [a],ablock(Count),
                      {NewCount is Count + 1}.
 
 bblock(0) --> [].
-bblock(NewCount) --> [b],bblock(Count), 
+bblock(NewCount) --> [b],bblock(Count),
                      {NewCount is Count + 1}.
 
 cblock(0) --> [].
-cblock(NewCount) --> [c],cblock(Count),      
+cblock(NewCount) --> [c],cblock(Count),
                      {NewCount is Count + 1}.
 \end{LPNcodedisplay}
-  
+
 As this example suggests, extra goals can be written (anywhere) on the
 right side of a DCG rule, but must be placed between curly
 brackets. When Prolog encounters such curly brackets while translating
@@ -611,10 +611,10 @@ specified between the curly brackets over into the translation. So,
 the second rule for the non-terminal §ablock§ above would be
 translated as follows:
 \begin{LPNcodedisplay}
-ablock(NewCount,A,B):- 
+ablock(NewCount,A,B):-
    'C'(A, a, C),
    ablock(Count, C, B),
-   NewCount is Count + 1. 
+   NewCount is Count + 1.
 \end{LPNcodedisplay}
 
 
@@ -655,17 +655,17 @@ det --> [a].
 n --> [woman].
 n --> [man].
 
-v --> [shoots].  
+v --> [shoots].
 \end{LPNcodedisplay}
-We are now going to write a DCG that generates exactly  
-the same language, but in which no rule mentions any individual  
-word. All the information about individual words will be recorded  
-separately. 
+We are now going to write a DCG that generates exactly
+the same language, but in which no rule mentions any individual
+word. All the information about individual words will be recorded
+separately.
 
-   
-Here is an example of a (very simple) lexicon. Lexical entries are  
-encoded by using a predicate §lex/2§ whose first argument is a  
-word, and whose second argument is a syntactic category.  
+
+Here is an example of a (very simple) lexicon. Lexical entries are
+encoded by using a predicate §lex/2§ whose first argument is a
+word, and whose second argument is a syntactic category.
 \begin{LPNcodedisplay}
 lex(the,det).
 lex(a,det).
@@ -688,21 +688,21 @@ det --> [Word],{lex(Word,det)}.
 n --> [Word],{lex(Word,n)}.
 v --> [Word],{lex(Word,v)}.
 \end{LPNcodedisplay}
-  
-Consider the new §det§ rule. This rule part says ``a §det§  
-can consist of a list containing a single element §Word§'' (note  
-that §Word§ is a variable). Then the extra goal adds the crucial  
-stipulation: ``so long as §Word§ unifies  with something that is  
-listed in the lexicon as a determiner''.  With our present lexicon,  
-this means that §Word§ must be matched either with the word ``a''  
-or ``the''.  So this single rule replaces the two previous DCG rules  
+
+Consider the new §det§ rule. This rule part says ``a §det§
+can consist of a list containing a single element §Word§'' (note
+that §Word§ is a variable). Then the extra goal adds the crucial
+stipulation: ``so long as §Word§ unifies  with something that is
+listed in the lexicon as a determiner''.  With our present lexicon,
+this means that §Word§ must be matched either with the word ``a''
+or ``the''.  So this single rule replaces the two previous DCG rules
 for §det§.
 
-This explains the ``how'' of separating rules from lexicon, but it  
-doesn't explain the ``why''. Is it really so important? Is this new  
+This explains the ``how'' of separating rules from lexicon, but it
+doesn't explain the ``why''. Is it really so important? Is this new
 way of writing DCGs really that much better?
 
-The answer is an unequivocal yes! It's \LPNemph{much} better, and for  
+The answer is an unequivocal yes! It's \LPNemph{much} better, and for
 at least two reasons.
 
 The first reason is theoretical. Arguably rules should not mention
@@ -718,11 +718,11 @@ or a verb, or any other grammatical category) if it is listed as such
 in the lexicon''. And this, of course, is precisely what our new DCG
 rules say.
 
-The second reason is more practical. One of the key lessons  
-computational linguists have learnt over the last twenty or so years  
-is that the lexicon is by far the most interesting, important (and  
-expensive!) repository of linguistic knowledge. Bluntly, if you want  
-to get to grips with natural language from a computational perspective,  
+The second reason is more practical. One of the key lessons
+computational linguists have learnt over the last twenty or so years
+is that the lexicon is by far the most interesting, important (and
+expensive!) repository of linguistic knowledge. Bluntly, if you want
+to get to grips with natural language from a computational perspective,
 you need to know a lot of words, and you need to know a lot about them.
 
  Now, our little lexicon, with its simple two-place §lex§ entries, is
@@ -734,19 +734,19 @@ category of each word, but a real lexicon will give much more, such as
 information about its phonological, morphological, semantic, and
 pragmatic properties.
 
-Because real lexicons are big and complex, from a software engineering  
-perspective it is best to write simple grammars that have a simple,  
-well-defined way, of pulling out the information they need from vast  
-lexicons. That is, grammars should be thought of as separate entities  
-which can access the information contained in lexicons. We can then  
-use specialised mechanisms for efficiently storing the lexicon and  
-retrieving data from it. 
+Because real lexicons are big and complex, from a software engineering
+perspective it is best to write simple grammars that have a simple,
+well-defined way, of pulling out the information they need from vast
+lexicons. That is, grammars should be thought of as separate entities
+which can access the information contained in lexicons. We can then
+use specialised mechanisms for efficiently storing the lexicon and
+retrieving data from it.
 
 Our new DCG rules, though simple, illustrate the basic idea. The new
 rules really do just list general syntactic facts, and the extra goals
 act as an interface to our lexicon that lets the rules find exactly
 the information they need. Furthermore, we now take advantage of
-Prolog's 
+Prolog's
 \LPNterm{first argument indexing} which makes looking up a word in the
 lexicon more efficient. First argument indexing is a technique for
 making Prolog's knowledge base access more efficient. If in the query
@@ -761,8 +761,8 @@ we might have in our lexicon.
 
 
 
-We now have a fairly useful picture of what DCGs are and what they can   
-do for us.  To conclude, let's think about them from a somewhat higher   
+We now have a fairly useful picture of what DCGs are and what they can
+do for us.  To conclude, let's think about them from a somewhat higher
 level, from both a formal and a linguistic perspective.
 
 First the formal remarks.  For the most part, we have presented DCGs
@@ -776,11 +776,11 @@ their own right (they are Turing-complete, to use the proper
 terminology).  And although DCGs are usually associated with
 linguistic applications, they can be useful for other purposes.
 
-How good are DCGs from a linguistic perspective?  Well, mixed.  At   
-one stage (in the early 1980s) they were pretty much state of the art.    
-They made it possible to code complex grammars in a clear way, and to   
-explore the interplay of syntactic and semantic ideas.  Certainly any   
-history of parsing in computational linguistics would give DCGs an   
+How good are DCGs from a linguistic perspective?  Well, mixed.  At
+one stage (in the early 1980s) they were pretty much state of the art.
+They made it possible to code complex grammars in a clear way, and to
+explore the interplay of syntactic and semantic ideas.  Certainly any
+history of parsing in computational linguistics would give DCGs an
 honourable mention.
 
 Nonetheless, DCGs have drawbacks.  For a start, their tendency to loop
@@ -796,7 +796,7 @@ because of the way Prolog interprets DCG rules. They are not inherent
 to the DCG notation. Any of you who have studied parsing algorithms
 probably know that all top-down parsers loop on left-recursive
 grammars. So, it is not surprising that Prolog, which interprets DCGs
-in a top-down fashion, loops on the left-recursive grammar rule 
+in a top-down fashion, loops on the left-recursive grammar rule
 §s --> s conj s§. If we used a different strategy to interpret DCGs, for
 example a bottom-up strategy, we would not run into the same
 problem. Similarly, if we didn't use Prolog's built-in interpretation
@@ -821,7 +821,7 @@ much so early.
 
 \section{Exercises}\label{SEC.L8.EXERCISES}
 
-\begin{LPNexercise}{L8.EX1} Here's our basic DCG:  
+\begin{LPNexercise}{L8.EX1} Here's our basic DCG:
 \begin{LPNcodedisplay}
 s --> np,vp.
 
@@ -840,13 +840,13 @@ n --> [pear].
 
 v --> [eats].
 \end{LPNcodedisplay}
-  
-  
-Suppose we add the noun ``men'' (which is plural) and the verb  
-``know''.  Then we would want a DCG which says that ``The men eat''  
-is ok, ``The man eats'' is ok, ``The men eats'' is not ok, and  
-``The man eat'' is not ok. Change the DCG so that it correctly  
-handles these sentences. Use an extra argument to cope with the  
+
+
+Suppose we add the noun ``men'' (which is plural) and the verb
+``know''.  Then we would want a DCG which says that ``The men eat''
+is ok, ``The man eats'' is ok, ``The men eats'' is not ok, and
+``The man eat'' is not ok. Change the DCG so that it correctly
+handles these sentences. Use an extra argument to cope with the
 singular/plural distinction.
 \end{LPNexercise}
 
@@ -867,14 +867,14 @@ Translate it into the form Prolog uses.
 
 
 
-The purpose of Practical Session 8 is to help you get familiar with  
+The purpose of Practical Session 8 is to help you get familiar with
 DCGs that make use of additional arguments and goals.
 
-First some keyboard exercises:  
+First some keyboard exercises:
 \begin{enumerate}
-\item{}Trace some examples using the DCG which uses extra arguments to  
-handle the subject/object distinction, the DCG which produces parses, and  
-the DCG which uses extra goals to separate lexicon and rules. Make sure  
+\item{}Trace some examples using the DCG which uses extra arguments to
+handle the subject/object distinction, the DCG which produces parses, and
+the DCG which uses extra goals to separate lexicon and rules. Make sure
 you fully understand the way all three DCGs work.
 
 \item{}Carry out traces on the DCG for $a^nb^nc^n$ given in the text
@@ -896,11 +896,11 @@ the exercises you were asked to use additional arguments to deal with
 the singular/plural distinction. Write a DCG which handles
 both. Moreover, write the DCG in such a way that it will produce parse
 trees, and makes use of a separate lexicon.
-\item{}Once you have done this, extend the DCG so that noun phrases can  
-be modified by adjectives and simple prepositional phrases (that is,  
-it should be able to handle noun phrases such as ``the small  
-frightened woman on the table'' or ``the big fat cow under the  
-shower''). Then, further extend it so that the distinction between  
-first, second, and third person pronouns is correctly handled (both in  
+\item{}Once you have done this, extend the DCG so that noun phrases can
+be modified by adjectives and simple prepositional phrases (that is,
+it should be able to handle noun phrases such as ``the small
+frightened woman on the table'' or ``the big fat cow under the
+shower''). Then, further extend it so that the distinction between
+first, second, and third person pronouns is correctly handled (both in
 subject and object form).
 \end{enumerate}
