@@ -1,6 +1,9 @@
 html:
 	LANG=C scripts/_generate_html
 
+server:
+	(cd www && php -S localhost:8000)
+
 clean:
 	rm -f scripts/BeautifulSoup.pyc
 	rm -f text/*.log
