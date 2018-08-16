@@ -626,7 +626,7 @@ Constants, numbers, and variables are the building blocks: now we need
 to know how to fit them together to make \LPNterm{complex terms}.
 Recall that complex terms are often called \LPNterm{structures}.
 
-Complex terms are build out of a \LPNterm{functor} followed by a
+Complex terms are built out of a \LPNterm{functor} followed by a
 sequence of \LPNterm{arguments}. The arguments are put in ordinary
 parentheses, separated by commas, and placed after the functor. Note
 that the functor has to be directly followed by the parenthesis; you
@@ -776,9 +776,9 @@ father(Y,Z):- man(Y), daughter(Z,Y).
 
 \begin{LPNcodedisplay}
 wizard(ron).
+wizard(X):- hasBroom(X), hasWand(X).
 hasWand(harry).
 quidditchPlayer(harry).
-wizard(X):- hasBroom(X), hasWand(X).
 hasBroom(X):- quidditchPlayer(X).
 \end{LPNcodedisplay}
 
