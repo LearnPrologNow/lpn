@@ -1,0 +1,378 @@
+
+<!--l. 576--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlli5"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse49"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse49"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse44"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse53"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 11.3 
+</span> 
+<a id="x73-10700011.3"> 
+</a> <strong>Exercise</strong>s 
+</h3> 
+<div class="newtheorem"> 
+<!--l. 578--> 
+<p class="noindent"> 
+<span class="head"> 
+<span class="cmbx-10"> <strong>Exercise</strong> 
+</span> 
+<span class="cmbx-10"> &#x00A0;11.1 
+</span> 
+</span> 
+<a id="x73-1070011"> 
+</a> 
+<span class="cmti-10"> Suppose we start with an empty database. We then give the 
+</span> 
+<span class="cmti-10"> command: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb539"> 
+<a id="x73-107003r1"> 
+</a> 
+<span class="cmtt-10"> assert(q(a,b)), 
+</span> 
+<span class="cmtt-10"> &#x00A0;assertz(q(1,2)), 
+</span> 
+<span class="cmtt-10"> &#x00A0;asserta(q(foo,blug)). 
+</span> 
+</div> 
+<!--l. 583--> 
+<p class="noindent"> 
+<span class="cmti-10"> What does the database now contain? 
+</span> 
+</p> 
+<!--l. 585--> 
+<p class="indent"> 
+<span class="cmti-10"> We then give the command: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb540"> 
+<a id="x73-107005r1"> 
+</a> 
+<span class="cmtt-10"> retract(q(1,2)), 
+</span> 
+<span class="cmtt-10"> &#x00A0;assertz( 
+</span> 
+<span class="cmtt-10"> &#x00A0;(p(X) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;h(X)) 
+</span> 
+<span class="cmtt-10"> &#x00A0;). 
+</span> 
+</div> 
+<!--l. 589--> 
+<p class="noindent"> 
+<span class="cmti-10"> What does the database now contain? 
+</span> 
+</p> 
+<!--l. 591--> 
+<p class="indent"> 
+<span class="cmti-10"> We then give the command: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb541"> 
+<a id="x73-107007r1"> 
+</a> 
+<span class="cmtt-10"> retractall(q(_,_)). 
+</span> 
+</div> 
+<!--l. 595--> 
+<p class="noindent"> 
+<span class="cmti-10"> What does the database now contain? 
+</span> 
+</p> 
+</div> 
+<div class="newtheorem"> 
+<!--l. 599--> 
+<p class="noindent"> 
+<span class="head"> 
+<span class="cmbx-10"> <strong>Exercise</strong> 
+</span> 
+<span class="cmbx-10"> &#x00A0;11.2 
+</span> 
+</span> 
+<a id="x73-1070082"> 
+</a> 
+<span class="cmti-10"> Suppose we have the following database: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb542"> 
+<a id="x73-107010r1"> 
+</a> 
+<span class="cmtt-10"> q(blob,blug). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107012r2"> 
+</a> 
+<span class="cmtt-10"> q(blob,blag). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107014r3"> 
+</a> 
+<span class="cmtt-10"> q(blob,blig). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107016r4"> 
+</a> 
+<span class="cmtt-10"> q(blaf,blag). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107018r5"> 
+</a> 
+<span class="cmtt-10"> q(dang,dong). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107020r6"> 
+</a> 
+<span class="cmtt-10"> q(dang,blug). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107022r7"> 
+</a> 
+<span class="cmtt-10"> q(flab,blob). 
+</span> 
+</div> 
+<!--l. 610--> 
+<p class="indent"> 
+<span class="cmti-10"> What is Prolog&#8217;s response to the queries: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb543"> 
+<a id="x73-107024r1"> 
+</a> 
+<span class="cmtt-10"> findall(X,q(blob,X),List). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107026r2"> 
+</a> 
+<span class="cmtt-10"> findall(X,q(X,blug),List). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107028r3"> 
+</a> 
+<span class="cmtt-10"> findall(X,q(X,Y),List). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107030r4"> 
+</a> 
+<span class="cmtt-10"> bagof(X,q(X,Y),List). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107032r5"> 
+</a> 
+<span class="cmtt-10"> setof(X,Y^q(X,Y),List). 
+</span> 
+</div> 
+</div> 
+<div class="newtheorem"> 
+<!--l. 621--> 
+<p class="noindent"> 
+<span class="head"> 
+<span class="cmbx-10"> <strong>Exercise</strong> 
+</span> 
+<span class="cmbx-10"> &#x00A0;11.3 
+</span> 
+</span> 
+<a id="x73-1070333"> 
+</a> 
+<span class="cmti-10"> Write a predicate 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> sigma/2 
+</span> 
+</span> 
+<span class="cmti-10"> that takes an integer 
+</span> 
+<span class="cmmi-10"> n &#x003E; 
+</span> 0 
+<span class="cmti-10"> and 
+</span> 
+<span class="cmti-10"> calculates the sum of all integers from 1 to 
+</span> 
+<span class="cmmi-10"> n 
+</span> 
+<span class="cmti-10"> . For example: 
+</span> 
+</p> 
+<!--l. 625--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb544"> 
+<a id="x73-107035r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;sigma(3,X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107037r2"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;6 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107039r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107041r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;sigma(5,X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107043r5"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;15 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107045r6"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 634--> 
+<p class="indent"> 
+<span class="cmti-10"> Write the predicate so that results are stored in the database (there should never 
+</span> 
+<span class="cmti-10"> be more than one entry in the database for each value) and are reused whenever 
+</span> 
+<span class="cmti-10"> possible. For example, suppose we make the following query: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb545"> 
+<a id="x73-107047r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;sigma(2,X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107049r2"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107051r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107053r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107055r5"> 
+</a> 
+<span class="cmtt-10"> sigmares(2,3). 
+</span> 
+</div> 
+<!--l. 645--> 
+<p class="noindent"> 
+<span class="cmti-10"> Then, if we go on to ask 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb546"> 
+<a id="x73-107057r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;sigma(3,X). 
+</span> 
+</div> 
+<!--l. 649--> 
+<p class="noindent"> 
+<span class="cmti-10"> Prolog should not calculate everything new, but should get the result for 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> sigma(2,3) 
+</span> 
+</span> 
+<span class="cmti-10"> from 
+</span> 
+<span class="cmti-10"> the database and only add 3 to that. It should then answer: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb547"> 
+<a id="x73-107059r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;6 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107061r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107063r3"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107065r4"> 
+</a> 
+<span class="cmtt-10"> sigmares(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x73-107067r5"> 
+</a> 
+<span class="cmtt-10"> sigmares(3,6). 
+</span> 
+</div> 
+</div> 
+<!--l. 661--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlli5"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse49"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse49"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse50"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse53"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 661--> 
+<p class="indent"> 
+<a id="taillpn-htmlse50"> 
+</a> 
+</p> 

@@ -1,0 +1,1536 @@
+
+<!--l. 355--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse46"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse38"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse38"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse33"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch10"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 9.3 
+</span> 
+<a id="x60-860009.3"> 
+</a> Examining Terms 
+</h3> 
+<!--l. 359--> 
+<p class="noindent"> In this section, we will learn about some built-in predicates that let us examine terms more closely. First, we will look at predicates that test whether their arguments are terms of a certain type (for example, whether they are atoms or numbers). Then we will introduce predicates that tell us something about the internal structure of complex terms. 
+</p> 
+<!--l. 366--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x60-870009.3"> 
+</a> Types of Terms 
+</h4> 
+<!--l. 368--> 
+<p class="noindent"> Remember what we said about Prolog terms in Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch1"> 1 
+<!--tex4ht:ref: CHAPTER1 --> 
+</a> : there are four different kinds, namely variables, atoms, numbers and complex terms. Furthermore, atoms and numbers are grouped together under the name constants, and constants and variables constitute the simple terms. The following tree diagram summarises this: 
+</p> 
+<div class="center"> 
+<!--l. 374--> 
+<p class="noindent"> 
+</p> 
+<!--l. 381--> 
+<p class="noindent"> terms simple terms variables constants atoms numbers complex terms 
+</p> 
+</div> 
+<!--l. 386--> 
+<p class="indent"> Sometimes it is useful to be able to determine what type a given term is. You might, for example, want to write a predicate that has to deal with different kinds of terms, but has to treat them in different ways. Prolog provides several built-in predicates that test whether a given term is of a certain type: 
+</p> 
+<div class="center"> 
+<!--l. 392--> 
+<p class="noindent"> 
+</p> 
+<div class="tabular"> 
+<table id="TBL-10" class="tabular" cellspacing="0" cellpadding="0"> 
+<colgroup id="TBL-10-1g"> 
+<col id="TBL-10-1" /> 
+<col id="TBL-10-2" /> 
+</colgroup> 
+<tr style="vertical-align:baseline;" id="TBL-10-1-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-1-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> atom/1 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-1-2" class="td11"> Is the argument an atom? 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-10-2-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-2-1" class="td11"> 
+<a id="dx60-87001"> 
+</a> 
+<span class="verb"> 
+<span class="cmtt-10"> integer/1 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-2-2" class="td11"> Is the argument an integer? 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-10-3-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-3-1" class="td11"> 
+<a id="dx60-87002"> 
+</a> 
+<span class="verb"> 
+<span class="cmtt-10"> float/1 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-3-2" class="td11"> Is the argument a floating point number? 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-10-4-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-4-1" class="td11"> 
+<a id="dx60-87003"> 
+</a> 
+<span class="verb"> 
+<span class="cmtt-10"> number/1 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-4-2" class="td11"> Is the argument an integer or a floating point number? 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-10-5-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-5-1" class="td11"> 
+<a id="dx60-87004"> 
+</a> 
+<span class="verb"> 
+<span class="cmtt-10"> atomic/1 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-5-2" class="td11"> Is the argument a constant? 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-10-6-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-6-1" class="td11"> 
+<a id="dx60-87005"> 
+</a> 
+<span class="verb"> 
+<span class="cmtt-10"> var/1 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-6-2" class="td11"> Is the argument an uninstantiated variable? 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-10-7-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-7-1" class="td11"> 
+<a id="dx60-87006"> 
+</a> 
+<span class="verb"> 
+<span class="cmtt-10"> nonvar/1 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-10-7-2" class="td11"> Is the argument an instantiated variable or another term that is not an 
+<span class="cmti-10"> un 
+</span> instantiated variable? 
+<a id="dx60-87007"> 
+</a> 
+</td> 
+</tr> 
+</table> 
+</div> 
+</div> 
+<!--l. 403--> 
+<p class="indent"> Let&#8217;s see how they behave. 
+</p> 
+<!--l. 405--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb397"> 
+<a id="x60-87009r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom(a). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87011r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87013r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87015r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom(7). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87017r5"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87019r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87021r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom(loves(vincent,mia)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87023r8"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 415--> 
+<p class="noindent"> These three examples behave exactly as we would expect. But what happens, when we call 
+<span class="verb"> 
+<span class="cmtt-10"> atom/1 
+</span> 
+</span> with a variable as argument? 
+</p> 
+<div class="fancyvrb" id="fancyvrb398"> 
+<a id="x60-87025r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87027r2"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 421--> 
+<p class="noindent"> This makes sense, since an uninstantiated variable is not an atom. However if we instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> with an atom first and then ask 
+<span class="verb"> 
+<span class="cmtt-10"> atom(X) 
+</span> 
+</span> , Prolog answers yes. 
+</p> 
+<div class="fancyvrb" id="fancyvrb399"> 
+<a id="x60-87029r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87031r2"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87033r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 429--> 
+<p class="noindent"> But it is important that the instantiation is done 
+<span class="cmti-10"> before 
+</span> the test: 
+</p> 
+<div class="fancyvrb" id="fancyvrb400"> 
+<a id="x60-87035r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87037r2"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 435--> 
+<p class="noindent"> The predicates 
+<span class="verb"> 
+<span class="cmtt-10"> integer/1 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> float/1 
+</span> 
+</span> behave analogously. Try some examples. 
+</p> 
+<!--l. 438--> 
+<p class="indent"> The predicates 
+<span class="verb"> 
+<span class="cmtt-10"> number/1 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> atomic/1 
+</span> 
+</span> behave disjunctively. First, 
+<span class="verb"> 
+<span class="cmtt-10"> number/1 
+</span> 
+</span> tests whether a given term is either an integer or a float: that is, it will evaluate to true whenever either 
+<span class="verb"> 
+<span class="cmtt-10"> integer/1 
+</span> 
+</span> or 
+<span class="verb"> 
+<span class="cmtt-10"> float/1 
+</span> 
+</span> evaluate to true and it fails when both of them fail. As for 
+<span class="verb"> 
+<span class="cmtt-10"> atomic/1 
+</span> 
+</span> , this tests whether a given term is a constant, that is, whether it is either an atom or a number. So 
+<span class="verb"> 
+<span class="cmtt-10"> atomic/1 
+</span> 
+</span> will evaluate to true whenever either 
+<span class="verb"> 
+<span class="cmtt-10"> atom/1 
+</span> 
+</span> or 
+<span class="verb"> 
+<span class="cmtt-10"> number/1 
+</span> 
+</span> evaluate to true and it fails when both fail. 
+</p> 
+<!--l. 447--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb401"> 
+<a id="x60-87039r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atomic(mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87041r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87043r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87045r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atomic(8). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87047r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87049r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87051r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atomic(3.25). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87053r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87055r9"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87057r10"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atomic(loves(vincent,mia)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87059r11"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87061r12"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87063r13"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atomic(X) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87065r14"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 464--> 
+<p class="indent"> What about variables? First there is the 
+<span class="verb"> 
+<span class="cmtt-10"> var/1 
+</span> 
+</span> predicate. This tests whether the argument is an 
+<span class="cmti-10"> uninstantiated 
+</span> variable: 
+</p> 
+<div class="fancyvrb" id="fancyvrb402"> 
+<a id="x60-87067r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;var(X) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87069r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87071r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87073r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;var(mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87075r5"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87077r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87079r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;var(8). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87081r8"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87083r9"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87085r10"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;var(3.25). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87087r11"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87089r12"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87091r13"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;var(loves(vincent,mia)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87093r14"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 483--> 
+<p class="indent"> Then there is the 
+<span class="verb"> 
+<span class="cmtt-10"> nonvar/1 
+</span> 
+</span> predicate. This succeeds precisely when 
+<span class="verb"> 
+<span class="cmtt-10"> var/1 
+</span> 
+</span> fails; that is, it tests whether its argument is 
+<span class="cmti-10"> not 
+</span> an uninstantiated variable: 
+</p> 
+<div class="fancyvrb" id="fancyvrb403"> 
+<a id="x60-87095r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(X) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87097r2"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87099r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87101r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87103r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87105r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87107r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(8). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87109r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87111r9"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87113r10"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(3.25). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87115r11"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87117r12"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87119r13"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(loves(vincent,mia)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87121r14"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 503--> 
+<p class="indent"> Note that a complex term which contains uninstantiated variables is not itself an uninstantiated variable (it is a complex term). Therefore we have: 
+</p> 
+<!--l. 507--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb404"> 
+<a id="x60-87123r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;var(loves(_,mia)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87125r2"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87127r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87129r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(loves(_,mia)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87131r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 515--> 
+<p class="indent"> And when the variable 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> gets instantiated 
+<span class="verb"> 
+<span class="cmtt-10"> var(X) 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> nonvar(X) 
+</span> 
+</span> behave differently depending on whether they are called before or after the instantiation: 
+</p> 
+<!--l. 519--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb405"> 
+<a id="x60-87133r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;var(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87135r2"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87137r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87139r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87141r5"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87143r6"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87145r7"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87147r8"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;var(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87149r9"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87151r10"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87153r11"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-87155r12"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-87157r13"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 538--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x60-880009.3"> 
+</a> The Structure of Terms 
+</h4> 
+<!--l. 540--> 
+<p class="noindent"> Given a complex term of unknown structure (perhaps a complex term returned as the output of some predicate), what kind of information might we want to extract from it? The obvious response is: its functor, its arity, and what its arguments look like. Prolog provides built-in predicates that provide this information. Information about the functor 
+<a id="dx60-88001"> 
+</a> and arity is supplied by the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> . Given a complex term, 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> will tell us what its functor and arity are: 
+</p> 
+<!--l. 550--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb406"> 
+<a id="x60-88003r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;functor(f(a,b),F,A). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88005r2"> 
+</a> 
+<span class="cmtt-10"> A 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88007r3"> 
+</a> 
+<span class="cmtt-10"> F 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;f 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88009r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88011r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-88013r6"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;functor([a,b,c],X,Y). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88015r7"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;.&#8217; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88017r8"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88019r9"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 561--> 
+<p class="noindent"> Note that when asked about a list, Prolog returns the functor ., which is the functor it uses in its internal representation of lists. 
+</p> 
+<!--l. 564--> 
+<p class="indent"> What happens when we use 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> with constants? Let&#8217;s try: 
+</p> 
+<div class="fancyvrb" id="fancyvrb407"> 
+<a id="x60-88021r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;functor(mia,F,A). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88023r2"> 
+</a> 
+<span class="cmtt-10"> A 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;0 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88025r3"> 
+</a> 
+<span class="cmtt-10"> F 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88027r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88029r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-88031r6"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;functor(8,F,A). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88033r7"> 
+</a> 
+<span class="cmtt-10"> A 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;0 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88035r8"> 
+</a> 
+<span class="cmtt-10"> F 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;8 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88037r9"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88039r10"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-88041r11"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;functor(3.25,F,A). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88043r12"> 
+</a> 
+<span class="cmtt-10"> A 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;0 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88045r13"> 
+</a> 
+<span class="cmtt-10"> F 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3.25 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88047r14"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 582--> 
+<p class="indent"> So we can use the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> to find out the functor and the arity of a term, and this usage also works for the special case of 0 arity terms (constants). 
+</p> 
+<!--l. 586--> 
+<p class="indent"> We can also use 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> to 
+<span class="cmti-10"> construct 
+</span> terms. How? By specifying the second and third argument and leaving the first undetermined. The query 
+</p> 
+<div class="fancyvrb" id="fancyvrb408"> 
+<a id="x60-88049r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;functor(T,f,7). 
+</span> 
+</div> 
+<!--l. 593--> 
+<p class="noindent"> for example, returns the following answer: 
+</p> 
+<div class="fancyvrb" id="fancyvrb409"> 
+<a id="x60-88051r1"> 
+</a> 
+<span class="cmtt-10"> T 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;f(_G286, 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G287, 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G288, 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G289, 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G290, 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G291, 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G292) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88053r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 598--> 
+<p class="noindent"> Note that either the first argument or the second and third argument have to be instantiated. For example, Prolog would answer with an error message to the query 
+<span class="verb"> 
+<span class="cmtt-10"> functor(T,f,N) 
+</span> 
+</span> . And if you think about what the query means, Prolog is reacting in a sensible way. The query is asking Prolog to construct a complex term without telling it how many arguments to provide, which is not a very sensible request. 
+</p> 
+<!--l. 606--> 
+<p class="indent"> Now that we know about 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> , let&#8217;s put it to work. In the previous section, we discussed the built-in predicates that tested whether their argument was an atom, a number, a constant, or a variable. But there was no predicate that tested whether its argument was a complex term. To make the list complete, let&#8217;s define such a predicate. It is easy to do so using 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> . All we have to do is to check that there is a suitable functor, and that the input has arguments (that is, that its arity is greater than zero). Here is the definition: 
+</p> 
+<!--l. 616--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb410"> 
+<a id="x60-88055r1"> 
+</a> 
+<span class="cmtt-10"> complexterm(X):- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88057r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;nonvar(X), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88059r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;functor(X,_,A), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88061r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;A 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;0. 
+</span> 
+</div> 
+<!--l. 623--> 
+<p class="indent"> So much for functors &#8212; what about arguments? In addition to the 
+<a id="dx60-88062"> 
+</a> predicate 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> , Prolog supplies us with the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> arg/3 
+</span> 
+</span> which tells us about the arguments of complex terms. It takes a number 
+<span class="cmti-10"> N 
+</span> and a complex term 
+<span class="cmti-10"> T 
+</span> and returns the 
+<span class="cmti-10"> Nth 
+</span> argument of 
+<span class="cmti-10"> T 
+</span> in its third argument. It can be used to access the value of an argument 
+</p> 
+<div class="fancyvrb" id="fancyvrb411"> 
+<a id="x60-88064r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;arg(2,loves(vincent,mia),X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88066r2"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88068r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 635--> 
+<p class="noindent"> or to instantiate an argument 
+</p> 
+<div class="fancyvrb" id="fancyvrb412"> 
+<a id="x60-88070r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;arg(2,loves(vincent,X),mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88072r2"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88074r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 641--> 
+<p class="noindent"> Trying to access an argument which doesn&#8217;t exist, of course, fails: 
+</p> 
+<div class="fancyvrb" id="fancyvrb413"> 
+<a id="x60-88076r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;arg(2,happy(yolanda),X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88078r2"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 647--> 
+<p class="indent"> The predicates 
+<span class="verb"> 
+<span class="cmtt-10"> functor/3 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> arg/3 
+</span> 
+</span> allow us to access all the basic information we need to know about complex terms. However Prolog also supplies a third built-in predicate for analysing term structure, namely 
+<span class="verb"> 
+<span class="cmtt-10"> &#8217;=..&#8217;/2 
+</span> 
+</span> . This takes a complex term and returns a list that has the functor as its head, and then all the arguments, in order, as the elements of the tail. So to the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb414"> 
+<a id="x60-88080r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;=..&#8217;(loves(vincent,mia),X) 
+</span> 
+</div> 
+<!--l. 656--> 
+<p class="noindent"> Prolog will respond 
+</p> 
+<div class="fancyvrb" id="fancyvrb415"> 
+<a id="x60-88082r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[loves,vincent,mia] 
+</span> 
+</div> 
+<!--l. 660--> 
+<p class="noindent"> This predicate (which is called univ) can also be used as an infix operator. Here are some examples showing various ways of using 
+<a id="dx60-88083"> 
+</a> this (very useful) tool: 
+</p> 
+<div class="fancyvrb" id="fancyvrb416"> 
+<a id="x60-88085r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;cause(vincent,dead(zed)) 
+</span> 
+<span class="cmtt-10"> &#x00A0;=.. 
+</span> 
+<span class="cmtt-10"> &#x00A0;X. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88087r2"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[cause, 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent, 
+</span> 
+<span class="cmtt-10"> &#x00A0;dead(zed)] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88089r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88091r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-88093r5"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;=.. 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b(c),d]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88095r6"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a(b(c), 
+</span> 
+<span class="cmtt-10"> &#x00A0;d) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88097r7"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88099r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-88101r9"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;footmassage(Y,mia) 
+</span> 
+<span class="cmtt-10"> &#x00A0;=.. 
+</span> 
+<span class="cmtt-10"> &#x00A0;X. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88103r10"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G303 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88105r11"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[footmassage, 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G303, 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-88107r12"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 678--> 
+<p class="indent"> Univ really comes into its own when something has to be done to all arguments of a complex term. Since it returns the arguments as a list, normal list processing strategies can be used to traverse the arguments. 
+</p> 
+<!--l. 684--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x60-890009.3"> 
+</a> Strings 
+</h4> 
+<!--l. 686--> 
+<p class="noindent"> Strings are represented in Prolog by a list of character (ASCII) codes. However, it would be a right kerfuffle to use list notation for simple string manipulation, so Prolog also offers a user-friendly notation for strings: double quotes. Try the following query: 
+</p> 
+<!--l. 691--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb417"> 
+<a id="x60-89002r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;S 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;"Vicky". 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89004r2"> 
+</a> 
+<span class="cmtt-10"> S 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[86, 
+</span> 
+<span class="cmtt-10"> &#x00A0;105, 
+</span> 
+<span class="cmtt-10"> &#x00A0;99, 
+</span> 
+<span class="cmtt-10"> &#x00A0;107, 
+</span> 
+<span class="cmtt-10"> &#x00A0;121] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89006r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 696--> 
+<p class="noindent"> Here the variable 
+<span class="cmtt-10"> S 
+</span> unifies with the string 
+<span class="cmtt-10"> "Vicky" 
+</span> , which is a list containing of five numbers, each of them corresponding to the character codes of the single characters the strings is composed of. (For instance, 86 is the character code for the character V, 105 is the code for the character i, and so on.) 
+</p> 
+<!--l. 702--> 
+<p class="indent"> In other words, strings in Prolog are actually lists of numbers. Several standard predicates are supported by most Prolog dialects to work with strings. A particularly useful one is 
+<span class="cmtt-10"> atom 
+</span> 
+<span class="cmtt-10"> _codes/2 
+</span> . This predicate converts an atom into a string. The following examples illustrate what 
+<span class="cmtt-10"> atom 
+</span> 
+<span class="cmtt-10"> _codes/2 
+</span> 
+<a id="dx60-89007"> 
+</a> can do for you: 
+</p> 
+<!--l. 709--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb418"> 
+<a id="x60-89009r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom_codes(vicky,X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89011r2"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[118, 
+</span> 
+<span class="cmtt-10"> &#x00A0;105, 
+</span> 
+<span class="cmtt-10"> &#x00A0;99, 
+</span> 
+<span class="cmtt-10"> &#x00A0;107, 
+</span> 
+<span class="cmtt-10"> &#x00A0;121] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89013r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89015r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-89017r5"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom_codes(&#8217;Vicky&#8217;,X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89019r6"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[86, 
+</span> 
+<span class="cmtt-10"> &#x00A0;105, 
+</span> 
+<span class="cmtt-10"> &#x00A0;99, 
+</span> 
+<span class="cmtt-10"> &#x00A0;107, 
+</span> 
+<span class="cmtt-10"> &#x00A0;121] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89021r7"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89023r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-89025r9"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom_codes(&#8217;Vicky 
+</span> 
+<span class="cmtt-10"> &#x00A0;Pollard&#8217;,X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89027r10"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[86, 
+</span> 
+<span class="cmtt-10"> &#x00A0;105, 
+</span> 
+<span class="cmtt-10"> &#x00A0;99, 
+</span> 
+<span class="cmtt-10"> &#x00A0;107, 
+</span> 
+<span class="cmtt-10"> &#x00A0;121, 
+</span> 
+<span class="cmtt-10"> &#x00A0;32, 
+</span> 
+<span class="cmtt-10"> &#x00A0;80, 
+</span> 
+<span class="cmtt-10"> &#x00A0;111, 
+</span> 
+<span class="cmtt-10"> &#x00A0;108|...] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89029r11"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 723--> 
+<p class="indent"> It also works the other way around: 
+<span class="cmtt-10"> atom 
+</span> 
+<span class="cmtt-10"> _codes/2 
+</span> can also be used to generate atoms from strings. Suppose you want to duplicate an atom 
+<span class="cmtt-10"> abc 
+</span> into the atom abcabc. This is how you could do it: 
+</p> 
+<!--l. 727--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb419"> 
+<a id="x60-89031r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom_codes(abc,X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;append(X,X,L), 
+</span> 
+<span class="cmtt-10"> &#x00A0;atom_codes(N,L). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89033r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x60-89035r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[97, 
+</span> 
+<span class="cmtt-10"> &#x00A0;98, 
+</span> 
+<span class="cmtt-10"> &#x00A0;99] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89037r4"> 
+</a> 
+<span class="cmtt-10"> L 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[97, 
+</span> 
+<span class="cmtt-10"> &#x00A0;98, 
+</span> 
+<span class="cmtt-10"> &#x00A0;99, 
+</span> 
+<span class="cmtt-10"> &#x00A0;97, 
+</span> 
+<span class="cmtt-10"> &#x00A0;98, 
+</span> 
+<span class="cmtt-10"> &#x00A0;99] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x60-89039r5"> 
+</a> 
+<span class="cmtt-10"> N 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;abcabc 
+</span> 
+</div> 
+<!--l. 735--> 
+<p class="indent"> One last thing you need to know about the 
+<span class="cmtt-10"> atom 
+</span> 
+<span class="cmtt-10"> _codes/2 
+</span> predicate is that it is related to another other built-in predicate, namely 
+<span class="cmtt-10"> number 
+</span> 
+<span class="cmtt-10"> _codes/2 
+</span> 
+<a id="dx60-89040"> 
+</a> . This predicate behaves in a similar way, but, as the names suggest, only works for numbers. 
+</p> 
+<!--l. 742--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse46"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse38"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse38"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse39"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch10"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 742--> 
+<p class="indent"> 
+<a id="taillpn-htmlse39"> 
+</a> 
+</p> 

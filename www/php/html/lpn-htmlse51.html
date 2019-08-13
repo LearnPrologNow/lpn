@@ -1,0 +1,176 @@
+
+<!--l. 661--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse50"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse50"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse45"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse53"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 11.4 
+</span> 
+<a id="x74-10800011.4"> 
+</a> Practical Session 
+</h3> 
+<!--l. 663--> 
+<p class="noindent"> Try the following two programming exercises: 
+</p> 
+<!--l. 665--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x74-108002x1"> Sets can be thought of as lists that don&#8217;t contain any repeated elements. For example, 
+<span class="verb"> 
+<span class="cmtt-10"> [a,4,6] 
+</span> 
+</span> is a set, but 
+<span class="verb"> 
+<span class="cmtt-10"> [a,4,6,a] 
+</span> 
+</span> is not (as it contains two occurrences of 
+<span class="verb"> 
+<span class="cmtt-10"> a) 
+</span> 
+</span> . Write a Prolog program 
+<span class="verb"> 
+<span class="cmtt-10"> subset/2 
+</span> 
+</span> that is satisfied when the first argument is a subset of the second argument (that is, when every element of the first argument is a member of the second argument). For example: 
+<div class="fancyvrb" id="fancyvrb548"> 
+<a id="x74-108004r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;subset([a,b],[a,b,c]) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x74-108006r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x74-108008r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x74-108010r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;subset([c,b],[a,b,c]) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x74-108012r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x74-108014r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x74-108016r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;subset([],[a,b,c]) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x74-108018r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 684--> 
+<p class="noindent"> Your program should be capable of generating all subsets of an input set by backtracking. For example, if you give it as input 
+</p> 
+<div class="fancyvrb" id="fancyvrb549"> 
+<a id="x74-108020r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;subset(X,[a,b,c]) 
+</span> 
+</div> 
+<!--l. 689--> 
+<p class="noindent"> it should successively generate all eight subsets of 
+<span class="verb"> 
+<span class="cmtt-10"> [a,b,c] 
+</span> 
+</span> . 
+</p> 
+</li> 
+<li class="enumerate" id="x74-108022x2"> Using the 
+<span class="verb"> 
+<span class="cmtt-10"> subset 
+</span> 
+</span> predicate you have just written, and 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> , write a predicate 
+<span class="verb"> 
+<span class="cmtt-10"> powerset/2 
+</span> 
+</span> that takes a set as its first argument, and returns the powerset of this set as the second argument. (The powerset of a set is the set of all its subsets.) For example: 
+<div class="fancyvrb" id="fancyvrb550"> 
+<a id="x74-108024r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;powerset([a,b,c],P) 
+</span> 
+</div> 
+<!--l. 698--> 
+<p class="noindent"> should return 
+</p> 
+<div class="fancyvrb" id="fancyvrb551"> 
+<a id="x74-108026r1"> 
+</a> 
+<span class="cmtt-10"> P 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[],[a],[b],[c],[a,b],[a,c],[b,c],[a,b,c]] 
+</span> 
+</div> 
+<!--l. 702--> 
+<p class="noindent"> It doesn&#8217;t matter if the sets are returned in some other order. For example, 
+</p> 
+<div class="fancyvrb" id="fancyvrb552"> 
+<a id="x74-108028r1"> 
+</a> 
+<span class="cmtt-10"> P 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[a],[b],[c],[a,b,c],[],[a,b],[a,c],[b,c]] 
+</span> 
+</div> 
+<!--l. 707--> 
+<p class="noindent"> is fine too. 
+</p> 
+</li> 
+</ol> 
+<!--l. 2--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse50"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse50"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse51"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse53"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 2--> 
+<p class="indent"> 
+<a id="taillpn-htmlse51"> 
+</a> 
+</p> 

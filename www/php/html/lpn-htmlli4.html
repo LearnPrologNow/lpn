@@ -1,0 +1,141 @@
+
+<!--l. 2--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse4"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlli3"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlli3"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=#taillpn-htmlli4"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-html"> up 
+</a> ] 
+</p> 
+</div> 
+<h2 class="likechapterHead"> 
+<a id="x6-6000"> 
+</a> Introduction 
+</h2> 
+<a id="x6-6000doc"> 
+</a> 
+<!--l. 4--> 
+<p class="noindent"> First off, what is Prolog? It&#8217;s a programming language, but a rather unusual one. &#8220;Prolog&#8221; is short for &#8220;Programming with Logic&#8221;, and though the link between logic and Prolog is not completely straightforward, it is this link that gives Prolog its special character. At the heart of Prolog lies a beautiful idea: don&#8217;t tell the computer what to do, simply describe situations of interest. Where does the computation come in? When we ask questions. Prolog enables the computer to logically deduce new facts about the situations we describe, and gives its deductions back to us as answers. 
+</p> 
+<!--l. 14--> 
+<p class="indent"> This has a number of consequences. First, a practical one: if you are an experienced programmer, Prolog is likely to take you by surprise. It requires a different mindset. You have to learn to see computational problems from a different perspective. To use the standard terminology, you have to learn to think 
+<span class="cmti-10"> declaratively 
+</span> , rather than 
+<span class="cmti-10"> procedurally 
+</span> . This can be challenging, but it&#8217;s also a lot of fun. 
+</p> 
+<!--l. 22--> 
+<p class="indent"> A second consequence of Prolog&#8217;s &#8220;say what the problem 
+<span class="cmti-10"> is 
+</span> , rather than how to solve it&#8221; stance is that Prolog is a very high-level language. As will become apparent, Prolog enables you to describe some highly abstract things (for example, the syntactic structure of English) extremely succinctly. Moreover, these descriptions really are programs: they will do real work for us if we ask the right questions. For example, having described the syntactic structure of English, we can ask Prolog whether particular sentences are grammatical or not. Prolog will tell us, and if we ask the right question, will even give us a grammatical analysis. 
+</p> 
+<!--l. 33--> 
+<p class="indent"> Prolog&#8217;s ability to describe complex situations succinctly means that it is good for rapid prototyping. That is, if you have a good idea, and want to get a working program that embodies it, Prolog is often an excellent choice. Ideas become computational reality fast with Prolog, at least for some applications. Which applications? Those which depend on getting to grips with rich structure. Prolog application areas include computational linguistics (or natural languages processing as it is often called), Artificial Intelligence (AI), expert systems, molecular biology, and the semantic web. Where there is structure to be described, or knowledge to be represented, Prolog is likely to come into its own. 
+</p> 
+<!--l. 45--> 
+<p class="indent"> Prolog is not a perfect language, and it&#8217;s not suitable for everything. If you need to do serious text manipulation, go for Perl. If you need tight control over memory, go for C. If you want a mathematically elegant language that you can reason about easily, go for Caml, Haskell, or a clean Lisp dialect (such as Scheme). But no language is good for everything, and those that try (remember Ada?) often fall by the wayside. As we have just said, Prolog is a natural choice for knowledge-rich tasks, and there are a number of good reasons for learning it. If you are an experienced programmer, we think you will enjoy learning Prolog simply because it is so different; thinking declaratively, or almost declaratively, can send your brain in interesting new directions. And if you have little or no programing experience, and maybe aren&#8217;t even sure if you like computers or not, then there are excellent reasons for choosing Prolog as your first language. Because it is so high-level, you get to do interesting things fast, without getting bogged down in tedious preparatory work. Moreover, you will swiftly learn about a number of fundamental programming concepts, notably recursion and recursive data structures, concepts that will be useful if you later study other languages. Finally, the link with logic adds an intriguing intellectual dimension to the learning process. 
+</p> 
+<!--l. 67--> 
+<p class="indent"> Where does Prolog come from? It originated in Marseilles, in the south of France. Alain Colmerauer and Philippe Roussel devised and implemented the first Prolog interpreter in 1972. One of the earliest versions was partially implemented in Fortran, and partially in Prolog itself. An interesting mixture: it would be hard to find two languages that differ more widely than the numerically oriented, non-recursive, imperative scientific programming language Fortran, and the symbolically oriented, recursive, declarative Prolog. A few years later, Robert Kowalski, who had worked with the Marseilles team in 1971 and 1972, published his book 
+<span class="cmti-10"> Logic for Problem 
+</span> 
+<span class="cmti-10"> Solving 
+</span> 
+<span class="footnote-mark"> 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-html7"> 
+<sup class="textsuperscript"> 2 
+</sup> 
+</a> 
+</span> 
+<a id="x6-6001f2"> 
+</a> which put the idea of logic programming firmly on the intellectual agenda. Another big step was taken in Edinburgh in 1977 with David Warren&#8217;s implementation of the DEC 10 compiler. 
+<span class="footnote-mark"> 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-html8"> 
+<sup class="textsuperscript"> 3 
+</sup> 
+</a> 
+</span> 
+<a id="x6-6002f3"> 
+</a> This implementation, which could compete with (and sometimes surpass) state of the art Lisp implementations in terms of efficiency, turned Prolog from an academic curiosity into a serious programming language. Interesting work soon followed. For example, in a classic paper, Pereira and Warren showed that Prolog&#8217;s built-in mechanism for handling Definite Clause Grammars (DCGs) was a natural way of treating certain tasks in natural language processing. 
+<span class="footnote-mark"> 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-html9"> 
+<sup class="textsuperscript"> 4 
+</sup> 
+</a> 
+</span> 
+<a id="x6-6003f4"> 
+</a> 
+</p> 
+<!--l. 98--> 
+<p class="indent"> Since then, Prolog has grown in popularity, particularly in Europe and Japan (in the United States, work on AI has tended to be Lisp-based). Prolog is, was, and always will be, a niche language. But the niche it occupies is fascinating. 
+</p> 
+<div class="likesubsectionTOCS"> &#x00A0;&#x00A0; 
+<span class="likesubsectionToc"> 
+<a href="lpnpage.php?pagetype=html&pageid=#x6-7000" id="QQ2-6-7"> How to get the most out of this book 
+</a> 
+</span> 
+</div> 
+<h4 class="likesubsectionHead"> 
+<a id="x6-7000"> 
+</a> How to get the most out of this book 
+</h4> 
+<!--l. 105--> 
+<p class="noindent"> What we have said about Prolog so far has been high-level and abstract. We are now going to change gears. The approach taken to teaching Prolog in this book is 
+<span class="cmti-10"> not 
+</span> abstract, and is certainly 
+<span class="cmti-10"> not 
+</span> driven by high-level ideas (such as the link with logic). In fact, it&#8217;s resolutely down to earth. We try to teach Prolog as concretely as possible. We&#8217;ve just told you why Prolog is not just another programming language, but we&#8217;re going to teach it as if it was. 
+</p> 
+<!--l. 114--> 
+<p class="indent"> Why? Quite simply, because we think that&#8217;s the best approach for a first course. Programming in Prolog is a practical skill. There are concrete things that simply have to be learned, and we strongly believe that you just have to get in there and learn them as fast as possible. This does not mean that we find the abstract side of Prolog (and more generally, logic programming) unimportant or uninteresting. However (unless you already have a good theoretical background) these deeper ideas take time to emerge clearly and be absorbed. In the meantime, you should be getting on with mastering the nuts and bolts. 
+</p> 
+<!--l. 125--> 
+<p class="indent"> To put it another way, we think that learning a programming language (any programming language, not just Prolog) is a lot like learning a foreign language. And what is the most important part of learning a foreign language? Actually 
+<span class="cmti-10"> using 
+</span> it, actually putting it to work, actually trying it out. Sure, reflecting on the beauty of the language is pleasant, but at the end of the day, what really counts is the time you spend on mastering the mechanics. 
+</p> 
+<!--l. 133--> 
+<p class="indent"> This attitude has strongly influenced the way 
+<span class="cmti-10"> Learn Prolog Now! 
+</span> is written. In particular, as you will see, each chapter is divided into three parts. First comes the text. Next come a number of exercises. Finally there is what we call the practical session. Now, we cannot emphasise the following point too strongly: 
+<span class="cmti-10"> the practical 
+</span> 
+<span class="cmti-10"> sessions are the most important part of the book 
+</span> . It is utterly imperative that you sit down, fire up a Prolog interpreter, and work through these sessions. Actually, just doing that is nowhere near enough. If you really want to master Prolog, you need to try out a lot more than is asked of you in these sessions. But we believe these sessions contain enough to put you on the right track. 
+</p> 
+<!--l. 146--> 
+<p class="indent"> Gaining practical experience with a programming language is always important, but, in our opinion, it is even more important than usual with Prolog. Why? Because Prolog is deceptively easy to understand. It&#8217;s a small language (there are not a lot of constructs to learn) and the basic ideas are beautiful in their simplicity. It is dangerously easy to smile, relax, and say &#8220;&#8216;Hey! I get it!&#8221;. Easy, but wrong. The basic ideas interact in subtle ways, and without 
+<span class="cmti-10"> lots 
+</span> of practical experience you will be lost. We have had many (very bright) students who thought they understood it, didn&#8217;t put in the effort on the practical side &#8212; and who later found themselves scrambling to keep up. Prolog is subtle. You need to put in the hours if you want to master it. 
+</p> 
+<!--l. 161--> 
+<p class="indent"> Summing up, 
+<span class="cmti-10"> Learn Prolog Now 
+</span> is a practically oriented introduction to the central features of Prolog. It won&#8217;t teach you everything, but if you make it to the end you&#8217;ll have a good grasp of the basics, and will have caught a glimpse of what logic programming is about. Enjoy! 
+</p> 
+<!--l. 2--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse4"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlli3"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlli3"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlli4"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-html"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 2--> 
+<p class="indent"> 
+<a id="taillpn-htmlli4"> 
+</a> 
+</p> 

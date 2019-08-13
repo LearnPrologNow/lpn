@@ -1,0 +1,408 @@
+
+<!--l. 849--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse30"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse30"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse27"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch8"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 7.4 
+</span> 
+<a id="x49-700007.4"> 
+</a> Practical Session 
+</h3> 
+<!--l. 853--> 
+<p class="noindent"> The purpose of this session is to help you get familiar with DCGs, difference lists, and the relation between them, and to give you some experience in writing basic DCGs. As you will learn in the following chapter, there is more to DCGs than the ideas just discussed. Nonetheless, what you have learned so far is certainly the core, and it is important that you are comfortable with the basic ideas before moving on. 
+</p> 
+<!--l. 861--> 
+<p class="indent"> First some keyboard exercises: 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x49-70002x1"> Type in or download the simple 
+<span class="verb"> 
+<span class="cmtt-10"> append/3 
+</span> 
+</span> based recognisers discussed in the text, and then run some traces. As you will see, we were not exaggerating when we said that their performance is poor. Even for such simple sentences as 
+<span class="cmti-10"> The woman shot a man 
+</span> you will see that the traces are long and difficult to follow. 
+</li> 
+<li class="enumerate" id="x49-70004x2"> Next, type in or download our second recogniser, the one based on difference lists, and run more traces. As you will see, there is a dramatic gain in efficiency. Moreover, you will see that the traces are 
+<span class="cmti-10"> very 
+</span> simple to understand, especially when compared with the monsters produced by the 
+<span class="verb"> 
+<span class="cmtt-10"> append/3 
+</span> 
+</span> based implementations. 
+</li> 
+<li class="enumerate" id="x49-70006x3"> Next, type in or download the DCG discussed in the text. Type 
+<span class="verb"> 
+<span class="cmtt-10"> listing 
+</span> 
+</span> so that you can see what Prolog translates the rules to. How does your system translate rules of the form 
+<a id="dx49-70007"> 
+</a> 
+<span class="verb"> 
+<span class="cmtt-10"> Det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[the] 
+</span> 
+</span> ? That is, does it translate them to rules like 
+<span class="verb"> 
+<span class="cmtt-10"> det([the|X],X) 
+</span> 
+</span> , or does is make use of rules containing the 
+<span class="cmtt-10"> &#8217;C&#8217; 
+</span> predicate? 
+</li> 
+<li class="enumerate" id="x49-70009x4"> Now run some traces. Apart from variable names, the traces you observe here should be very similar to the traces you observed when running the difference list recogniser. 
+</li> 
+</ol> 
+<!--l. 890--> 
+<p class="indent"> And now it&#8217;s time to write some DCGs: 
+</p> 
+<!--l. 892--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x49-70011x1"> The formal language 
+<span class="cmti-10"> Even 
+</span> is very simple: it consists of all strings containing an even number of 
+<span class="cmti-10"> a 
+</span> s, and nothing else. Note that the empty string 
+<span class="cmmi-10"> &#x03F5; 
+</span> belongs to 
+<span class="cmti-10"> Even 
+</span> . Write a DCG that generates 
+<span class="cmti-10"> Even 
+</span> . 
+</li> 
+<li class="enumerate" id="x49-70013x2"> The formal language 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmr-7"> 2 
+</span> 
+<span class="cmmi-7"> m 
+</span> 
+</sup> 
+<span class="cmmi-10"> c 
+</span> 
+<sup> 
+<span class="cmr-7"> 2 
+</span> 
+<span class="cmmi-7"> m 
+</span> 
+</sup> 
+<span class="cmmi-10"> d 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> consists of all strings of the following form: an unbroken block of 
+<span class="cmti-10"> a 
+</span> s followed by an unbroken block of 
+<span class="cmti-10"> b 
+</span> s followed by an unbroken block of 
+<span class="cmti-10"> c 
+</span> s followed by an unbroken block of 
+<span class="cmti-10"> d 
+</span> s, such that the 
+<span class="cmti-10"> a 
+</span> and 
+<span class="cmti-10"> d 
+</span> blocks are exactly the same length, and the 
+<span class="cmti-10"> b 
+</span> and 
+<span class="cmti-10"> c 
+</span> blocks are also exactly the same length and furthermore consist of an even number of 
+<span class="cmti-10"> b 
+</span> s and 
+<span class="cmti-10"> c 
+</span> s respectively. For example, 
+<span class="cmmi-10"> &#x03F5; 
+</span> , 
+<span class="cmti-10"> abbccd 
+</span> , and 
+<span class="cmti-10"> aabbbbccccdd 
+</span> all belong to 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmr-7"> 2 
+</span> 
+<span class="cmmi-7"> m 
+</span> 
+</sup> 
+<span class="cmmi-10"> c 
+</span> 
+<sup> 
+<span class="cmr-7"> 2 
+</span> 
+<span class="cmmi-7"> m 
+</span> 
+</sup> 
+<span class="cmmi-10"> d 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> . Write a DCG that generates this language. 
+</li> 
+<li class="enumerate" id="x49-70015x3"> The language that logicians call &#8220;propositional logic over the propositional symbols 
+<span class="cmti-10"> p 
+</span> , 
+<span class="cmti-10"> q 
+</span> , and 
+<span class="cmti-10"> r 
+</span> &#8221; can be defined by the following context free grammar: 
+<div class="center"> 
+<!--l. 911--> 
+<p class="noindent"> 
+</p> 
+<div class="tabular"> 
+<table id="TBL-6" class="tabular" cellspacing="0" cellpadding="0"> 
+<colgroup id="TBL-6-1g"> 
+<col id="TBL-6-1" /> 
+</colgroup> 
+<tr style="vertical-align:baseline;" id="TBL-6-1-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-6-1-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> prop 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;p 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-6-2-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-6-2-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> prop 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;q 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-6-3-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-6-3-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> prop 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;r 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-6-4-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-6-4-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> prop 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+</span> 
+<span class="cmsy-10"> ¬ 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> &#x00A0;prop 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-6-5-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-6-5-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> prop 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> (prop 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+</span> 
+<span class="cmsy-10"> &#x2227; 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> &#x00A0;prop) 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-6-6-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-6-6-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> prop 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> (prop 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+</span> 
+<span class="cmsy-10"> &#x2228; 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> &#x00A0;prop) 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-6-7-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-6-7-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> prop 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> (prop 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+</span> 
+<span class="cmsy-10"> &#x2192; 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> &#x00A0;prop) 
+</span> 
+</span> 
+</td> 
+</tr> 
+</table> 
+</div> 
+</div> 
+<!--l. 921--> 
+<p class="noindent"> Write a DCG that generates this language. Actually, because we don&#8217;t know about Prolog operators yet, you will have to make a few rather clumsy looking compromises. For example, instead of getting it to recognise 
+</p> 
+<div class="center"> 
+<!--l. 925--> 
+<p class="noindent"> 
+</p> 
+<div class="tabular"> 
+<table id="TBL-7" class="tabular" cellspacing="0" cellpadding="0"> 
+<colgroup id="TBL-7-1g"> 
+<col id="TBL-7-1" /> 
+</colgroup> 
+<tr style="vertical-align:baseline;" id="TBL-7-1-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-7-1-1" class="td11"> 
+<span class="cmsy-10"> ¬ 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> (p 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+</span> 
+<span class="cmsy-10"> &#x2192; 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> &#x00A0;q) 
+</span> 
+</span> 
+</td> 
+</tr> 
+</table> 
+</div> 
+</div> 
+<!--l. 927--> 
+<p class="noindent"> you will have to get it recognise things like 
+</p> 
+<div class="center"> 
+<!--l. 928--> 
+<p class="noindent"> 
+</p> 
+<div class="tabular"> 
+<table id="TBL-8" class="tabular" cellspacing="0" cellpadding="0"> 
+<colgroup id="TBL-8-1g"> 
+<col id="TBL-8-1" /> 
+</colgroup> 
+<tr style="vertical-align:baseline;" id="TBL-8-1-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-8-1-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> [not, 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;(&#8217;, 
+</span> 
+<span class="cmtt-10"> &#x00A0;p, 
+</span> 
+<span class="cmtt-10"> &#x00A0;implies, 
+</span> 
+<span class="cmtt-10"> &#x00A0;q, 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;)&#8217;] 
+</span> 
+</span> 
+</td> 
+</tr> 
+</table> 
+</div> 
+</div> 
+<!--l. 930--> 
+<p class="noindent"> instead. We will learn in Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch9"> 9 
+<!--tex4ht:ref: CHAPTER9 --> 
+</a> how to deal with propositional logic somewhat more naturally; in the meantime, write a DCG that accepts a clumsy looking version of this language. Use 
+<span class="cmti-10"> or 
+</span> for 
+<span class="cmsy-10"> &#x2228; 
+</span> , and 
+<span class="cmti-10"> and 
+</span> for 
+<span class="cmsy-10"> &#x2227; 
+</span> . 
+</p> 
+</li> 
+</ol> 
+<!--l. 3--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse30"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse30"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse31"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch8"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 3--> 
+<p class="indent"> 
+<a id="taillpn-htmlse31"> 
+</a> 
+</p> 

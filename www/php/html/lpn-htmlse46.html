@@ -1,0 +1,405 @@
+
+<!--l. 663--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse52"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse45"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse45"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse40"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 10.4 
+</span> 
+<a id="x68-9900010.4"> 
+</a> <strong>Exercise</strong>s 
+</h3> 
+<div class="newtheorem"> 
+<!--l. 665--> 
+<p class="noindent"> 
+<span class="head"> 
+<span class="cmbx-10"> <strong>Exercise</strong> 
+</span> 
+<span class="cmbx-10"> &#x00A0;10.1 
+</span> 
+</span> 
+<a id="x68-990011"> 
+</a> 
+<span class="cmti-10"> Suppose we have the following database: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb480"> 
+<a id="x68-99003r1"> 
+</a> 
+<span class="cmtt-10"> p(1). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99005r2"> 
+</a> 
+<span class="cmtt-10"> p(2) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;!. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99007r3"> 
+</a> 
+<span class="cmtt-10"> p(3). 
+</span> 
+</div> 
+<!--l. 672--> 
+<p class="indent"> 
+<span class="cmti-10"> Write all of Prolog&#8217;s answers to the following queries: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb481"> 
+<a id="x68-99009r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;p(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99011r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x68-99013r3"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;p(X),p(Y). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99015r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x68-99017r5"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;p(X),!,p(Y). 
+</span> 
+</div> 
+</div> 
+<div class="newtheorem"> 
+<!--l. 683--> 
+<p class="noindent"> 
+<span class="head"> 
+<span class="cmbx-10"> <strong>Exercise</strong> 
+</span> 
+<span class="cmbx-10"> &#x00A0;10.2 
+</span> 
+</span> 
+<a id="x68-990182"> 
+</a> 
+<span class="cmti-10"> First, explain what the following program does: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb482"> 
+<a id="x68-99020r1"> 
+</a> 
+<span class="cmtt-10"> class(Number,positive) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;Number 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;0. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99022r2"> 
+</a> 
+<span class="cmtt-10"> class(0,zero). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99024r3"> 
+</a> 
+<span class="cmtt-10"> class(Number,negative) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;Number 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003C; 
+</span> 
+<span class="cmtt-10"> &#x00A0;0. 
+</span> 
+</div> 
+<!--l. 690--> 
+<p class="indent"> 
+<span class="cmti-10"> Second, improve it by adding green cuts. 
+</span> 
+</p> 
+</div> 
+<div class="newtheorem"> 
+<!--l. 694--> 
+<p class="noindent"> 
+<span class="head"> 
+<span class="cmbx-10"> <strong>Exercise</strong> 
+</span> 
+<span class="cmbx-10"> &#x00A0;10.3 
+</span> 
+</span> 
+<a id="x68-990253"> 
+</a> 
+<span class="cmti-10"> Without using cut, write a predicate 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> split/3 
+</span> 
+</span> 
+<span class="cmti-10"> that splits a list of 
+</span> 
+<span class="cmti-10"> integers into two lists: one containing the positive ones (and zero), the other 
+</span> 
+<span class="cmti-10"> containing the negative ones. For example: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb483"> 
+<a id="x68-99027r1"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;split([3,4,-5,-1,0,4,-9],P,N) 
+</span> 
+</div> 
+<!--l. 701--> 
+<p class="noindent"> 
+<span class="cmti-10"> should return: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb484"> 
+<a id="x68-99029r1"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;P 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[3,4,0,4] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99031r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x68-99033r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;N 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[-5,-1,-9]. 
+</span> 
+</div> 
+<!--l. 707--> 
+<p class="noindent"> 
+<span class="cmti-10"> Then improve this program, without changing its meaning, with the help of the 
+</span> 
+<span class="cmti-10"> cut. 
+</span> 
+</p> 
+</div> 
+<div class="newtheorem"> 
+<!--l. 711--> 
+<p class="noindent"> 
+<span class="head"> 
+<span class="cmbx-10"> <strong>Exercise</strong> 
+</span> 
+<span class="cmbx-10"> &#x00A0;10.4 
+</span> 
+</span> 
+<a id="x68-990344"> 
+</a> 
+</p> 
+<!--l. 713--> 
+<p class="indent"> 
+<span class="cmti-10"> Recall that in <strong>Exercise</strong> 
+</span> 
+<span class="cmti-10"> &#x00A0; 
+</span> 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse11"> 
+<span class="cmti-10"> 3.3 
+</span> 
+<!--tex4ht:ref: L3.EX3 --> 
+</a> 
+<span class="cmti-10"> we gave you the following knowledge base: 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb485"> 
+<a id="x68-99036r1"> 
+</a> 
+<span class="cmtt-10"> directTrain(saarbruecken,dudweiler). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99038r2"> 
+</a> 
+<span class="cmtt-10"> directTrain(forbach,saarbruecken). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99040r3"> 
+</a> 
+<span class="cmtt-10"> directTrain(freyming,forbach). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99042r4"> 
+</a> 
+<span class="cmtt-10"> directTrain(stAvold,freyming). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99044r5"> 
+</a> 
+<span class="cmtt-10"> directTrain(fahlquemont,stAvold). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99046r6"> 
+</a> 
+<span class="cmtt-10"> directTrain(metz,fahlquemont). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99048r7"> 
+</a> 
+<span class="cmtt-10"> directTrain(nancy,metz). 
+</span> 
+</div> 
+<!--l. 724--> 
+<p class="noindent"> 
+<span class="cmti-10"> We asked you to write a recursive predicate 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> travelFromTo/2 
+</span> 
+</span> 
+<span class="cmti-10"> that told us when we could 
+</span> 
+<span class="cmti-10"> travel by train between two towns. 
+</span> 
+</p> 
+<!--l. 727--> 
+<p class="indent"> 
+<span class="cmti-10"> Now, it&#8217;s plausible to assume that whenever it is possible to take a direct train 
+</span> 
+<span class="cmti-10"> from A to B, it is also possible to take a direct train from B to A. Add this 
+</span> 
+<span class="cmti-10"> information to the database. Then write a predicate 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> route/3 
+</span> 
+</span> 
+<span class="cmti-10"> which gives you a list of 
+</span> 
+<span class="cmti-10"> towns that are visited by taking the train from one town to another. For 
+</span> 
+<span class="cmti-10"> instance: 
+</span> 
+</p> 
+<!--l. 734--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb486"> 
+<a id="x68-99050r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;route(forbach,metz,Route). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x68-99052r2"> 
+</a> 
+<span class="cmtt-10"> Route 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[forbach,freyming,stAvold,fahlquemont,metz] 
+</span> 
+</div> 
+</div> 
+<div class="newtheorem"> 
+<!--l. 742--> 
+<p class="noindent"> 
+<span class="head"> 
+<span class="cmbx-10"> <strong>Exercise</strong> 
+</span> 
+<span class="cmbx-10"> &#x00A0;10.5 
+</span> 
+</span> 
+<a id="x68-990535"> 
+</a> 
+<span class="cmti-10"> Recall the definition of jealousy given in Chapter 
+</span> 
+<span class="cmti-10"> &#x00A0; 
+</span> 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch1"> 
+<span class="cmti-10"> 1 
+</span> 
+<!--tex4ht:ref: CHAPTER1 --> 
+</a> 
+<span class="cmti-10"> . 
+</span> 
+</p> 
+<div class="fancyvrb" id="fancyvrb487"> 
+<a id="x68-99055r1"> 
+</a> 
+<span class="cmtt-10"> jealous(X,Y):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;loves(X,Z), 
+</span> 
+<span class="cmtt-10"> &#x00A0;loves(Y,Z). 
+</span> 
+</div> 
+<!--l. 746--> 
+<p class="noindent"> 
+<span class="cmti-10"> In a world where both Vincent and Marsellus love Mia, Vincent will be jealous of 
+</span> 
+<span class="cmti-10"> Marsellus, and Marsellus of Vincent. But Marsellus will also be jealous of himself, 
+</span> 
+<span class="cmti-10"> and so will Vincent. Revise the Prolog definition of jealousy in such a way that people 
+</span> 
+<span class="cmti-10"> can&#8217;t be jealous of themselves. 
+</span> 
+</p> 
+</div> 
+<!--l. 756--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse52"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse45"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse45"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse46"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 756--> 
+<p class="indent"> 
+<a id="taillpn-htmlse46"> 
+</a> 
+</p> 

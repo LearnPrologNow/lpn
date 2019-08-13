@@ -1,0 +1,275 @@
+
+<!--l. 756--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse46"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse46"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse41"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 10.5 
+</span> 
+<a id="x69-10000010.5"> 
+</a> Practical Session 
+</h3> 
+<!--l. 760--> 
+<p class="noindent"> The purpose of this session is to help you get familiar with cuts and negation as failure. First some keyboard exercises: 
+</p> 
+<!--l. 764--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x69-100002x1"> Try out all three versions of the 
+<span class="verb"> 
+<span class="cmtt-10"> max/3 
+</span> 
+</span> predicate defined in the text: the cut-free version, the green cut version, and the red cut version. As usual, &#8220;try out&#8221; means &#8220;run traces on&#8221;, and you should make sure that you trace queries in which all three arguments are instantiated to integers, and queries where the third argument is given as a variable. 
+</li> 
+<li class="enumerate" id="x69-100004x2"> Ok, time for a burger. Try out all the methods discussed in the text for coping with Vincent&#8217;s preferences. That is, try out the program that uses a cut-fail combination, the program that uses negation as failure correctly, and also the program that mucks it up by using negation in the wrong place. 
+</li> 
+</ol> 
+<!--l. 780--> 
+<p class="indent"> Now for some programming: 
+</p> 
+<!--l. 782--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x69-100006x1"> Define a predicate 
+<span class="verb"> 
+<span class="cmtt-10"> nu/2 
+</span> 
+</span> (&#8221;not unifiable&#8221;) which takes two terms as arguments and succeeds if the two terms do not unify. For example: 
+<div class="fancyvrb" id="fancyvrb488"> 
+<a id="x69-100008r1"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;nu(foo,foo). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x69-100010r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;no 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x69-100012r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x69-100014r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;nu 
+</span> 
+<span class="cmtt-10"> &#x00A0;(foo,blob). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x69-100016r5"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x69-100018r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x69-100020r7"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;nu(foo,X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x69-100022r8"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;no 
+</span> 
+</div> 
+<!--l. 797--> 
+<p class="noindent"> You should define this predicate in three different ways: 
+</p> 
+<ol class="enumerate2"> 
+<li class="enumerate" id="x69-100024x1"> First (and easiest) write it with the help of 
+<span class="verb"> 
+<span class="cmtt-10"> = 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> \+ 
+</span> 
+</span> . 
+</li> 
+<li class="enumerate" id="x69-100026x2"> Second write it with the help of 
+<span class="verb"> 
+<span class="cmtt-10"> = 
+</span> 
+</span> , but don&#8217;t use 
+<span class="verb"> 
+<span class="cmtt-10"> \+ 
+</span> 
+</span> . 
+</li> 
+<li class="enumerate" id="x69-100028x3"> Third, write it using a cut-fail combination. Don&#8217;t use 
+<span class="verb"> 
+<span class="cmtt-10"> = 
+</span> 
+</span> and don&#8217;t use 
+<span class="verb"> 
+<span class="cmtt-10"> \+ 
+</span> 
+</span> . 
+</li> 
+</ol> 
+</li> 
+<li class="enumerate" id="x69-100030x2"> Define a predicate 
+<span class="verb"> 
+<span class="cmtt-10"> unifiable(List1,Term,List2) 
+</span> 
+</span> where 
+<span class="verb"> 
+<span class="cmtt-10"> List2 
+</span> 
+</span> is the list of all members of 
+<span class="verb"> 
+<span class="cmtt-10"> List1 
+</span> 
+</span> that unify with 
+<span class="verb"> 
+<span class="cmtt-10"> Term 
+</span> 
+</span> . The elements of 
+<span class="verb"> 
+<span class="cmtt-10"> List2 
+</span> 
+</span> should 
+<span class="cmti-10"> not 
+</span> be instantiated by the unification. For example 
+<div class="fancyvrb" id="fancyvrb489"> 
+<a id="x69-100032r1"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;unifiable([X,b,t(Y)],t(a),List] 
+</span> 
+</div> 
+<!--l. 816--> 
+<p class="noindent"> should yield 
+</p> 
+<div class="fancyvrb" id="fancyvrb490"> 
+<a id="x69-100034r1"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[X,t(Y)]. 
+</span> 
+</div> 
+<!--l. 821--> 
+<p class="noindent"> Note that 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> are still 
+<span class="cmti-10"> not 
+</span> instantiated. So the tricky part is: how do we check that they unify with 
+<span class="verb"> 
+<span class="cmtt-10"> t(a) 
+</span> 
+</span> without instantiating them? 
+</p> 
+<!--l. 824--> 
+<p class="noindent"> (Hint: consider using tests of the form 
+<span class="verb"> 
+<span class="cmtt-10"> \+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;term1 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;term2 
+</span> 
+</span> . Why? Think about it. You might also like to think about tests of the form 
+<span class="verb"> 
+<span class="cmtt-10"> \+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;\+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;term1 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;term2 
+</span> 
+</span> .) 
+</p> 
+</li> 
+</ol> 
+<!--l. 3--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse46"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse46"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse47"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 3--> 
+<p class="indent"> 
+<a id="taillpn-htmlse47"> 
+</a> 
+</p> 

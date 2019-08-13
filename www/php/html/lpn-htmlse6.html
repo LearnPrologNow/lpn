@@ -1,0 +1,675 @@
+
+<!--l. 660--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse11"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse5"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse5"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse3"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse8"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 2.2 
+</span> 
+<a id="x18-270002.2"> 
+</a> Proof Search 
+</h3> 
+<!--l. 662--> 
+<p class="noindent"> Now that we know about unification, we are in a position to learn how Prolog actually searches a knowledge base to see if a query is satisfied. That is, we are ready to learn about proof search. We will introduce the basic ideas involved by working through a simple example. 
+</p> 
+<!--l. 668--> 
+<p class="indent"> Suppose we are working with the following knowledge base 
+</p> 
+<div class="fancyvrb" id="fancyvrb84"> 
+<a id="x18-27002r1"> 
+</a> 
+<span class="cmtt-10"> f(a). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x18-27004r2"> 
+</a> 
+<span class="cmtt-10"> f(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x18-27006r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x18-27008r4"> 
+</a> 
+<span class="cmtt-10"> g(a). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x18-27010r5"> 
+</a> 
+<span class="cmtt-10"> g(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x18-27012r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x18-27014r7"> 
+</a> 
+<span class="cmtt-10"> h(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x18-27016r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x18-27018r9"> 
+</a> 
+<span class="cmtt-10"> k(X) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;f(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;g(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;h(X). 
+</span> 
+</div> 
+<!--l. 681--> 
+<p class="noindent"> Suppose we then pose the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb85"> 
+<a id="x18-27020r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;k(Y). 
+</span> 
+</div> 
+<!--l. 686--> 
+<p class="noindent"> It is probably clear that there is only one answer to this query, namely 
+<span class="verb"> 
+<span class="cmtt-10"> k(b) 
+</span> 
+</span> , but how exactly does Prolog work this out? Let&#8217;s see. 
+</p> 
+<!--l. 689--> 
+<p class="indent"> Prolog reads the knowledge base, and tries to unify 
+<span class="verb"> 
+<span class="cmtt-10"> k(Y) 
+</span> 
+</span> with either a fact, or the head of a rule. It searches the knowledge base top to bottom, and carries out the unification, if it can, at the first place possible. Here there is only one possibility: it must unify 
+<span class="verb"> 
+<span class="cmtt-10"> k(Y) 
+</span> 
+</span> to the head of the rule 
+<span class="verb"> 
+<span class="cmtt-10"> k(X) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;f(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;g(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;h(X) 
+</span> 
+</span> . 
+</p> 
+<!--l. 695--> 
+<p class="indent"> When Prolog unifies the variable in a query to a variable in a fact or rule, it generates a brand new variable (say 
+<span class="verb"> 
+<span class="cmtt-10"> _G34 
+</span> 
+</span> ) to represent the shared variables. So the original query now reads: 
+</p> 
+<div class="fancyvrb" id="fancyvrb86"> 
+<a id="x18-27022r1"> 
+</a> 
+<span class="cmtt-10"> k(_G34) 
+</span> 
+</div> 
+<!--l. 704--> 
+<p class="noindent"> and Prolog knows that 
+</p> 
+<div class="fancyvrb" id="fancyvrb87"> 
+<a id="x18-27024r1"> 
+</a> 
+<span class="cmtt-10"> k(_G34) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;f(_G34), 
+</span> 
+<span class="cmtt-10"> &#x00A0;g(_G34), 
+</span> 
+<span class="cmtt-10"> &#x00A0;h(_G34). 
+</span> 
+</div> 
+<!--l. 710--> 
+<p class="indent"> So what do we now have? The original query says: &#8220;I want to find an individual that has property 
+<span class="verb"> 
+<span class="cmtt-10"> k 
+</span> 
+</span> &#8221;. The rule says, &#8220;an individual has property 
+<span class="verb"> 
+<span class="cmtt-10"> k 
+</span> 
+</span> if it has properties 
+<span class="verb"> 
+<span class="cmtt-10"> f 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> g 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> h 
+</span> 
+</span> &#8221;. So if Prolog can find an individual with properties 
+<span class="verb"> 
+<span class="cmtt-10"> f 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> g 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> h 
+</span> 
+</span> , it will have satisfied the original query. So Prolog replaces the original query with the following list of goals: 
+</p> 
+<div class="fancyvrb" id="fancyvrb88"> 
+<a id="x18-27026r1"> 
+</a> 
+<span class="cmtt-10"> f(_G34), 
+</span> 
+<span class="cmtt-10"> &#x00A0;g(_G34), 
+</span> 
+<span class="cmtt-10"> &#x00A0;h(_G34). 
+</span> 
+</div> 
+<!--l. 720--> 
+<p class="indent"> Our discussion of the querying process so far can be made more elegant and succinct if we think graphically. Consider the following diagram: 
+</p> 
+<div class="center"> 
+<!--l. 723--> 
+<p class="noindent"> 
+</p> 
+<!--l. 724--> 
+<p class="noindent"> 
+<img src="html/chap2-pspic1.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 727--> 
+<p class="noindent"> Everything in a box is either a query or a goal. In particular, our original goal was to prove 
+<span class="verb"> 
+<span class="cmtt-10"> k(Y) 
+</span> 
+</span> , thus this is shown in the top box. When we unified 
+<span class="verb"> 
+<span class="cmtt-10"> k(Y) 
+</span> 
+</span> with the head of the rule in the knowledge base, 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> , and the new internal variable 
+<span class="verb"> 
+<span class="cmtt-10"> _G34 
+</span> 
+</span> were made to share values, and we were left with the goals 
+<span class="verb"> 
+<span class="cmtt-10"> f(_G34),g(_G34),h(_G34) 
+</span> 
+</span> , just as shown. 
+</p> 
+<!--l. 734--> 
+<p class="indent"> Now, whenever it has a list of goals, Prolog tries to satisfy them one by one, working through the list in a left to right direction. The leftmost goal is 
+<span class="verb"> 
+<span class="cmtt-10"> f(_G34) 
+</span> 
+</span> , which reads: &#8220;I want an individual with property 
+<span class="verb"> 
+<span class="cmtt-10"> f 
+</span> 
+</span> &#8221;. Can this goal be satisfied? Prolog tries to do so by searching through the knowledge base from top to bottom. The first item it finds that unifies with this goal is the fact 
+<span class="verb"> 
+<span class="cmtt-10"> f(a) 
+</span> 
+</span> . This satisfies the goal 
+<span class="verb"> 
+<span class="cmtt-10"> f(_G34) 
+</span> 
+</span> and we are left with two more goals. Now, when we unify 
+<span class="verb"> 
+<span class="cmtt-10"> f(_G34) 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> f(a) 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> _G34 
+</span> 
+</span> is instantiated to 
+<span class="verb"> 
+<span class="cmtt-10"> a 
+</span> 
+</span> , and this instantiation applies to all occurrences of 
+<span class="verb"> 
+<span class="cmtt-10"> _G34 
+</span> 
+</span> in the list of goals. So the list now looks like this: 
+</p> 
+<div class="fancyvrb" id="fancyvrb89"> 
+<a id="x18-27028r1"> 
+</a> 
+<span class="cmtt-10"> g(a),h(a) 
+</span> 
+</div> 
+<!--l. 748--> 
+<p class="noindent"> and our graphical representation of the proof search now looks like this: 
+</p> 
+<div class="center"> 
+<!--l. 750--> 
+<p class="noindent"> 
+</p> 
+<!--l. 751--> 
+<p class="noindent"> 
+<img src="html/chap2-pspic2.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 755--> 
+<p class="indent"> But the fact 
+<span class="verb"> 
+<span class="cmtt-10"> g(a) 
+</span> 
+</span> is in the knowledge base, so the first goal we have to prove is satisfied too. So the goal list becomes 
+</p> 
+<div class="fancyvrb" id="fancyvrb90"> 
+<a id="x18-27030r1"> 
+</a> 
+<span class="cmtt-10"> h(a) 
+</span> 
+</div> 
+<!--l. 761--> 
+<p class="noindent"> and the graphical representation is now 
+</p> 
+<div class="center"> 
+<!--l. 763--> 
+<p class="noindent"> 
+</p> 
+<!--l. 764--> 
+<p class="noindent"> 
+<img src="html/chap2-pspic3.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 767--> 
+<p class="noindent"> But there is no way to satisfy 
+<span class="verb"> 
+<span class="cmtt-10"> h(a) 
+</span> 
+</span> , the last remaining goal. The only information about 
+<span class="verb"> 
+<span class="cmtt-10"> h 
+</span> 
+</span> we have in the knowledge base is 
+<span class="verb"> 
+<span class="cmtt-10"> h(b) 
+</span> 
+</span> , and this won&#8217;t unify with 
+<span class="verb"> 
+<span class="cmtt-10"> h(a) 
+</span> 
+</span> . 
+</p> 
+<!--l. 771--> 
+<p class="indent"> So what happens next? Well, Prolog decides it has made a mistake, and checks whether it has missed any possible ways of unifying a goal with a fact or the head of a rule in the knowledge base. It does this by going back up the path shown in the graphical representation, looking for alternatives. Now, there is nothing else in the knowledge base that unifies with 
+<span class="verb"> 
+<span class="cmtt-10"> g(a) 
+</span> 
+</span> , but there 
+<span class="cmti-10"> is 
+</span> another way of unifying 
+<span class="verb"> 
+<span class="cmtt-10"> f(_G34) 
+</span> 
+</span> . Points in the search where there are several alternative ways of unifying a goal against the knowledge base are called choice points. Prolog keeps track of choice points it has encountered, so that if it makes a wrong choice it can retreat to the previous choice point and try something else instead. This process is called backtracking, and it is fundamental to proof search in Prolog. 
+</p> 
+<!--l. 785--> 
+<p class="indent"> So let&#8217;s carry on with our example. Prolog backtracks to the last choice point. This is the point in the graphical representation where the list of goals was: 
+</p> 
+<div class="fancyvrb" id="fancyvrb91"> 
+<a id="x18-27032r1"> 
+</a> 
+<span class="cmtt-10"> f(_G34),g(_G34),h(_G34). 
+</span> 
+</div> 
+<!--l. 791--> 
+<p class="noindent"> Prolog must now redo this work. First it must try to re-satisfy the first goal by searching further in the knowledge base. It can do this: it sees that it can unify the first goal with information in the knowledge base by unifying 
+<span class="verb"> 
+<span class="cmtt-10"> f(_G34) 
+</span> 
+</span> with 
+<span class="verb"> 
+<span class="cmtt-10"> f(b) 
+</span> 
+</span> . This satisfies the goal 
+<span class="verb"> 
+<span class="cmtt-10"> f(_G34) 
+</span> 
+</span> and instantiates 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> b 
+</span> 
+</span> , so that the remaining goal list is 
+</p> 
+<div class="fancyvrb" id="fancyvrb92"> 
+<a id="x18-27034r1"> 
+</a> 
+<span class="cmtt-10"> g(b),h(b). 
+</span> 
+</div> 
+<!--l. 800--> 
+<p class="noindent"> But 
+<span class="verb"> 
+<span class="cmtt-10"> g(b) 
+</span> 
+</span> is a fact in the knowledge base, so this is satisfied too, leaving the goal list: 
+</p> 
+<div class="fancyvrb" id="fancyvrb93"> 
+<a id="x18-27036r1"> 
+</a> 
+<span class="cmtt-10"> h(b). 
+</span> 
+</div> 
+<!--l. 805--> 
+<p class="noindent"> Moreover, this fact too is in the knowledge base, so this goal is also satisfied. So Prolog now has an empty list of goals. This means that it has now proved everything required to establish the original goal (that is, 
+<span class="verb"> 
+<span class="cmtt-10"> k(Y) 
+</span> 
+</span> ). So the original query 
+<span class="cmti-10"> is 
+</span> satisfiable, and moreover, Prolog has also discovered what it has to do to satisfy it (namely instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> b 
+</span> 
+</span> ). 
+</p> 
+<!--l. 813--> 
+<p class="indent"> It is interesting to consider what happens if we then ask for another solution by typing: 
+</p> 
+<div class="fancyvrb" id="fancyvrb94"> 
+<a id="x18-27038r1"> 
+</a> 
+<span class="cmtt-10"> ; 
+</span> 
+</div> 
+<!--l. 818--> 
+<p class="noindent"> This forces Prolog to backtrack to the last choice point, to try and find another possibility. However, there are no other choice points, as there are no other possibilities for unifying 
+<span class="verb"> 
+<span class="cmtt-10"> h(b) 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> g(b) 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> f(_G34) 
+</span> 
+</span> , or 
+<span class="verb"> 
+<span class="cmtt-10"> k(Y) 
+</span> 
+</span> with clauses in the knowledge base, so Prolog would respond no. On the other hand, if there had been other rules involving 
+<span class="verb"> 
+<span class="cmtt-10"> k 
+</span> 
+</span> , Prolog would have gone off and tried to use them in exactly the way we have described: that is, by searching top to bottom in the knowledge base, left to right in goal lists, and backtracking to the previous choice point whenever it fails. 
+</p> 
+<!--l. 829--> 
+<p class="indent"> Let&#8217;s take a look at the graphical representation of the entire search process. Some general remarks are called for, for such representations are an important way of thinking about proof search in Prolog. 
+</p> 
+<div class="center"> 
+<!--l. 833--> 
+<p class="noindent"> 
+</p> 
+<!--l. 834--> 
+<p class="noindent"> 
+<img src="html/chap2-pspic4.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 836--> 
+<p class="noindent"> This diagram has the form of a tree; in fact it is our first example of what is known as a search tree. The nodes of such trees say which goals have to be satisfied at the various steps of the proof search, and the edges keep track of the variable instantiations that are made when the current goal (that is, the first one in the list of goals) is unified to a fact or to the head of a rule in the knowledge base. Leaf nodes which still contain unsatisfied goals are points where Prolog failed (either because it made a wrong decision somewhere along the path, or because no solution exists). Leaf nodes with an empty goal list correspond to a possible solution. The edges along the path from the root node to a successful leaf node tell you the variable instantiations that need to be made to satisfy the original query. 
+</p> 
+<!--l. 850--> 
+<p class="indent"> Let&#8217;s have a look at another example. Suppose that we are working with the following knowledge base: 
+</p> 
+<div class="fancyvrb" id="fancyvrb95"> 
+<a id="x18-27040r1"> 
+</a> 
+<span class="cmtt-10"> loves(vincent,mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x18-27042r2"> 
+</a> 
+<span class="cmtt-10"> loves(marcellus,mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x18-27044r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x18-27046r4"> 
+</a> 
+<span class="cmtt-10"> jealous(A,B):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;loves(A,C), 
+</span> 
+<span class="cmtt-10"> &#x00A0;loves(B,C). 
+</span> 
+</div> 
+<!--l. 859--> 
+<p class="noindent"> Now we pose the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb96"> 
+<a id="x18-27048r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;jealous(X,Y). 
+</span> 
+</div> 
+<!--l. 864--> 
+<p class="noindent"> The search tree for the query looks like this: 
+</p> 
+<div class="center"> 
+<!--l. 866--> 
+<p class="noindent"> 
+</p> 
+<!--l. 867--> 
+<p class="noindent"> 
+<img src="html/chap2-pspic5.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 870--> 
+<p class="indent"> There is only one possible way of unifying 
+<span class="verb"> 
+<span class="cmtt-10"> jealous(X,Y) 
+</span> 
+</span> against the knowledge base, namely by using the rule 
+</p> 
+<div class="fancyvrb" id="fancyvrb97"> 
+<a id="x18-27050r1"> 
+</a> 
+<span class="cmtt-10"> jealous(A,B):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;loves(A,C), 
+</span> 
+<span class="cmtt-10"> &#x00A0;loves(B,C). 
+</span> 
+</div> 
+<!--l. 876--> 
+<p class="noindent"> So the new goals that have to be satisfied are: 
+</p> 
+<div class="fancyvrb" id="fancyvrb98"> 
+<a id="x18-27052r1"> 
+</a> 
+<span class="cmtt-10"> loves(_G5,_G6),loves(_G7,_G6) 
+</span> 
+</div> 
+<!--l. 880--> 
+<p class="noindent"> Now we have to unify 
+<span class="verb"> 
+<span class="cmtt-10"> loves(_G5,_G6) 
+</span> 
+</span> against the knowledge base. There are two ways of doing this (it can either be unified with the first fact or with the second fact) and this is why the path branches at this point. In both cases the goal 
+<span class="verb"> 
+<span class="cmtt-10"> loves(_G7,mia) 
+</span> 
+</span> remains, and this can also be satisfied by using either of two facts. All in all there are four leaf nodes with an empty goal list, which means that there are four ways of satisfying the original query. The variable instantiations for each solution can be read off the path from the root to the leaf node. So the four solutions are: 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x18-27054x1"> 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G5 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G7 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent 
+</span> 
+</span> 
+</li> 
+<li class="enumerate" id="x18-27056x2"> 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G5 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G7 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;marcellus 
+</span> 
+</span> 
+</li> 
+<li class="enumerate" id="x18-27058x3"> 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G5 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;marcellus 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G7 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent 
+</span> 
+</span> 
+</li> 
+<li class="enumerate" id="x18-27060x4"> 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G5 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;marcellus 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G7 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;marcellus 
+</span> 
+</span> 
+</li> 
+</ol> 
+<!--l. 899--> 
+<p class="noindent"> Work through this example carefully, and make sure you understand it. 
+</p> 
+<!--l. 902--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse11"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse5"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse5"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse6"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse8"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 902--> 
+<p class="indent"> 
+<a id="taillpn-htmlse6"> 
+</a> 
+</p> 

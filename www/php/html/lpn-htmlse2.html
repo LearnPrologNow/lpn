@@ -1,0 +1,524 @@
+
+<!--l. 543--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse6"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse1"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse1"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=#taillpn-htmlse2"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse4"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 1.2 
+</span> 
+<a id="x12-150001.2"> 
+</a> Prolog Syntax 
+</h3> 
+<!--l. 545--> 
+<p class="noindent"> Now that we&#8217;ve got some idea of what Prolog does, it&#8217;s time to go back to the beginning and work through the details more carefully. Let&#8217;s start by asking a very basic question: we&#8217;ve seen all kinds of expressions (for example 
+<span class="verb"> 
+<span class="cmtt-10"> jody 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> playsAirGuitar(mia) 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> ) in our Prolog programs, but these have just been examples. It&#8217;s time for precision: exactly what are facts, rules, and queries built out of? 
+</p> 
+<!--l. 552--> 
+<p class="indent"> The answer is terms, and there are four kinds of term in Prolog: atoms, numbers, variables, and complex terms (or structures). Atoms and numbers are lumped together under the heading constants, and constants and variables together make up the simple terms of Prolog. 
+</p> 
+<!--l. 558--> 
+<p class="indent"> Let&#8217;s take a closer look. To make things crystal clear, let&#8217;s first be precise about the basic characters (that is, symbols) at our disposal. The 
+<span class="cmti-10"> upper-case letters 
+</span> are 
+<span class="verb"> 
+<span class="cmtt-10"> A 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> B 
+</span> 
+</span> ,&#x2026;, 
+<span class="verb"> 
+<span class="cmtt-10"> Z 
+</span> 
+</span> ; the 
+<span class="cmti-10"> lower-case letters 
+</span> are 
+<span class="verb"> 
+<span class="cmtt-10"> a 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> b 
+</span> 
+</span> ,&#x2026;, 
+<span class="verb"> 
+<span class="cmtt-10"> z 
+</span> 
+</span> ; the 
+<span class="cmti-10"> digits 
+</span> are 
+<span class="verb"> 
+<span class="cmtt-10"> 0 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> 1 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+</span> ,&#x2026;, 
+<span class="verb"> 
+<span class="cmtt-10"> 9 
+</span> 
+</span> . In addition we have the 
+<span class="verb"> 
+<span class="cmtt-10"> _ 
+</span> 
+</span> symbol, which is called underscore, and some 
+<span class="cmti-10"> special characters 
+</span> , which include characters such as 
+<span class="verb"> 
+<span class="cmtt-10"> + 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> - 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> * 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> / 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> &#x003C; 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> &#x003E; 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> = 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> : 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> . 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> &amp; 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> ~ 
+</span> 
+</span> . The blank 
+<span class="cmti-10"> space 
+</span> is also a character, but a rather unusual one, being invisible. A string is an unbroken sequence of characters. 
+</p> 
+<!--l. 571--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x12-160001.2"> 
+</a> Atoms 
+</h4> 
+<!--l. 573--> 
+<p class="noindent"> An atom is either: 
+</p> 
+<!--l. 575--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x12-16002x1"> A string of characters made up of upper-case letters, lower-case letters, digits, and the underscore character, that begins with a lower-case letter. Here are some examples: 
+<span class="verb"> 
+<span class="cmtt-10"> butch 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> big_kahuna_burger 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> listens2Music 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> playsAirGuitar 
+</span> 
+</span> . 
+</li> 
+<li class="enumerate" id="x12-16004x2"> An arbitrary sequence of characters enclosed in single quotes. For example &#8217; 
+<span class="verb"> 
+<span class="cmtt-10"> Vincent 
+</span> 
+</span> &#8217;, &#8217; 
+<span class="verb"> 
+<span class="cmtt-10"> The 
+</span> 
+<span class="cmtt-10"> &#x00A0;Gimp 
+</span> 
+</span> &#8217;, &#8217; 
+<span class="verb"> 
+<span class="cmtt-10"> Five_Dollar_Shake 
+</span> 
+</span> &#8217;, &#8217; 
+<span class="verb"> 
+<span class="cmtt-10"> &amp;^%&amp;#@$ 
+</span> 
+<span class="cmtt-10"> &#x00A0;&amp;* 
+</span> 
+</span> &#8217;, and &#8217; 
+<span class="verb"> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+</span> &#8217;. The sequence of characters between the single quotes is called the atom name. Note that we are allowed to use spaces in such atoms; in fact, a common reason for using single quotes is so we can do precisely that. 
+</li> 
+<li class="enumerate" id="x12-16006x3"> A string of special characters. Here are some examples: 
+<span class="verb"> 
+<span class="cmtt-10"> @= 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> ====&#x003E; 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> ; 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> :- 
+</span> 
+</span> are all atoms. As we have seen, some of these atoms, such as 
+<span class="verb"> 
+<span class="cmtt-10"> ; 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> :- 
+</span> 
+</span> have a pre-defined meaning. 
+</li> 
+</ol> 
+<!--l. 593--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x12-170001.2"> 
+</a> Numbers 
+</h4> 
+<!--l. 596--> 
+<p class="noindent"> Real numbers aren&#8217;t particularly important in typical Prolog applications. So although most Prolog implementations do support floating point numbers or floats (that is, representations of real numbers such as 1657.3087 or 
+<span class="cmmi-10"> &#x03C0; 
+</span> ) we say little about them in this book. 
+</p> 
+<!--l. 602--> 
+<p class="indent"> But integers (that is: &#x2026;,-2, -1, 0, 1, 2, 3,&#x2026;) are useful for such tasks as counting the elements of a list, and we&#8217;ll discuss how to manipulate them in Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch5"> 5 
+<!--tex4ht:ref: CHAPTER5 --> 
+</a> . Their Prolog syntax is the obvious one: 
+<span class="verb"> 
+<span class="cmtt-10"> 23 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> 1001 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> 0 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> -365 
+</span> 
+</span> , and so on. 
+</p> 
+<!--l. 608--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x12-180001.2"> 
+</a> Variables 
+</h4> 
+<!--l. 611--> 
+<p class="noindent"> A variable is a string of upper-case letters, lower-case letters, digits and underscore characters that starts 
+<span class="cmti-10"> either 
+</span> with an upper-case letter 
+<span class="cmti-10"> or 
+</span> with an underscore. For example, 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> Variable 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> _tag 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> X_526 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> List 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> List24 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> _head 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> Tail 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> _input 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> Output 
+</span> 
+</span> are all Prolog variables. 
+</p> 
+<!--l. 617--> 
+<p class="indent"> The variable 
+<span class="verb"> 
+<span class="cmtt-10"> _ 
+</span> 
+</span> (that is, a single underscore character) is rather special. It&#8217;s called the 
+<span class="cmti-10"> anonymous variable 
+</span> , and we discuss it in Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch4"> 4 
+<!--tex4ht:ref: CHAPTER4 --> 
+</a> . 
+</p> 
+<!--l. 623--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x12-190001.2"> 
+</a> Complex terms 
+</h4> 
+<!--l. 625--> 
+<p class="noindent"> Constants, numbers, and variables are the building blocks: now we need to know how to fit them together to make complex terms. Recall that complex terms are often called structures. 
+</p> 
+<!--l. 629--> 
+<p class="indent"> Complex terms are built out of a functor followed by a sequence of arguments. The arguments are put in ordinary parentheses, separated by commas, and placed after the functor. Note that the functor has to be directly followed by the parenthesis; you can&#8217;t have a space between the functor and the parenthesis enclosing the arguments. The functor 
+<span class="cmti-10"> must 
+</span> be an atom. That is, variables 
+<span class="cmti-10"> cannot 
+</span> be used as functors. On the other hand, arguments can be any kind of term. 
+</p> 
+<!--l. 638--> 
+<p class="indent"> Now, we&#8217;ve already seen lots of examples of complex terms when we looked at the knowledge bases KB1 to KB5. For example, 
+<span class="verb"> 
+<span class="cmtt-10"> playsAirGuitar(jody) 
+</span> 
+</span> is a complex term: its functor is 
+<span class="verb"> 
+<span class="cmtt-10"> playsAirGuitar 
+</span> 
+</span> and its argument is 
+<span class="verb"> 
+<span class="cmtt-10"> jody 
+</span> 
+</span> . Other examples are 
+<span class="verb"> 
+<span class="cmtt-10"> loves(vincent,mia) 
+</span> 
+</span> and, to give an example containing a variable, 
+<span class="verb"> 
+<span class="cmtt-10"> jealous(marsellus,W) 
+</span> 
+</span> . 
+</p> 
+<!--l. 645--> 
+<p class="indent"> But the definition allows for more complex terms than this. In fact, it allows us to keep nesting complex terms inside complex terms indefinitely (that is, it is allows recursive structure). For example 
+</p> 
+<div class="fancyvrb" id="fancyvrb39"> 
+<a id="x12-19002r1"> 
+</a> 
+<span class="cmtt-10"> hide(X,father(father(father(butch)))) 
+</span> 
+</div> 
+<!--l. 654--> 
+<p class="noindent"> is a perfectly acceptable complex term. Its functor is 
+<span class="verb"> 
+<span class="cmtt-10"> hide 
+</span> 
+</span> , and it has two arguments: the variable 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> , and the complex term 
+<span class="verb"> 
+<span class="cmtt-10"> father(father(father(butch))) 
+</span> 
+</span> . This complex term has 
+<span class="verb"> 
+<span class="cmtt-10"> father 
+</span> 
+</span> as its functor, and another complex term, namely 
+<span class="verb"> 
+<span class="cmtt-10"> father(father(butch)) 
+</span> 
+</span> , as its sole argument. And the argument of this complex term, namely 
+<span class="verb"> 
+<span class="cmtt-10"> father(butch) 
+</span> 
+</span> , is also complex. But then the nesting bottoms out, for the argument here is the constant 
+<span class="verb"> 
+<span class="cmtt-10"> butch 
+</span> 
+</span> . 
+</p> 
+<!--l. 663--> 
+<p class="indent"> As we shall see, such nested (or recursively structured) terms enable us to represent many problems naturally. In fact the interplay between recursive term structure and variable unification is the source of much of Prolog&#8217;s power. 
+</p> 
+<!--l. 669--> 
+<p class="indent"> The number of arguments that a complex term has is called its arity. For example, 
+<span class="verb"> 
+<span class="cmtt-10"> woman(mia) 
+</span> 
+</span> is a complex term of arity 1, and 
+<span class="verb"> 
+<span class="cmtt-10"> loves(vincent,mia) 
+</span> 
+</span> is a complex term of arity 2. 
+</p> 
+<!--l. 674--> 
+<p class="indent"> Arity is important to Prolog. Prolog would be quite happy for us to define two predicates with the same functor but with a different number of arguments. For example, we are free to define a knowledge base that defines a two-place predicate 
+<span class="verb"> 
+<span class="cmtt-10"> love 
+</span> 
+</span> (this might contain such facts as 
+<span class="verb"> 
+<span class="cmtt-10"> love(vincent,mia) 
+</span> 
+</span> ), and also a three-place 
+<span class="verb"> 
+<span class="cmtt-10"> love 
+</span> 
+</span> predicate (which might contain such facts as 
+<span class="verb"> 
+<span class="cmtt-10"> love(vincent,marsellus,mia) 
+</span> 
+</span> ). However, if we did this, Prolog would treat the two-place 
+<span class="verb"> 
+<span class="cmtt-10"> love 
+</span> 
+</span> and the three-place 
+<span class="verb"> 
+<span class="cmtt-10"> love 
+</span> 
+</span> as different predicates. Later in the book (for example, when we introduce accumulators in Chapter&#x00A0;5) we shall see that it can be useful to define two predicates with the same functor but different arity. 
+</p> 
+<!--l. 686--> 
+<p class="indent"> When we need to talk about predicates and how we intend to use them (for example, in documentation) it is usual to use a suffix 
+<span class="verb"> 
+<span class="cmtt-10"> / 
+</span> 
+</span> followed by a number to indicate the predicate&#8217;s arity. To return to KB2, instead of saying that it defines predicates 
+</p> 
+<div class="fancyvrb" id="fancyvrb40"> 
+<a id="x12-19004r1"> 
+</a> 
+<span class="cmtt-10"> listens2Music 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x12-19006r2"> 
+</a> 
+<span class="cmtt-10"> happy 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x12-19008r3"> 
+</a> 
+<span class="cmtt-10"> playsAirGuitar 
+</span> 
+</div> 
+<!--l. 697--> 
+<p class="noindent"> we should really say that it defines predicates 
+</p> 
+<div class="fancyvrb" id="fancyvrb41"> 
+<a id="x12-19010r1"> 
+</a> 
+<span class="cmtt-10"> listens2Music/1 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x12-19012r2"> 
+</a> 
+<span class="cmtt-10"> happy/1 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x12-19014r3"> 
+</a> 
+<span class="cmtt-10"> playsAirGuitar/1 
+</span> 
+</div> 
+<!--l. 704--> 
+<p class="noindent"> And Prolog can&#8217;t get confused about a knowledge base containing the two different love predicates, for it regards the 
+<span class="verb"> 
+<span class="cmtt-10"> love/2 
+</span> 
+</span> predicate and the 
+<span class="verb"> 
+<span class="cmtt-10"> love/3 
+</span> 
+</span> predicate as distinct. 
+</p> 
+<!--l. 710--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse6"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse1"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse1"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse2"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse4"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 710--> 
+<p class="indent"> 
+<a id="taillpn-htmlse2"> 
+</a> 
+</p> 

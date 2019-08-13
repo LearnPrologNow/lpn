@@ -1,0 +1,951 @@
+
+<!--l. 24--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse50"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse37"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 10.1 
+</span> 
+<a id="x65-9600010.1"> 
+</a> The Cut 
+</h3> 
+<!--l. 28--> 
+<p class="noindent"> Automatic backtracking is one of the most characteristic features of Prolog. But backtracking can lead to inefficiency. Sometimes Prolog can waste time exploring possibilities that lead nowhere. It would be pleasant to have some control over this aspect of its behaviour, but so far we have only seen two (rather crude) ways of doing this: changing rule order, and changing goal order. But there is another way. There is a built-in Prolog predicate 
+<span class="verb"> 
+<span class="cmtt-10"> ! 
+</span> 
+</span> (the exclamation mark), called cut, 
+<a id="dx65-96001"> 
+</a> which offers a more direct way of exercising control over the way Prolog looks for solutions. 
+</p> 
+<!--l. 39--> 
+<p class="indent"> What exactly is cut, and what does it do? It&#8217;s simply a special atom that we can use when writing clauses. For example, 
+</p> 
+<div class="fancyvrb" id="fancyvrb445"> 
+<a id="x65-96003r1"> 
+</a> 
+<span class="cmtt-10"> p(X):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;b(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;c(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;!, 
+</span> 
+<span class="cmtt-10"> &#x00A0;d(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;e(X). 
+</span> 
+</div> 
+<!--l. 44--> 
+<p class="noindent"> is a perfectly good Prolog rule. As for what cut does, first of all, it is a goal that 
+<span class="cmti-10"> always 
+</span> succeeds. Second, and more importantly, it has a side effect. Suppose that some goal makes use of this clause (we call this goal the parent goal). Then the cut commits Prolog to any choices that were made since the parent goal was unified with the left hand side of the rule (including, importantly, the choice of using that particular clause). Let&#8217;s look at an example to see what this means. 
+</p> 
+<!--l. 53--> 
+<p class="indent"> First consider the following piece of cut-free code: 
+</p> 
+<div class="fancyvrb" id="fancyvrb446"> 
+<a id="x65-96005r1"> 
+</a> 
+<span class="cmtt-10"> p(X):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;a(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96007r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96009r3"> 
+</a> 
+<span class="cmtt-10"> p(X):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;b(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;c(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;d(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;e(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96011r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96013r5"> 
+</a> 
+<span class="cmtt-10"> p(X):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;f(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96015r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96017r7"> 
+</a> 
+<span class="cmtt-10"> a(1). 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;b(1). 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;c(1). 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;d(2). 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;e(2). 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;f(3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96019r8"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;b(2). 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;c(2). 
+</span> 
+</div> 
+<!--l. 65--> 
+<p class="indent"> If we pose the query 
+<span class="verb"> 
+<span class="cmtt-10"> p(X) 
+</span> 
+</span> we will get the following responses: 
+</p> 
+<div class="fancyvrb" id="fancyvrb447"> 
+<a id="x65-96021r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96023r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96025r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96027r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96029r5"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96031r6"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 76--> 
+<p class="indent"> Here is the search tree that explains how Prolog finds these three solutions. Note that it has to backtrack once, namely when it enters the second clause for 
+<span class="verb"> 
+<span class="cmtt-10"> p/1 
+</span> 
+</span> and decides to unify the first goal with 
+<span class="verb"> 
+<span class="cmtt-10"> b(1) 
+</span> 
+</span> instead of 
+<span class="verb"> 
+<span class="cmtt-10"> b(2) 
+</span> 
+</span> . 
+</p> 
+<div class="center"> 
+<!--l. 81--> 
+<p class="noindent"> 
+</p> 
+<!--l. 82--> 
+<p class="noindent"> 
+<img src="html/chap10-pspic1.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 85--> 
+<p class="indent"> But now suppose we insert a cut in the second clause: 
+</p> 
+<div class="fancyvrb" id="fancyvrb448"> 
+<a id="x65-96033r1"> 
+</a> 
+<span class="cmtt-10"> p(X):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;b(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;c(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;!, 
+</span> 
+<span class="cmtt-10"> &#x00A0;d(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;e(X). 
+</span> 
+</div> 
+<!--l. 90--> 
+<p class="indent"> If we now pose the query 
+<span class="verb"> 
+<span class="cmtt-10"> p(X) 
+</span> 
+</span> we will get the following responses: 
+</p> 
+<div class="fancyvrb" id="fancyvrb449"> 
+<a id="x65-96035r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96037r2"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 97--> 
+<p class="indent"> What&#8217;s going on here? Let&#8217;s consider. 
+</p> 
+<!--l. 99--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x65-96039x1"> 
+<span class="verb"> 
+<span class="cmtt-10"> p(X) 
+</span> 
+</span> is first unified with the first rule, so we get a new goal 
+<span class="verb"> 
+<span class="cmtt-10"> a(X) 
+</span> 
+</span> . By instantiating 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> 1 
+</span> 
+</span> , Prolog unifies 
+<span class="verb"> 
+<span class="cmtt-10"> a(X) 
+</span> 
+</span> with the fact 
+<span class="verb"> 
+<span class="cmtt-10"> a(1) 
+</span> 
+</span> and we have found a solution. So far, this is exactly what happened in the first version of the program. 
+</li> 
+<li class="enumerate" id="x65-96041x2"> We then go on and look for a second solution. 
+<span class="verb"> 
+<span class="cmtt-10"> p(X) 
+</span> 
+</span> is unified with the second rule, so we get the new goals 
+<span class="verb"> 
+<span class="cmtt-10"> b(X),c(X),!,d(X),e(X) 
+</span> 
+</span> . By instantiating 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> 1 
+</span> 
+</span> , Prolog unifies 
+<span class="verb"> 
+<span class="cmtt-10"> b(X) 
+</span> 
+</span> with the fact 
+<span class="verb"> 
+<span class="cmtt-10"> b(1) 
+</span> 
+</span> , so we now have the goals 
+<span class="verb"> 
+<span class="cmtt-10"> c(1),!,d(1),e(1) 
+</span> 
+</span> . But 
+<span class="verb"> 
+<span class="cmtt-10"> c(1) 
+</span> 
+</span> is in the database so this simplifies to 
+<span class="verb"> 
+<span class="cmtt-10"> !,d(1),e(1) 
+</span> 
+</span> . 
+</li> 
+<li class="enumerate" id="x65-96043x3"> Now for the big change. The 
+<span class="verb"> 
+<span class="cmtt-10"> ! 
+</span> 
+</span> goal succeeds (as it always does) and commits us to the choices made so far. In particular, we are committed to having 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+</span> , and we are also committed to using the second rule. 
+</li> 
+<li class="enumerate" id="x65-96045x4"> But 
+<span class="verb"> 
+<span class="cmtt-10"> d(1) 
+</span> 
+</span> fails. And there&#8217;s no way we can re-satisfy the goal 
+<span class="verb"> 
+<span class="cmtt-10"> p(X) 
+</span> 
+</span> . Sure, if we were allowed to try the value 
+<span class="verb"> 
+<span class="cmtt-10"> X=2 
+</span> 
+</span> we could use the second rule to generate a solution (that&#8217;s what happened in the original version of the program). But we 
+<span class="cmti-10"> can&#8217;t 
+</span> do this: the cut has removed this possibility from the search tree. And sure, if we were allowed to try the third rule, we could generate the solution 
+<span class="verb"> 
+<span class="cmtt-10"> X=3 
+</span> 
+</span> . But we 
+<span class="cmti-10"> can&#8217;t 
+</span> do this: once again, the cut has removed this possibility from the search tree. 
+</li> 
+</ol> 
+<!--l. 128--> 
+<p class="indent"> If you look at the search tree, you&#8217;ll see that this all boils down to the following: search stops when the goal 
+<span class="verb"> 
+<span class="cmtt-10"> d(1) 
+</span> 
+</span> doesn&#8217;t lead to any node where an alternative choice is available. The crosses in the search tree indicate the branches that the cut trimmed away. 
+</p> 
+<div class="center"> 
+<!--l. 133--> 
+<p class="noindent"> 
+</p> 
+<!--l. 134--> 
+<p class="noindent"> 
+<img src="html/chap10-pspic4.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 137--> 
+<p class="indent"> One point is worth emphasising: the cut only commits us to choices made since the parent goal was unified with the left hand side of the clause containing the cut. For example, in a rule of the form 
+</p> 
+<div class="fancyvrb" id="fancyvrb450"> 
+<a id="x65-96047r1"> 
+</a> 
+<span class="cmtt-10"> q:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;p1,...,pn, 
+</span> 
+<span class="cmtt-10"> &#x00A0;!, 
+</span> 
+<span class="cmtt-10"> &#x00A0;r1,...,rm 
+</span> 
+</div> 
+<!--l. 143--> 
+<p class="noindent"> when we reach the cut it commits us to using this particular clause for 
+<span class="verb"> 
+<span class="cmtt-10"> q 
+</span> 
+</span> and it commits us to the choices made when evaluating 
+<span class="verb"> 
+<span class="cmtt-10"> p1,...,pn 
+</span> 
+</span> . However, we 
+<span class="cmti-10"> are 
+</span> free to backtrack among the 
+<span class="verb"> 
+<span class="cmtt-10"> r1,...,rm 
+</span> 
+</span> and we are also free to backtrack among alternatives for choices that were made before reaching the goal 
+<span class="verb"> 
+<span class="cmtt-10"> q 
+</span> 
+</span> . A concrete example will make this clear. 
+</p> 
+<!--l. 150--> 
+<p class="indent"> First consider the following cut-free program: 
+</p> 
+<div class="fancyvrb" id="fancyvrb451"> 
+<a id="x65-96049r1"> 
+</a> 
+<span class="cmtt-10"> s(X,Y):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;q(X,Y). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96051r2"> 
+</a> 
+<span class="cmtt-10"> s(0,0). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96053r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96055r4"> 
+</a> 
+<span class="cmtt-10"> q(X,Y):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;i(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;j(Y). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96057r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96059r6"> 
+</a> 
+<span class="cmtt-10"> i(1). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96061r7"> 
+</a> 
+<span class="cmtt-10"> i(2). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96063r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96065r9"> 
+</a> 
+<span class="cmtt-10"> j(1). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96067r10"> 
+</a> 
+<span class="cmtt-10"> j(2). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96069r11"> 
+</a> 
+<span class="cmtt-10"> j(3). 
+</span> 
+</div> 
+<!--l. 165--> 
+<p class="indent"> Here&#8217;s how it behaves: 
+</p> 
+<div class="fancyvrb" id="fancyvrb452"> 
+<a id="x65-96071r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;s(X,Y). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96073r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96075r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96077r4"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96079r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96081r6"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96083r7"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96085r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96087r9"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96089r10"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96091r11"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96093r12"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96095r13"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96097r14"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96099r15"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96101r16"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96103r17"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96105r18"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96107r19"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96109r20"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96111r21"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;0 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96113r22"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;0; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96115r23"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 193--> 
+<p class="indent"> And this is the corresponding search tree: 
+</p> 
+<div class="center"> 
+<!--l. 196--> 
+<p class="noindent"> 
+</p> 
+<!--l. 197--> 
+<p class="noindent"> 
+<img src="html/chap10-pspic5.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 204--> 
+<p class="indent"> Suppose we add a cut to the clause defining 
+<span class="verb"> 
+<span class="cmtt-10"> q/2 
+</span> 
+</span> : 
+</p> 
+<div class="fancyvrb" id="fancyvrb453"> 
+<a id="x65-96117r1"> 
+</a> 
+<span class="cmtt-10"> q(X,Y):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;i(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;!, 
+</span> 
+<span class="cmtt-10"> &#x00A0;j(Y). 
+</span> 
+</div> 
+<!--l. 209--> 
+<p class="indent"> Now the program behaves as follows: 
+</p> 
+<div class="fancyvrb" id="fancyvrb454"> 
+<a id="x65-96119r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;s(X,Y). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96121r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96123r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96125r4"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96127r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96129r6"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96131r7"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96133r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96135r9"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96137r10"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96139r11"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x65-96141r12"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;0 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96143r13"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;0; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x65-96145r14"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 227--> 
+<p class="indent"> Let&#8217;s see why. 
+</p> 
+<!--l. 229--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x65-96147x1"> 
+<span class="verb"> 
+<span class="cmtt-10"> s(X,Y) 
+</span> 
+</span> is first unified with the first rule, which gives us a new goal 
+<span class="verb"> 
+<span class="cmtt-10"> q(X,Y) 
+</span> 
+</span> . 
+</li> 
+<li class="enumerate" id="x65-96149x2"> 
+<span class="verb"> 
+<span class="cmtt-10"> q(X,Y) 
+</span> 
+</span> is then unified with the third rule, so we get the new goals 
+<span class="verb"> 
+<span class="cmtt-10"> i(X),!,j(Y) 
+</span> 
+</span> . By instantiating 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> 1 
+</span> 
+</span> , Prolog unifies 
+<span class="verb"> 
+<span class="cmtt-10"> i(X) 
+</span> 
+</span> with the fact 
+<span class="verb"> 
+<span class="cmtt-10"> i(1) 
+</span> 
+</span> . This leaves us with the goal 
+<span class="verb"> 
+<span class="cmtt-10"> !,j(Y) 
+</span> 
+</span> . The cut, of course, succeeds, and commits us to the choices made so far. 
+</li> 
+<li class="enumerate" id="x65-96151x3"> But what are these choices? These: that 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+</span> , and that we are using this clause. But note: we have 
+<span class="cmti-10"> not 
+</span> yet chosen a value for 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> . 
+</li> 
+<li class="enumerate" id="x65-96153x4"> Prolog then goes on, and by instantiating 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> 1 
+</span> 
+</span> , Prolog unifies 
+<span class="verb"> 
+<span class="cmtt-10"> j(Y) 
+</span> 
+</span> with the fact 
+<span class="verb"> 
+<span class="cmtt-10"> j(1) 
+</span> 
+</span> . So we have found a solution. 
+</li> 
+<li class="enumerate" id="x65-96155x5"> But we can find more. Prolog 
+<span class="cmti-10"> is 
+</span> free to try another value for 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> . So it backtracks and sets 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+</span> , thus finding a second solution. And in fact it can find another solution: on backtracking again, it sets 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> 3 
+</span> 
+</span> , thus finding a third solution. 
+</li> 
+<li class="enumerate" id="x65-96157x6"> But those are all alternatives for 
+<span class="verb"> 
+<span class="cmtt-10"> j(X) 
+</span> 
+</span> . Backtracking to the left of the cut is not allowed, so it 
+<span class="cmti-10"> can&#8217;t 
+</span> reset 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+</span> , so it won&#8217;t find the next three solutions that the cut-free program found. Backtracking over goals that were reached before 
+<span class="verb"> 
+<span class="cmtt-10"> q(X,Y) 
+</span> 
+</span> is allowed however, so that Prolog will find the second clause for 
+<span class="verb"> 
+<span class="cmtt-10"> s/2 
+</span> 
+</span> . 
+</li> 
+</ol> 
+<!--l. 262--> 
+<p class="indent"> Here&#8217;s the corresponding search tree: 
+</p> 
+<div class="center"> 
+<!--l. 264--> 
+<p class="noindent"> 
+</p> 
+<!--l. 265--> 
+<p class="noindent"> 
+<img src="html/chap10-pspic6.ps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 268--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse50"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse43"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 268--> 
+<p class="indent"> 
+<a id="taillpn-htmlse43"> 
+</a> 
+</p> 

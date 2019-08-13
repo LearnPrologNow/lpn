@@ -1,0 +1,1063 @@
+
+<!--l. 129--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse45"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse37"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse37"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=#taillpn-htmlse38"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch10"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 9.2 
+</span> 
+<a id="x59-830009.2"> 
+</a> Terms with a Special Notation 
+</h3> 
+<!--l. 133--> 
+<p class="noindent"> Sometimes terms look different to us, but Prolog regards them as identical. For example, when we compare 
+<span class="verb"> 
+<span class="cmtt-10"> a 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> &#8217;a&#8217; 
+</span> 
+</span> , we see two distinct strings of symbols, but Prolog treats them as the same. And in fact there are many other cases where Prolog regards two strings as being exactly the same term. Why? Because it makes programming more pleasant. Sometimes the notation Prolog likes isn&#8217;t as user-friendly as the notation we would choose. So it is nice to be able to write programs in the notation we find natural, and to let Prolog run them in the notation it prefers. 
+</p> 
+<!--l. 143--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x59-840009.2"> 
+</a> Arithmetic terms 
+</h4> 
+<!--l. 147--> 
+<p class="noindent"> The arithmetic predicates introduced earlier are a good example of this. As was mentioned in Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch5"> 5 
+<!--tex4ht:ref: CHAPTER5 --> 
+</a> , 
+<span class="verb"> 
+<span class="cmtt-10"> + 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> - 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> * 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> / 
+</span> 
+</span> are 
+<span class="cmti-10"> functors 
+</span> , and arithmetic expressions such as 
+<span class="verb"> 
+<span class="cmtt-10"> &#x00A0;2+3 
+</span> 
+</span> are 
+<span class="cmti-10"> terms 
+</span> . And this is not an analogy. Apart from the fact that it can evaluate them with the help of the 
+<span class="verb"> 
+<span class="cmtt-10"> is/2 
+</span> 
+</span> predicate, Prolog views strings of symbols such as 
+<span class="verb"> 
+<span class="cmtt-10"> 2+3 
+</span> 
+</span> as being identical with ordinary complex terms. The following queries make this clear: 
+</p> 
+<div class="fancyvrb" id="fancyvrb390"> 
+<a id="x59-84002r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;2+3 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;+(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84004r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84006r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84008r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;+(2,3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;2+3. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84010r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84012r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84014r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;2-3 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;-(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84016r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84018r9"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84020r10"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;*(2,3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;2*3. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84022r11"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84024r12"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84026r13"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;2*(7+2) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;*(2,+(7,2)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84028r14"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 170--> 
+<p class="noindent"> In short, the familiar arithmetic notation is there for 
+<span class="cmti-10"> our 
+</span> convenience. Prolog doesn&#8217;t regard it as different from the usual term notation. 
+</p> 
+<!--l. 174--> 
+<p class="indent"> Similar remarks to the arithmetic comparison predicates 
+<span class="verb"> 
+<span class="cmtt-10"> &#x003C; 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> =&#x003C; 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> =:= 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> =\= 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> &#x003E; 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> &#x003E;= 
+</span> 
+</span> : 
+</p> 
+<div class="fancyvrb" id="fancyvrb391"> 
+<a id="x59-84030r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;(2 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003C; 
+</span> 
+<span class="cmtt-10"> &#x00A0;3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003C;(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84032r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84034r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84036r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;(2 
+</span> 
+<span class="cmtt-10"> &#x00A0;=&#x003C; 
+</span> 
+<span class="cmtt-10"> &#x00A0;3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;=&#x003C;(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84038r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84040r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84042r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;(2 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:=(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84044r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84046r9"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84048r10"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;(2 
+</span> 
+<span class="cmtt-10"> &#x00A0;=\= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;=\=(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84050r11"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84052r12"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84054r13"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;(2 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003E;(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84056r14"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84058r15"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-84060r16"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;(2 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003E;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#x003E;=(2,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-84062r17"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 195--> 
+<p class="indent"> These example show why it&#8217;s nice to have the user-friendly notation (would you want to have to work with expressions like 
+<span class="verb"> 
+<span class="cmtt-10"> =:=(2,3) 
+</span> 
+</span> ?). Note, by the way, that we enclosed the left hand arguments in brackets. For example, we didn&#8217;t ask 
+</p> 
+<div class="fancyvrb" id="fancyvrb392"> 
+<a id="x59-84064r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:=(2,3). 
+</span> 
+</div> 
+<!--l. 202--> 
+<p class="noindent"> we asked 
+</p> 
+<div class="fancyvrb" id="fancyvrb393"> 
+<a id="x59-84066r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;(2 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:=(2,3). 
+</span> 
+</div> 
+<!--l. 206--> 
+<p class="noindent"> Why? Well, Prolog finds the query 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:=(2,3) 
+</span> 
+</span> confusing, and let&#8217;s face it, can you blame it? It&#8217;s not sure whether to bracket this expression as 
+<span class="verb"> 
+<span class="cmtt-10"> (2 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:= 
+</span> 
+<span class="cmtt-10"> &#x00A0;3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:=(2,3) 
+</span> 
+</span> (which is what we want), or as 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:= 
+</span> 
+<span class="cmtt-10"> &#x00A0;(3 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;=:=(2,3)) 
+</span> 
+</span> . So we need to state the grouping explicitly. 
+</p> 
+<!--l. 212--> 
+<p class="indent"> One final remark. We have now introduced three rather similar looking symbols, namely 
+<span class="verb"> 
+<span class="cmtt-10"> = 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> == 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> =:= 
+</span> 
+</span> (and indeed, there are also 
+<span class="verb"> 
+<span class="cmtt-10"> \= 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> \== 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> =\= 
+</span> 
+</span> ). Here&#8217;s a summary: 
+</p> 
+<div class="center"> 
+<!--l. 216--> 
+<p class="noindent"> 
+</p> 
+<div class="tabular"> 
+<table id="TBL-9" class="tabular" cellspacing="0" cellpadding="0"> 
+<colgroup id="TBL-9-1g"> 
+<col id="TBL-9-1" /> 
+<col id="TBL-9-2" /> 
+</colgroup> 
+<tr style="vertical-align:baseline;" id="TBL-9-1-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-1-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> = 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-1-2" class="td11"> The unification predicate. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-2-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-2-1" class="td11"> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-2-2" class="td11"> Succeeds if it can unify its arguments, fails otherwise. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-3-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-3-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> \= 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-3-2" class="td11"> The negation of the unification predicate. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-4-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-4-1" class="td11"> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-4-2" class="td11"> Succeeds if 
+<span class="verb"> 
+<span class="cmtt-10"> = 
+</span> 
+</span> fails, and vice-versa. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-5-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-5-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> == 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-5-2" class="td11"> The identity predicate. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-6-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-6-1" class="td11"> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-6-2" class="td11"> Succeeds if its arguments are identical, fails otherwise. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-7-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-7-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> \== 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-7-2" class="td11"> The negation of the identity predicate. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-8-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-8-1" class="td11"> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-8-2" class="td11"> Succeeds if 
+<span class="verb"> 
+<span class="cmtt-10"> == 
+</span> 
+</span> fails, and vice-versa. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-9-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-9-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> =:= 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-9-2" class="td11"> The arithmetic equality predicate. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-10-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-10-1" class="td11"> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-10-2" class="td11"> Succeeds if its arguments evaluate to the same integer. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-11-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-11-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> =\= 
+</span> 
+</span> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-11-2" class="td11"> The arithmetic inequality predicate. 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-9-12-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-12-1" class="td11"> 
+</td> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-9-12-2" class="td11"> Succeeds if its arguments evaluate to different integers. 
+</td> 
+</tr> 
+</table> 
+</div> 
+</div> 
+<!--l. 236--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x59-850009.2"> 
+</a> Lists as terms 
+</h4> 
+<!--l. 240--> 
+<p class="noindent"> Lists are another good example of Prolog working with one internal representation, while giving us another, more user-friendly, notation to work with. Let&#8217;s start with a quick look at the user-friendly list notation it provides (that is, the square brackets 
+<span class="verb"> 
+<span class="cmtt-10"> [ 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> ] 
+</span> 
+</span> ). In fact, because Prolog also offers the 
+<span class="verb"> 
+<span class="cmtt-10"> | 
+</span> 
+</span> constructor, there are many ways of writing the same list, even at the user-friendly level: 
+</p> 
+<!--l. 247--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb394"> 
+<a id="x59-85002r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b,c,d] 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a|[b,c,d]]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85004r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85006r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85008r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b,c,d] 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b|[c,d]]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85010r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85012r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85014r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b,c,d] 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b,c|[d]]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85016r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85018r9"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85020r10"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b,c,d] 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b,c,d|[]]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85022r11"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 263--> 
+<p class="indent"> But how does Prolog view lists internally? In fact, it sees lists as terms which are built out of two special terms, namely 
+<span class="verb"> 
+<span class="cmtt-10"> [] 
+</span> 
+</span> , which represents the empty list, and &#8220; 
+<span class="verb"> 
+<span class="cmtt-10"> . 
+</span> 
+</span> &#8221; (the full-stop), a functor of 
+<a id="dx59-85023"> 
+</a> arity 2 which is used to build non-empty lists. The terms 
+<span class="verb"> 
+<span class="cmtt-10"> [] 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> . 
+</span> 
+</span> are called list constructors. 
+</p> 
+<!--l. 270--> 
+<p class="indent"> This is how these constructors are used to build lists. Needless to say, the definition is recursive: 
+</p> 
+<ul class="itemize1"> 
+<li class="itemize"> The empty list is the term [ 
+<span class="cmmi-10"> &#x00A0; 
+</span> ]. It has length 0. 
+</li> 
+<li class="itemize"> A non-empty list is any term of the form 
+<span class="cmmi-10"> . 
+</span> ( 
+<span class="cmti-10"> term 
+</span> 
+<span class="cmmi-10"> , 
+</span> 
+<span class="cmti-10"> list 
+</span> ), where 
+<span class="cmti-10"> term 
+</span> is any Prolog term, and 
+<span class="cmti-10"> list 
+</span> is any list. If 
+<span class="cmti-10"> list 
+</span> has length 
+<span class="cmmi-10"> n 
+</span> , then 
+<span class="cmmi-10"> . 
+</span> ( 
+<span class="cmti-10"> term 
+</span> 
+<span class="cmmi-10"> , 
+</span> 
+<span class="cmti-10"> list 
+</span> ) has length 
+<span class="cmmi-10"> n 
+</span> + 1. 
+</li> 
+</ul> 
+<!--l. 282--> 
+<p class="indent"> Let&#8217;s make sure we fully understand this definition by working our way through a few examples. 
+</p> 
+<!--l. 286--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb395"> 
+<a id="x59-85025r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(a,[]) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85027r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85029r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85031r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(f(d,e),[]) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[f(d,e)]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85033r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85035r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85037r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(a,.(b,[])) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85039r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85041r9"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85043r10"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(a,.(b,.(f(d,e),[]))) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b,f(d,e)]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85045r11"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85047r12"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85049r13"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(.(a,[]),[]) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[a]]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85051r14"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85053r15"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85055r16"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(.(.(a,[]),[]),[]) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[[a]]]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85057r17"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85059r18"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85061r19"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(.(a,.(b,[])),[]) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[a,b]]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85063r20"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85065r21"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85067r22"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(.(a,.(b,[])),.(c,[])) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[a,b],c]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85069r23"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85071r24"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85073r25"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(.(a,[]),.(b,.(c,[]))) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[a],b,c]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85075r26"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85077r27"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85079r28"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(.(a,[]),.(.(b,.(c,[])),[])) 
+</span> 
+<span class="cmtt-10"> &#x00A0;== 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[a],[b,c]]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85081r29"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 319--> 
+<p class="indent"> Prolog&#8217;s internal notation for lists is not as user-friendly as the use of the square bracket notation. But it&#8217;s not as bad as it seems at first sight. In fact, it works similarly to the 
+<span class="verb"> 
+<span class="cmtt-10"> | 
+</span> 
+</span> notation. It represents a list in two parts: its first element (the head), and a list representing the rest of the list (the tail). The trick is to read these terms as 
+<span class="cmti-10"> trees 
+</span> . The internal nodes of this tree are labeled with 
+<span class="verb"> 
+<span class="cmtt-10"> . 
+</span> 
+</span> and all have two daughter nodes. The subtree under the left daughter represents the first element of the list and the subtree under the right daughter represents the rest of the list. For example, the tree representation of 
+<span class="verb"> 
+<span class="cmtt-10"> .(a,.(.(b,.(c,[])),.(d,[]))) 
+</span> 
+</span> , that is, 
+<span class="verb"> 
+<span class="cmtt-10"> [a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;[b,c], 
+</span> 
+<span class="cmtt-10"> &#x00A0;d] 
+</span> 
+</span> , looks like this: 
+</p> 
+<div class="center"> 
+<!--l. 332--> 
+<p class="noindent"> 
+</p> 
+<!--l. 333--> 
+<p class="noindent"> 
+<img src="html/listtree.eps.png" alt="*Pic not found*" /> 
+</p> 
+</div> 
+<!--l. 337--> 
+<p class="indent"> One final remark. Prolog is very polite. Not only are you free to talk to it in the user-friendly notation, it will reply in the same way: 
+</p> 
+<div class="fancyvrb" id="fancyvrb396"> 
+<a id="x59-85083r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(f(d,e),[]) 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;Y. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85085r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85087r3"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[f(d,e)] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85089r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85091r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85093r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85095r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(a,.(b,[])) 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;X, 
+</span> 
+<span class="cmtt-10"> &#x00A0;Z= 
+</span> 
+<span class="cmtt-10"> &#x00A0;.(.(c,[]),[]), 
+</span> 
+<span class="cmtt-10"> &#x00A0;W 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[1,2,X]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85097r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x59-85099r9"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a,b] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85101r10"> 
+</a> 
+<span class="cmtt-10"> Z 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[c]] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85103r11"> 
+</a> 
+<span class="cmtt-10"> W 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[1,2,[a,b]] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x59-85105r12"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 355--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse45"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse37"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse37"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse38"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch10"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 355--> 
+<p class="indent"> 
+<a id="taillpn-htmlse38"> 
+</a> 
+</p> 

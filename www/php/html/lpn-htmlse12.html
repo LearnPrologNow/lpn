@@ -1,0 +1,486 @@
+
+<!--l. 917--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse11"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse11"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse8"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch4"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 3.4 
+</span> 
+<a id="x25-380003.4"> 
+</a> Practical Session 
+</h3> 
+<!--l. 921--> 
+<p class="noindent"> By now, you should feel more at home with writing and running basic Prolog programs. In this practical session we first suggest two series of keyboard exercises which will help you get familiar with recursive definitions in Prolog, and then give you some programming problems to solve. 
+</p> 
+<!--l. 927--> 
+<p class="indent"> First the keyboard exercises. As recursive programming is so fundamental to Prolog, it is important that you have a firm grasp of what it involves. In particular, it is important that you understand the process of variable instantiation when recursive definitions are used, and that you understand why the order of goals in rules can make the difference between termination and non-termination. So: 
+</p> 
+<!--l. 934--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x25-38002x1"> Load 
+<span class="verb"> 
+<span class="cmtt-10"> descend1.pl 
+</span> 
+</span> , turn on 
+<span class="verb"> 
+<span class="cmtt-10"> trace 
+</span> 
+</span> , and pose the query 
+<span class="verb"> 
+<span class="cmtt-10"> descend(anne,emily) 
+</span> 
+</span> . Count how many steps it takes Prolog to work out the answer (that is, how many times do you have to hit the return key). Now turn 
+<span class="verb"> 
+<span class="cmtt-10"> trace 
+</span> 
+</span> off and pose the query 
+<span class="verb"> 
+<span class="cmtt-10"> descend(X,Y) 
+</span> 
+</span> . How many answers are there? 
+</li> 
+<li class="enumerate" id="x25-38004x2"> Load 
+<span class="verb"> 
+<span class="cmtt-10"> descend2.pl 
+</span> 
+</span> . This is the variant of 
+<span class="verb"> 
+<span class="cmtt-10"> descend1.pl 
+</span> 
+</span> with the rule order reversed. Repeat the traces you have carried out for 
+<span class="verb"> 
+<span class="cmtt-10"> descend1.pl 
+</span> 
+</span> , and compare the results. 
+</li> 
+<li class="enumerate" id="x25-38006x3"> Load 
+<span class="verb"> 
+<span class="cmtt-10"> descend3.pl 
+</span> 
+</span> . This is the variant of 
+<span class="verb"> 
+<span class="cmtt-10"> descend2.pl 
+</span> 
+</span> in which the goal order within the recursive rule is switched, resulting in a left recursive rule. Because of this, even for such simple queries as 
+<span class="verb"> 
+<span class="cmtt-10"> descend(anne,bridget) 
+</span> 
+</span> , Prolog will not terminate. Step through an example, using 
+<span class="verb"> 
+<span class="cmtt-10"> trace 
+</span> 
+</span> , to confirm this. 
+</li> 
+<li class="enumerate" id="x25-38008x4"> Load 
+<span class="verb"> 
+<span class="cmtt-10"> descend4.pl 
+</span> 
+</span> . This is the variant of 
+<span class="verb"> 
+<span class="cmtt-10"> descend3.pl 
+</span> 
+</span> obtained by switching the rule order. So 
+<span class="verb"> 
+<span class="cmtt-10"> descend4.pl 
+</span> 
+</span> also contains a left recursive rule, and does not terminate on all input. But it does terminate on some input where 
+<span class="verb"> 
+<span class="cmtt-10"> descend3.pl 
+</span> 
+</span> does not. Which extra solutions does it find? 
+</li> 
+</ol> 
+<!--l. 961--> 
+<p class="indent"> As we said in the text, goal ordering, not rule ordering is what is truly procedurally significant. But with non-terminating programs, rule ordering changes can have unexpected effects. Recall the successor program discussed in the text (let&#8217;s call it 
+<span class="verb"> 
+<span class="cmtt-10"> numeral1.pl 
+</span> 
+</span> ): 
+</p> 
+<div class="fancyvrb" id="fancyvrb165"> 
+<a id="x25-38010r1"> 
+</a> 
+<span class="cmtt-10"> numeral(0). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38012r2"> 
+</a> 
+<span class="cmtt-10"> numeral(succ(X)) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;numeral(X). 
+</span> 
+</div> 
+<!--l. 969--> 
+<p class="noindent"> Let&#8217;s swap the order of the two clauses, and call the result 
+<span class="verb"> 
+<span class="cmtt-10"> numeral2.pl 
+</span> 
+</span> : 
+</p> 
+<div class="fancyvrb" id="fancyvrb166"> 
+<a id="x25-38014r1"> 
+</a> 
+<span class="cmtt-10"> numeral(succ(X)) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;numeral(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38016r2"> 
+</a> 
+<span class="cmtt-10"> numeral(0). 
+</span> 
+</div> 
+<!--l. 975--> 
+<p class="noindent"> Clearly the declarative, or logical, content of this program is exactly the same as the earlier version. But what are the procedural differences, if any? 
+</p> 
+<!--l. 979--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x25-38018x1"> Create a file containing 
+<span class="verb"> 
+<span class="cmtt-10"> numeral2.pl 
+</span> 
+</span> , load it, and investigate what happens if we pose queries about 
+<span class="cmti-10"> specific 
+</span> numerals. For example, suppose we ask: 
+<div class="fancyvrb" id="fancyvrb167"> 
+<a id="x25-38020r1"> 
+</a> 
+<span class="cmtt-10"> numeral(succ(succ(succ(0)))). 
+</span> 
+</div> 
+<!--l. 988--> 
+<p class="noindent"> Do 
+<span class="verb"> 
+<span class="cmtt-10"> numeral1.pl 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> numeral2.pl 
+</span> 
+</span> behave in the same way on such input? 
+</p> 
+</li> 
+<li class="enumerate" id="x25-38022x2"> Second, look at what happens if we try to 
+<span class="cmti-10"> generate 
+</span> numerals, that is, suppose we pose the query 
+<div class="fancyvrb" id="fancyvrb168"> 
+<a id="x25-38024r1"> 
+</a> 
+<span class="cmtt-10"> numeral(X). 
+</span> 
+</div> 
+<!--l. 997--> 
+<p class="noindent"> Do the programs display identical behaviour? 
+</p> 
+</li> 
+</ol> 
+<!--l. 1000--> 
+<p class="indent"> Here are some programs for you to try your hand at. 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x25-38026x1"> Imagine that the following knowledge base describes a maze. The facts determine which points are connected, that is, from which points you can get to which other points in one step. Furthermore, imagine that all paths are one-way streets, so that you can only walk them in one direction. So, you can get from point 1 to point 2, but not the other way round. 
+<div class="fancyvrb" id="fancyvrb169"> 
+<a id="x25-38028r1"> 
+</a> 
+<span class="cmtt-10"> connected(1,2). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38030r2"> 
+</a> 
+<span class="cmtt-10"> connected(3,4). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38032r3"> 
+</a> 
+<span class="cmtt-10"> connected(5,6). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38034r4"> 
+</a> 
+<span class="cmtt-10"> connected(7,8). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38036r5"> 
+</a> 
+<span class="cmtt-10"> connected(9,10). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38038r6"> 
+</a> 
+<span class="cmtt-10"> connected(12,13). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38040r7"> 
+</a> 
+<span class="cmtt-10"> connected(13,14). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38042r8"> 
+</a> 
+<span class="cmtt-10"> connected(15,16). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38044r9"> 
+</a> 
+<span class="cmtt-10"> connected(17,18). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38046r10"> 
+</a> 
+<span class="cmtt-10"> connected(19,20). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38048r11"> 
+</a> 
+<span class="cmtt-10"> connected(4,1). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38050r12"> 
+</a> 
+<span class="cmtt-10"> connected(6,3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38052r13"> 
+</a> 
+<span class="cmtt-10"> connected(4,7). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38054r14"> 
+</a> 
+<span class="cmtt-10"> connected(6,11). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38056r15"> 
+</a> 
+<span class="cmtt-10"> connected(14,9). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38058r16"> 
+</a> 
+<span class="cmtt-10"> connected(11,15). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38060r17"> 
+</a> 
+<span class="cmtt-10"> connected(16,12). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38062r18"> 
+</a> 
+<span class="cmtt-10"> connected(14,17). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38064r19"> 
+</a> 
+<span class="cmtt-10"> connected(16,19). 
+</span> 
+</div> 
+<!--l. 1030--> 
+<p class="noindent"> Write a predicate 
+<span class="verb"> 
+<span class="cmtt-10"> path/2 
+</span> 
+</span> that tells you from which points in the maze you can get to which other points when chaining together connections given in the above knowledge base. Can you get from point 5 to point 10? Which other point can you get to when starting at point 1? And which points can be reached from point 13? 
+</p> 
+</li> 
+<li class="enumerate" id="x25-38066x2"> We are given the following knowledge base of travel information: 
+<div class="fancyvrb" id="fancyvrb170"> 
+<a id="x25-38068r1"> 
+</a> 
+<span class="cmtt-10"> byCar(auckland,hamilton). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38070r2"> 
+</a> 
+<span class="cmtt-10"> byCar(hamilton,raglan). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38072r3"> 
+</a> 
+<span class="cmtt-10"> byCar(valmont,saarbruecken). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38074r4"> 
+</a> 
+<span class="cmtt-10"> byCar(valmont,metz). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38076r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x25-38078r6"> 
+</a> 
+<span class="cmtt-10"> byTrain(metz,frankfurt). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38080r7"> 
+</a> 
+<span class="cmtt-10"> byTrain(saarbruecken,frankfurt). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38082r8"> 
+</a> 
+<span class="cmtt-10"> byTrain(metz,paris). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38084r9"> 
+</a> 
+<span class="cmtt-10"> byTrain(saarbruecken,paris). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38086r10"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x25-38088r11"> 
+</a> 
+<span class="cmtt-10"> byPlane(frankfurt,bangkok). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38090r12"> 
+</a> 
+<span class="cmtt-10"> byPlane(frankfurt,singapore). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38092r13"> 
+</a> 
+<span class="cmtt-10"> byPlane(paris,losAngeles). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38094r14"> 
+</a> 
+<span class="cmtt-10"> byPlane(bangkok,auckland). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38096r15"> 
+</a> 
+<span class="cmtt-10"> byPlane(singapore,auckland). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38098r16"> 
+</a> 
+<span class="cmtt-10"> byPlane(losAngeles,auckland). 
+</span> 
+</div> 
+<!--l. 1055--> 
+<p class="noindent"> Write a predicate 
+<span class="verb"> 
+<span class="cmtt-10"> travel/2 
+</span> 
+</span> which determines whether it is possible to travel from one place to another by chaining together car, train, and plane journeys. For example, your program should answer yes to the query 
+<span class="verb"> 
+<span class="cmtt-10"> travel(valmont,raglan) 
+</span> 
+</span> . 
+</p> 
+</li> 
+<li class="enumerate" id="x25-38100x3"> So, by using 
+<span class="verb"> 
+<span class="cmtt-10"> travel/2 
+</span> 
+</span> to query the above database, you can find out that it is possible to go from Valmont to Raglan. If you are planning such a voyage, that&#8217;s already something useful to know, but you would probably prefer to have the precise route from Valmont to Raglan. Write a predicate 
+<span class="verb"> 
+<span class="cmtt-10"> travel/3 
+</span> 
+</span> which tells you which route to take when travelling from one place to another. For example, the program should respond 
+<div class="fancyvrb" id="fancyvrb171"> 
+<a id="x25-38102r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;go(valmont,metz, 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38104r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;go(metz,paris, 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x25-38106r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;go(paris,losAngeles))) 
+</span> 
+</div> 
+<!--l. 1072--> 
+<p class="noindent"> to the query 
+<span class="verb"> 
+<span class="cmtt-10"> travel(valmont,losAngeles,X) 
+</span> 
+</span> . 
+</p> 
+</li> 
+<li class="enumerate" id="x25-38108x4"> Extend the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> travel/3 
+</span> 
+</span> so that it not only tells you the route to take to get from one place to another, but also 
+<span class="cmti-10"> how 
+</span> you have to travel. That is, the new program should let us know, for each stage of the voyage, whether we need to travel by car, train, or plane. 
+</li> 
+</ol> 
+<!--l. 3--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse11"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse11"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse12"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch4"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 3--> 
+<p class="indent"> 
+<a id="taillpn-htmlse12"> 
+</a> 
+</p> 

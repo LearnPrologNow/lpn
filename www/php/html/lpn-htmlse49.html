@@ -1,0 +1,1354 @@
+
+<!--l. 286--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse56"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse43"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse53"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 11.2 
+</span> 
+<a id="x72-10300011.2"> 
+</a> Collecting Solutions 
+</h3> 
+<!--l. 288--> 
+<p class="noindent"> There may be many solutions to a query. For example, suppose we are working with the database 
+</p> 
+<div class="fancyvrb" id="fancyvrb514"> 
+<a id="x72-103002r1"> 
+</a> 
+<span class="cmtt-10"> child(martha,charlotte). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-103004r2"> 
+</a> 
+<span class="cmtt-10"> child(charlotte,caroline). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-103006r3"> 
+</a> 
+<span class="cmtt-10"> child(caroline,laura). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-103008r4"> 
+</a> 
+<span class="cmtt-10"> child(laura,rose). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-103010r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-103012r6"> 
+</a> 
+<span class="cmtt-10"> descend(X,Y) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;child(X,Y). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-103014r7"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-103016r8"> 
+</a> 
+<span class="cmtt-10"> descend(X,Y) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;child(X,Z), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-103018r9"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;descend(Z,Y). 
+</span> 
+</div> 
+<!--l. 301--> 
+<p class="noindent"> Then if we pose the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb515"> 
+<a id="x72-103020r1"> 
+</a> 
+<span class="cmtt-10"> descend(martha,X). 
+</span> 
+</div> 
+<!--l. 305--> 
+<p class="noindent"> there are four solutions (namely 
+<span class="verb"> 
+<span class="cmtt-10"> X=charlotte 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> X=caroline 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> X=laura 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> X=rose 
+</span> 
+</span> ). 
+</p> 
+<!--l. 308--> 
+<p class="indent"> However Prolog generates these solutions one by one. Sometimes we would like to have 
+<span class="cmti-10"> all 
+</span> the solutions to a query, and we would like them handed to us in a neat, usable, form. Prolog has three built-in predicates that do this: findall, bagof and setof. In essence, all these predicates collect all the solutions to a query and put them in a single list &#8212; but there are important differences between them, as we shall see. 
+</p> 
+<!--l. 318--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x72-10400011.2"> 
+</a> The 
+<span class="cmtt-10"> findall/3 
+</span> predicate 
+</h4> 
+<!--l. 321--> 
+<p class="noindent"> The query 
+<a id="dx72-104001"> 
+</a> 
+</p> 
+<div class="fancyvrb" id="fancyvrb516"> 
+<a id="x72-104003r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(Object,Goal,List). 
+</span> 
+</div> 
+<!--l. 325--> 
+<p class="noindent"> produces a list 
+<span class="verb"> 
+<span class="cmtt-10"> List 
+</span> 
+</span> of all the objects 
+<span class="verb"> 
+<span class="cmtt-10"> Object 
+</span> 
+</span> that satisfy the goal 
+<span class="verb"> 
+<span class="cmtt-10"> Goal 
+</span> 
+</span> . Often 
+<span class="verb"> 
+<span class="cmtt-10"> Object 
+</span> 
+</span> is simply a variable, in which case the query can be read as: 
+<span class="cmti-10"> Give me a list containing 
+</span> 
+<span class="cmti-10"> all the instantiations of 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> Object 
+</span> 
+</span> 
+<span class="cmti-10"> which satisfy 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> Goal 
+</span> 
+</span> . 
+</p> 
+<!--l. 331--> 
+<p class="indent"> Here&#8217;s an example. Suppose we&#8217;re working with the above database (that is, with the information about 
+<span class="verb"> 
+<span class="cmtt-10"> child 
+</span> 
+</span> and the definition of 
+<span class="verb"> 
+<span class="cmtt-10"> descend 
+</span> 
+</span> ). Then if we pose the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb517"> 
+<a id="x72-104005r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(X,descend(martha,X),Z). 
+</span> 
+</div> 
+<!--l. 337--> 
+<p class="noindent"> we are asking for a list 
+<span class="verb"> 
+<span class="cmtt-10"> Z 
+</span> 
+</span> containing all the values of 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> that satisfy 
+<span class="verb"> 
+<span class="cmtt-10"> descend(martha,X) 
+</span> 
+</span> . Prolog will respond 
+</p> 
+<div class="fancyvrb" id="fancyvrb518"> 
+<a id="x72-104007r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_7489 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-104009r2"> 
+</a> 
+<span class="cmtt-10"> Z 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[charlotte,caroline,laura,rose] 
+</span> 
+</div> 
+<!--l. 345--> 
+<p class="indent"> But 
+<span class="verb"> 
+<span class="cmtt-10"> Object 
+</span> 
+</span> doesn&#8217;t have to be a variable, it may be a complex term that just contains a variable that also occurs in 
+<span class="verb"> 
+<span class="cmtt-10"> Goal 
+</span> 
+</span> . For example, we might decide that we want to build a new predicate 
+<span class="verb"> 
+<span class="cmtt-10"> fromMartha/1 
+</span> 
+</span> that is true only of descendants of Martha. We could do this with the query: 
+</p> 
+<div class="fancyvrb" id="fancyvrb519"> 
+<a id="x72-104011r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(fromMartha(X),descend(martha,X),Z). 
+</span> 
+</div> 
+<!--l. 353--> 
+<p class="noindent"> That is, we are asking for a list 
+<span class="verb"> 
+<span class="cmtt-10"> Z 
+</span> 
+</span> containing all the instantiations of 
+<span class="verb"> 
+<span class="cmtt-10"> fromMartha(X) 
+</span> 
+</span> that satisfy the goal 
+<span class="verb"> 
+<span class="cmtt-10"> descend(martha,X) 
+</span> 
+</span> . Prolog will respond 
+</p> 
+<div class="fancyvrb" id="fancyvrb520"> 
+<a id="x72-104013r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_7616 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-104015r2"> 
+</a> 
+<span class="cmtt-10"> Z 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[fromMartha(charlotte),fromMartha(caroline), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-104017r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;fromMartha(laura),fromMartha(rose)] 
+</span> 
+</div> 
+<!--l. 363--> 
+<p class="indent"> What happens if we ask the following query? 
+</p> 
+<div class="fancyvrb" id="fancyvrb521"> 
+<a id="x72-104019r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(X,descend(mary,X),Z). 
+</span> 
+</div> 
+<!--l. 367--> 
+<p class="noindent"> As there are no solutions for the goal 
+<span class="verb"> 
+<span class="cmtt-10"> descend(mary,X) 
+</span> 
+</span> in the knowledge base. 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> returns an empty list. 
+</p> 
+<!--l. 370--> 
+<p class="indent"> Note that the first two arguments of 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> typically have (at least) one variable in common. When using 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> , we normally want to know what solutions Prolog finds for certain variables in the goal, and we tell Prolog which variables in Goal we are interested in by building them into the first argument of 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> . 
+</p> 
+<!--l. 376--> 
+<p class="indent"> You might encounter situations, however, where 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> does useful work although the first two arguments don&#8217;t share any variables. For example, if you are not interested in who exactly is a descendant of Martha, but only in how many descendants Martha has, you can use the following query to find out: 
+</p> 
+<div class="fancyvrb" id="fancyvrb522"> 
+<a id="x72-104021r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(Y,descend(martha,X),Z), 
+</span> 
+<span class="cmtt-10"> &#x00A0;length(Z,N). 
+</span> 
+</div> 
+<!--l. 388--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x72-10500011.2"> 
+</a> The 
+<span class="cmtt-10"> bagof/3 
+</span> predicate 
+</h4> 
+<!--l. 390--> 
+<p class="noindent"> The 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> predicate is useful, but in certain respects it is rather crude. For example, suppose we pose the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb523"> 
+<a id="x72-105002r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(Child,descend(Mother,Child),List). 
+</span> 
+</div> 
+<!--l. 395--> 
+<p class="noindent"> We get the response 
+</p> 
+<div class="fancyvrb" id="fancyvrb524"> 
+<a id="x72-105004r1"> 
+</a> 
+<span class="cmtt-10"> Child 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_6947 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105006r2"> 
+</a> 
+<span class="cmtt-10"> Mother 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_6951 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105008r3"> 
+</a> 
+<span class="cmtt-10"> List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[charlotte,caroline,laura,rose,caroline, 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105010r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;laura,rose,laura,rose,rose] 
+</span> 
+</div> 
+<!--l. 402--> 
+<p class="noindent"> Now, this is correct, but sometimes it would be useful if we had a separate list for each of the different instantiations of 
+<span class="verb"> 
+<span class="cmtt-10"> Mother 
+</span> 
+</span> . 
+</p> 
+<!--l. 405--> 
+<p class="indent"> This is what 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> lets us do. If we pose the query 
+<a id="dx72-105011"> 
+</a> 
+</p> 
+<div class="fancyvrb" id="fancyvrb525"> 
+<a id="x72-105013r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;bagof(Child,descend(Mother,Child),List). 
+</span> 
+</div> 
+<!--l. 409--> 
+<p class="noindent"> we get the response 
+</p> 
+<div class="fancyvrb" id="fancyvrb526"> 
+<a id="x72-105015r1"> 
+</a> 
+<span class="cmtt-10"> Child 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_7736 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105017r2"> 
+</a> 
+<span class="cmtt-10"> Mother 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;caroline 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105019r3"> 
+</a> 
+<span class="cmtt-10"> List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[laura,rose] 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105021r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-105023r5"> 
+</a> 
+<span class="cmtt-10"> Child 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_7736 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105025r6"> 
+</a> 
+<span class="cmtt-10"> Mother 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;charlotte 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105027r7"> 
+</a> 
+<span class="cmtt-10"> List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[caroline,laura,rose] 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105029r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-105031r9"> 
+</a> 
+<span class="cmtt-10"> Child 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_7736 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105033r10"> 
+</a> 
+<span class="cmtt-10"> Mother 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;laura 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105035r11"> 
+</a> 
+<span class="cmtt-10"> List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[rose] 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105037r12"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-105039r13"> 
+</a> 
+<span class="cmtt-10"> Child 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_7736 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105041r14"> 
+</a> 
+<span class="cmtt-10"> Mother 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;martha 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105043r15"> 
+</a> 
+<span class="cmtt-10"> List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[charlotte,caroline,laura,rose] 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105045r16"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 429--> 
+<p class="indent"> That is, 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> is more fine-grained than 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> . It gives us the opportunity to extract the information we want in a more structured way. Moreover, 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> can also do the same job as 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> , with the help of a special piece of syntax, namely 
+<span class="verb"> 
+<span class="cmtt-10"> ^ 
+</span> 
+</span> : 
+</p> 
+<div class="fancyvrb" id="fancyvrb527"> 
+<a id="x72-105047r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;bagof(Child,Mother^descend(Mother,Child),List). 
+</span> 
+</div> 
+<!--l. 436--> 
+<p class="noindent"> This says: 
+<span class="cmti-10"> give me a list of all the values of 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> Child 
+</span> 
+</span> 
+<span class="cmti-10"> such that 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> descend(Mother,Child) 
+</span> 
+</span> , 
+<span class="cmti-10"> and put the result in a list, but don&#8217;t worry about generating a separate list for each 
+</span> 
+<span class="cmti-10"> value of 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> Mother 
+</span> 
+</span> . So posing this query yields: 
+</p> 
+<div class="fancyvrb" id="fancyvrb528"> 
+<a id="x72-105049r1"> 
+</a> 
+<span class="cmtt-10"> Child 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_7870 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105051r2"> 
+</a> 
+<span class="cmtt-10"> Mother 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_7874 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105053r3"> 
+</a> 
+<span class="cmtt-10"> List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[charlotte,caroline,laura,rose,caroline, 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105055r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;laura,rose,laura,rose,rose] 
+</span> 
+</div> 
+<!--l. 446--> 
+<p class="noindent"> Note that this is exactly the response that 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> would have given us. Still, if this is the kind of query you want to make (and it often is) it&#8217;s simpler to use 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> , because then you don&#8217;t have to bother explicitly write down the conditions using 
+<span class="verb"> 
+<span class="cmtt-10"> ^ 
+</span> 
+</span> . 
+</p> 
+<!--l. 452--> 
+<p class="indent"> There is one important difference between 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> , namely that 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> fails if the goal that is specified in its second argument is not satisfied (remember, that 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> returns the empty list in such cases). So the query 
+<span class="verb"> 
+<span class="cmtt-10"> bagof(X,descend(mary,X),Z) 
+</span> 
+</span> yields 
+<span class="verb"> 
+<span class="cmtt-10"> no 
+</span> 
+</span> . 
+</p> 
+<!--l. 459--> 
+<p class="indent"> One final remark. Consider again the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb529"> 
+<a id="x72-105057r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;bagof(Child,descend(Mother,Child),List). 
+</span> 
+</div> 
+<!--l. 463--> 
+<p class="noindent"> As we saw above, this has four solutions. But, once again, Prolog generates them one by one. Wouldn&#8217;t it be nice if we could collect them all into one list? 
+</p> 
+<!--l. 467--> 
+<p class="indent"> And we can. The simplest way is to use 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> . The query 
+</p> 
+<div class="fancyvrb" id="fancyvrb530"> 
+<a id="x72-105059r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(List, 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105061r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;bagof(Child,descend(Mother,Child),List), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105063r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;Z). 
+</span> 
+</div> 
+<!--l. 473--> 
+<p class="noindent"> collects all of 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> &#8217;s responses into one list: 
+</p> 
+<div class="fancyvrb" id="fancyvrb531"> 
+<a id="x72-105065r1"> 
+</a> 
+<span class="cmtt-10"> List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8293 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105067r2"> 
+</a> 
+<span class="cmtt-10"> Child 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8297 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105069r3"> 
+</a> 
+<span class="cmtt-10"> Mother 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8301 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105071r4"> 
+</a> 
+<span class="cmtt-10"> Z 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[laura,rose],[caroline,laura,rose],[rose], 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105073r5"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[charlotte,caroline,laura,rose]] 
+</span> 
+</div> 
+<!--l. 481--> 
+<p class="noindent"> Another way to do it is with 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> : 
+</p> 
+<div class="fancyvrb" id="fancyvrb532"> 
+<a id="x72-105075r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;bagof(List, 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105077r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;Child^Mother^bagof(Child,descend(Mother,Child),List), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105079r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;Z). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105081r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-105083r5"> 
+</a> 
+<span class="cmtt-10"> List 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_2648 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105085r6"> 
+</a> 
+<span class="cmtt-10"> Child 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_2652 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105087r7"> 
+</a> 
+<span class="cmtt-10"> Mother 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_2655 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105089r8"> 
+</a> 
+<span class="cmtt-10"> Z 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[[laura,rose],[caroline,laura,rose],[rose], 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-105091r9"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[charlotte,caroline,laura,rose]] 
+</span> 
+</div> 
+<!--l. 493--> 
+<p class="noindent"> This may not be the sort of thing you need to do very often, but it does show the flexibility and power offered by these predicates. 
+</p> 
+<!--l. 498--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x72-10600011.2"> 
+</a> The 
+<span class="cmtt-10"> setof/3 
+</span> predicate 
+</h4> 
+<!--l. 500--> 
+<p class="noindent"> The 
+<span class="verb"> 
+<span class="cmtt-10"> setof/3 
+</span> 
+</span> predicate is basically the same as 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> , but with one useful difference: the lists it contains are 
+<span class="cmti-10"> ordered 
+</span> and contain 
+<span class="cmti-10"> no redundancies 
+</span> (that is, no list contains repeated items). 
+</p> 
+<!--l. 505--> 
+<p class="indent"> For example, suppose we have the following database 
+</p> 
+<div class="fancyvrb" id="fancyvrb533"> 
+<a id="x72-106002r1"> 
+</a> 
+<span class="cmtt-10"> age(harry,13). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106004r2"> 
+</a> 
+<span class="cmtt-10"> age(draco,14). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106006r3"> 
+</a> 
+<span class="cmtt-10"> age(ron,13). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106008r4"> 
+</a> 
+<span class="cmtt-10"> age(hermione,13). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106010r5"> 
+</a> 
+<span class="cmtt-10"> age(dumbledore,60). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106012r6"> 
+</a> 
+<span class="cmtt-10"> age(hagrid,30). 
+</span> 
+</div> 
+<!--l. 515--> 
+<p class="indent"> Now suppose we want a list of everyone whose age is recorded in the database. We can do this with the query: 
+</p> 
+<div class="fancyvrb" id="fancyvrb534"> 
+<a id="x72-106014r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(X,age(X,Y),Out). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106016r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-106018r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8443 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106020r4"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8448 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106022r5"> 
+</a> 
+<span class="cmtt-10"> Out 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[harry,draco,ron,hermione,dumbledore,hagrid] 
+</span> 
+</div> 
+<!--l. 527--> 
+<p class="indent"> But maybe we would like the list to be ordered. We can achieve this with the following query: 
+<a id="dx72-106023"> 
+</a> 
+</p> 
+<div class="fancyvrb" id="fancyvrb535"> 
+<a id="x72-106025r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;setof(X,Y^age(X,Y),Out). 
+</span> 
+</div> 
+<!--l. 532--> 
+<p class="noindent"> (Note that, just as with 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> , we have to tell 
+<span class="verb"> 
+<span class="cmtt-10"> setof/3 
+</span> 
+</span> not to generate separate lists for each value of 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> , and again we do this with the 
+<span class="verb"> 
+<span class="cmtt-10"> ^ 
+</span> 
+</span> symbol.) This query yields: 
+</p> 
+<div class="fancyvrb" id="fancyvrb536"> 
+<a id="x72-106027r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8711 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106029r2"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8715 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106031r3"> 
+</a> 
+<span class="cmtt-10"> Out 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[draco,dumbledore,hagrid,harry,hermione,ron] 
+</span> 
+</div> 
+<!--l. 541--> 
+<p class="noindent"> Note that the list is alphabetically ordered. 
+</p> 
+<!--l. 543--> 
+<p class="indent"> Now suppose we are interested in collecting together all the ages which are recorded in the database. Of course, we could do this with the following query: 
+</p> 
+<div class="fancyvrb" id="fancyvrb537"> 
+<a id="x72-106033r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;findall(Y,age(X,Y),Out). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106035r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-106037r3"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8847 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106039r4"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8851 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106041r5"> 
+</a> 
+<span class="cmtt-10"> Out 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[13,14,13,13,60,30] 
+</span> 
+</div> 
+<!--l. 554--> 
+<p class="indent"> But this output is rather messy. It is unordered and contains repetitions. By using 
+<span class="verb"> 
+<span class="cmtt-10"> setof/3 
+</span> 
+</span> we get the same information in a neater form: 
+</p> 
+<div class="fancyvrb" id="fancyvrb538"> 
+<a id="x72-106043r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;setof(Y,X^age(X,Y),Out). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106045r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x72-106047r3"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8981 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106049r4"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_8985 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x72-106051r5"> 
+</a> 
+<span class="cmtt-10"> Out 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;[13,14,30,60] 
+</span> 
+</div> 
+<!--l. 566--> 
+<p class="indent"> Between them, these three predicates offer us a great deal of flexibility when it comes to collecting solutions. For many purposes, all we need is 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> , but if we need more, 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> setof/3 
+</span> 
+</span> are there waiting to help us out. But bear in mind that there is an important difference between 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> on the one hand and 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> setof/3 
+</span> 
+</span> on the other: 
+<span class="verb"> 
+<span class="cmtt-10"> findall/3 
+</span> 
+</span> will return an empty list if the goal has no solutions, whereas 
+<span class="verb"> 
+<span class="cmtt-10"> bagof/3 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> setof/3 
+</span> 
+</span> would fail in such a situation. 
+</p> 
+<!--l. 576--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse56"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse49"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse53"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 576--> 
+<p class="indent"> 
+<a id="taillpn-htmlse49"> 
+</a> 
+</p> 

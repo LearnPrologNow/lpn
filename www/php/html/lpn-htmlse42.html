@@ -1,0 +1,813 @@
+
+<!--l. 1023--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse41"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse41"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse36"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch10"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 9.6 
+</span> 
+<a id="x63-940009.6"> 
+</a> Practical Session 
+</h3> 
+<!--l. 1027--> 
+<p class="noindent"> To start this session, we&#8217;ll introduce some built-in predicates for printing terms onto the screen. You should try out the following examples as we introduce them. The first predicate we want to look at is 
+<span class="verb"> 
+<span class="cmtt-10"> display/1 
+</span> 
+</span> . 
+<a id="dx63-94001"> 
+</a> Here are some simple examples: 
+</p> 
+<div class="fancyvrb" id="fancyvrb431"> 
+<a id="x63-94003r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display(loves(vincent,mia)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94005r2"> 
+</a> 
+<span class="cmtt-10"> loves(vincent, 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94007r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94009r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94011r5"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display(&#8217;jules 
+</span> 
+<span class="cmtt-10"> &#x00A0;eats 
+</span> 
+<span class="cmtt-10"> &#x00A0;a 
+</span> 
+<span class="cmtt-10"> &#x00A0;big 
+</span> 
+<span class="cmtt-10"> &#x00A0;kahuna 
+</span> 
+<span class="cmtt-10"> &#x00A0;burger&#8217;). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94013r6"> 
+</a> 
+<span class="cmtt-10"> jules 
+</span> 
+<span class="cmtt-10"> &#x00A0;eats 
+</span> 
+<span class="cmtt-10"> &#x00A0;a 
+</span> 
+<span class="cmtt-10"> &#x00A0;big 
+</span> 
+<span class="cmtt-10"> &#x00A0;kahuna 
+</span> 
+<span class="cmtt-10"> &#x00A0;burger 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94015r7"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94017r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1043--> 
+<p class="indent"> But the really important point about 
+<span class="verb"> 
+<span class="cmtt-10"> display/1 
+</span> 
+</span> , as the following examples demonstrate, is that it prints Prolog&#8217;s 
+<span class="cmti-10"> internal representation 
+</span> of terms to the screen: 
+</p> 
+<!--l. 1047--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb432"> 
+<a id="x63-94019r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display(2+3+4). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94021r2"> 
+</a> 
+<span class="cmtt-10"> +(+(2, 
+</span> 
+<span class="cmtt-10"> &#x00A0;3), 
+</span> 
+<span class="cmtt-10"> &#x00A0;4) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94023r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94025r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1055--> 
+<p class="indent"> This property of 
+<span class="verb"> 
+<span class="cmtt-10"> display/1 
+</span> 
+</span> makes it a very useful tool for learning how operators work in Prolog. So, before going on, try the following queries. Make sure you understand why Prolog answers the way it does. 
+</p> 
+<!--l. 1059--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb433"> 
+<a id="x63-94027r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display([a,b,c]). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94029r2"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display(3 
+</span> 
+<span class="cmtt-10"> &#x00A0;is 
+</span> 
+<span class="cmtt-10"> &#x00A0;4 
+</span> 
+<span class="cmtt-10"> &#x00A0;+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;5 
+</span> 
+<span class="cmtt-10"> &#x00A0;/ 
+</span> 
+<span class="cmtt-10"> &#x00A0;3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94031r3"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display(3 
+</span> 
+<span class="cmtt-10"> &#x00A0;is 
+</span> 
+<span class="cmtt-10"> &#x00A0;(4 
+</span> 
+<span class="cmtt-10"> &#x00A0;+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;5) 
+</span> 
+<span class="cmtt-10"> &#x00A0;/ 
+</span> 
+<span class="cmtt-10"> &#x00A0;3). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94033r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display((a:-b,c,d)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94035r5"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display(a:-b,c,d). 
+</span> 
+</div> 
+<!--l. 1068--> 
+<p class="indent"> So 
+<span class="verb"> 
+<span class="cmtt-10"> display/1 
+</span> 
+</span> is useful when we want to look at the internal representation of terms in operator notation. But often we would prefer to see the user-friendly notation instead. For example, when reading lists it is usually more pleasant to see 
+<span class="verb"> 
+<span class="cmtt-10"> [a,b,c] 
+</span> 
+</span> rather than 
+<span class="verb"> 
+<span class="cmtt-10"> .(a.(b.(c,[]))) 
+</span> 
+</span> . The built-in predicate 
+<span class="verb"> 
+<span class="cmtt-10"> write/1 
+</span> 
+</span> lets us view terms like this. 
+<a id="dx63-94036"> 
+</a> This predicate takes a term and prints it to the screen in the user-friendly notation. 
+</p> 
+<!--l. 1077--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb434"> 
+<a id="x63-94038r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(2+3+4). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94040r2"> 
+</a> 
+<span class="cmtt-10"> 2+3+4 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94042r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94044r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94046r5"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(+(2,3)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94048r6"> 
+</a> 
+<span class="cmtt-10"> 2+3 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94050r7"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94052r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94054r9"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write([a,b,c]). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94056r10"> 
+</a> 
+<span class="cmtt-10"> [a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;b, 
+</span> 
+<span class="cmtt-10"> &#x00A0;c] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94058r11"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94060r12"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94062r13"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(.(a,.(b,[]))). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94064r14"> 
+</a> 
+<span class="cmtt-10"> [a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;b] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94066r15"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1096--> 
+<p class="indent"> And here is what happens when the term to be written contains variables: 
+</p> 
+<!--l. 1099--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb435"> 
+<a id="x63-94068r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94070r2"> 
+</a> 
+<span class="cmtt-10"> _G204 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94072r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_G204 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94074r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94076r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94078r6"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94080r7"> 
+</a> 
+<span class="cmtt-10"> a 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94082r8"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;a 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94084r9"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1112--> 
+<p class="indent"> The following example shows what happens when you give two 
+<span class="verb"> 
+<span class="cmtt-10"> write/1 
+</span> 
+</span> commands one after the other: 
+</p> 
+<div class="fancyvrb" id="fancyvrb436"> 
+<a id="x63-94086r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(a),write(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94088r2"> 
+</a> 
+<span class="cmtt-10"> ab 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94090r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94092r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1120--> 
+<p class="noindent"> That is, Prolog just executes one after the other without putting any space in between the output of the two commands. Of course, you can get Prolog to print space by telling it to write the term 
+<span class="verb"> 
+<span class="cmtt-10"> &#8217; 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217; 
+</span> 
+</span> : 
+</p> 
+<div class="fancyvrb" id="fancyvrb437"> 
+<a id="x63-94094r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(a),write(&#8217; 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;),write(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94096r2"> 
+</a> 
+<span class="cmtt-10"> a 
+</span> 
+<span class="cmtt-10"> &#x00A0;b 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94098r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94100r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1130--> 
+<p class="noindent"> And if you want more than one space, for example five blanks, you can tell Prolog to write 
+<span class="verb"> 
+<span class="cmtt-10"> &#8217; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217; 
+</span> 
+</span> . 
+</p> 
+<div class="fancyvrb" id="fancyvrb438"> 
+<a id="x63-94102r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(a),write(&#8217; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;),write(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94104r2"> 
+</a> 
+<span class="cmtt-10"> a 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;b 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94106r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94108r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1139--> 
+<p class="indent"> Another way of printing spaces is by using the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> tab/1 
+</span> 
+</span> . 
+<a id="dx63-94109"> 
+</a> This takes a number as argument and then prints that number of spaces: 
+</p> 
+<div class="fancyvrb" id="fancyvrb439"> 
+<a id="x63-94111r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(a),tab(5),write(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94113r2"> 
+</a> 
+<span class="cmtt-10"> a 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;b 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94115r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94117r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1150--> 
+<p class="indent"> Another predicate useful for formatting is 
+<span class="verb"> 
+<span class="cmtt-10"> nl 
+</span> 
+</span> . 
+<a id="dx63-94118"> 
+</a> This tells Prolog to make a line-break and to go on printing on the next line. 
+</p> 
+<div class="fancyvrb" id="fancyvrb440"> 
+<a id="x63-94120r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;write(a),nl,write(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94122r2"> 
+</a> 
+<span class="cmtt-10"> a 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94124r3"> 
+</a> 
+<span class="cmtt-10"> b 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94126r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 1161--> 
+<p class="indent"> Time to apply what you have just learned. In the last chapter we saw how extra arguments in DCGs could be used to build parse trees. For example, to the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb441"> 
+<a id="x63-94128r1"> 
+</a> 
+<span class="cmtt-10"> s(T,[a,man,shoots,a,woman],[]) 
+</span> 
+</div> 
+<!--l. 1167--> 
+<p class="noindent"> Prolog would answer 
+</p> 
+<div class="fancyvrb" id="fancyvrb442"> 
+<a id="x63-94130r1"> 
+</a> 
+<span class="cmtt-10"> s(np(det(a),n(man)),vp(v(shoots),np(det(a),n(woman)))). 
+</span> 
+</div> 
+<!--l. 1171--> 
+<p class="noindent"> This term is a representation of the parse tree, but it is not a very readable representation. It would be nicer if Prolog printed something like the following (this style of printing is usually called pretty printing): 
+</p> 
+<div class="fancyvrb" id="fancyvrb443"> 
+<a id="x63-94132r1"> 
+</a> 
+<span class="cmtt-10"> s( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94134r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94136r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det(a) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94138r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;n(man)) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94140r5"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;vp( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94142r6"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v(shoots) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94144r7"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94146r8"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det(a) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94148r9"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;n(woman)))) 
+</span> 
+</div> 
+<!--l. 1186--> 
+<p class="noindent"> Write a predicate 
+<span class="verb"> 
+<span class="cmtt-10"> pptree/1 
+</span> 
+</span> that takes a complex term representing a tree as its argument and prints the tree in a more readable form. 
+</p> 
+<!--l. 1191--> 
+<p class="indent"> Time to practice writing operator definitions. In the practical session of Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch7"> 7 
+<!--tex4ht:ref: CHAPTER7 --> 
+</a> , you were asked to write a DCG generating propositional logic formulas. The input you had to use was a bit awkward though. The formula 
+<span class="cmsy-10"> ¬ 
+</span> ( 
+<span class="cmmi-10"> p 
+</span> 
+<span class="cmsy-10"> &#x2192; 
+</span> 
+<span class="cmmi-10"> q 
+</span> ) had to be represented as 
+<span class="verb"> 
+<span class="cmtt-10"> [not, 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;(&#8217;, 
+</span> 
+<span class="cmtt-10"> &#x00A0;p, 
+</span> 
+<span class="cmtt-10"> &#x00A0;implies, 
+</span> 
+<span class="cmtt-10"> &#x00A0;q, 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;)&#8217;] 
+</span> 
+</span> . Now that you know about operators, you can do things rather more neatly. Write operator definitions for 
+<span class="verb"> 
+<span class="cmtt-10"> not 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> and 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> or 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> implies 
+</span> 
+</span> , so that Prolog accepts (and correctly brackets) propositional logic formulas. Use 
+<span class="verb"> 
+<span class="cmtt-10"> display/1 
+</span> 
+</span> to check your code. It should yield the following kinds of response: 
+</p> 
+<div class="fancyvrb" id="fancyvrb444"> 
+<a id="x63-94150r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display(not(p 
+</span> 
+<span class="cmtt-10"> &#x00A0;implies 
+</span> 
+<span class="cmtt-10"> &#x00A0;q)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94152r2"> 
+</a> 
+<span class="cmtt-10"> not(implies(p,q)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94154r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94156r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94158r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94160r6"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;display(not 
+</span> 
+<span class="cmtt-10"> &#x00A0;p 
+</span> 
+<span class="cmtt-10"> &#x00A0;implies 
+</span> 
+<span class="cmtt-10"> &#x00A0;q). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94162r7"> 
+</a> 
+<span class="cmtt-10"> implies(not(p),q) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x63-94164r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x63-94166r9"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 3--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse41"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse41"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse42"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch10"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 3--> 
+<p class="indent"> 
+<a id="taillpn-htmlse42"> 
+</a> 
+</p> 

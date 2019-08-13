@@ -1,0 +1,582 @@
+
+<!--l. 505--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse55"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse55"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse50"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=# "> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 12.5 
+</span> 
+<a id="x80-11700012.5"> 
+</a> Practical Session 
+</h3> 
+<!--l. 507--> 
+<p class="noindent"> In this practical session, we want to combine what we have learned about file handling with some topics we met in earlier chapters. The goal is to write a program for running a DCG grammar on a testsuite, so that the performance of the grammar can be checked. 
+</p> 
+<!--l. 512--> 
+<p class="indent"> What is a testsuite? It is a file that contains lots of possible inputs (and expected outputs) for some program. In this case, a testsuite will be a file that has lists representing grammatical and ungrammatical sentences, such as 
+<span class="verb"> 
+<span class="cmtt-10"> [the,woman,shoots,the,cow,under,the,shower] 
+</span> 
+</span> or 
+<span class="verb"> 
+<span class="cmtt-10"> [him,shoots,woman] 
+</span> 
+</span> . The test program should take this file, run the grammar on each of the sentences, and store the results in another file. We can then look at the output file to check whether the grammar answered everywhere the way it should have. When developing grammars, testsuites like this are extremely useful for making sure that any modifications we make to the grammar don&#8217;t have unwanted effects. 
+</p> 
+<!--l. 526--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x80-11800012.5"> 
+</a> Step 1 
+</h4> 
+<!--l. 528--> 
+<p class="noindent"> Take the DCG that you built in the practical session of Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch8"> 8 
+<!--tex4ht:ref: CHAPTER8 --> 
+</a> and turn it into a module, exporting the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> s/3 
+</span> 
+</span> , that is, the predicate that lets you parse sentences and returns the parse tree as its first argument. 
+</p> 
+<!--l. 536--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x80-11900012.5"> 
+</a> Step 2 
+</h4> 
+<!--l. 538--> 
+<p class="noindent"> In the practical session of Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch9"> 9 
+<!--tex4ht:ref: CHAPTER9 --> 
+</a> , you had to write a program for pretty printing parse trees onto the screen. Turn that into a module as well. 
+</p> 
+<!--l. 544--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x80-12000012.5"> 
+</a> Step 3 
+</h4> 
+<!--l. 546--> 
+<p class="noindent"> Now modify the program so that it prints the tree not to the screen but to a given stream. That means that the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> pptree 
+</span> 
+</span> should now be a two-place predicate taking the Prolog representation of a parse tree and a stream as arguments. 
+</p> 
+<!--l. 554--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x80-12100012.5"> 
+</a> Step 4 
+</h4> 
+<!--l. 556--> 
+<p class="noindent"> Import both modules into a file and define a two-place predicate 
+<span class="verb"> 
+<span class="cmtt-10"> test 
+</span> 
+</span> which takes a list representing a sentence (such as 
+<span class="verb"> 
+<span class="cmtt-10"> [a,woman,shoots] 
+</span> 
+</span> ), parses it, and writes the result to the file specified by the second argument of 
+<span class="verb"> 
+<span class="cmtt-10"> test 
+</span> 
+</span> . Check that everything is working as it should. 
+</p> 
+<!--l. 564--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x80-12200012.5"> 
+</a> Step 5 
+</h4> 
+<!--l. 566--> 
+<p class="noindent"> Finally, modify 
+<span class="verb"> 
+<span class="cmtt-10"> test/2 
+</span> 
+</span> , so that it takes a filename instead of a sentence as its first argument, reads in the sentences given in the file one by one, parses them, and writes the sentence as well as the parsing result into the output file. For example, if your input file looked like this: 
+</p> 
+<div class="fancyvrb" id="fancyvrb574"> 
+<a id="x80-122002r1"> 
+</a> 
+<span class="cmtt-10"> [the,cow,under,the,table,shoots]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122004r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x80-122006r3"> 
+</a> 
+<span class="cmtt-10"> [a,dead,woman,likes,he]. 
+</span> 
+</div> 
+<!--l. 577--> 
+<p class="indent"> the output file should look something like this: 
+</p> 
+<div class="fancyvrb" id="fancyvrb575"> 
+<a id="x80-122008r1"> 
+</a> 
+<span class="cmtt-10"> [the, 
+</span> 
+<span class="cmtt-10"> &#x00A0;cow, 
+</span> 
+<span class="cmtt-10"> &#x00A0;under, 
+</span> 
+<span class="cmtt-10"> &#x00A0;the, 
+</span> 
+<span class="cmtt-10"> &#x00A0;table, 
+</span> 
+<span class="cmtt-10"> &#x00A0;shoots] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122010r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x80-122012r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122014r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122016r5"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det(the) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122018r6"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;nbar( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122020r7"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;n(cow)) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122022r8"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;pp( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122024r9"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;prep(under) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122026r10"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122028r11"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det(the) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122030r12"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;nbar( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122032r13"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;n(table))))) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122034r14"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;vp( 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122036r15"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v(shoots))) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122038r16"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x80-122040r17"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x80-122042r18"> 
+</a> 
+<span class="cmtt-10"> [a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;dead, 
+</span> 
+<span class="cmtt-10"> &#x00A0;woman, 
+</span> 
+<span class="cmtt-10"> &#x00A0;likes, 
+</span> 
+<span class="cmtt-10"> &#x00A0;he] 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-122044r19"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x80-122046r20"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 603--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x80-12300012.5"> 
+</a> Step 6 
+</h4> 
+<!--l. 605--> 
+<p class="noindent"> Now (if you are in for some real Prolog hacking) try to write a module that reads in sentences terminated by a full stop or a line break from a file, so that you can give your testsuite as 
+</p> 
+<div class="fancyvrb" id="fancyvrb576"> 
+<a id="x80-123002r1"> 
+</a> 
+<span class="cmtt-10"> the 
+</span> 
+<span class="cmtt-10"> &#x00A0;cow 
+</span> 
+<span class="cmtt-10"> &#x00A0;under 
+</span> 
+<span class="cmtt-10"> &#x00A0;the 
+</span> 
+<span class="cmtt-10"> &#x00A0;table 
+</span> 
+<span class="cmtt-10"> &#x00A0;shoots 
+</span> 
+<span class="cmtt-10"> &#x00A0;. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-123004r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x80-123006r3"> 
+</a> 
+<span class="cmtt-10"> a 
+</span> 
+<span class="cmtt-10"> &#x00A0;dead 
+</span> 
+<span class="cmtt-10"> &#x00A0;woman 
+</span> 
+<span class="cmtt-10"> &#x00A0;likes 
+</span> 
+<span class="cmtt-10"> &#x00A0;he 
+</span> 
+<span class="cmtt-10"> &#x00A0;. 
+</span> 
+</div> 
+<!--l. 614--> 
+<p class="indent"> instead of 
+</p> 
+<div class="fancyvrb" id="fancyvrb577"> 
+<a id="x80-123008r1"> 
+</a> 
+<span class="cmtt-10"> [the,cow,under,the,table,shoots]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x80-123010r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x80-123012r3"> 
+</a> 
+<span class="cmtt-10"> [a,dead,woman,likes,he]. 
+</span> 
+</div> 
+<!--l. 622--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x80-12400012.5"> 
+</a> Step 7 
+</h4> 
+<!--l. 624--> 
+<p class="noindent"> Make the testsuite environment more sophisticated, by adding information to the input file about the expected output (in this case, whether the sentences has a parse or not). Then modify the program so that it checks whether the expected output matches the obtained output. 
+</p> 
+<!--l. 9--> 
+<p class="indent"> 
+<a id="Q1-80-125"> 
+</a> 
+</p> 
+<!--l. 1--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse55"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse55"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse56"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=# "> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 1--> 
+<p class="indent"> 
+<a id="taillpn-htmlse56"> 
+</a> 
+</p> 

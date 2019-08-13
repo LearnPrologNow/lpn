@@ -1,0 +1,797 @@
+
+<!--l. 23--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse55"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch10"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse53"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 11.1 
+</span> 
+<a id="x71-10200011.1"> 
+</a> Database Manipulation 
+</h3> 
+<!--l. 25--> 
+<p class="noindent"> Prolog has four database manipulation commands: assert, 
+<a id="dx71-102001"> 
+</a> retract, 
+<a id="dx71-102002"> 
+</a> asserta, and assertz. Let&#8217;s see how these are used. Suppose we start with an empty database. So if we give the command: 
+</p> 
+<div class="fancyvrb" id="fancyvrb491"> 
+<a id="x71-102004r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing. 
+</span> 
+</div> 
+<!--l. 35--> 
+<p class="noindent"> then Prolog will simply respond yes; the listing (of course) is empty. 
+</p> 
+<!--l. 37--> 
+<p class="indent"> Suppose we now give this command: 
+</p> 
+<div class="fancyvrb" id="fancyvrb492"> 
+<a id="x71-102006r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;assert(happy(mia)). 
+</span> 
+</div> 
+<!--l. 42--> 
+<p class="indent"> This succeeds ( 
+<span class="verb"> 
+<span class="cmtt-10"> assert/1 
+</span> 
+</span> commands 
+<span class="cmti-10"> always 
+</span> succeed). But what is important is not that it succeeds, but the side-effect it has on the database. For if we now give the command 
+</p> 
+<div class="fancyvrb" id="fancyvrb493"> 
+<a id="x71-102008r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing. 
+</span> 
+</div> 
+<!--l. 48--> 
+<p class="noindent"> we get: 
+</p> 
+<div class="fancyvrb" id="fancyvrb494"> 
+<a id="x71-102010r1"> 
+</a> 
+<span class="cmtt-10"> happy(mia). 
+</span> 
+</div> 
+<!--l. 52--> 
+<p class="noindent"> That is, the database is no longer empty: it now contains the fact we asserted. 
+</p> 
+<!--l. 55--> 
+<p class="indent"> Suppose we then made four more assert commands: 
+</p> 
+<div class="fancyvrb" id="fancyvrb495"> 
+<a id="x71-102012r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;assert(happy(vincent)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102014r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102016r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102018r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;assert(happy(marcellus)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102020r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102022r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102024r7"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;assert(happy(butch)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102026r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102028r9"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102030r10"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;assert(happy(vincent)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102032r11"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 69--> 
+<p class="noindent"> and then ask for a listing: 
+</p> 
+<div class="fancyvrb" id="fancyvrb496"> 
+<a id="x71-102034r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102036r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102038r3"> 
+</a> 
+<span class="cmtt-10"> happy(mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102040r4"> 
+</a> 
+<span class="cmtt-10"> happy(vincent). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102042r5"> 
+</a> 
+<span class="cmtt-10"> happy(marcellus). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102044r6"> 
+</a> 
+<span class="cmtt-10"> happy(butch). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102046r7"> 
+</a> 
+<span class="cmtt-10"> happy(vincent). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102048r8"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 80--> 
+<p class="noindent"> All the facts we asserted are now in the knowledge base. Note that 
+<span class="verb"> 
+<span class="cmtt-10"> happy(vincent) 
+</span> 
+</span> is in the knowledge base twice. As we asserted it twice, this seems sensible. 
+</p> 
+<!--l. 84--> 
+<p class="indent"> The database manipulations we have been making have changed the meaning of the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> happy/1 
+</span> 
+</span> . More generally, database manipulation commands give us the ability to change the meaning of predicates while we are running programs. Predicates whose definitions change during run-time are called dynamic predicates, as opposed to the static predicates that we have previously dealt with. Most Prolog interpreters insist that we explicitly declare the predicates that we wish to be dynamic. We will soon examine an example involving dynamic predicates, but let&#8217;s first complete our discussion of the database manipulation commands. 
+</p> 
+<!--l. 96--> 
+<p class="indent"> So far we have only asserted facts into the database, but we can also assert new rules. Suppose we want to assert the rule that everyone who is happy is naive. That is, suppose we want to assert that: 
+</p> 
+<div class="fancyvrb" id="fancyvrb497"> 
+<a id="x71-102050r1"> 
+</a> 
+<span class="cmtt-10"> naive(X):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;happy(X). 
+</span> 
+</div> 
+<!--l. 103--> 
+<p class="noindent"> We can do this as follows: 
+</p> 
+<div class="fancyvrb" id="fancyvrb498"> 
+<a id="x71-102052r1"> 
+</a> 
+<span class="cmtt-10"> assert( 
+</span> 
+<span class="cmtt-10"> &#x00A0;(naive(X):- 
+</span> 
+<span class="cmtt-10"> &#x00A0;happy(X)) 
+</span> 
+<span class="cmtt-10"> &#x00A0;). 
+</span> 
+</div> 
+<!--l. 107--> 
+<p class="noindent"> Note the syntax of this command: 
+<span class="cmti-10"> the rule we are asserting is enclosed in a pair of 
+</span> 
+<span class="cmti-10"> brackets 
+</span> . If we now ask for a listing we get: 
+</p> 
+<div class="fancyvrb" id="fancyvrb499"> 
+<a id="x71-102054r1"> 
+</a> 
+<span class="cmtt-10"> happy(mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102056r2"> 
+</a> 
+<span class="cmtt-10"> happy(vincent). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102058r3"> 
+</a> 
+<span class="cmtt-10"> happy(marcellus). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102060r4"> 
+</a> 
+<span class="cmtt-10"> happy(butch). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102062r5"> 
+</a> 
+<span class="cmtt-10"> happy(vincent). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102064r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102066r7"> 
+</a> 
+<span class="cmtt-10"> naive(A):- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102068r8"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;happy(A). 
+</span> 
+</div> 
+<!--l. 121--> 
+<p class="indent"> Now that we know how to assert new information into the database, we should also learn how to remove information when we no longer need it. There is an inverse predicate to 
+<span class="verb"> 
+<span class="cmtt-10"> assert/1 
+</span> 
+</span> , namely 
+<span class="verb"> 
+<span class="cmtt-10"> retract/1 
+</span> 
+</span> . For example, if we carry straight on from the previous example by giving the command: 
+</p> 
+<div class="fancyvrb" id="fancyvrb500"> 
+<a id="x71-102070r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;retract(happy(marcellus)). 
+</span> 
+</div> 
+<!--l. 129--> 
+<p class="noindent"> and then list the database, we get: 
+</p> 
+<div class="fancyvrb" id="fancyvrb501"> 
+<a id="x71-102072r1"> 
+</a> 
+<span class="cmtt-10"> happy(mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102074r2"> 
+</a> 
+<span class="cmtt-10"> happy(vincent). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102076r3"> 
+</a> 
+<span class="cmtt-10"> happy(butch). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102078r4"> 
+</a> 
+<span class="cmtt-10"> happy(vincent). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102080r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102082r6"> 
+</a> 
+<span class="cmtt-10"> naive(A) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102084r7"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;happy(A). 
+</span> 
+</div> 
+<!--l. 139--> 
+<p class="noindent"> That is, the fact 
+<span class="verb"> 
+<span class="cmtt-10"> happy(marcellus) 
+</span> 
+</span> has been removed. 
+</p> 
+<!--l. 141--> 
+<p class="indent"> Suppose we go on further, and say 
+</p> 
+<div class="fancyvrb" id="fancyvrb502"> 
+<a id="x71-102086r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;retract(happy(vincent)). 
+</span> 
+</div> 
+<!--l. 146--> 
+<p class="noindent"> and then ask for a listing. We get: 
+</p> 
+<div class="fancyvrb" id="fancyvrb503"> 
+<a id="x71-102088r1"> 
+</a> 
+<span class="cmtt-10"> happy(mia). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102090r2"> 
+</a> 
+<span class="cmtt-10"> happy(butch). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102092r3"> 
+</a> 
+<span class="cmtt-10"> happy(vincent). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102094r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102096r5"> 
+</a> 
+<span class="cmtt-10"> naive(A) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102098r6"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;happy(A). 
+</span> 
+</div> 
+<!--l. 155--> 
+<p class="noindent"> Note that the first occurrence of 
+<span class="verb"> 
+<span class="cmtt-10"> happy(vincent) 
+</span> 
+</span> , and 
+<span class="cmti-10"> only 
+</span> the first occurrence, was removed. 
+</p> 
+<!--l. 158--> 
+<p class="indent"> To remove all of our assertions contributing to the definition of the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> happy/1 
+</span> 
+</span> we can use a variable: 
+</p> 
+<div class="fancyvrb" id="fancyvrb504"> 
+<a id="x71-102100r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;retract(happy(X)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102102r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102104r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102106r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102108r5"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;butch 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102110r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102112r7"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102114r8"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 170--> 
+<p class="noindent"> A listing reveals that the database is now empty, except for the rule 
+<span class="verb"> 
+<span class="cmtt-10"> naive(A) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<span class="cmtt-10"> &#x00A0;happy(A) 
+</span> 
+</span> . 
+</p> 
+<div class="fancyvrb" id="fancyvrb505"> 
+<a id="x71-102116r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102118r2"> 
+</a> 
+<span class="cmtt-10"> naive(A) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102120r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;happy(A). 
+</span> 
+</div> 
+<!--l. 179--> 
+<p class="indent"> If we want more control over where the asserted material is placed, there are two variants of 
+<span class="verb"> 
+<span class="cmtt-10"> assert/1 
+</span> 
+</span> , namely: 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x71-102122x1"> assertz. Places asserted material at the 
+<span class="cmti-10"> end 
+</span> 
+<a id="dx71-102123"> 
+</a> of the database. 
+</li> 
+<li class="enumerate" id="x71-102125x2"> asserta. Places asserted material at the 
+<a id="dx71-102126"> 
+</a> 
+<span class="cmti-10"> beginning 
+</span> of the database. 
+</li> 
+</ol> 
+<!--l. 188--> 
+<p class="indent"> For example, suppose we start with an empty database, and then we give the following command: 
+</p> 
+<div class="fancyvrb" id="fancyvrb506"> 
+<a id="x71-102128r1"> 
+</a> 
+<span class="cmtt-10"> assert( 
+</span> 
+<span class="cmtt-10"> &#x00A0;p(b) 
+</span> 
+<span class="cmtt-10"> &#x00A0;), 
+</span> 
+<span class="cmtt-10"> &#x00A0;assertz( 
+</span> 
+<span class="cmtt-10"> &#x00A0;p(c) 
+</span> 
+<span class="cmtt-10"> &#x00A0;), 
+</span> 
+<span class="cmtt-10"> &#x00A0;asserta( 
+</span> 
+<span class="cmtt-10"> &#x00A0;p(a) 
+</span> 
+<span class="cmtt-10"> &#x00A0;). 
+</span> 
+</div> 
+<!--l. 193--> 
+<p class="noindent"> Then a listing reveals that we now have the following database: 
+</p> 
+<div class="fancyvrb" id="fancyvrb507"> 
+<a id="x71-102130r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102132r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102134r3"> 
+</a> 
+<span class="cmtt-10"> p(a). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102136r4"> 
+</a> 
+<span class="cmtt-10"> p(b). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102138r5"> 
+</a> 
+<span class="cmtt-10"> p(c). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102140r6"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 204--> 
+<p class="indent"> Database manipulation is a useful technique. It is especially useful for storing the results to computations, so that if we need to ask the same question in the future, we don&#8217;t need to redo the work: we just look up the asserted fact. This technique is called memoisation, or caching, and in some applications it can greatly increase efficiency. Here&#8217;s a simple example of this technique at work: 
+</p> 
+<div class="fancyvrb" id="fancyvrb508"> 
+<a id="x71-102142r1"> 
+</a> 
+<span class="cmtt-10"> :- 
+</span> 
+<span class="cmtt-10"> &#x00A0;dynamic 
+</span> 
+<span class="cmtt-10"> &#x00A0;lookup/3. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102144r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102146r3"> 
+</a> 
+<span class="cmtt-10"> add_and_square(X,Y,Res):- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102148r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;lookup(X,Y,Res), 
+</span> 
+<span class="cmtt-10"> &#x00A0;!. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102150r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102152r6"> 
+</a> 
+<span class="cmtt-10"> add_and_square(X,Y,Res):- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102154r7"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;Res 
+</span> 
+<span class="cmtt-10"> &#x00A0;is 
+</span> 
+<span class="cmtt-10"> &#x00A0;(X+Y)*(X+Y), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102156r8"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;assert(lookup(X,Y,Res)). 
+</span> 
+</div> 
+<!--l. 222--> 
+<p class="indent"> What does this program do? Basically, it takes two numbers X and Y, adds X to Y, and then squares the result. For example we have: 
+</p> 
+<div class="fancyvrb" id="fancyvrb509"> 
+<a id="x71-102158r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;add_and_square(3,7,X). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102160r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102162r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;100 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102164r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 232--> 
+<p class="indent"> But the important point is: 
+<span class="cmti-10"> how 
+</span> does it do this? First, note that we have declared 
+<span class="verb"> 
+<span class="cmtt-10"> lookup/3 
+</span> 
+</span> as a dynamic predicate. We need to do this as we plan to change the definition of 
+<span class="verb"> 
+<span class="cmtt-10"> lookup/3 
+</span> 
+</span> during run-time. Second, note that there are two clauses defining 
+<span class="verb"> 
+<span class="cmtt-10"> add_and_square/3 
+</span> 
+</span> . The second clause performs the required arithmetic calculation and asserts the result to the Prolog database using the predicate 
+<span class="verb"> 
+<span class="cmtt-10"> lookup/3 
+</span> 
+</span> (that is, it caches the result). The first clause checks the Prolog database to see if the calculation has already been made in the past. If it has been, the program simply returns the result, and the cut prevents it from entering the second clause. 
+</p> 
+<!--l. 244--> 
+<p class="indent"> Here&#8217;s an example of the program at work. Suppose we give Prolog another query 
+</p> 
+<div class="fancyvrb" id="fancyvrb510"> 
+<a id="x71-102166r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;add_and_square(3,4,Y). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102168r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x71-102170r3"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;49 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102172r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 252--> 
+<p class="noindent"> If we now ask for a listing we see that the database now contains 
+</p> 
+<div class="fancyvrb" id="fancyvrb511"> 
+<a id="x71-102174r1"> 
+</a> 
+<span class="cmtt-10"> lookup(3, 
+</span> 
+<span class="cmtt-10"> &#x00A0;7, 
+</span> 
+<span class="cmtt-10"> &#x00A0;100). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x71-102176r2"> 
+</a> 
+<span class="cmtt-10"> lookup(3, 
+</span> 
+<span class="cmtt-10"> &#x00A0;4, 
+</span> 
+<span class="cmtt-10"> &#x00A0;49). 
+</span> 
+</div> 
+<!--l. 257--> 
+<p class="noindent"> Should we later ask Prolog to add and square 3 and 4, it wouldn&#8217;t perform the calculations again. Rather, it would just return the previously calculated result. 
+</p> 
+<!--l. 264--> 
+<p class="indent"> Question: how do we remove all these new facts when we no longer want them? After all, if we give the command 
+</p> 
+<div class="fancyvrb" id="fancyvrb512"> 
+<a id="x71-102178r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;retract(lookup(X,Y,Z)). 
+</span> 
+</div> 
+<!--l. 269--> 
+<p class="noindent"> Prolog will go through all the facts one by one and ask us whether we want to remove them! But there&#8217;s a much simpler way. Simply use the command 
+<a id="dx71-102179"> 
+</a> 
+</p> 
+<div class="fancyvrb" id="fancyvrb513"> 
+<a id="x71-102181r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;retractall(lookup(_,_,_)). 
+</span> 
+</div> 
+<!--l. 274--> 
+<p class="noindent"> This will remove all facts about 
+<span class="verb"> 
+<span class="cmtt-10"> lookup/3 
+</span> 
+</span> from the database. 
+</p> 
+<!--l. 277--> 
+<p class="indent"> To conclude our discussion of database manipulation, a word of warning. Although it is a useful technique, database manipulation can lead to dirty, hard to understand, code. If you use it heavily in a program with lots of backtracking, understanding what is going on can be a nightmare. It is a non-declarative, non logical, feature of Prolog that should be used cautiously. 
+</p> 
+<!--l. 286--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse55"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse48"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse53"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 286--> 
+<p class="indent"> 
+<a id="taillpn-htmlse48"> 
+</a> 
+</p> 

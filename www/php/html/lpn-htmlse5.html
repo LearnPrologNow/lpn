@@ -1,0 +1,1627 @@
+
+<!--l. 23--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse10"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse2"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse8"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 2.1 
+</span> 
+<a id="x16-230002.1"> 
+</a> Unification 
+</h3> 
+<!--l. 27--> 
+<p class="noindent"> When working with knowledge base KB4 in the previous chapter, we briefly mentioned the idea of unification. We said, for example, that Prolog unifies 
+<span class="verb"> 
+<span class="cmtt-10"> woman(X) 
+</span> 
+</span> with 
+<span class="verb"> 
+<span class="cmtt-10"> woman(mia) 
+</span> 
+</span> , thereby instantiating the variable 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> . It&#8217;s now time to take a closer look at unification, for it is one of the most fundamental ideas in Prolog. 
+</p> 
+<!--l. 34--> 
+<p class="indent"> Recall that there are three types of term: 
+</p> 
+<!--l. 36--> 
+<p class="indent"> 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x16-23002x1"> Constants. These can either be atoms (such as 
+<span class="verb"> 
+<span class="cmtt-10"> vincent 
+</span> 
+</span> ) or numbers (such as 
+<span class="verb"> 
+<span class="cmtt-10"> 24 
+</span> 
+</span> ). 
+</li> 
+<li class="enumerate" id="x16-23004x2"> Variables. (Such as 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> Z3 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> List 
+</span> 
+</span> .) 
+</li> 
+<li class="enumerate" id="x16-23006x3"> Complex terms. These have the form: 
+<br class="newline" /> 
+<span class="verb"> 
+<span class="cmtt-10"> functor(term_1,...,term_n) 
+</span> 
+</span> . 
+</li> 
+</ol> 
+<!--l. 43--> 
+<p class="indent"> We are going to work our way towards a definition of when Prolog will unify two terms. Our starting point will be the following working definition. It gives the basic intuition, but is a little light on detail: 
+</p> 
+<div class="center"> 
+<!--l. 48--> 
+<p class="noindent"> 
+</p> 
+<!--l. 52--> 
+<p class="noindent"> 
+<span class="cmti-10"> Two terms unify if they are the same term or if they contain variables 
+</span> 
+<span class="cmti-10"> that can be uniformly instantiated with terms in such a way that the 
+</span> 
+<span class="cmti-10"> resulting terms are equal. 
+</span> 
+</p> 
+</div> 
+<!--l. 55--> 
+<p class="noindent"> This means, for example, that the terms 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> unify, because they are the same atom. Similarly, the terms 
+<span class="verb"> 
+<span class="cmtt-10"> 42 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> 42 
+</span> 
+</span> unify, because they are the same number, the terms 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> unify, because they are the same variable, and the terms 
+<span class="verb"> 
+<span class="cmtt-10"> woman(mia) 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> woman(mia) 
+</span> 
+</span> unify, because they are the same complex term. The terms 
+<span class="verb"> 
+<span class="cmtt-10"> woman(mia) 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> woman(vincent) 
+</span> 
+</span> , however, do not unify, as they are not the same (and neither of them contains a variable that could be instantiated to make them the same). 
+</p> 
+<!--l. 64--> 
+<p class="indent"> Now, what about the terms 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> ? They are not the same. However, the variable 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> can be instantiated to 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> which makes them equal. So, by the second part of our working definition, 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> unify. Similarly, the terms 
+<span class="verb"> 
+<span class="cmtt-10"> woman(X) 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> woman(mia) 
+</span> 
+</span> unify, because they can be made equal by instantiating 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> . How about 
+<span class="verb"> 
+<span class="cmtt-10"> loves(vincent,X) 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> loves(X,mia) 
+</span> 
+</span> ? No. It is impossible to find an instantiation of 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> that makes the two terms equal. Do you see why? Instantiating 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> vincent 
+</span> 
+</span> would give us the terms 
+<span class="verb"> 
+<span class="cmtt-10"> loves(vincent,vincent) 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> loves(vincent,mia) 
+</span> 
+</span> , which are obviously not equal. However, instantiating 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to mia, would yield the terms 
+<span class="verb"> 
+<span class="cmtt-10"> loves(vincent,mia) 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> loves(mia,mia) 
+</span> 
+</span> , which aren&#8217;t equal either. 
+</p> 
+<!--l. 76--> 
+<p class="indent"> Usually we are not only interested in the fact that two terms unify, we also want to know how the variables have to be instantiated to make them equal. And Prolog gives us this information. When Prolog unifies two terms it performs all the necessary instantiations, so that the terms really are equal afterwards. This functionality, together with the fact that we are allowed to build complex terms (that is, recursively structured terms) makes unification a powerful programming mechanism. 
+</p> 
+<!--l. 85--> 
+<p class="indent"> The basic intuitions should now be clear. Here&#8217;s the definition which makes them precise. It tells us not only which terms Prolog will unify, but also what it will do to the variables to achieve this. 
+</p> 
+<ol class="enumerate1"> 
+<li class="enumerate" id="x16-23008x1"> 
+<span class="cmti-10"> If 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> 
+<span class="cmti-10"> and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> 
+<span class="cmti-10"> are constants, then 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> 
+<span class="cmti-10"> and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> 
+<span class="cmti-10"> unify if and 
+</span> 
+<span class="cmti-10"> only if they are the same atom, or the same number. 
+</span> 
+</li> 
+<li class="enumerate" id="x16-23010x2"> 
+<span class="cmti-10"> If 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> 
+<span class="cmti-10"> is a variable and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> 
+<span class="cmti-10"> is any type of term, then 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> 
+<span class="cmti-10"> and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> 
+<span class="cmti-10"> unify, and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> 
+<span class="cmti-10"> is instantiated to 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> . 
+<span class="cmti-10"> Similarly, if 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> 
+<span class="cmti-10"> is a 
+</span> 
+<span class="cmti-10"> variable and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> 
+<span class="cmti-10"> is any type of term, then 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> 
+<span class="cmti-10"> and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> 
+<span class="cmti-10"> unify, and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> 
+<span class="cmti-10"> is instantiated to 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> . 
+<span class="cmti-10"> (So if they are both variables, they&#8217;re both 
+</span> 
+<span class="cmti-10"> instantiated to each other, and we say that they share values.) 
+</span> 
+</li> 
+<li class="enumerate" id="x16-23012x3"> 
+<span class="cmti-10"> If 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term1 
+</span> 
+</span> 
+<span class="cmti-10"> and 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> term2 
+</span> 
+</span> 
+<span class="cmti-10"> are complex terms, then they unify if and only 
+</span> 
+<span class="cmti-10"> if: 
+</span> 
+<ol class="enumerate2"> 
+<li class="enumerate" id="x16-23014x1"> 
+<span class="cmti-10"> They have the same functor and arity, and 
+</span> 
+</li> 
+<li class="enumerate" id="x16-23016x2"> 
+<span class="cmti-10"> all their corresponding arguments unify, and 
+</span> 
+</li> 
+<li class="enumerate" id="x16-23018x3"> 
+<span class="cmti-10"> the variable instantiations are compatible. (For example, it is not 
+</span> 
+<span class="cmti-10"> possible to instantiate variable 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> 
+<span class="cmti-10"> to 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> 
+<span class="cmti-10"> when unifying one pair of 
+</span> 
+<span class="cmti-10"> arguments, and to instantiate 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> 
+<span class="cmti-10"> to 
+</span> 
+<span class="verb"> 
+<span class="cmtt-10"> vincent 
+</span> 
+</span> 
+<span class="cmti-10"> when unifying another 
+</span> 
+<span class="cmti-10"> pair of arguments 
+</span> .) 
+</li> 
+</ol> 
+</li> 
+<li class="enumerate" id="x16-23020x4"> 
+<span class="cmti-10"> Two terms unify if and only if it follows from the previous three clauses that 
+</span> 
+<span class="cmti-10"> they unify. 
+</span> 
+</li> 
+</ol> 
+<!--l. 117--> 
+<p class="indent"> Let&#8217;s have a look at the form of this definition. The first clause tells us when two constants unify. The second clause tells us when two terms, one of which is a variable, unify (such terms will always unify; variables unify with 
+<span class="cmti-10"> anything 
+</span> ). Just as importantly, this clause also tells what instantiations we have to perform to make the two terms the same. Finally, the third clause tells us when two complex terms unify. Note the structure of this definition. Its first three clauses mirror perfectly the (recursive) structure of terms. 
+</p> 
+<!--l. 127--> 
+<p class="indent"> The fourth clause is also important: it says that the first three clauses tell us all we need to know about the unification of two terms. If two terms can&#8217;t be shown to unify using clauses&#x00A0;1&#8211;3, then they 
+<span class="cmti-10"> don&#8217;t 
+</span> unify. For example, 
+<span class="verb"> 
+<span class="cmtt-10"> batman 
+</span> 
+</span> does not unify with 
+<span class="verb"> 
+<span class="cmtt-10"> daughter(ink) 
+</span> 
+</span> . Why not? Well, the first term is a constant, and the second is a complex term. But none of the first three clauses tell us how to unify two such terms, hence (by clause&#x00A0;4) they don&#8217;t unify. 
+</p> 
+<!--l. 136--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x16-240002.1"> 
+</a> Examples 
+</h4> 
+<!--l. 139--> 
+<p class="noindent"> To make sure we&#8217;ve fully understood this definition, let&#8217;s work through several examples. In these examples we&#8217;ll make use of an important built-in predicate, the 
+<span class="verb"> 
+<span class="cmtt-10"> =/2 
+</span> 
+</span> predicate (recall that writing 
+<a id="dx16-24001"> 
+</a> 
+<span class="verb"> 
+<span class="cmtt-10"> /2 
+</span> 
+</span> at the end indicates that this predicate takes two arguments). 
+</p> 
+<!--l. 146--> 
+<p class="indent"> The 
+<span class="verb"> 
+<span class="cmtt-10"> =/2 
+</span> 
+</span> predicate tests whether its two arguments unify. For example, if we pose the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb56"> 
+<a id="x16-24003r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;=(mia,mia). 
+</span> 
+</div> 
+<!--l. 153--> 
+<p class="noindent"> Prolog will respond yes, and if we pose the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb57"> 
+<a id="x16-24005r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;=(mia,vincent). 
+</span> 
+</div> 
+<!--l. 158--> 
+<p class="noindent"> Prolog will respond no. 
+</p> 
+<!--l. 160--> 
+<p class="indent"> But we usually wouldn&#8217;t pose these queries in quite this way. Let&#8217;s face it, the notation 
+<span class="verb"> 
+<span class="cmtt-10"> =(mia,mia) 
+</span> 
+</span> is rather unnatural. It would be nicer if we could use infix notation (that is, if we could put the 
+<span class="verb"> 
+<span class="cmtt-10"> =/2 
+</span> 
+</span> functor between its arguments) and write things like: 
+</p> 
+<div class="fancyvrb" id="fancyvrb58"> 
+<a id="x16-24007r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia. 
+</span> 
+</div> 
+<!--l. 168--> 
+<p class="noindent"> In fact, Prolog lets us do this, so in the examples that follow we&#8217;ll use infix notation. 
+</p> 
+<!--l. 171--> 
+<p class="indent"> Let&#8217;s return to our first example: 
+</p> 
+<div class="fancyvrb" id="fancyvrb59"> 
+<a id="x16-24009r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24011r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 179--> 
+<p class="indent"> Why does Prolog say yes? This may seem like a silly question: surely it&#8217;s obvious that the terms unify! That&#8217;s true, but how does this follow from the definition given above? It is important to learn to think systematically about unification (it is utterly fundamental to Prolog), and thinking systematically means relating the examples to the definition of unification given above. So let&#8217;s think this example through. 
+</p> 
+<!--l. 187--> 
+<p class="indent"> The definition has three clauses. Now, clause&#x00A0;2 is for when one argument is a variable, and clause&#x00A0;3 is for when both arguments are complex terms, so these are of no use here. However clause&#x00A0;1 
+<span class="cmti-10"> is 
+</span> relevant to our example. This tells us that two constants unify if and only if they are exactly the same object. As 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> are the same atom, unification succeeds. 
+</p> 
+<!--l. 194--> 
+<p class="indent"> A similar argument explains the following responses: 
+</p> 
+<div class="fancyvrb" id="fancyvrb60"> 
+<a id="x16-24013r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;2 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24015r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24017r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-24019r4"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24021r5"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 203--> 
+<p class="noindent"> Once again, clause&#x00A0;1 is relevant here (after all, 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> vincent 
+</span> 
+</span> are all constants). And as 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+</span> is the same number as 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+</span> , and as 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> is 
+<span class="cmti-10"> not 
+</span> the same atom as 
+<span class="verb"> 
+<span class="cmtt-10"> vincent 
+</span> 
+</span> , Prolog responds yes to the first query and no to the second. 
+</p> 
+<!--l. 208--> 
+<p class="indent"> However clause&#x00A0;1 does hold one small surprise for us. Consider the following query: 
+</p> 
+<div class="fancyvrb" id="fancyvrb61"> 
+<a id="x16-24023r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;mia&#8217; 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24025r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 215--> 
+<p class="noindent"> What&#8217;s going on here? Why do these two terms unify? Well, as far as Prolog is concerned, 
+<span class="verb"> 
+<span class="cmtt-10"> &#8217;mia&#8217; 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> are the same atom. In fact, for Prolog, any atom of the form 
+<span class="verb"> 
+<span class="cmtt-10"> &#8217;symbols&#8217; 
+</span> 
+</span> is considered the same entity as the atom of the form 
+<span class="verb"> 
+<span class="cmtt-10"> symbols 
+</span> 
+</span> . This can be a useful feature in certain kinds of programs, so don&#8217;t forget it. 
+</p> 
+<!--l. 221--> 
+<p class="indent"> On the other hand, to the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb62"> 
+<a id="x16-24027r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;2&#8217; 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;2. 
+</span> 
+</div> 
+<!--l. 226--> 
+<p class="noindent"> Prolog will respond no. And if you think about the definitions given in Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch1"> 1 
+<!--tex4ht:ref: CHAPTER1 --> 
+</a> , you will see that this has to be the way things work. After all, 
+<span class="verb"> 
+<span class="cmtt-10"> 2 
+</span> 
+</span> is a number, but 
+<span class="verb"> 
+<span class="cmtt-10"> &#8217;2&#8217; 
+</span> 
+</span> is an atom. They simply cannot be the same. 
+</p> 
+<!--l. 231--> 
+<p class="indent"> Let&#8217;s try an example with a variable: 
+</p> 
+<div class="fancyvrb" id="fancyvrb63"> 
+<a id="x16-24029r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;X. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24031r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-24033r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24035r4"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 239--> 
+<p class="noindent"> Again, this in an easy example: clearly the variable 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> can be unified with the constant 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> , and Prolog does so, and tells us that it has made this unification. Fine, but how does this follow from our definition? 
+</p> 
+<!--l. 244--> 
+<p class="indent"> The relevant clause here is clause&#x00A0;2. This tells us what happens when at least one of the arguments is a variable. In our example it is the second term which is the variable. The definition tells us unification is possible, and also says that the variable is instantiated to the first argument, namely 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> . And this, of course, is exactly what Prolog does. 
+</p> 
+<!--l. 251--> 
+<p class="indent"> Now for an important example: what happens with the following query? 
+</p> 
+<div class="fancyvrb" id="fancyvrb64"> 
+<a id="x16-24037r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;Y. 
+</span> 
+</div> 
+<!--l. 256--> 
+<p class="noindent"> Well, depending on your Prolog implementation, you may just get back the output 
+</p> 
+<div class="fancyvrb" id="fancyvrb65"> 
+<a id="x16-24039r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;Y. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24041r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 263--> 
+<p class="noindent"> Prolog is simply agreeing that the two terms unify (after all, variables unify with anything, so they certainly unify with each other) and making a note that from now on, 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> denote the same object, that is, share values. 
+</p> 
+<!--l. 268--> 
+<p class="indent"> On the other hand, you may get the following output: 
+</p> 
+<div class="fancyvrb" id="fancyvrb66"> 
+<a id="x16-24043r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_5071 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24045r2"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;_5071 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24047r3"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 274--> 
+<p class="noindent"> What&#8217;s going on here? Essentially the same thing. Note that 
+<span class="verb"> 
+<span class="cmtt-10"> _5071 
+</span> 
+</span> is a variable (recall from Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch1"> 1 
+<!--tex4ht:ref: CHAPTER1 --> 
+</a> that strings of letters and numbers that start with the underscore character are variables). Now look at clause&#x00A0;2 of the definition of unification. This tells us that when two variables are unified, they share values. So Prolog has created a new variable (namely 
+<span class="verb"> 
+<span class="cmtt-10"> _5071 
+</span> 
+</span> ) and from now on both 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> share the value of this variable. In effect, Prolog is creating a common variable name for the two original variables. Needless to say, there&#8217;s nothing magic about the number 
+<span class="verb"> 
+<span class="cmtt-10"> 5071 
+</span> 
+</span> . Prolog just needs to generate a brand new variable name, and using numbers is a handy way to do this. It might just as well generate 
+<span class="verb"> 
+<span class="cmtt-10"> _5075 
+</span> 
+</span> , or 
+<span class="verb"> 
+<span class="cmtt-10"> _6189 
+</span> 
+</span> , or whatever. 
+</p> 
+<!--l. 287--> 
+<p class="indent"> Here is another example involving only atoms and variables. How do you think will Prolog respond? 
+</p> 
+<div class="fancyvrb" id="fancyvrb67"> 
+<a id="x16-24049r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia, 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent. 
+</span> 
+</div> 
+<!--l. 294--> 
+<p class="indent"> Prolog will respond no. This query involves two goals, 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;mia 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;vincent 
+</span> 
+</span> . Taken separately, Prolog would succeed at both of them, instantiating 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> in the first case and to 
+<span class="verb"> 
+<span class="cmtt-10"> vincent 
+</span> 
+</span> in the second. And that&#8217;s exactly the problem here: once Prolog has worked through the first goal, 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> is instantiated to (and therefore equal to) 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> , so that it simply can&#8217;t unify with 
+<span class="verb"> 
+<span class="cmtt-10"> vincent 
+</span> 
+</span> anymore. Hence the second goal fails. An 
+<span class="cmti-10"> instantiated 
+</span> variable isn&#8217;t really a variable anymore: it has become what it was instantiated with. 
+</p> 
+<!--l. 303--> 
+<p class="indent"> Now let&#8217;s look at an example involving complex terms: 
+</p> 
+<div class="fancyvrb" id="fancyvrb68"> 
+<a id="x16-24051r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;k(s(g),Y) 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;k(X,t(k)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24053r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-24055r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;s(g) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24057r4"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;t(k) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24059r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 312--> 
+<p class="noindent"> Clearly the two complex terms unify if the stated variable instantiations are carried out. But how does this follow from the definition? Well, first of all, clause&#x00A0;3 has to be used here because we are trying to unify two complex terms. So the first thing we need to do is check that both complex terms have the same functor and arity. And they do. Clause&#x00A0;3 also tells us that we have to unify the corresponding arguments in each complex term. So do the first arguments, 
+<span class="verb"> 
+<span class="cmtt-10"> s(g) 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> , unify? By clause&#x00A0;2, yes, and we instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> s(g) 
+</span> 
+</span> . So do the second arguments, 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> t(k) 
+</span> 
+</span> , unify? Again by clause&#x00A0;2, yes, and we instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> t(k) 
+</span> 
+</span> . 
+</p> 
+<!--l. 323--> 
+<p class="indent"> Here&#8217;s another example with complex terms: 
+</p> 
+<div class="fancyvrb" id="fancyvrb69"> 
+<a id="x16-24061r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;k(s(g), 
+</span> 
+<span class="cmtt-10"> &#x00A0;t(k)) 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;k(X,t(Y)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24063r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-24065r3"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;s(g) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24067r4"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;k 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-24069r5"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 332--> 
+<p class="noindent"> It should be clear that the two terms unify if these instantiations are carried out. But can you explain, step by step, how this relates to the definition? 
+</p> 
+<!--l. 336--> 
+<p class="indent"> Here is a last example: 
+</p> 
+<div class="fancyvrb" id="fancyvrb70"> 
+<a id="x16-24071r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;loves(X,X) 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;loves(marcellus,mia). 
+</span> 
+</div> 
+<!--l. 341--> 
+<p class="noindent"> Do these terms unify? No, they don&#8217;t. It&#8217;s true that they are both complex terms and have the same functor and arity, but clause&#x00A0;3 also demands that all corresponding arguments have to unify, and that the variable instantiations have to be compatible. This is not the case here. Unifying the first arguments would instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> with 
+<span class="verb"> 
+<span class="cmtt-10"> marcellus 
+</span> 
+</span> . Unifying the second arguments would instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> with 
+<span class="verb"> 
+<span class="cmtt-10"> mia 
+</span> 
+</span> . Either way, we&#8217;re blocked. 
+</p> 
+<!--l. 350--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x16-250002.1"> 
+</a> The occurs check 
+</h4> 
+<!--l. 352--> 
+<p class="noindent"> Unification is a well-known concept, used in several branches of computer science. It has been thoroughly studied, and many unification algorithms are known. But Prolog does 
+<span class="cmti-10"> not 
+</span> use a standard unification algorithm when it performs its version of unification. Instead it takes a shortcut. You need to know about this shortcut. 
+</p> 
+<!--l. 359--> 
+<p class="indent"> Consider the following query: 
+</p> 
+<div class="fancyvrb" id="fancyvrb71"> 
+<a id="x16-25002r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;father(X) 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;X. 
+</span> 
+</div> 
+<!--l. 364--> 
+<p class="noindent"> Do these terms unify or not? A standard unification algorithm would say: &#8220;No, they don&#8217;t&#8221;. Why is that? Well, pick any term and instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to the term you picked. For example, if you instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to 
+<span class="verb"> 
+<span class="cmtt-10"> father(father(butch)) 
+</span> 
+</span> , the left hand side becomes 
+<span class="verb"> 
+<span class="cmtt-10"> father(father(father(butch))) 
+</span> 
+</span> , and the right hand side becomes 
+<span class="verb"> 
+<span class="cmtt-10"> father(father(butch)) 
+</span> 
+</span> . Obviously these don&#8217;t unify. Moreover, it makes no difference what term you instantiate 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> to. No matter what you choose, the two terms cannot possibly be made the same, for the term on the left will always be one symbol longer than the term on the right (the functor 
+<span class="verb"> 
+<span class="cmtt-10"> father 
+</span> 
+</span> on the left will always give it that one extra level). A standard unification algorithm will spot this (we&#8217;ll see why shortly when we discuss the occurs check), halt, and tell us no. 
+</p> 
+<!--l. 378--> 
+<p class="indent"> The recursive definition of Prolog unification given earlier won&#8217;t do this. Because the left hand term is the variable 
+<span class="cmtt-10"> X 
+</span> , by clause&#x00A0;2 it decides that the terms 
+<span class="cmti-10"> do 
+</span> unify, and (in accordance with clause&#x00A0;2) instantiates 
+<span class="cmtt-10"> X 
+</span> to the right hand side, namely 
+<span class="cmtt-10"> father(X) 
+</span> . But there&#8217;s an 
+<span class="cmtt-10"> X 
+</span> in this term, and 
+<span class="cmtt-10"> X 
+</span> has been instantiated to 
+<span class="cmtt-10"> father(X) 
+</span> , so Prolog realises that 
+<span class="cmtt-10"> father(X) 
+</span> is really 
+<span class="cmtt-10"> father(father(X)) 
+</span> . But there&#8217;s an 
+<span class="cmtt-10"> X 
+</span> here too, and 
+<span class="cmtt-10"> X 
+</span> has been instantiated to 
+<span class="cmtt-10"> father(X) 
+</span> , so Prolog realises that 
+<span class="cmtt-10"> father(father(X)) 
+</span> is really 
+<span class="cmtt-10"> father(father(father(X))) 
+</span> , and so on. Having instantiated 
+<span class="cmtt-10"> X 
+</span> to 
+<span class="cmtt-10"> father(X) 
+</span> , Prolog is committed to carrying out an unending sequence of expansions. 
+</p> 
+<!--l. 392--> 
+<p class="indent"> At least, that&#8217;s the theory. What happens in practice? Well, with older Prolog implementations, what we&#8217;ve just described is exactly what happens. You would get a message like: 
+</p> 
+<div class="fancyvrb" id="fancyvrb72"> 
+<a id="x16-25004r1"> 
+</a> 
+<span class="cmtt-10"> Not 
+</span> 
+<span class="cmtt-10"> &#x00A0;enough 
+</span> 
+<span class="cmtt-10"> &#x00A0;memory 
+</span> 
+<span class="cmtt-10"> &#x00A0;to 
+</span> 
+<span class="cmtt-10"> &#x00A0;complete 
+</span> 
+<span class="cmtt-10"> &#x00A0;query! 
+</span> 
+</div> 
+<!--l. 399--> 
+<p class="noindent"> and a long string of symbols like: 
+</p> 
+<div class="fancyvrb" id="fancyvrb73"> 
+<a id="x16-25006r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;father(father(father(father(father(father 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-25008r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;(father(father(father(father(father(father 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-25010r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;(father(father(father(father(father(father 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-25012r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;(father(father(father(father(father(father 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-25014r5"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;(father(father(father(father(father(father 
+</span> 
+</div> 
+<!--l. 407--> 
+<p class="noindent"> Prolog is desperately 
+<span class="cmti-10"> trying 
+</span> to come back with the correctly instantiated terms, but it can&#8217;t halt, because the instantiation process is unbounded. From an abstract mathematical perspective, what Prolog is trying to do is sensible. Intuitively, the only way the two terms could be made to unify would be if 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> was instantiated to a term containing an infinitely long string of 
+<span class="verb"> 
+<span class="cmtt-10"> father 
+</span> 
+</span> functors, so that the effect of the extra 
+<span class="verb"> 
+<span class="cmtt-10"> father 
+</span> 
+</span> functor on the left hand side was cancelled out. But the terms we compute with are 
+<span class="cmti-10"> finite 
+</span> entities. Infinite terms are an interesting mathematical abstraction, but they&#8217;re not something we can work with. No matter how hard Prolog tries, it can never build one. 
+</p> 
+<!--l. 419--> 
+<p class="indent"> Now, it&#8217;s annoying to have Prolog running out of memory like this, and sophisticated Prolog implementations have found ways of coping more gracefully. Try posing the query 
+<span class="verb"> 
+<span class="cmtt-10"> father(X) 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+</span> to SWI Prolog or SICStus Prolog. The answer will be something like: 
+</p> 
+<div class="fancyvrb" id="fancyvrb74"> 
+<a id="x16-25016r1"> 
+</a> 
+<span class="cmtt-10"> X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;father(father(father(father(...)))))))) 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-25018r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 428--> 
+<p class="noindent"> That is, these implementations insist that unification 
+<span class="cmti-10"> is 
+</span> possible, but they 
+<span class="cmti-10"> don&#8217;t 
+</span> fall into the trap of actually trying to instantiate a finite term for 
+<span class="cmtt-10"> X 
+</span> as the naive implementations do. Instead, they detect that there is a potential problem, halt, declare that unification is possible, and print out a finite representation of an infinite term, like the 
+</p> 
+<div class="fancyvrb" id="fancyvrb75"> 
+<a id="x16-25020r1"> 
+</a> 
+<span class="cmtt-10"> father(father(father(father(...)))))))) 
+</span> 
+</div> 
+<!--l. 437--> 
+<p class="noindent"> in the previous query. Can you compute with these finite representations of infinite terms? That depends on the implementation. In some systems you cannot do much with them. For example, posing the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb76"> 
+<a id="x16-25022r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;father(X), 
+</span> 
+<span class="cmtt-10"> &#x00A0;Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;father(Y), 
+</span> 
+<span class="cmtt-10"> &#x00A0;X 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;Y. 
+</span> 
+</div> 
+<!--l. 444--> 
+<p class="noindent"> would result in a crash (note that the 
+<span class="cmtt-10"> X = Y 
+</span> demands that we unify two finite representations of infinite terms). Nonetheless, in some modern systems unification works robustly with such representations (for example, both SWI and Sicstus can handle the previous example) so you can actually use them in your programs. However, why you might want to use such representations, and what such representations actually are, are topics that lie beyond the scope of this book. 
+</p> 
+<!--l. 453--> 
+<p class="indent"> In short, there are actually 
+<span class="cmti-10"> three 
+</span> different responses to the question &#8220;does 
+<span class="cmtt-10"> father(X) 
+</span> unify with 
+<span class="cmtt-10"> X 
+</span> &#8221;. There is the answer given by the standard unification algorithm (which is to say no), the response of older Prolog implementations (which is to run amok until they use up the available memory), and the answer given by sophisticated Prolog implementations (which is to say yes, and return a finite representation of an infinite term). In short, there is no &#8216;right&#8217; answer to this question. What is important is that you understand the difference between standard unification and Prolog unification, and know how the Prolog implementation that 
+<span class="cmtt-10"> you 
+</span> work with handles such examples. 
+</p> 
+<!--l. 465--> 
+<p class="indent"> Now, in the practical session at the end of the chapter we ask you to try out such examples with your Prolog interpreter. Here we want to say a little more about the difference between Prolog unification and standard unification. Given the very different ways they handle this example, it may seem that standard unification algorithms and the Prolog approach to unification are inherently different. Actually, they&#8217;re not. There is one simple difference between the two algorithms that accounts for their different behaviour when faced with the task of unifying terms like 
+<span class="cmtt-10"> X 
+</span> and 
+<span class="cmtt-10"> father(X) 
+</span> . A standard algorithm, when given two terms to unify, first carries out what is known as the occurs check. This means that if it is asked to unify a variable with a term, it first checks whether the variable occurs in the term. If it does, the standard algorithm declares that unification is impossible, for clearly it is the presence of the variable 
+<span class="cmtt-10"> X 
+</span> in 
+<span class="cmtt-10"> father(X) 
+</span> which leads to the problems discussed earlier. Only if the variable does not occur in the term do standard algorithms attempt to carry out the unification. 
+</p> 
+<!--l. 484--> 
+<p class="indent"> To put it another way, standard unification algorithms are 
+<span class="cmti-10"> pessimistic 
+</span> . They first carry out the occurs check, and only when they are sure that the situation is safe they do go ahead and actually try to unify the terms. So a standard unification algorithm will never get locked into a situation where it is endlessly trying to instantiate variables, or having to appeal to infinite terms. 
+</p> 
+<!--l. 492--> 
+<p class="indent"> Prolog, on the other hand, is 
+<span class="cmti-10"> optimistic 
+</span> . It assumes that you are not going to give it anything dangerous. So it takes a shortcut: it omits the occurs check. As soon as you give it two terms, it rushes ahead and tries to unify them. As Prolog is a programming language, this is an intelligent strategy. Unification is one of the fundamental processes that makes Prolog work, so it needs to be carried out as fast as possible. Carrying out an occurs check every time unification is called for would slow it down considerably. Pessimism is safe, but optimism is a lot faster! Prolog can only run into problems if you, the programmer, ask it to do something like unify 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> with 
+<span class="verb"> 
+<span class="cmtt-10"> father(X) 
+</span> 
+</span> . And it is unlikely you will ever (intentionally) ask it to do anything like that when writing a real program. 
+</p> 
+<!--l. 507--> 
+<p class="indent"> One final remark. Prolog comes with a built-in predicate that carries out standard unification (that is, unification with the occurs check). The predicate is 
+<a id="dx16-25023"> 
+</a> 
+</p> 
+<div class="fancyvrb" id="fancyvrb77"> 
+<a id="x16-25025r1"> 
+</a> 
+<span class="cmtt-10"> unify_with_occurs_check/2. 
+</span> 
+</div> 
+<!--l. 514--> 
+<p class="noindent"> So if we posed the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb78"> 
+<a id="x16-25027r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;unify_with_occurs_check(father(X),X). 
+</span> 
+</div> 
+<!--l. 518--> 
+<p class="noindent"> we would get the response no. 
+</p> 
+<!--l. 521--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x16-260002.1"> 
+</a> Programming with unification 
+</h4> 
+<!--l. 523--> 
+<p class="noindent"> As we&#8217;ve said, unification is a fundamental operation in Prolog. It plays a key role in Prolog proof search (as we shall soon learn), and this alone makes it vital. However, as you get to know Prolog better, it will become clear that unification is interesting and important in its own right. Indeed, sometimes you can write useful programs simply by using complex terms to define interesting concepts. Unification can then be used to pull out the information you want. 
+</p> 
+<!--l. 531--> 
+<p class="indent"> Here&#8217;s a simple example of this, due to Ivan Bratko. 
+<span class="footnote-mark"> 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-html17"> 
+<sup class="textsuperscript"> 1 
+</sup> 
+</a> 
+</span> 
+<a id="x16-26001f1"> 
+</a> The following two line knowledge base defines two predicates, namely 
+<span class="verb"> 
+<span class="cmtt-10"> vertical/1 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> horizontal/1 
+</span> 
+</span> , which specify what it means for a line to be vertical or horizontal respectively: 
+</p> 
+<div class="fancyvrb" id="fancyvrb79"> 
+<a id="x16-26003r1"> 
+</a> 
+<span class="cmtt-10"> vertical(line(point(X,Y),point(X,Z))). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-26005r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-26007r3"> 
+</a> 
+<span class="cmtt-10"> horizontal(line(point(X,Y),point(Z,Y))). 
+</span> 
+</div> 
+<!--l. 547--> 
+<p class="indent"> Now, at first glance this knowledge base may seem too simple to be interesting: it contains just two facts, and no rules. But wait a minute: the two facts are expressed using complex terms which again have complex terms as arguments. Indeed, there are three levels of terms nested inside terms. Moreover, the deepest level arguments are all variables, so the concepts are being defined in a general way. Maybe it&#8217;s not quite as simple as it seems. Let&#8217;s take a closer look. 
+</p> 
+<!--l. 555--> 
+<p class="indent"> Right down at the bottom level, we have a complex term with functor 
+<span class="verb"> 
+<span class="cmtt-10"> point 
+</span> 
+</span> and two arguments. Its two arguments are intended to be instantiated to numbers: 
+<span class="verb"> 
+<span class="cmtt-10"> point(X,Y) 
+</span> 
+</span> represents the Cartesian coordinates of a point. That is, the 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> indicates the horizontal distance the point is from some fixed point, while the 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> indicates the vertical distance from that same fixed point. 
+</p> 
+<!--l. 562--> 
+<p class="indent"> Now, once we&#8217;ve specified two distinct points, we&#8217;ve specified a line, namely the line between them. So the two complex terms representing points are bundled together as the two arguments of another complex term with the functor 
+<span class="verb"> 
+<span class="cmtt-10"> line 
+</span> 
+</span> . In effect, we represent a line by a complex term which has two arguments which are complex terms themselves and represent points. We&#8217;re using Prolog&#8217;s ability to build complex terms to work our way up a hierarchy of concepts. 
+</p> 
+<!--l. 570--> 
+<p class="indent"> Being vertical, and being horizontal, are properties of lines. The predicates 
+<span class="verb"> 
+<span class="cmtt-10"> vertical 
+</span> 
+</span> and 
+<span class="verb"> 
+<span class="cmtt-10"> horizontal 
+</span> 
+</span> therefore both take one argument which represents a line. The definition of 
+<span class="verb"> 
+<span class="cmtt-10"> vertical/1 
+</span> 
+</span> simply says: a line that goes between two points that have the same x-coordinate is vertical. Note how we capture the effect of &#8220;the same x-coordinate&#8221; in Prolog: we simply make use of the same variable 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> as the first argument of the two complex terms representing the points. 
+</p> 
+<!--l. 579--> 
+<p class="indent"> Similarly, the definition of 
+<span class="verb"> 
+<span class="cmtt-10"> horizontal/1 
+</span> 
+</span> simply says: a line that goes between two points that have the same y-coordinate is horizontal. To capture the effect of &#8220;the same y-coordinate&#8221;, we use the same variable 
+<span class="verb"> 
+<span class="cmtt-10"> Y 
+</span> 
+</span> as the second argument of the two complex terms representing the points. 
+</p> 
+<!--l. 585--> 
+<p class="indent"> What can we do with this knowledge base? Let&#8217;s look at some examples: 
+</p> 
+<div class="fancyvrb" id="fancyvrb80"> 
+<a id="x16-26009r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;vertical(line(point(1,1),point(1,3))). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-26011r2"> 
+</a> 
+<span class="cmtt-10"> yes 
+</span> 
+</div> 
+<!--l. 591--> 
+<p class="noindent"> This should be clear: the query unifies with the definition of 
+<span class="verb"> 
+<span class="cmtt-10"> vertical/1 
+</span> 
+</span> in our little knowledge base (and in particular, the representations of the two points have the same first argument) so Prolog says yes. Similarly we have: 
+</p> 
+<div class="fancyvrb" id="fancyvrb81"> 
+<a id="x16-26013r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;vertical(line(point(1,1),point(3,2))). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-26015r2"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 599--> 
+<p class="noindent"> This query does not unify with the definition of 
+<span class="verb"> 
+<span class="cmtt-10"> vertical/1 
+</span> 
+</span> (the representations of the two points have different first arguments) so Prolog says no. 
+</p> 
+<!--l. 603--> 
+<p class="indent"> But we can also ask more general questions: 
+</p> 
+<div class="fancyvrb" id="fancyvrb82"> 
+<a id="x16-26017r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;horizontal(line(point(1,1),point(2,Y))). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-26019r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-26021r3"> 
+</a> 
+<span class="cmtt-10"> Y 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;1 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-26023r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-26025r5"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 612--> 
+<p class="noindent"> Here our query is: if we want a horizontal line between a point at (1,1), and point whose x-coordinate is 2, what should the y-coordinate of that second point be? Prolog correctly tells us that the y-coordinate should be 1. If we then ask Prolog for a second possibility (note the 
+<span class="verb"> 
+<span class="cmtt-10"> ; 
+</span> 
+</span> ) it tells us that no other possibilities exist. 
+</p> 
+<!--l. 619--> 
+<p class="indent"> Now consider the following: 
+</p> 
+<div class="fancyvrb" id="fancyvrb83"> 
+<a id="x16-26027r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;horizontal(line(point(2,3),P)). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-26029r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-26031r3"> 
+</a> 
+<span class="cmtt-10"> P 
+</span> 
+<span class="cmtt-10"> &#x00A0;= 
+</span> 
+<span class="cmtt-10"> &#x00A0;point(_1972,3) 
+</span> 
+<span class="cmtt-10"> &#x00A0;; 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x16-26033r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x16-26035r5"> 
+</a> 
+<span class="cmtt-10"> no 
+</span> 
+</div> 
+<!--l. 628--> 
+<p class="noindent"> This query is: if we want a horizontal line between a point at (2,3), and some other point, what other points are permissible? The answer is: any point whose y-coordinate is 3. Note that the 
+<span class="verb"> 
+<span class="cmtt-10"> _1972 
+</span> 
+</span> in the first argument of the answer is a variable, which is Prolog&#8217;s way of telling us that any x-coordinate at all will do. 
+</p> 
+<!--l. 634--> 
+<p class="indent"> A general remark: the answer given to our last query, namely 
+<span class="verb"> 
+<span class="cmtt-10"> point(_1972,3) 
+</span> 
+</span> , is 
+<span class="cmti-10"> structured 
+</span> . That is, the answer is a complex term, representing a sophisticated concept (namely &#8220;any point whose y-coordinate is 3&#8221;). This structure was built using unification and nothing else: no logical inference (and in particular, no use of modus ponens) was used to produce it. Building structure by unification turns out to be a powerful idea in Prolog programming, far more powerful than this rather simple example might suggest. Moreover, when a program is written that makes heavy use of unification, it is likely to be extremely efficient. We will study a beautiful example in Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch7"> 7 
+<!--tex4ht:ref: CHAPTER7 --> 
+</a> when we discuss difference lists, which are used to implement Prolog&#8217;s built-in grammar system, Definite Clause Grammars. 
+</p> 
+<!--l. 648--> 
+<p class="indent"> This style of programming is particularly useful in applications where the important concepts have a natural hierarchical structure (as they did in the simple knowledge base above), for we can then use complex terms to represent this structure, and unification to access it. This way of working plays an important role in computational linguistics, for example, because information about language has a natural hierarchical structure (think of the way sentences can be analysed into noun phrases and verb phrases, and noun phrases analysed into determiners and nouns, and so on). 
+</p> 
+<!--l. 660--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse10"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse5"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse8"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 660--> 
+<p class="indent"> 
+<a id="taillpn-htmlse5"> 
+</a> 
+</p> 

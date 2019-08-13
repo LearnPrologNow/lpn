@@ -1,0 +1,1263 @@
+
+<!--l. 481--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse35"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse28"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse28"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse25"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch8"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 7.2 
+</span> 
+<a id="x47-650007.2"> 
+</a> Definite Clause Grammars 
+</h3> 
+<!--l. 483--> 
+<p class="noindent"> So, what are DCGs? Quite simply, a nice notation for writing grammars that hides the underlying difference list variables. Let&#8217;s look at three examples. 
+</p> 
+<!--l. 489--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x47-660007.2"> 
+</a> A first example 
+</h4> 
+<!--l. 491--> 
+<p class="noindent"> As our first example, here&#8217;s our little grammar written as a DCG: 
+</p> 
+<!--l. 494--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb322"> 
+<a id="x47-66002r1"> 
+</a> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np,vp. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66004r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x47-66006r3"> 
+</a> 
+<span class="cmtt-10"> np 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det,n. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66008r4"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x47-66010r5"> 
+</a> 
+<span class="cmtt-10"> vp 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v,np. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66012r6"> 
+</a> 
+<span class="cmtt-10"> vp 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66014r7"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x47-66016r8"> 
+</a> 
+<span class="cmtt-10"> det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[the]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66018r9"> 
+</a> 
+<span class="cmtt-10"> det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66020r10"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x47-66022r11"> 
+</a> 
+<span class="cmtt-10"> n 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[woman]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66024r12"> 
+</a> 
+<span class="cmtt-10"> n 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[man]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66026r13"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x47-66028r14"> 
+</a> 
+<span class="cmtt-10"> v 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[shoots]. 
+</span> 
+</div> 
+<!--l. 511--> 
+<p class="indent"> The link with the original context free grammar should be transparent: this is definitely the most user-friendly notation we have used yet. But how do we use this DCG? In fact, we use it in 
+<span class="cmti-10"> exactly 
+</span> the same way as we used our difference list recogniser. For example, to find out whether 
+<span class="cmti-10"> a woman shoots a man 
+</span> is a sentence, we pose the query: 
+</p> 
+<!--l. 518--> 
+<p class="indent"> 
+</p> 
+<div class="fancyvrb" id="fancyvrb323"> 
+<a id="x47-66030r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;s([a,woman,shoots,a,man],[]). 
+</span> 
+</div> 
+<!--l. 521--> 
+<p class="noindent"> That is, just as in the difference list recogniser, we ask whether we can get an 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+</span> by consuming the symbols in 
+<span class="verb"> 
+<span class="cmtt-10"> [a,woman,shoots,a,man] 
+</span> 
+</span> , leaving nothing behind. 
+</p> 
+<!--l. 525--> 
+<p class="indent"> Similarly, to generate all the sentences in the grammar, we pose the query: 
+</p> 
+<div class="fancyvrb" id="fancyvrb324"> 
+<a id="x47-66032r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;s(X,[]). 
+</span> 
+</div> 
+<!--l. 530--> 
+<p class="noindent"> This asks what values we can give to 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> , such that we get an 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+</span> by consuming the symbols in 
+<span class="verb"> 
+<span class="cmtt-10"> X 
+</span> 
+</span> , leaving nothing behind. 
+</p> 
+<!--l. 533--> 
+<p class="indent"> Moreover, the queries for other grammatical categories also work the same way. For example, to find out if 
+<span class="cmti-10"> a woman 
+</span> is a noun phrase we pose the query: 
+</p> 
+<div class="fancyvrb" id="fancyvrb325"> 
+<a id="x47-66034r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;np([a,woman],[]). 
+</span> 
+</div> 
+<!--l. 539--> 
+<p class="noindent"> And we generate all the noun phrases in the grammar as follows: 
+</p> 
+<div class="fancyvrb" id="fancyvrb326"> 
+<a id="x47-66036r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;np(X,[]). 
+</span> 
+</div> 
+<!--l. 545--> 
+<p class="indent"> What&#8217;s going on? Quite simply, this DCG 
+<span class="cmti-10"> is 
+</span> our difference list recogniser! To put it another way, DCG notation is essentially syntactic sugar, user-friendly notation that lets us write grammars in a natural way. But Prolog translates this notation into the kinds of difference lists discussed before. So we have the best of both worlds: a nice simple notation for working with, and the efficiency of difference lists. 
+</p> 
+<!--l. 553--> 
+<p class="indent"> There is an easy way to see what Prolog translates DCG rules into. Suppose you are working with the DCG just given (that is, suppose that Prolog has already consulted the rules). Then if you pose the query: 
+</p> 
+<div class="fancyvrb" id="fancyvrb327"> 
+<a id="x47-66038r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing(s). 
+</span> 
+</div> 
+<!--l. 559--> 
+<p class="noindent"> you will get the response 
+</p> 
+<div class="fancyvrb" id="fancyvrb328"> 
+<a id="x47-66040r1"> 
+</a> 
+<span class="cmtt-10"> s(A,B) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66042r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np(A,C), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66044r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;vp(C,B). 
+</span> 
+</div> 
+<!--l. 565--> 
+<p class="noindent"> This is what Prolog has translated 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np,vp 
+</span> 
+</span> into. Note that (apart from the choice of variables) this is exactly the difference list rule we used in our second recogniser. 
+</p> 
+<!--l. 569--> 
+<p class="indent"> Similarly, if you pose the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb329"> 
+<a id="x47-66046r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing(np). 
+</span> 
+</div> 
+<!--l. 573--> 
+<p class="noindent"> you will get 
+</p> 
+<div class="fancyvrb" id="fancyvrb330"> 
+<a id="x47-66048r1"> 
+</a> 
+<span class="cmtt-10"> np(A,B) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66050r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det(A,C), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66052r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;n(C,B). 
+</span> 
+</div> 
+<!--l. 579--> 
+<p class="noindent"> This is what Prolog has translated 
+<span class="verb"> 
+<span class="cmtt-10"> np 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det,n 
+</span> 
+</span> into. Again (apart from the choice of variables) this is the difference list rule we used in our second recogniser. 
+</p> 
+<!--l. 583--> 
+<p class="indent"> To get a complete listing of the translations of all the rules, simply type 
+</p> 
+<div class="fancyvrb" id="fancyvrb331"> 
+<a id="x47-66054r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;listing. 
+</span> 
+</div> 
+<!--l. 588--> 
+<p class="noindent"> There is one thing you may observe. Some Prolog implementations translate rules such as 
+</p> 
+<div class="fancyvrb" id="fancyvrb332"> 
+<a id="x47-66056r1"> 
+</a> 
+<span class="cmtt-10"> det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[the]. 
+</span> 
+</div> 
+<!--l. 593--> 
+<p class="noindent"> not into 
+</p> 
+<div class="fancyvrb" id="fancyvrb333"> 
+<a id="x47-66058r1"> 
+</a> 
+<span class="cmtt-10"> det([the|W],W). 
+</span> 
+</div> 
+<!--l. 597--> 
+<p class="noindent"> which was the form we used in our difference list recogniser, but into 
+</p> 
+<div class="fancyvrb" id="fancyvrb334"> 
+<a id="x47-66060r1"> 
+</a> 
+<span class="cmtt-10"> det(A,B) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-66062r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;C&#8217;(A,the,B). 
+</span> 
+</div> 
+<!--l. 602--> 
+<p class="noindent"> But although the notation is different, the idea is the same. This says you can get a list 
+<span class="verb"> 
+<span class="cmtt-10"> B 
+</span> 
+</span> from a list 
+<span class="verb"> 
+<span class="cmtt-10"> A 
+</span> 
+</span> by consuming a 
+<span class="verb"> 
+<span class="cmtt-10"> the 
+</span> 
+</span> . That is, once again this is a difference list representation. Note that 
+<span class="verb"> 
+<span class="cmtt-10"> &#8217;C&#8217; 
+</span> 
+</span> is an atom. 
+<a id="dx47-66063"> 
+</a> 
+</p> 
+<!--l. 608--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x47-670007.2"> 
+</a> Adding recursive rules 
+</h4> 
+<!--l. 611--> 
+<p class="noindent"> Our original context free grammar generated only 20 sentences. However it is easy to write context free grammars that generate infinitely many sentences: simply use recursive rules. Here&#8217;s an example. Let&#8217;s add the following rules to our little grammar: 
+</p> 
+<div class="center"> 
+<!--l. 616--> 
+<p class="noindent"> 
+</p> 
+<div class="tabular"> 
+<table id="TBL-4" class="tabular" cellspacing="0" cellpadding="0"> 
+<colgroup id="TBL-4-1g"> 
+<col id="TBL-4-1" /> 
+</colgroup> 
+<tr style="vertical-align:baseline;" id="TBL-4-1-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-4-1-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s 
+</span> 
+<span class="cmtt-10"> &#x00A0;conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;s 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-4-2-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-4-2-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+</span> 
+<span class="cmti-10"> and 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-4-3-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-4-3-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+</span> 
+<span class="cmti-10"> or 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-4-4-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-4-4-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+</span> 
+<span class="cmti-10"> but 
+</span> 
+</td> 
+</tr> 
+</table> 
+</div> 
+</div> 
+<!--l. 622--> 
+<p class="noindent"> This rule allows us to join as many sentences together as we like using the words 
+<span class="cmti-10"> and 
+</span> , 
+<span class="cmti-10"> but 
+</span> , and 
+<span class="cmti-10"> or 
+</span> . So this grammar classifies sentences such as 
+<span class="cmti-10"> The woman shoots the man 
+</span> 
+<span class="cmti-10"> or the man shoots the woman 
+</span> as grammatical. 
+</p> 
+<!--l. 627--> 
+<p class="indent"> Now, in principle it is easy to turn this grammar into a DCG. We need merely add the rules 
+</p> 
+<div class="fancyvrb" id="fancyvrb335"> 
+<a id="x47-67002r1"> 
+</a> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s,conj,s. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67004r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x47-67006r3"> 
+</a> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[and]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67008r4"> 
+</a> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[or]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67010r5"> 
+</a> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[but]. 
+</span> 
+</div> 
+<!--l. 636--> 
+<p class="noindent"> But there is a problem lurking under the surface. What does Prolog actually 
+<span class="cmti-10"> do 
+</span> with this DCG? Let&#8217;s have a look. 
+</p> 
+<!--l. 639--> 
+<p class="indent"> First, let&#8217;s add the new rules at the 
+<span class="cmti-10"> beginning 
+</span> of the knowledge base, before the rule 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np,vp 
+</span> 
+</span> . What happens if we then pose the query 
+<span class="verb"> 
+<span class="cmtt-10"> s([a,woman,shoots],[]) 
+</span> 
+</span> ? Prolog immediately goes into a loop. 
+</p> 
+<!--l. 644--> 
+<p class="indent"> Can you see why? The point is this. Prolog translates DCG rules into ordinary Prolog rules. If we place the recursive rule 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s,conj,s 
+</span> 
+</span> in the knowledge base before the non-recursive rule 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np,vp 
+</span> 
+</span> then the knowledge base will contain the following two Prolog rules, in this order: 
+</p> 
+<div class="fancyvrb" id="fancyvrb336"> 
+<a id="x47-67012r1"> 
+</a> 
+<span class="cmtt-10"> s(A, 
+</span> 
+<span class="cmtt-10"> &#x00A0;B) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67014r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s(A, 
+</span> 
+<span class="cmtt-10"> &#x00A0;C), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67016r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;conj(C, 
+</span> 
+<span class="cmtt-10"> &#x00A0;D), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67018r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s(D, 
+</span> 
+<span class="cmtt-10"> &#x00A0;B). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67020r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x47-67022r6"> 
+</a> 
+<span class="cmtt-10"> s(A, 
+</span> 
+<span class="cmtt-10"> &#x00A0;B) 
+</span> 
+<span class="cmtt-10"> &#x00A0;:- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67024r7"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np(A, 
+</span> 
+<span class="cmtt-10"> &#x00A0;C), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67026r8"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;vp(C, 
+</span> 
+<span class="cmtt-10"> &#x00A0;B). 
+</span> 
+</div> 
+<!--l. 660--> 
+<p class="noindent"> Now, from a declarative perspective this is fine, but from a procedural perspective this is fatal. When it tries to use the first rule, Prolog immediately encounters the goal 
+<span class="verb"> 
+<span class="cmtt-10"> s(A,C) 
+</span> 
+</span> , which it then tries to satisfy using the first rule, whereupon it immediately encounters the goal 
+<span class="verb"> 
+<span class="cmtt-10"> s(A, 
+</span> 
+<span class="cmtt-10"> &#x00A0;C) 
+</span> 
+</span> , which it then tries to satisfy using the first rule, whereupon it immediately encounters the goal 
+<span class="verb"> 
+<span class="cmtt-10"> s(A, 
+</span> 
+<span class="cmtt-10"> &#x00A0;C) 
+</span> 
+</span> , and so on. In short, it goes into an infinite loop and does no useful work. 
+</p> 
+<!--l. 669--> 
+<p class="indent"> So let&#8217;s add the recursive rule 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s,conj,s 
+</span> 
+</span> at the end of the knowledge base, so that Prolog always encounters the translation of the non-recursive rule first. What happens now, when we pose the query 
+<span class="verb"> 
+<span class="cmtt-10"> s([a,woman,shoots],[]) 
+</span> 
+</span> ? Well, now Prolog handles this and gives an answer. But what happens when we pose the query 
+<span class="verb"> 
+<span class="cmtt-10"> s([woman,shoot],[]) 
+</span> 
+</span> ? Note that this is an ungrammatical sentence that is not accepted by our grammar. Once again, Prolog gets into an infinite loop. Since it is impossible to recognise 
+<span class="verb"> 
+<span class="cmtt-10"> [woman,shoot] 
+</span> 
+</span> as a sentence consisting of a noun phrase and a verb phrase, Prolog tries to analyse it with the rule 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s,conj,s 
+</span> 
+</span> , and ends up in the same unending loop as before. 
+</p> 
+<!--l. 681--> 
+<p class="indent"> In short, we are having the same problems that we met when we discussed recursion, and rule and goal ordering, in Chapter&#x00A0; 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch3"> 3 
+<!--tex4ht:ref: CHAPTER3 --> 
+</a> . In a nutshell, 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s,conj,s 
+</span> 
+</span> translates into a left-recursive rule, and that&#8217;s bad news. Moreover, as we saw earlier, we 
+<span class="cmti-10"> can&#8217;t 
+</span> fix such problems simply by tinkering with the rule ordering: the way out of such difficulties is to change the goal order of the recursive rule so that the recursive goal is not the first one in the body of the rule. That is, ideally we should rewrite the rule so that it is no longer left-recursive. 
+</p> 
+<!--l. 691--> 
+<p class="indent"> Nice idea, but unfortunately, it is not an option here. Why not? Because the order of the goals determines the order of the words in the sentence! It makes an important difference, for example, whether our grammar accepts 
+<span class="cmti-10"> the 
+</span> 
+<span class="cmti-10"> woman shoots the man and the man shoots the woman 
+</span> ( 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;s,conj,s 
+</span> 
+</span> ) or whether it accepts 
+<span class="cmti-10"> and the woman shoots the man the man shoots the woman 
+</span> ( 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;conj,s,s 
+</span> 
+</span> ). 
+</p> 
+<!--l. 698--> 
+<p class="indent"> But there is a way out. The standard solution is to introduce a new non-terminal symbol and rewrite the DCG. We could, for example, use the category 
+<span class="verb"> 
+<span class="cmtt-10"> simple_s 
+</span> 
+</span> for sentences without embedded sentences. Our grammar would then look like this: 
+</p> 
+<div class="fancyvrb" id="fancyvrb337"> 
+<a id="x47-67028r1"> 
+</a> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;simple_s. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67030r2"> 
+</a> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;simple_s,conj,s. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67032r3"> 
+</a> 
+<span class="cmtt-10"> simple_s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;np,vp. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67034r4"> 
+</a> 
+<span class="cmtt-10"> np 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det,n. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67036r5"> 
+</a> 
+<span class="cmtt-10"> vp 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v,np. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67038r6"> 
+</a> 
+<span class="cmtt-10"> vp 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67040r7"> 
+</a> 
+<span class="cmtt-10"> det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[the]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67042r8"> 
+</a> 
+<span class="cmtt-10"> det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67044r9"> 
+</a> 
+<span class="cmtt-10"> n 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[woman]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67046r10"> 
+</a> 
+<span class="cmtt-10"> n 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[man]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67048r11"> 
+</a> 
+<span class="cmtt-10"> v 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[shoots]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67050r12"> 
+</a> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[and]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67052r13"> 
+</a> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[or]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-67054r14"> 
+</a> 
+<span class="cmtt-10"> conj 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[but]. 
+</span> 
+</div> 
+<!--l. 719--> 
+<p class="noindent"> As you should check, Prolog doesn&#8217;t get into infinite loops with this grammar as it did with the previous one, so from a computational perspective the solution is satisfactory. But it leaves something to be desired from a linguistic perspective. The DCG that looped was at least faithful to the linguistic intuitions about the structure of sentences made using 
+<span class="cmti-10"> and 
+</span> , 
+<span class="cmti-10"> but 
+</span> , and 
+<span class="cmti-10"> or 
+</span> . The new DCG imposes an additional layer of structure that is motivated by processing rather than linguistic considerations; we are no longer simply turning grammars into Prolog. 
+</p> 
+<!--l. 729--> 
+<p class="indent"> The moral is: DCGs aren&#8217;t magic. They are a nice notation, but you can&#8217;t expect to write down an arbitrary CFG as a DCG and have it run without problems. DCG rules are ordinary Prolog rules in disguise, and this means that you must pay attention to what your Prolog interpreter is going to do with them. And in particular, you have to keep an eye out for left-recursion. 
+</p> 
+<!--l. 737--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x47-680007.2"> 
+</a> A DCG for a simple formal language 
+</h4> 
+<!--l. 739--> 
+<p class="noindent"> As our last example, we shall define a DCG for the formal language 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> . What is this language? And what is a formal language anyway? 
+</p> 
+<!--l. 743--> 
+<p class="indent"> A formal language is simply a set of strings. The term &#8220;formal language&#8221; is intended to contrast with the term &#8220;natural language&#8221;: whereas natural languages are languages that human beings actually use, formal languages are mathematical objects that computer scientists, logicians, and mathematicians define and study for various purposes. 
+</p> 
+<!--l. 750--> 
+<p class="indent"> A simple example of a formal language is 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> . The words in this language are built up from two symbols: the symbol 
+<span class="cmti-10"> a 
+</span> and the symbol 
+<span class="cmti-10"> b 
+</span> . In fact, the language 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> consists of all strings made up from these two symbols that have the following form: the string must consist of an unbroken block of 
+<span class="cmti-10"> a 
+</span> s of length 
+<span class="cmti-10"> n 
+</span> , followed by an unbroken block of 
+<span class="cmti-10"> b 
+</span> s of length 
+<span class="cmti-10"> n 
+</span> , and nothing else. So the strings 
+<span class="cmti-10"> ab 
+</span> , 
+<span class="cmti-10"> aabb 
+</span> , 
+<span class="cmti-10"> aaabbb 
+</span> and 
+<span class="cmti-10"> aaaabbbb 
+</span> all belong to 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> . (Note that the empty string belongs to 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> too: after all, the empty string consists of a block of 
+<span class="cmti-10"> a 
+</span> s of length zero followed by a block of 
+<span class="cmti-10"> b 
+</span> s of length zero.) On the other hand, 
+<span class="cmti-10"> aba 
+</span> and 
+<span class="cmti-10"> abba 
+</span> do not belong to 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> . 
+</p> 
+<!--l. 764--> 
+<p class="indent"> Now, it is easy to write a context free grammar that generates this language: 
+</p> 
+<div class="center"> 
+<!--l. 767--> 
+<p class="noindent"> 
+</p> 
+<div class="tabular"> 
+<table id="TBL-5" class="tabular" cellspacing="0" cellpadding="0"> 
+<colgroup id="TBL-5-1g"> 
+<col id="TBL-5-1" /> 
+</colgroup> 
+<tr style="vertical-align:baseline;" id="TBL-5-1-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-5-1-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+</span> 
+<span class="cmmi-10"> &#x03F5; 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-5-2-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-5-2-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;l 
+</span> 
+<span class="cmtt-10"> &#x00A0;s 
+</span> 
+<span class="cmtt-10"> &#x00A0;r 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-5-3-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-5-3-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> l 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;a 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+</span> 
+</td> 
+</tr> 
+<tr style="vertical-align:baseline;" id="TBL-5-4-"> 
+<td style="white-space:nowrap; text-align:left;" id="TBL-5-4-1" class="td11"> 
+<span class="verb"> 
+<span class="cmtt-10"> r 
+</span> 
+<span class="cmtt-10"> &#x00A0;-&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;b 
+</span> 
+</span> 
+</td> 
+</tr> 
+</table> 
+</div> 
+</div> 
+<!--l. 774--> 
+<p class="indent"> The first rule says that an 
+<span class="cmti-10"> s 
+</span> can be realised as nothing at all. The second rule says that an 
+<span class="cmti-10"> s 
+</span> can be made up of an 
+<span class="cmti-10"> l 
+</span> (for left) element, followed by an 
+<span class="cmti-10"> s 
+</span> , followed by an 
+<span class="cmti-10"> r 
+</span> (for right) element. The last two rules say that 
+<span class="cmti-10"> l 
+</span> elements and 
+<span class="cmti-10"> r 
+</span> elements can be realised as 
+<span class="cmti-10"> a 
+</span> s and 
+<span class="cmti-10"> b 
+</span> s respectively. It should be clear that this grammar really does generate all and only the elements of 
+<span class="cmmi-10"> a 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> 
+<span class="cmmi-10"> b 
+</span> 
+<sup> 
+<span class="cmmi-7"> n 
+</span> 
+</sup> , including the empty string. 
+</p> 
+<!--l. 783--> 
+<p class="indent"> Moreover, it is easy to turn this grammar into DCG. We can do so as follows: 
+</p> 
+<div class="fancyvrb" id="fancyvrb338"> 
+<a id="x47-68002r1"> 
+</a> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-68004r2"> 
+</a> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;l,s,r. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-68006r3"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x47-68008r4"> 
+</a> 
+<span class="cmtt-10"> l 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x47-68010r5"> 
+</a> 
+<span class="cmtt-10"> r 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[b]. 
+</span> 
+</div> 
+<!--l. 792--> 
+<p class="noindent"> Note that the second rule is recursive (but, thankfully, not left recursive). And in fact this DCG works exactly as we would hope. For example, to the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb339"> 
+<a id="x47-68012r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;s([a,a,a,b,b,b],[]). 
+</span> 
+</div> 
+<!--l. 798--> 
+<p class="noindent"> we get the answer yes, while to the query 
+</p> 
+<div class="fancyvrb" id="fancyvrb340"> 
+<a id="x47-68014r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;s([a,a,a,b,b,b,b],[]). 
+</span> 
+</div> 
+<!--l. 802--> 
+<p class="noindent"> we get the answer no. The query 
+</p> 
+<div class="fancyvrb" id="fancyvrb341"> 
+<a id="x47-68016r1"> 
+</a> 
+<span class="cmtt-10"> ?- 
+</span> 
+<span class="cmtt-10"> &#x00A0;s(X,[]). 
+</span> 
+</div> 
+<!--l. 806--> 
+<p class="noindent"> enumerates the strings in the language, starting from 
+<span class="verb"> 
+<span class="cmtt-10"> [] 
+</span> 
+</span> . 
+</p> 
+<!--l. 810--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse35"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse28"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse28"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse29"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch8"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 810--> 
+<p class="indent"> 
+<a id="taillpn-htmlse29"> 
+</a> 
+</p> 

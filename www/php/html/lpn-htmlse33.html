@@ -1,0 +1,657 @@
+
+<!--l. 575--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse40"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse32"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse32"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=#taillpn-htmlse33"> tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch9"> up 
+</a> ] 
+</p> 
+</div> 
+<h3 class="sectionHead"> 
+<span class="titlemark"> 8.2 
+</span> 
+<a id="x53-760008.2"> 
+</a> Extra Goals 
+</h3> 
+<!--l. 579--> 
+<p class="noindent"> Any DCG rule is really syntactic sugar for an ordinary Prolog rule. So it&#8217;s not really too surprising that we&#8217;re allowed to make use of extra arguments. Similarly, it shouldn&#8217;t come as too much of a surprise that we can call any Prolog predicate whatsoever from the right hand side of a DCG rule. 
+</p> 
+<!--l. 585--> 
+<p class="indent"> The DCG of the previous section can, for example, be adapted to work with Prolog numbers (instead of the successor representation of numbers) by using calls to Prolog&#8217;s built-in arithmetic functionality. We simply count how many 
+<span class="verb"> 
+<span class="cmtt-10"> a 
+</span> 
+</span> s, 
+<span class="verb"> 
+<span class="cmtt-10"> b 
+</span> 
+</span> s, and 
+<span class="verb"> 
+<span class="cmtt-10"> c 
+</span> 
+</span> s have been generated. Here&#8217;s the code: 
+</p> 
+<div class="fancyvrb" id="fancyvrb376"> 
+<a id="x53-76002r1"> 
+</a> 
+<span class="cmtt-10"> s 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;ablock(Count),bblock(Count),cblock(Count). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76004r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-76006r3"> 
+</a> 
+<span class="cmtt-10"> ablock(0) 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76008r4"> 
+</a> 
+<span class="cmtt-10"> ablock(NewCount) 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a],ablock(Count), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76010r5"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;{NewCount 
+</span> 
+<span class="cmtt-10"> &#x00A0;is 
+</span> 
+<span class="cmtt-10"> &#x00A0;Count 
+</span> 
+<span class="cmtt-10"> &#x00A0;+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;1}. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76012r6"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-76014r7"> 
+</a> 
+<span class="cmtt-10"> bblock(0) 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76016r8"> 
+</a> 
+<span class="cmtt-10"> bblock(NewCount) 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[b],bblock(Count), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76018r9"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;{NewCount 
+</span> 
+<span class="cmtt-10"> &#x00A0;is 
+</span> 
+<span class="cmtt-10"> &#x00A0;Count 
+</span> 
+<span class="cmtt-10"> &#x00A0;+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;1}. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76020r10"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-76022r11"> 
+</a> 
+<span class="cmtt-10"> cblock(0) 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76024r12"> 
+</a> 
+<span class="cmtt-10"> cblock(NewCount) 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[c],cblock(Count), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76026r13"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;{NewCount 
+</span> 
+<span class="cmtt-10"> &#x00A0;is 
+</span> 
+<span class="cmtt-10"> &#x00A0;Count 
+</span> 
+<span class="cmtt-10"> &#x00A0;+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;1}. 
+</span> 
+</div> 
+<!--l. 606--> 
+<p class="indent"> As this example suggests, extra goals can be written (anywhere) on the right side of a DCG rule, but must be placed between curly brackets. When Prolog encounters such curly brackets while translating a DCG into its internal representation, it just takes the extra goals specified between the curly brackets over into the translation. So, the second rule for the non-terminal 
+<span class="verb"> 
+<span class="cmtt-10"> ablock 
+</span> 
+</span> above would be translated as follows: 
+</p> 
+<div class="fancyvrb" id="fancyvrb377"> 
+<a id="x53-76028r1"> 
+</a> 
+<span class="cmtt-10"> ablock(NewCount,A,B):- 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76030r2"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;&#8217;C&#8217;(A, 
+</span> 
+<span class="cmtt-10"> &#x00A0;a, 
+</span> 
+<span class="cmtt-10"> &#x00A0;C), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76032r3"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;ablock(Count, 
+</span> 
+<span class="cmtt-10"> &#x00A0;C, 
+</span> 
+<span class="cmtt-10"> &#x00A0;B), 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-76034r4"> 
+</a> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0; 
+</span> 
+<span class="cmtt-10"> &#x00A0;NewCount 
+</span> 
+<span class="cmtt-10"> &#x00A0;is 
+</span> 
+<span class="cmtt-10"> &#x00A0;Count 
+</span> 
+<span class="cmtt-10"> &#x00A0;+ 
+</span> 
+<span class="cmtt-10"> &#x00A0;1. 
+</span> 
+</div> 
+<!--l. 621--> 
+<p class="indent"> Incidentally, if you play around with this DCG, you will find that there are actually some problems with it. In contrast to the one that we saw in the last section, this new version only works correctly when used in the recognition mode. If you try to generate with it, it will at some point enter an infinite loop. We won&#8217;t bother to fix this problem here (apart from anything else, we find the earlier 
+<span class="verb"> 
+<span class="cmtt-10"> succ 
+</span> 
+</span> based approach more elegant). 
+</p> 
+<!--l. 629--> 
+<p class="indent"> The possibility of adding arbitrary Prolog goals to the right hand side of DCG rules, makes DCGs very powerful (it means that we can do anything that we can do in plain Prolog). In general, however, this capability is not used much, which tends to suggest that the basic DCG notation is well designed. There is, however, one classic application for extra goals in computational linguistics: with the help of extra goals, we can neatly separate grammar rules and lexical information. Let&#8217;s see how. 
+</p> 
+<!--l. 638--> 
+<p class="noindent"> 
+</p> 
+<h4 class="likesubsectionHead"> 
+<a id="x53-770008.2"> 
+</a> Separating rules and lexicon 
+</h4> 
+<!--l. 641--> 
+<p class="noindent"> We are going to separate rules and lexicon. That is, we are going to eliminate all mention of individual words in our DCGs and instead record all the information about individual words separately in a lexicon. To see what is meant by this, let&#8217;s return to our basic grammar: 
+</p> 
+<div class="fancyvrb" id="fancyvrb378"> 
+<a id="x53-77002r1"> 
+</a> 
+<span class="cmtt-10"> np 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det,n. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77004r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-77006r3"> 
+</a> 
+<span class="cmtt-10"> vp 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v,np. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77008r4"> 
+</a> 
+<span class="cmtt-10"> vp 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77010r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-77012r6"> 
+</a> 
+<span class="cmtt-10"> det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[the]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77014r7"> 
+</a> 
+<span class="cmtt-10"> det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[a]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77016r8"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-77018r9"> 
+</a> 
+<span class="cmtt-10"> n 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[woman]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77020r10"> 
+</a> 
+<span class="cmtt-10"> n 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[man]. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77022r11"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-77024r12"> 
+</a> 
+<span class="cmtt-10"> v 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[shoots]. 
+</span> 
+</div> 
+<!--l. 660--> 
+<p class="noindent"> We are now going to write a DCG that generates exactly the same language, but in which no rule mentions any individual word. All the information about individual words will be recorded separately. 
+</p> 
+<!--l. 666--> 
+<p class="indent"> Here is an example of a (very simple) lexicon. Lexical entries are encoded by using a predicate 
+<span class="verb"> 
+<span class="cmtt-10"> lex/2 
+</span> 
+</span> whose first argument is a word, and whose second argument is a syntactic category. 
+</p> 
+<div class="fancyvrb" id="fancyvrb379"> 
+<a id="x53-77026r1"> 
+</a> 
+<span class="cmtt-10"> lex(the,det). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77028r2"> 
+</a> 
+<span class="cmtt-10"> lex(a,det). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77030r3"> 
+</a> 
+<span class="cmtt-10"> lex(woman,n). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77032r4"> 
+</a> 
+<span class="cmtt-10"> lex(man,n). 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77034r5"> 
+</a> 
+<span class="cmtt-10"> lex(shoots,v). 
+</span> 
+</div> 
+<!--l. 677--> 
+<p class="indent"> And here is a simple grammar that could go with this lexicon. In essence it&#8217;s the same as the previous one. In fact, the only rules that have changed are those that mentioned specific words, that is, the 
+<span class="verb"> 
+<span class="cmtt-10"> det 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> n 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> v 
+</span> 
+</span> rules. 
+</p> 
+<div class="fancyvrb" id="fancyvrb380"> 
+<a id="x53-77036r1"> 
+</a> 
+<span class="cmtt-10"> np 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;det,n. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77038r2"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-77040r3"> 
+</a> 
+<span class="cmtt-10"> vp 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v,np. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77042r4"> 
+</a> 
+<span class="cmtt-10"> vp 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;v. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77044r5"> 
+</a> 
+<br class="fancyvrb" /> 
+<a id="x53-77046r6"> 
+</a> 
+<span class="cmtt-10"> det 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[Word],{lex(Word,det)}. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77048r7"> 
+</a> 
+<span class="cmtt-10"> n 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[Word],{lex(Word,n)}. 
+</span> 
+<br class="fancyvrb" /> 
+<a id="x53-77050r8"> 
+</a> 
+<span class="cmtt-10"> v 
+</span> 
+<span class="cmtt-10"> &#x00A0;--&#x003E; 
+</span> 
+<span class="cmtt-10"> &#x00A0;[Word],{lex(Word,v)}. 
+</span> 
+</div> 
+<!--l. 692--> 
+<p class="indent"> Consider the new 
+<span class="verb"> 
+<span class="cmtt-10"> det 
+</span> 
+</span> rule. This rule part says &#8220;a 
+<span class="verb"> 
+<span class="cmtt-10"> det 
+</span> 
+</span> can consist of a list containing a single element 
+<span class="verb"> 
+<span class="cmtt-10"> Word 
+</span> 
+</span> &#8221; (note that 
+<span class="verb"> 
+<span class="cmtt-10"> Word 
+</span> 
+</span> is a variable). Then the extra goal adds the crucial stipulation: &#8220;so long as 
+<span class="verb"> 
+<span class="cmtt-10"> Word 
+</span> 
+</span> unifies with something that is listed in the lexicon as a determiner&#8221;. With our present lexicon, this means that 
+<span class="verb"> 
+<span class="cmtt-10"> Word 
+</span> 
+</span> must be matched either with the word &#8220;a&#8221; or &#8220;the&#8221;. So this single rule replaces the two previous DCG rules for 
+<span class="verb"> 
+<span class="cmtt-10"> det 
+</span> 
+</span> . 
+</p> 
+<!--l. 701--> 
+<p class="indent"> This explains the &#8220;how&#8221; of separating rules from lexicon, but it doesn&#8217;t explain the &#8220;why&#8221;. Is it really so important? Is this new way of writing DCGs really that much better? 
+</p> 
+<!--l. 705--> 
+<p class="indent"> The answer is an unequivocal yes! It&#8217;s 
+<span class="cmti-10"> much 
+</span> better, and for at least two reasons. 
+</p> 
+<!--l. 708--> 
+<p class="indent"> The first reason is theoretical. Arguably rules should not mention specific lexical items. The purpose of rules is to list 
+<span class="cmti-10"> general 
+</span> syntactic facts, such as the fact that sentence can be made up of a noun phrase followed by a verb phrase. The rules for 
+<span class="verb"> 
+<span class="cmtt-10"> s 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> np 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> vp 
+</span> 
+</span> describe such general syntactic facts, but the old rules for 
+<span class="verb"> 
+<span class="cmtt-10"> det 
+</span> 
+</span> , 
+<span class="verb"> 
+<span class="cmtt-10"> n 
+</span> 
+</span> , and 
+<span class="verb"> 
+<span class="cmtt-10"> v 
+</span> 
+</span> don&#8217;t. Instead, the old rules simply list particular facts: that &#8220;a&#8221; is a determiner, that &#8220;the&#8221; is a determiner, and so on. From theoretical perspective it is much neater to have a single rule that says &#8220;anything is a determiner (or a noun, or a verb, or any other grammatical category) if it is listed as such in the lexicon&#8221;. And this, of course, is precisely what our new DCG rules say. 
+</p> 
+<!--l. 721--> 
+<p class="indent"> The second reason is more practical. One of the key lessons computational linguists have learnt over the last twenty or so years is that the lexicon is by far the most interesting, important (and expensive!) repository of linguistic knowledge. Bluntly, if you want to get to grips with natural language from a computational perspective, you need to know a lot of words, and you need to know a lot about them. 
+</p> 
+<!--l. 728--> 
+<p class="indent"> Now, our little lexicon, with its simple two-place 
+<span class="verb"> 
+<span class="cmtt-10"> lex 
+</span> 
+</span> entries, is a toy. But a real lexicon is (most emphatically!) not. A real lexicon is likely to be very large (it may contain hundreds of thousands of words) and moreover, the information associated with each word is likely to be very rich. Our 
+<span class="verb"> 
+<span class="cmtt-10"> lex 
+</span> 
+</span> entries give only the syntactical category of each word, but a real lexicon will give much more, such as information about its phonological, morphological, semantic, and pragmatic properties. 
+</p> 
+<!--l. 737--> 
+<p class="indent"> Because real lexicons are big and complex, from a software engineering perspective it is best to write simple grammars that have a simple, well-defined way, of pulling out the information they need from vast lexicons. That is, grammars should be thought of as separate entities which can access the information contained in lexicons. We can then use specialised mechanisms for efficiently storing the lexicon and retrieving data from it. 
+</p> 
+<!--l. 745--> 
+<p class="indent"> Our new DCG rules, though simple, illustrate the basic idea. The new rules really do just list general syntactic facts, and the extra goals act as an interface to our lexicon that lets the rules find exactly the information they need. Furthermore, we now take advantage of Prolog&#8217;s first argument indexing which makes looking up a word in the lexicon more efficient. First argument indexing is a technique for making Prolog&#8217;s knowledge base access more efficient. If in the query the first argument is instantiated it allows Prolog to ignore all clauses where the first argument&#8217;s functor and arity is different. This means, for example, that we can get all the possible categories of 
+<span class="verb"> 
+<span class="cmtt-10"> man 
+</span> 
+</span> immediately without having to even look at the lexicon entries for all the other hundreds or thousands of words that we might have in our lexicon. 
+</p> 
+<!--l. 760--> 
+<div class="crosslinks"> 
+<p class="noindent"> [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse40"> next 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse32"> prev 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse32"> prev-tail 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlse33"> front 
+</a> ] [ 
+<a href="lpnpage.php?pagetype=html&pageid=lpn-htmlch9"> up 
+</a> ] 
+</p> 
+</div> 
+<!--l. 760--> 
+<p class="indent"> 
+<a id="taillpn-htmlse33"> 
+</a> 
+</p> 
