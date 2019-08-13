@@ -12,13 +12,19 @@ reply_lpn_page(Page, Request) :-
         , title("~w | LPN!"-[Page])
         , link([href("/static/css/bootstrap.min.css"), rel(stylesheet)])
         , link([href("/static/css/lpn.css"), rel(stylesheet)])
+        , link([href("/static/css/prism.css"), rel(stylesheet)])
         ],
 	    [\page_content(Page, Request)]).
 
 page_content("Preface", _R) --> preface.
 page_content("Introduction", _R) --> introduction.
-page_content("Ch1", _R) --> chapter_header(1).
-page_content("Section 1.1", _R) --> section(1.1).
+page_content("Chapter 1", _R) --> chapter_header(1).
+page_content("Section 1.1", _R) --> section('1.1').
+page_content("Section 1.1.1", _R) --> section('1.1.1').
+page_content("Section 1.1.2", _R) --> section('1.1.2').
+page_content("Section 1.1.3", _R) --> section('1.1.3').
+page_content("Section 1.1.4", _R) --> section('1.1.4').
+page_content("Section 1.1.5", _R) --> section('1.1.5').
 
 page_content(_Page, _Request) -->
 	html(
@@ -39,7 +45,7 @@ navbar -->
     html(nav(class([navbar, 'navbar-expand-md', 'navbar-dark', 'bg-dark', 'fixed-top']),
     [ a([class('navbar-brand'), href('/')], "Learn Prolog Now!")
     , button([class('navbar-toggler'), type(button), 'data-toggle'=collapse, 'data-target'="#navbarMain", 'aria-controls'="navbarMain", 'aria-expanded'=false, 'aria-label'="Toggle navigation"], span([class('navbar-toggler-icon')],[]))
-    , div(class([collapse, 'navbar-collapse']), id(navbarMain),
+    , div([class([collapse, 'navbar-collapse']), id(navbarMain)],
           [ ul(class(['navbar-nav', 'mr-auto']),
                [ li(class('nav-item'), [a([class('nav-link'), href("/")], "Home")])
                ])
@@ -51,5 +57,6 @@ scripts -->
     html(
         [ script([src('/static/js/jquery-3.3.1.slim.min.js')],[])
         , script([src('/static/js/bootstrap.bundle.min.js')], [])
+        , script([src('/static/js/prism.js')], [])
         ]
     ).
