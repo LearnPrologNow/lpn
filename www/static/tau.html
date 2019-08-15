@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Tau-Prolog Sandbox</title>
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <main class="container">
+    <h1>Hello, Tau!</h1>
+    <form>
+        <div class="form-group">
+            <label for="q1_ans" class="mr-3">vINCENT</label>
+            <div id="q1_ans" class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="vINCENT" id="vINCENTatom" value="atom"/>
+                <label class="form-check-label" for="vINCENTatom">atom</label>
+            </div>
+            <div id="q1_ans" class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="vINCENT" id="vINCENTvariable" value="variable"/>
+                <label class="form-check-label" for="vINCENTvariable">variable</label>
+            </div>
+            <div id="q1_ans" class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="vINCENT" id="vINCENTneither" value="neither"/>
+                <label class="form-check-label" for="vINCENTneither">neither</label>
+                <div class="valid-feedback ml-3">
+                    &#10004;
+                </div>
+            </div>
+        </div>
+        <input id="submitbtn" type="button" value="Submit" class="btn btn-primary disabled"/>
+        <label for="submitbtn" class="text-muted"><small>You must be logged in to track your learning</small></label>
+
+    </form>
+
+    <div>
+        <ul class="list-group" id="feedback">
+        </ul>
+    </div>
+
+    </main>
+<script src="/static/js/tau-prolog.js"></script>
+<script src="/static/js/jquery-3.3.1.slim.min.js"></script>
+
+<script type="text/prolog" id="questions.pl">
+question('vINCENT', atom, 'variables start with a lowercase letter').
+</script>
+
+<script src="/static/js/tau-quiz.js"></script>
+</body>
+</html>

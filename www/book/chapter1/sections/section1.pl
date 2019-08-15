@@ -1,63 +1,16 @@
-chapter_header(Number) -->
-    { chapter_info(Number, Title, Goals, Children) },
-    html([ div(class(chapter_header),
-               [ h2(class(chapter_num), "Chapter ~d"-[Number])
-               , h1(class(chapter_title), Title)
-               ])
-         , div(class([chapter_goals,card]),
-               [ div(class('card-body'),
-                     [ h5(class('card-title'), "Main goals:")
-                     , ol(class([goal_list, 'list-group', 'list-group-flush'])
-                     , \to_li(Goals))
-                     ])
-                ])
-         , div(class(chapter_children),
-               \chapter_children(Children)
-           )
-         ]
-     ).
-
-chapter_children(Children) -->
-    html(ul(class([nav, 'flex-column']), \nav_item(Children))).
-
-nav_item([]) --> [].
-nav_item([H|T]) -->
-    {section_info(H, Title, _)},
-    html(li(class('nav-item'), [small(H), a([class('pl-3'), href("/section~w"-[H])], Title)])),
-    nav_item(T).
-
-
-to_li([]) --> [].
-to_li([H|T]) --> html(li(class('list-group-item'), H)), to_li(T).
-
-
-chapter_info(1,
-    "Facts, Rules, and Queries",
-    [ "To give some simple examples of Prolog programs. This will introduce us to the three basic constructs in Prolog: facts, rules, and queries. It will also introduce us to a number of other themes, like the role of logic in Prolog, and the idea of performing unification with the aid of variables."
-    , "To begin the systematic study of Prolog by defining terms, atoms, variables and other syntactic concepts."
-    ],
-    [ '1.1', '1.2', '1.3', '1.4' ]
-).
-
-section_info('1.1', "Some Simple Examples", ['1.1.1', '1.1.2', '1.1.3', '1.1.4', '1.1.5']).
-section_info('1.2', "Prolog Syntax", []).
-section_info('1.3', "Exercises", []).
-section_info('1.4', "Practical Session", []).
-
 section('1.1') -->
-    { section_info('1.1', Title, Children) },
     html(
-    [ h1("1.1 ~w"-[Title])
+    [ \section_heading1('1.1')
     , p(["There are only three basic constructs in Prolog: facts, rules, and queries. A collection of facts and rules is called a knowledge base (or a database) and Prolog programming is all about writing knowledge bases. That is, Prolog programs simply ", em("are"), " knowledge bases, collections of facts and rules which describe some collection of relationships that we find interesting."])
     , p(["So how do we ", em("use"), " a Prolog program? By posing queries. That is, by asking questions about the information stored in the knowledge base."])
     , p("Now this probably sounds rather strange. It’s certainly not obvious that it has much to do with programming at all. After all, isn’t programming all about telling a computer what to do? But as we shall see, the Prolog way of programming makes a lot of sense, at least for certain tasks; for example, it is useful in computational linguistics and Artificial Intelligence (AI). But instead of saying more about Prolog in general terms, let’s jump right in and start writing some simple knowledge bases; this is not just the best way of learning Prolog, it’s the only way.")
-    , div(class(section_pages), \chapter_children(Children))
+    , div(class(section_pages), \chapter_children('1.1'))
     ]
 ).
 
 section('1.1.1') -->
     html(
-    [ h2(id("KnowledgeBase1"), "Knowledge Base 1")
+    [ \section_heading2('1.1.1')
     , p(["Knowledge Base 1 (KB1) is simply a collection of facts. Facts are used to state things that are ", em("unconditionally"), " true of some situation of interest. For example, we can state that Mia, Jody, and Yolanda are women, that Jody plays air guitar, and that a party is taking place, using the following five facts:"])
     , \code_block("kb1",
         [ "woman(mia)."
@@ -99,7 +52,7 @@ section('1.1.1') -->
 
 section('1.1.2') -->
     html(
-    [ h2(id("KnowledgeBase2"), "Knowledge Base 2")
+    [ \section_heading2('1.1.2')
     , p("Here is KB2, our second knowledge base:")
     , \code_block("kb2",
         [ "happy(yolanda)."
@@ -133,7 +86,7 @@ section('1.1.2') -->
 
 section('1.1.3') -->
     html(
-    [ h2(id("KnowledgeBase3"), "Knowledge Base 3")
+    [ \section_heading2('1.1.3')
     , p("KB3, our third knowledge base, consists of five clauses:")
     , \code_block("kb3",
         [ "happy(vincent)."
@@ -166,13 +119,13 @@ section('1.1.3') -->
     , p("There is another way of expressing disjunction in Prolog. We could replace the pair of rules given above by the single rule")
     , \static_code("playsAirGuitar(butch):-~n    happy(butch);~n    listens2Music(butch).~n"-[])
     , p(["That is, the semicolon ", \prolog_code(";"), " is the Prolog symbol for ", em("or"), " , so this single rule means exactly the same thing as the previous pair of rules. Is it better to use multiple rules or the semicolon? That depends. On the one hand, extensive use of semicolon can make Prolog code hard to read. On the other hand, the semicolon is more efficient as Prolog only has to deal with one rule."])
-    , p(["It should now be clear that Prolog has something to do with logic: after all, the ", \prolog_code(":-"), " means implication, the ", \prolog_code(","), " means conjunction, and the ", \prolog_code(";"), " means disjunction. (What about negation? That is a whole other story. We’ll be discussing it in Chapter  10 .) Moreover, we have seen that a standard logical proof rule (modus ponens) plays an important role in Prolog programming. So we are already beginning to understand why “Prolog” is short for “Programming with logic”."])
+    , p(["It should now be clear that Prolog has something to do with logic: after all, the ", \prolog_code(":-"), " means implication, the ", \prolog_code(","), " means conjunction, and the ", \prolog_code(";"), " means disjunction. (What about negation? That is a whole other story. We’ll be discussing it in ", a(href('/section/10'), "Chapter 10"), ".) Moreover, we have seen that a standard logical proof rule (modus ponens) plays an important role in Prolog programming. So we are already beginning to understand why “Prolog” is short for “Programming with logic”."])
     ]
 ).
 
 section('1.1.4') -->
     html(
-    [ h2(id("KnowledgeBase4"), "Knowledge Base 4")
+    [ \section_heading2('1.1.4')
     , p("Here is KB4, our fourth knowledge base:")
     , \code_block("kb4",
         [ "woman(mia)."
@@ -208,7 +161,7 @@ section('1.1.4') -->
 
 section('1.1.5') -->
     html(
-    [ h2(id("KnowledgeBase5"), "Knowledge Base 5")
+    [ \section_heading2('1.1.5')
     , p(["Well, we’ve introduced variables, but so far we’ve only used them in queries. But variables not only ", em("can"), " be used in knowledge bases, it’s only when we start to do so that we can write truly interesting programs. Here’s a simple example, the knowledge base KB5:"])
     , \code_block("kb5",
         [ "loves(vincent,mia)."
@@ -228,21 +181,4 @@ section('1.1.5') -->
     ]
 ).
 
-prolog_code(Code) -->
-    html(code(class('lang-prolog'), Code)).
 
-static_code(Code) -->
-    html(pre(code(class('lang-prolog'), Code))).
-
-code_block(ID, Block) -->
-    { atomics_to_string(Block, "\n", Code), length(Block, Rows) },
-    html(textarea([class(code), id(ID), rows(Rows)], Code)).
-code_query(ID, Query) --> html(
-    [ div(class('col-sm-9'),
-        [ pre(class(query_prompt), "?-")
-        , input([class(query), value(Query), placeholder(Query), type(text)])
-        ])
-    , div(class('col-sm-3'),
-        input([class([btn, 'btn-primary']), type(button), value("Run Query")])
-        )
-    ]).

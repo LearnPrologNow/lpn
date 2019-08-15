@@ -2,12 +2,14 @@
 :- ensure_loaded(lpn_html).
 
 http:location(static, '/static', []).
+http:location(section, '/section', []).
 
 :- http_handler(/, say_hi,  []).
 
 :- http_handler(root(preface), reply_lpn_page("Preface"), []).
 :- http_handler(root(introduction), reply_lpn_page("Introduction"), []).
 :- http_handler(root(chapter1), reply_lpn_page("Chapter 1"), []).
+:- http_handler(section(X), reply_lpn_section(X), []).
 :- http_handler(root('section1.1'), reply_lpn_page("Section 1.1"), []).
 :- http_handler(root('section1.1.1'), reply_lpn_page("Section 1.1.1"), []).
 :- http_handler(root('section1.1.2'), reply_lpn_page("Section 1.1.2"), []).
