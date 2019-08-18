@@ -14,6 +14,8 @@
 % Grade ⊑ GDC ⊓ ∃grades.Capability
 % CognitiveLevel ⊑ Grade ⊓ ∃concretizedIn.CognitiveCapability
 % ∀{Remembering, Understanding, Applying, Evaluating, Creating} ⊑ CognitiveLevel.
+% Skill ⊑ GDC ⊓ ∃graded.Grade ⊓ ∃concretizedIn.Capability
+% CognitiveSkill ⊑ Skill ⊓ ∃about.CognitiveLevel ⊓ ∃about.Knowledge
 
 % Capability             ⊑ Disposition            ⊓ ∃graded.Grade
 % CognitiveCapability    ⊑ Capability             ⊓ ∃graded.CognitiveLevel ⊓ ∃about.Knowledge
@@ -23,12 +25,39 @@
 % CapabilityToEvaluate   ⊑ CapabilityToApply      ⊓ ∃graded.Evaluating
 % CapabilityToCreate     ⊑ CapabilityToEvaluate   ⊓ ∃graded.Creating
 %
-% TeachingQuality ⊑ Quality ⊓ ∃graded.CognitiveLevel ⊓ ∃about.Knowledge ⊓ ∃qualityOf.TeachingArtifact
-% PracticeQuality ⊑ Quality ⊓ ∃graded.CognitiveLevel ⊓ ∃about.Knowledge ⊓ ∃qualityOf.ExerciseArtifact
-% AssessmentQuality ⊑ Quality ⊓ ∃graded.CognitiveLevel ⊓ ∃about.Knowledge ⊓ ∃qualityOf.AssessmentArtifact
+% TeachingQuality ⊑ Quality ⊓ ∃concretizes.CognitiveSkill ⊓ ∃qualityOf.TeachingArtifact
+% PracticeQuality ⊑ Quality ⊓ ∃concretizes.CognitiveSkill ⊓ ∃qualityOf.ExerciseArtifact
+% AssessmentQuality ⊑ Quality ⊓ ∃concretizes.CognitiveSkill ⊓ ∃qualityOf.AssessmentArtifact
 %
 % Recall ≡ Process ⊓ ∃realizes.CapabilityToRemember
 % Teaching ⊑ Process ⊓ ∃hasParticipant.∃hasQuality.TeachingQuality
 % Practice ⊑ Process ⊓ ∃hasParticipant.∃hasQuality.PracticeQuality
 % Assessment ⊑ Process ⊓ ∃hasParticipant.∃hasQuality.AssessmentQuality
 % SuccessfulAssessment ⊑ Assessment ⊓ ∃realizes.CognitiveCapability
+
+
+% But Knowledge is made of triples... t/f second-order ontology!
+
+/*
+"santa lives in the north pole" ≡ livesIn(santa, north pole) % such phrases allow linking between atomic phrase and domain ontology, plus can use w/out domain ont
+
+Bob learns to remember that Santa lives in the north pole
+
+Bob, Santa, North Pole
+
+Santa - livesIn - North pole
+
+TeachingProcess in which we tell Bob that Santa lives in the north pole
+AssessmentProcess in which Bob's disposition to remember that Santa lives in the north pole is realized
+
+realizes(question, remember(bob, livesIn(santa, north pole)))) isa AssessmentProcess
+                   remember(bob, livesIn(santa, north pole)) isa Disposition
+                                 livesIn(santa, north pole) isa Fact
+
+Fact relates entities via a relation... just like the fluent problem/ an infon
+
+concretizes(paper, livesIn(santa, north pole))
+has_participant(reading, bob)
+has_participant(reading, paper)
+instanceOf(reading, TeachingProcess)
+*/

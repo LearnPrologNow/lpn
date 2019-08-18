@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+swipl -g "consult(book/book)" -t "compile_frames" -s compile_ont.pl
+sort data.pl -o sorted_data.pl
+rm data.pl
+mv sorted_data.pl book.pl

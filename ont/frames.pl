@@ -1,2 +1,0 @@
-:- consult(bfo).
-:- consult(dlo).
