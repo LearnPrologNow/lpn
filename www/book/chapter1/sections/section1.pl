@@ -57,9 +57,9 @@ section('1.1.2') -->
     , \code_block("kb2",
         [ "happy(yolanda)."
         , "listens2Music(mia)."
-        , "listens2Music(yolanda):-  happy(yolanda)."
-        , "playsAirGuitar(mia):-  listens2Music(mia)."
-        , "playsAirGuitar(yolanda):-  listens2Music(yolanda)."
+        , "listens2Music(yolanda) :- happy(yolanda)."
+        , "playsAirGuitar(mia) :- listens2Music(mia)."
+        , "playsAirGuitar(yolanda) :- listens2Music(yolanda)."
         ])
     , p("There are two facts in KB2, listens2Music(mia) and happy(yolanda) . The last three items it contains are rules.")
     , p(["Rules state information that is ", em("conditionally"), " true of the situation of interest. For example, the first rule says that Yolanda listens to music ", em("if"), " she is happy, and the last rule says that Yolanda plays air guitar if she listens to music. More generally, the ", \prolog_code(":-"), " should be read as “if”, or “is implied by”. The part on the left hand side of the ", \prolog_code(":-"), " is called the head of the rule, the part on the right hand side is called the body. So in general rules say: ", em("if"), " the body of the rule is true, ", em("then")," the head of the rule is true too. And now for the key point:"])
@@ -91,12 +91,12 @@ section('1.1.3') -->
     , \code_block("kb3",
         [ "happy(vincent)."
         , "listens2Music(butch)."
-        , "playsAirGuitar(vincent):-"
+        , "playsAirGuitar(vincent) :-"
         , "    listens2Music(vincent),"
         , "    happy(vincent)."
-        , "playsAirGuitar(butch):-"
+        , "playsAirGuitar(butch) :-"
         , "    happy(butch)."
-        , "playsAirGuitar(butch):-"
+        , "playsAirGuitar(butch) :-"
         , "    listens2Music(butch)."
         ])
     , p(["There are two facts, ", \prolog_code("happy(vincent)"), " and ", \prolog_code("listens2Music(butch)"), " , and three rules."])

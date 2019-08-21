@@ -58,13 +58,20 @@ static_code(Code) -->
 
 code_block(ID, Block) -->
     { atomics_to_string(Block, "\n", Code), length(Block, Rows) },
-    html(textarea([class(code), id(ID), rows(Rows)], Code)).
-code_query(ID, Query) --> html(
-    [ div(class('col-sm-9'),
-        [ pre(class(query_prompt), "?-")
-        , input([class(query), value(Query), placeholder(Query), type(text)])
-        ])
-    , div(class('col-sm-3'),
-        input([class([btn, 'btn-primary']), type(button), value("Run Query")])
-        )
-    ]).
+    html(textarea([class([code, 'form-control', 'mb-2']), id(ID), rows(Rows)], Code)).
+
+code_query(ID, Query) --> {random_id(UUID)}, html(
+    div(class('form align-items-center'),
+    div(class('input-group mb-2'),
+          [ div(class('input-group-prepend'), pre(class('query_prompt input-group-text'), "?-"))
+          , input([class([query, 'form-control']), value(Query), placeholder(Query), type(text), id(UUID)])
+          , div(class('input-group-append'), input([class([btn, 'btn-primary']), type(button), value("Run Query"), onclick("query(~w, ~q, this)"-[ID, UUID]), onkeypress("button_key(event.charCode, ~w, ~q, this)"-[ID, UUID])]))
+          ])
+       )
+    ).
+
+random_id(ID) :-
+    length(Codes, 12),
+    maplist(random_between(97, 122), Codes),
+    maplist(char_code, Chars, Codes),
+    atomic_list_concat(Chars, ID).
