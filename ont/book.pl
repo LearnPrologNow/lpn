@@ -97,4 +97,4 @@ frame('1.4', title, "Practical Session").
 frame('1', ako, 'NavigationArtifact').
 frame('1', children, ['1.1','1.2','1.3','1.4']).
 frame('1', goals, ["To give some simple examples of Prolog programs. This will introduce us to the three basic constructs in Prolog: facts, rules, and queries. It will also introduce us to a number of other themes, like the role of logic in Prolog, and the idea of performing unification with the aid of variables.","To begin the systematic study of Prolog by defining terms, atoms, variables and other syntactic concepts."]).
-frame('1', title, 'Some Simple Examples').
+frame('1', title, 'Facts, Rules, and Queries').

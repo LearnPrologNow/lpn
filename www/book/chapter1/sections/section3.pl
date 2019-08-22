@@ -1,11 +1,3 @@
-section('1.3') -->
-    html(
-    [ \section_heading1('1.3')
-    , p('Facts, Rules and Queries Exercises')
-    , div(class(section_pages), \chapter_children('1.3'))
-    ]
-).
-
 section('1.3.1') -->
     html(
     [ \section_heading2('1.3.1')
@@ -23,7 +15,7 @@ section('1.3.2') -->
 ).
 
 quiz(N) -->
-    { info(N, questions, Qs), info(N, question_opts, Opts) },
+    { query(N, questions, Qs), query(N, question_opts, Opts) },
     html(
     [ div(class('col-sm-9'), form(
         [ \questions(Opts, Qs)

@@ -5,6 +5,5 @@
 :- ensure_loaded(chapter1/chapter1).
 
 %! section(N) if N is a chapter number creates a chapter page
-section(N) --> { chapter(N)
-               , info(N, title, Title)
-               }, chapter_header(N, Title).
+section(N) --> { query([N-ako-'NavigationArtifact', N-title-Title])
+               }, navigation_artifact(N, Title).

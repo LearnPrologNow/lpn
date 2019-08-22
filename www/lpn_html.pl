@@ -2,9 +2,10 @@
 
 :- ensure_loaded(html_blocks).
 :- ensure_loaded(book/book).
+:- ensure_loaded('../ont/query').
 
 reply_lpn_section(N, _Request) :-
-    info(N, title, Page),
+    query(N, title, Page),
     reply_html_page(
 	    lpn_base(N),   % define the base of the page
         [ meta([name("viewport"), content("width=device-width, initial-scale=1, shrink-to-fit=no")])
@@ -62,28 +63,28 @@ navbar(N) -->
 ).
 
 breadcrumbs(N, O) -->
-    { dif(N, O), \+ has_parent(N, _), info(N, title, T) },
+    { dif(N, O), \+ has_parent(N, _), query(N, title, T) },
     html(li([class('breadcrumb-item'), aria-current=page], a([href("/section/~w"-[N])], "~w: ~w"-[N, T]))).
 breadcrumbs(N, N) -->
-    { \+ has_parent(N, _), info(N, title, T) },
+    { \+ has_parent(N, _), query(N, title, T) },
     html(li([class('breadcrumb-item active'), aria-current=page], "~w: ~w"-[N, T])).
 breadcrumbs(N, O) -->
-    { dif(N, O), has_parent(N, P), info(N, title, T) },
+    { dif(N, O), has_parent(N, P), query(N, title, T) },
     breadcrumbs(P, O),
     html(li([class('breadcrumb-item'), aria-current=page], a([href("/section/~w"-[N])], "~w: ~w"-[N, T]))).
 breadcrumbs(N, N) -->
-    { has_parent(N, P), info(N, title, T) },
+    { has_parent(N, P), query(N, title, T) },
     breadcrumbs(P, N),
     html(li([class('breadcrumb-item active'), aria-current=page], "~w: ~w"-[N, T])).
 
 child_or_sibling(N) -->
-    { has_parent(C, N), info(C, title, T) },
+    { has_parent(C, N), query(C, title, T) },
     cs_btn(C, T).
 child_or_sibling(N) -->
-    { info(_, children, Cs), sibling(N, S, Cs), info(S, title, T) },
+    { query(_, children, Cs), sibling(N, S, Cs), query(S, title, T) },
     cs_btn(S, T).
 child_or_sibling(N) -->
-    { has_parent(N, P), has_ancestor(P, GP), has_parent(C, GP), C @> P, info(C, title, T) },
+    { has_parent(N, P), has_ancestor(P, GP), has_parent(C, GP), C @> P, query(C, title, T) },
     cs_btn(C, T).
 child_or_sibling(_) --> []. % The last item in the tree
 cs_btn(N, T) -->
@@ -101,11 +102,11 @@ has_ancestor(C, A):-
     has_parent(C, P),
     has_ancestor(P, A).
 has_parent(C, P) :-
-    info(P, children, Cs),
+    query(P, children, Cs),
     member(C, Cs).
 
 scripts(N) -->
-    { info(N, questions, _) },
+    { query(N, questions, _) },
     html(
         [ script([src('/static/js/jquery-3.4.1.min.js')],[])
         , script([src('/static/js/bootstrap.bundle.min.js')], [])
@@ -116,7 +117,7 @@ scripts(N) -->
     ).
 
 scripts(N) -->
-    { \+ info(N, questions, _) },
+    { \+ query(N, questions, _) },
     html(
         [ script([src('/static/js/jquery-3.4.1.min.js')],[])
         , script([src('/static/js/bootstrap.bundle.min.js')], [])
