@@ -47,7 +47,7 @@ reply_lpn_section(N, R) :-
 % Body will be included
 body(lpn_base(N), Body) -->
         html(body([ \navbar(N),
-        main([role(main), class([container, row])], [div([class([collapse, nav, 'flex-column']), id(sidenav)], \sidenav(N)), div(class('col'), Body)]),
+        main([role(main), class([container, row])], [div([class([collapse, nav, 'flex-column', 'col-xs-6', 'col-sm-3', 'mb-2']), id(sidenav)], \sidenav(N)), div(class('col'), Body)]),
                     \scripts(N)
                   ])).
 
