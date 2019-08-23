@@ -69,14 +69,14 @@ static_code_block(Code) -->
 % Interactive code block
 code_block(ID, Block) -->
     { atomics_to_string(Block, "\n", Code), length(Block, Rows) },
-    html(textarea([class([code, 'form-control', 'mb-2']), id(ID), rows(Rows)], Code)).
+    html(textarea([class([code, 'form-control', 'mb-2', 'text-monospace']), id(ID), rows(Rows)], Code)).
 
 % A Query for a code block
 code_query(ID, Query) --> {random_id(UID)}, html(
     div(class('form align-items-center'),
     div(class('input-group mb-2'),
           [ div(class('input-group-prepend'), pre(class('query_prompt input-group-text'), "?-"))
-          , input([class([query, 'form-control']), value(Query), placeholder(Query), type(text), id(UID)])
+          , input([class([query, 'form-control', 'text-monospace']), value(Query), placeholder(Query), type(text), id(UID)])
           , div(class('input-group-append'), input([class([btn, 'btn-primary']), type(button), value("Run Query"), onclick("query(~w, ~q, this)"-[ID, UID]), onkeypress("button_key(event.charCode, ~w, ~q, this)"-[ID, UID])]))
           ])
        )

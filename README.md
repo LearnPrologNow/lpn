@@ -55,8 +55,7 @@ to write a parser that'll take the Latex and spit out termarized HTML,
 but it might prove to take longer.
 
 Termarized HTML is being used to create components, such as a code query
-or navigation page. Where possible this should be improved upon. Notably
-a tree style navigation side panel needs to be created.
+or navigation page. Where possible this should be improved upon.
 
 #### CSS
 
@@ -69,6 +68,10 @@ We're using JQuery, as per Bootstraps requirements. We've got `prism.js`
 providing client-side syntax highlighting too. Finally there's some
 homespun JavaScript to interact with Tau-Prolog. To avoid writing quiz
 logic in JavaScript, these are also handed off to Tau-Prolog.
+
+`localStorage is being used` to store the nav-sidebar state between page
+loads. This can be cleared with `localStorage.clear()` should it need to
+be refreshed.
 
 #### Client-Side Prolog
 
