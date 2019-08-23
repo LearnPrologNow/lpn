@@ -1,3 +1,7 @@
+frame('0.1', ako, 'FrontMatter').
+frame('0.1', title, 'Preface').
+frame('0.2', ako, 'FrontMatter').
+frame('0.2', title, 'Introduction').
 frame('1.1.1', ako, 'TeachingArtifact').
 frame('1.1.1', keyTerms, [facts,queries,infer,deduce]).
 frame('1.1.1', learningObjectives, [remember('definition of a fact'),remember('syntax of a fact'),remember('how to query a fact'),remember('syntax of a fact query'),exemplify('syntax of a fact'),interpret('syntax of a ground query'),infer('answer to a fact query')]).

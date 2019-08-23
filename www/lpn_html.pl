@@ -1,13 +1,32 @@
-:- use_module(library(http/html_write)).
+:- use_module(library(http/html_write), [reply_html_page]).
+:- use_module(library(http/http_dispatch), [http_404]).
 
 :- ensure_loaded(html_blocks).
 :- ensure_loaded(book/book).
 :- ensure_loaded('../ont/query').
 
+% tmp home page
+say_hi(_R) :-
+    reply_html_page(
+        lpn_base,
+        [ meta([name("viewport"), content("width=device-width, initial-scale=1, shrink-to-fit=no")])
+        , meta([name("description"), content("Learn Prolog Now!")])
+        , meta([name("author"), content("Paul Brown")])
+        , title("~w | LPN!"-['Home'])
+        , link([href("/static/css/bootstrap.min.css"), rel(stylesheet)])
+        , link([href("/static/css/lpn.css"), rel(stylesheet)])
+        , link([href("/static/css/prism.css"), rel(stylesheet)])
+        ],
+        [ div(class(container), [h1("Under Development"), a(href('/section/1'), "Jump to Book, Chapter 1") ])
+        ]
+    ).
+
+% All book content served via /section/N where N is a unique identifying number
 reply_lpn_section(N, _Request) :-
     query(N, title, Page),
     reply_html_page(
-	    lpn_base(N),   % define the base of the page
+	    lpn_base(N),   % the base layout of the page, into which content is inserted
+        % Head
         [ meta([name("viewport"), content("width=device-width, initial-scale=1, shrink-to-fit=no")])
         , meta([name("description"), content("Learn Prolog Now! - ~w"-[Page])])
         , meta([name("author"), content("Paul Brown")])
@@ -16,30 +35,13 @@ reply_lpn_section(N, _Request) :-
         , link([href("/static/css/lpn.css"), rel(stylesheet)])
         , link([href("/static/css/prism.css"), rel(stylesheet)])
         ],
+        % Body
 	    [\section(N)]).
 
-reply_lpn_page(Page, Request) :-
-	reply_html_page(
-	    lpn_base,   % define the base of the page
-        [ meta([name("viewport"), content("width=device-width, initial-scale=1, shrink-to-fit=no")])
-        , meta([name("description"), content("Learn Prolog Now! - ~w"-[Page])])
-        , meta([name("author"), content("Paul Brown")])
-        , title("~w | LPN!"-[Page])
-        , link([href("/static/css/bootstrap.min.css"), rel(stylesheet)])
-        , link([href("/static/css/lpn.css"), rel(stylesheet)])
-        , link([href("/static/css/prism.css"), rel(stylesheet)])
-        ],
-	    [\page_content(Page, Request)]).
-
-page_content("Preface", _R) --> preface.
-page_content("Introduction", _R) --> introduction.
-
-page_content(_Page, _Request) -->
-	html(
-	   [
-	    h2('Page Specific Header'),
-	    p('with styling')
-	   ]).
+% Can't find page with identifier N, so 404
+reply_lpn_section(N, R) :-
+    \+ query(N, title, _), % Page is not known
+    http_404([], R).
 
 
 % Body will be included
@@ -49,6 +51,7 @@ body(lpn_base(N), Body) -->
                     \scripts(N)
                   ])).
 
+% Top navbar with breadcrumb nav
 navbar(N) -->
     html(nav(class([navbar, 'navbar-expand-md', 'navbar-dark', 'bg-dark', 'fixed-top']),
     [ a([class('navbar-brand'), href('/')], "Learn Prolog Now!")
@@ -105,8 +108,9 @@ has_parent(C, P) :-
     query(P, children, Cs),
     member(C, Cs).
 
+% Scripts for quiz pages
 scripts(N) -->
-    { query(N, questions, _) },
+    { query(N, ako, 'AssessmentArtifact') },
     html(
         [ script([src('/static/js/jquery-3.4.1.min.js')],[])
         , script([src('/static/js/bootstrap.bundle.min.js')], [])
@@ -116,8 +120,9 @@ scripts(N) -->
         ]
     ).
 
+% Scripts for non-quiz pages
 scripts(N) -->
-    { \+ query(N, questions, _) },
+    { \+ query(N, ako, 'AssessmentArtifact') },
     html(
         [ script([src('/static/js/jquery-3.4.1.min.js')],[])
         , script([src('/static/js/bootstrap.bundle.min.js')], [])

@@ -1,4 +1,4 @@
-preface --> html(
+section('0.1') --> html(
     [ h1("Preface")
     , p([em("Learn Prolog Now!"), " has a long and twisted history. In 1995, all three authors were based at the Department of Computational Linguistics, at the University of the Saarland, in Saarbrücken, Germany. Johan, who was teaching the introduction to Prolog that year, was working with Patrick on a Prolog-based introduction to natural language semantics. He decided to prepare a short set of lecture notes on Prolog which could also be used as an Appendix to the computational semantics book."])
     , p(["Nice idea, but that’s not the way things worked out. First, between 1996 and 2000, Patrick and Johan rethought the structure of the Prolog courses, and along the way the notes became book-sized. Then, from 2001 till 2004, Kristina took over the teaching, added new material and (most importantly of all) turned ", em("Learn Prolog Now!"), " into a web-book."])
@@ -14,7 +14,7 @@ preface --> html(
     ]
 ).
 
-introduction --> html(
+section('0.2') --> html(
     [ h1("Introduction")
     , p("First off, what is Prolog? It’s a programming language, but a rather unusual one. “Prolog” is short for “Programming with Logic”, and though the link between logic and Prolog is not completely straightforward, it is this link that gives Prolog its special character. At the heart of Prolog lies a beautiful idea: don’t tell the computer what to do, simply describe situations of interest. Where does the computation come in? When we ask questions. Prolog enables the computer to logically deduce new facts about the situations we describe, and gives its deductions back to us as answers.")
     , p(["This has a number of consequences. First, a practical one: if you are an experienced programmer, Prolog is likely to take you by surprise. It requires a different mindset. You have to learn to see computational problems from a different perspective. To use the standard terminology, you have to learn to think ", em("declaratively"), " , rather than ", em("procedurally"), " . This can be challenging, but it’s also a lot of fun."])
