@@ -1,11 +1,8 @@
-$(document).ready(
-    reload_booknav()
-)
+reload_booknav() // call before doc rendered to replace loading html
 
 function expand_book_nav(caret) {
     $(caret).toggleClass('caret-down')
     $($(caret).next("ul")).toggleClass('show')
-    console.log($(caret).next("ul"))
     localStorage.setItem('booknav', $('#booknav').html())
 }
 
@@ -24,7 +21,7 @@ function reload_booknav() {
 }
 
 function toggleshowingbooknav() {
-    if (localStorage.getItem('bn_showing') == 'true') {
+    if ($('#sidenav').hasClass('show')) { // is being closed
         localStorage.setItem('bn_showing', false)
     }
     else {
