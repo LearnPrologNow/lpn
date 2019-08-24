@@ -133,6 +133,7 @@ scripts(N) -->
     { query(N, ako, 'AssessmentArtifact') },
     html(
         [ script([src('/static/js/jquery-3.4.1.min.js')],[])
+        , script([src('/static/js/jquery.floatThead.min.js')],[])
         , script([src('/static/js/bootstrap.bundle.min.js')], [])
         , script([src('/static/js/prism.js')], [])
         , script([src('/static/js/tau-prolog.js')], [])

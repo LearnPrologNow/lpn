@@ -16,13 +16,7 @@ bind_click(Input) :-
 
 get_by_type(Type, HTML) :-
     get_by_tag(input, HTML),
-    attr(HTML, type, T),
-    T = Type.
-
-get_by_name(Name, HTML) :-
-    get_by_tag(input, HTML),
-    attr(HTML, name, N),
-    N = Name.
+    get_attr(HTML, type, Type).
 
 radiocasecheck(Name) :-
     get_by_name(Name, HTML),
@@ -86,15 +80,17 @@ console_log(Text) :-
     prop(C, log, CL),
     apply(CL, [Text], _).
 
-mark_correct([]).
-mark_correct([H|T]) :-
-    swap_class(H, 'is-invalid', 'is-valid'),
-    mark_correct(T).
+mark_correct([H|_]) :-
+    parent_of(H, Btn),
+    parent_of(Btn, TD),
+    parent_of(TD, TR),
+    swap_class(TR, 'table-warning', 'table-success').
 
-mark_incorrect([]).
-mark_incorrect([H|T]) :-
-    swap_class(H, 'is-valid', 'is-invalid'),
-    mark_incorrect(T).
+mark_incorrect([H|_]) :-
+    parent_of(H, Btn),
+    parent_of(Btn, TD),
+    parent_of(TD, TR),
+    swap_class(H, 'table-success', 'table-warning').
 
 swap_class(H, From, To) :-
     ( remove_class(H, From)

@@ -21,4 +21,6 @@ document.addEventListener('DOMContentLoaded', function(){
     loadPl(session, "/static/pl/quiz.pl")
 }, false);
 
-
+$(document).ready(function(){
+    $(".sticky-header").floatThead({top:60});
+});
