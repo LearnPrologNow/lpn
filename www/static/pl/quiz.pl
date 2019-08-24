@@ -90,7 +90,7 @@ mark_incorrect([H|_]) :-
     parent_of(H, Btn),
     parent_of(Btn, TD),
     parent_of(TD, TR),
-    swap_class(H, 'table-success', 'table-warning').
+    swap_class(TR, 'table-success', 'table-warning').
 
 swap_class(H, From, To) :-
     ( remove_class(H, From)
