@@ -114,18 +114,18 @@ has_parent(C, P) :-
 sidenav --> html(
     ul([id(booknav), class(['list-group', 'sticky-top'])],
         [ li(class(['pl-2', 'list-group-item', 'nav-item']), a([class(['nav-link']), href('/')], "Learn Prolog Now!"))
-        , \sidenav_items(3, ['0.1', '0.2', '1'])
+        , \sidenav_items(2, ['0.1', '0.2', '1'])
         ])
      ).
 sidenav_items(_, []) --> [].
 sidenav_items(M, [H|T]) --> sidenav_item(M, H), sidenav_items(M, T).
 sidenav_item(M, N) --> { query([N-children-C, N-title-Title]), succ(M, NM) },
     html(
-        [ li([class(["pl-~w"-[M], 'list-group-item', 'nav-item', caret]), onclick="expand_book_nav(this)"], \sidenav_a(N, Title))
+        [ li([class(["pl-~w"-[M], 'list-group-item', 'nav-item', 'p-1'])], [ span([class(caret), onclick("expand_book_nav(this)")], []), \sidenav_a(N, Title)])
         , ul(class([nested, collapse, 'list-group']), \sidenav_items(NM, C))
         ]
     ).
-sidenav_item(M, N) --> { \+ query(N, children, []), query(N, title, Title) }, html(li(class(["pl-~w"-[M], 'list-group-item', 'nav-item']), \sidenav_a(N, Title))).
+sidenav_item(M, N) --> { \+ query(N, children, []), query(N, title, Title) }, html(li(class(["pl-~w"-[M], 'list-group-item', 'nav-item', 'p-1']), \sidenav_a(N, Title))).
 sidenav_a(N, T) --> html(a([class(['nav-link', 'd-inline']), id("n~w"-[N]), href("/section/~w"-[N])], "~w: ~w"-[N, T])).
 
 % Scripts for quiz pages

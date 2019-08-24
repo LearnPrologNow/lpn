@@ -2,7 +2,7 @@ reload_booknav() // call before doc rendered to replace loading html
 
 function expand_book_nav(caret) {
     $(caret).toggleClass('caret-down')
-    $($(caret).next("ul")).toggleClass('show')
+    $($(caret).parent().next("ul")).toggleClass('show')
     localStorage.setItem('booknav', $('#booknav').html())
 }
 
