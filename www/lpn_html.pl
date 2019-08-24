@@ -1,5 +1,5 @@
-:- use_module(library(http/html_write), [reply_html_page]).
-:- use_module(library(http/http_dispatch), [http_404]).
+:- use_module(library(http/html_write), [reply_html_page//1, html//1]).
+:- use_module(library(http/http_dispatch), [http_404/2]).
 
 :- ensure_loaded(html_blocks).
 :- ensure_loaded(book/book).
@@ -47,7 +47,7 @@ reply_lpn_section(N, R) :-
 % Body will be included
 body(lpn_base(N), Body) -->
         html(body([ \navbar(N),
-        main([role(main), class([container, row])], [div([class([collapse, nav, 'flex-column', 'col-xs-6', 'col-sm-3', 'mb-2']), id(sidenav)], \sidenav(N)), div(class('col'), Body)]),
+        main([role(main), class([container, row])], [div([class([collapse, nav, 'flex-column', 'col-xs-6', 'col-sm-3', 'mb-2']), id(sidenav)], \sidenav), div(class('col'), Body)]),
                     \scripts(N)
                   ])).
 
@@ -111,21 +111,22 @@ has_parent(C, P) :-
     query(P, children, Cs),
     member(C, Cs).
 
-sidenav(N) --> html(
+sidenav --> html(
     ul([id(booknav), class(['list-group', 'sticky-top'])],
-        [ li(class(['pl-2', 'list-group-item', 'nav-item']), a(href('/'), "Learn Prolog Now!"))
-        , \sidenav_items(3, N, ['0.1', '0.2', '1'])
+        [ li(class(['pl-2', 'list-group-item', 'nav-item']), a([class(['nav-link']), href('/')], "Learn Prolog Now!"))
+        , \sidenav_items(3, ['0.1', '0.2', '1'])
         ])
      ).
-sidenav_items(_, _, []) --> [].
-sidenav_items(M, N, [H|T]) --> sidenav_item(M, N, H), sidenav_items(M, N, T).
-sidenav_item(M, A, N) --> { query([N-children-C, N-title-Title]), succ(M, NM) },
+sidenav_items(_, []) --> [].
+sidenav_items(M, [H|T]) --> sidenav_item(M, H), sidenav_items(M, T).
+sidenav_item(M, N) --> { query([N-children-C, N-title-Title]), succ(M, NM) },
     html(
-        [ li([class(["pl-~w"-[M], 'list-group-item', 'nav-item', caret]), onclick="expand_book_nav(this)"], a(href('/section/~w'-[N]), "~w: ~w"-[N, Title]))
-        , ul(class([nested, collapse, 'list-group']), \sidenav_items(NM, A, C))
+        [ li([class(["pl-~w"-[M], 'list-group-item', 'nav-item', caret]), onclick="expand_book_nav(this)"], \sidenav_a(N, Title))
+        , ul(class([nested, collapse, 'list-group']), \sidenav_items(NM, C))
         ]
     ).
-sidenav_item(M, A, N) --> { \+ query(N, children, []), query(N, title, Title) }, html(li(class(["pl-~w"-[M], 'list-group-item', 'nav-item']), a(href('/section/~w'-[N]), "~w: ~w"-[N, Title]))).
+sidenav_item(M, N) --> { \+ query(N, children, []), query(N, title, Title) }, html(li(class(["pl-~w"-[M], 'list-group-item', 'nav-item']), \sidenav_a(N, Title))).
+sidenav_a(N, T) --> html(a([class(['nav-link', 'd-inline']), id("n~w"-[N]), href("/section/~w"-[N])], "~w: ~w"-[N, T])).
 
 % Scripts for quiz pages
 scripts(N) -->

@@ -17,7 +17,8 @@ function reload_booknav() {
     else {
         $('#sidenav').removeClass('show')
     }
-
+    clear_current_active()
+    open_to_location()
 }
 
 function toggleshowingbooknav() {
@@ -26,5 +27,38 @@ function toggleshowingbooknav() {
     }
     else {
         localStorage.setItem('bn_showing', true)
+    }
+}
+
+function clear_current_active() {
+    cca($('#sidenav').children())
+}
+
+function cca(children) {
+        for (child of children) {
+            const c = $(child)
+            c.removeClass('disabled')
+            c.removeClass('bg-light')
+            cca(c.children())
+        }
+}
+
+function open_to_location() {
+    const path = window.location.pathname
+    const id = `#n${path.slice(path.lastIndexOf("/")+1).replace(/\./g, "\\.")}`
+    const link = $(id)
+    link.addClass("disabled")
+    link.addClass("show")
+    link.parent().addClass("bg-light")
+    open_parents(id)
+}
+
+function open_parents(id) {
+    if (id.length > 3) {
+        const parentid = id.slice(0, id.lastIndexOf(".") - 1)
+        const parent = $(parentid).parent()
+        parent.addClass("caret-down")
+        parent.next().addClass("show")
+        open_parents(parentid)
     }
 }
