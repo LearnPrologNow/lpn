@@ -81,11 +81,7 @@ due to how it navigates the DOM.
 
 ### Quizzes
 
-So far only an MCQ framework has been implemented. I'm not happy with
-the styling on it, I think it should be a table with headings for the
-choices, preferably with a heading row that scrolls with the page.
-Furthermore, the radio buttons are tiny and will be annoying on
-touch-devices.
+So far only an MCQ framework has been implemented.
 
 The other types of quizzes required in chapter 1 will be an auto-compare
 based on a text input. Eg:
