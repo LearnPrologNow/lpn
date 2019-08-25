@@ -4,7 +4,10 @@
     ]
 ).
 
-:- ensure_loaded(book).
+:- prolog_load_context(directory, Dir),
+   asserta(user:file_search_path(ont, Dir)).
+
+:- ensure_loaded(ont(book)).
 
 % eg query(['1'-title-T, '1'-children-C]).
 query(Where) :-

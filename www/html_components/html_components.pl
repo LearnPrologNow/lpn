@@ -1,7 +1,11 @@
-:- ensure_loaded(code_components).
-:- ensure_loaded(page_components).
-:- ensure_loaded(script_blocks).
-:- ensure_loaded(quizes).
-:- ensure_loaded(mcq_quiz).
-:- ensure_loaded(input_compare_quiz).
-:- ensure_loaded(input_mark_quiz).
+:- prolog_load_context(directory, Dir),
+   asserta(user:file_search_path(html_comp, Dir)).
+
+
+:- ensure_loaded(html_comp(code_components)).
+:- ensure_loaded(html_comp(page_components)).
+:- ensure_loaded(html_comp(script_blocks)).
+:- ensure_loaded(html_comp(quizes)).
+:- ensure_loaded(html_comp(mcq_quiz)).
+:- ensure_loaded(html_comp(input_compare_quiz)).
+:- ensure_loaded(html_comp(input_mark_quiz)).

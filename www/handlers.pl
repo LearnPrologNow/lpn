@@ -1,5 +1,5 @@
 :- use_module(library(http/http_files)).
-:- ensure_loaded(lpn_html).
+:- ensure_loaded(www(lpn_html)).
 
 http:location(static, '/static', []).
 http:location(section, '/section', []).
@@ -11,4 +11,4 @@ http:location(section, '/section', []).
 :- http_handler(section(X), reply_lpn_section(X), []).
 
 % Static files
-:- http_handler(static(.), http_reply_from_files(static, []), [prefix]).
+:- http_handler(static(.), http_reply_from_files(www(static), []), [prefix]).

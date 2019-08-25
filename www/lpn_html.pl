@@ -1,9 +1,9 @@
 :- use_module(library(http/html_write), [reply_html_page//1, html//1]).
 :- use_module(library(http/http_dispatch), [http_404/2]).
 
-:- ensure_loaded(html_components/html_components).
-:- ensure_loaded(book/book).
-:- ensure_loaded('../ont/query').
+:- ensure_loaded(www(html_components/html_components)).
+:- ensure_loaded(www(book/book)).
+:- ensure_loaded(www(ont/query)).
 
 % tmp home page
 say_hi(_R) :-
@@ -19,7 +19,7 @@ say_hi(_R) :-
         ],
         [ div(class([container, 'bg-dark', 'text-white', 'p-5']),
             [ h1("Under Development")
-            , p(class(lead), [ "Welcom to the demo for this interactive version of "
+            , p(class(lead), [ "Welcome to the demo for this interactive version of "
                              , em("Learn Prolog Now!")
                              ])
             , h2(class(['text-center', 'bg-light', 'p-3']), a([href('/section/1'), class('text-primary')], "Jump to demo: Chapter 1"))
