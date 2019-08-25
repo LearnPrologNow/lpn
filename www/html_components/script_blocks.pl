@@ -36,15 +36,14 @@ $(document).ready(function(){
 quiz_script('auto-compare') --> html(script(
 'document.addEventListener("DOMContentLoaded", start_quiz("/static/pl/auto-compare.pl"), false);
 
-$("input").blur(check_answer);
+$("#quiz").find("input").blur(check_answer);
 
 function check_answer(e) {
     const answer = e.target.value
     const question = $(e.target).prev().text()
     const query = `check_answer(\'${question}\', \'${answer}\').`
-    console.log(query)
     session.query(query)
-    session.answer((a) => console.log(pl.format_answer(a)))
+    session.answer((a) => {})
 }
 
 ')).

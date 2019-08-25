@@ -61,7 +61,7 @@ frame('1.3.2', title, "Atoms, Variables, and Complex Terms").
 frame('1.3.2', type, 'MCQ').
 frame('1.3.3', ako, 'AssessmentArtifact').
 frame('1.3.3', assesses, [recognize('complex term comprised of a functor and arguments'),remember('definition of arity'),infer('arity of a complex term'),remember('functor/arity syntax'),remember('syntax of a complex term')]).
-frame('1.3.3', questions, [question('loves(Vincent, mia)','loves/2','the functor precedes the brackets, the arity is the count of arguments'),question('butch(Boxer)','butch/1','the functor precedes the brackets, the arity is the count of arguments'),question('and(big(burger), kahuna(burger))','and/2','whether arguments are complex terms or not, they still count as 1 each'),question('and(big(X), kahuna(X))','and/2','whether arguments are complex terms or not, they still count as 1 each'),question('kills(Butch, Vincent)','kills/2','the functor precedes the brackets, the arity is the count of arguments')]).
+frame('1.3.3', questions, [question('loves(Vincent, mia)','loves/2','the functor is \'loves\', the arity is \'2\', so the answer is \'loves/2\'.'),question('butch(Boxer)','butch/1','the functor precedes the brackets, the arity is the count of arguments'),question('and(big(burger), kahuna(burger))','and/2','whether arguments are complex terms or not, they still count as 1 each'),question('and(big(X), kahuna(X))','and/2','whether arguments are complex terms or not, they still count as 1 each'),question('kills(Butch, Vincent)','kills/2','the functor precedes the brackets, the arity is the count of arguments')]).
 frame('1.3.3', title, "Functor and Arity").
 frame('1.3.3', type, 'auto-compare').
 frame('1.3.4', ako, 'AssessmentArtifact').

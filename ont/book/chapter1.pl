@@ -222,7 +222,7 @@ frame('1.3.3',
     [ ako-'AssessmentArtifact'
     , title-"Functor and Arity"
     , type-'auto-compare'
-    , questions-[ question('loves(Vincent, mia)', 'loves/2', 'the functor precedes the brackets, the arity is the count of arguments')
+    , questions-[ question('loves(Vincent, mia)', 'loves/2', 'the functor is \'loves\', the arity is \'2\', so the answer is \'loves/2\'.')
                 , question('butch(Boxer)', 'butch/1', 'the functor precedes the brackets, the arity is the count of arguments')
                 , question('and(big(burger), kahuna(burger))', 'and/2', 'whether arguments are complex terms or not, they still count as 1 each')
                 , question('and(big(X), kahuna(X))', 'and/2', 'whether arguments are complex terms or not, they still count as 1 each')
