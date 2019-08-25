@@ -66,33 +66,34 @@ frame('1.3.3', title, "Functor and Arity").
 frame('1.3.3', type, 'auto-compare').
 frame('1.3.4', ako, 'AssessmentArtifact').
 frame('1.3.4', assesses, [remember('definition of a fact'),remember('syntax of a fact'),remember('definition of a rule'),remember('definition of head'),remember('definition of body'),remember('syntax of a rule'),classify('facts and rules are clauses'),remember('definition of predicate')]).
-frame('1.3.4', questions, [question('How many facts are there?',3,'a fact is unconditionally true, so it does not contain ":-" in its definition'),question('How many rules are there?',4,'a rule is conditionally true, so it contains ":-" in its definition'),question('How many clauses are there?',7,'all facts and rules are clauses'),question('How many predicates are defined?',5,'a defined predicate is a fact or the head of a rule, we have defined: woman/1, man/1, person/1, loves/2, and father/2')]).
+frame('1.3.4', questions, [question('How many facts are there?','3','a fact is unconditionally true, so it does not contain ":-" in its definition'),question('How many rules are there?','4','a rule is conditionally true, so it contains ":-" in its definition'),question('How many clauses are there?','7','all facts and rules are clauses'),question('How many predicates are defined?','5','a defined predicate is a fact or the head of a rule, we have defined: woman/1, man/1, person/1, loves/2, and father/2')]).
 frame('1.3.4', title, "Facts, rules, clauses and predicates").
 frame('1.3.4', type, 'auto-compare').
 frame('1.3.5', ako, 'AssessmentArtifact').
-frame('1.3.5', ako, 'AssessmentArtifact').
-frame('1.3.5', assesses, [execute('syntax of a fact'),execute('syntax of a rule'),execute('syntax for conjunction'),execute('syntax for disjunction'),execute('variables in rules')]).
 frame('1.3.5', assesses, [remember('definition of head'),remember('definition of body'),recognize('a goal is a clause in the body')]).
-frame('1.3.5', question_opts, [head,goal,neither]).
+frame('1.3.5', question_opts, [head,goal,body,neither]).
 frame('1.3.5', questions, [question('woman(vincent)',neither,'a fact does not have a head or body'),question('woman(X)',goal,'a goal part of the body of a rule'),question('man(jules)',neither,'a fact does not have a head or body'),question('man(X)',goal,'a goal part of the body of a rule'),question('person(X)',head,'the head precedes ":-" in a rule'),question('loves(X, Y)',head,'the head precedes ":-" in a rule'),question('man(X) ; woman(X)',body,'the body is everything following the ":-" in a rule'),question('man(Y), son(Z, Y)',body,'the body is everything following the ":-" in a rule'),question('knows(X, Y)',neither,'knows(X, Y) is not part of the knowledge base')]).
 frame('1.3.5', title, "Heads, Bodies and Goals").
-frame('1.3.5', title, "Represention").
 frame('1.3.5', type, 'MCQ').
-frame('1.3.5', type, 'multi-markscheme').
 frame('1.3.6', ako, 'AssessmentArtifact').
-frame('1.3.6', assesses, [interpret('syntax of a ground query'),infer('answer to a fact query'),infer('the answer to a rule query'),explain('query answer with conjunction')]).
-frame('1.3.6', question_opts, [yes,no,'ERROR']).
-frame('1.3.6', questions, [question('wizard(ron).',yes,'queries unify with facts'),question('witch(ron).','ERROR','witch/1 is undefined'),question('wizard(hermione).',no,'hermione is not in the knowledge base'),question('witch(hermione)','ERROR','witch/1 is undefined'),question('wizard(harry)',yes,'the goal clauses of the rule wizard/1 succeed for harry')]).
-frame('1.3.6', title, "Answering Queries").
-frame('1.3.6', type, 'MCQ').
+frame('1.3.6', assesses, [execute('syntax of a fact'),execute('syntax of a rule'),execute('syntax for conjunction'),execute('syntax for disjunction'),execute('variables in rules')]).
+frame('1.3.6', questions, [question('Butch is a killer.','killer(butch).'),question('Mia and Marcellus are married.','married(mia, marcellus).'),question('Zed is dead.','dead(zed).'),question('Marcellus kills everyone who gives Mia a footmassage.','kill(marcellus, X) :- give(X, mia, Y), footmassage(Y).'),question('Mia loves everyone who is a good dancer.','love(mia, X) :- good_dancer(X).'),question('Jules eats anything that is nutritious or tasty','eat(jules, X) :- nutritious(X) ; tasty(X).')]).
+frame('1.3.6', title, "Represention").
+frame('1.3.6', type, 'multi-markscheme').
 frame('1.3.7', ako, 'AssessmentArtifact').
-frame('1.3.7', assesses, [remember('syntax of an unground query'),infer('answer to a query with a variable')]).
-frame('1.3.7', question_opts, [yes,no]).
-frame('1.3.7', questions, [question('Y = ron',yes,'Y unifies with ron in the fact wizard(ron)'),question('Y = hermione',no,'hermione is not in the knowledge base'),question('Y = harry',yes,'Y unifies with harry via the rule wizard/1'),question(no,yes,'once all possible unifications are exhausted, Prolog will return no')]).
-frame('1.3.7', title, "Unifying Queries").
+frame('1.3.7', assesses, [interpret('syntax of a ground query'),infer('answer to a fact query'),infer('the answer to a rule query'),explain('query answer with conjunction')]).
+frame('1.3.7', question_opts, [yes,no,'ERROR']).
+frame('1.3.7', questions, [question('wizard(ron).',yes,'queries unify with facts'),question('witch(ron).','ERROR','witch/1 is undefined'),question('wizard(hermione).',no,'hermione is not in the knowledge base'),question('witch(hermione)','ERROR','witch/1 is undefined'),question('wizard(harry)',yes,'the goal clauses of the rule wizard/1 succeed for harry')]).
+frame('1.3.7', title, "Answering Queries").
 frame('1.3.7', type, 'MCQ').
+frame('1.3.8', ako, 'AssessmentArtifact').
+frame('1.3.8', assesses, [remember('syntax of an unground query'),infer('answer to a query with a variable')]).
+frame('1.3.8', question_opts, [yes,no]).
+frame('1.3.8', questions, [question('Y = ron',yes,'Y unifies with ron in the fact wizard(ron)'),question('Y = hermione',no,'hermione is not in the knowledge base'),question('Y = harry',yes,'Y unifies with harry via the rule wizard/1'),question(no,yes,'once all possible unifications are exhausted, Prolog will return no')]).
+frame('1.3.8', title, "Unifying Queries").
+frame('1.3.8', type, 'MCQ').
 frame('1.3', ako, 'NavigationArtifact').
-frame('1.3', children, ['1.3.1','1.3.2','1.3.3','1.3.4','1.3.5','1.3.6','1.3.7']).
+frame('1.3', children, ['1.3.1','1.3.2','1.3.3','1.3.4','1.3.5','1.3.6','1.3.7','1.3.8']).
 frame('1.3', title, "Exercises").
 frame('1.4', ako, 'PracticeArtifact').
 frame('1.4', keyTerms, [listing,consult]).

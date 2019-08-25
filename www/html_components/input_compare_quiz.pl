@@ -13,7 +13,7 @@ compare_questions([]) --> [].
 compare_questions([question(Q, _, _)|T]) -->
     html( div(class('input-group'),
         [ div(class('input-group-prepend'), span([class('input-group-text'), id(Q)], Q))
-        , input([type(text), class('form-control'), 'aria-describedby'=Q], [])
+        , input([type(text), class('form-control text-monospace'), 'aria-describedby'=Q], [])
         ])
     ),
     compare_questions(T).

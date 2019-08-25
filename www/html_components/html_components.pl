@@ -4,3 +4,4 @@
 :- ensure_loaded(quizes).
 :- ensure_loaded(mcq_quiz).
 :- ensure_loaded(input_compare_quiz).
+:- ensure_loaded(input_mark_quiz).

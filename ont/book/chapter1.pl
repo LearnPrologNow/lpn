@@ -164,7 +164,7 @@ frame('1.2.4',
 frame('1.3',
     [ ako-'NavigationArtifact'
     , title-"Exercises"
-    , children-['1.3.1', '1.3.2', '1.3.3', '1.3.4', '1.3.5', '1.3.6', '1.3.7']
+    , children-['1.3.1', '1.3.2', '1.3.3', '1.3.4', '1.3.5', '1.3.6', '1.3.7', '1.3.8']
     ]
 ).
 
@@ -241,10 +241,10 @@ frame('1.3.4',
     [ ako-'AssessmentArtifact'
     , title-"Facts, rules, clauses and predicates"
     , type-'auto-compare'
-    , questions-[ question('How many facts are there?', 3, 'a fact is unconditionally true, so it does not contain ":-" in its definition')
-                , question('How many rules are there?', 4, 'a rule is conditionally true, so it contains ":-" in its definition')
-                , question('How many clauses are there?', 7, 'all facts and rules are clauses')
-                , question('How many predicates are defined?', 5, 'a defined predicate is a fact or the head of a rule, we have defined: woman/1, man/1, person/1, loves/2, and father/2')
+    , questions-[ question('How many facts are there?', '3', 'a fact is unconditionally true, so it does not contain ":-" in its definition')
+                , question('How many rules are there?', '4', 'a rule is conditionally true, so it contains ":-" in its definition')
+                , question('How many clauses are there?', '7', 'all facts and rules are clauses')
+                , question('How many predicates are defined?', '5', 'a defined predicate is a fact or the head of a rule, we have defined: woman/1, man/1, person/1, loves/2, and father/2')
                 ]
     , assesses-[ remember('definition of a fact')
                , remember('syntax of a fact')
@@ -262,7 +262,7 @@ frame('1.3.5',
     [ ako-'AssessmentArtifact'
     , title-"Heads, Bodies and Goals"
     , type-'MCQ'
-    , question_opts-[head, goal, neither]
+    , question_opts-[head, goal, body, neither]
     , questions-[ question('woman(vincent)', neither, 'a fact does not have a head or body')
                 , question('woman(X)', goal, 'a goal part of the body of a rule')
                 , question('man(jules)', neither, 'a fact does not have a head or body')
@@ -280,10 +280,17 @@ frame('1.3.5',
     ]
 ).
 
-frame('1.3.5',
+frame('1.3.6',
     [ ako-'AssessmentArtifact'
     , title-"Represention"
     , type-'multi-markscheme'
+    , questions-[ question('Butch is a killer.', 'killer(butch).')
+                , question('Mia and Marcellus are married.', 'married(mia, marcellus).')
+                , question('Zed is dead.', 'dead(zed).')
+                , question('Marcellus kills everyone who gives Mia a footmassage.', 'kill(marcellus, X) :- give(X, mia, Y), footmassage(Y).')
+                , question('Mia loves everyone who is a good dancer.', 'love(mia, X) :- good_dancer(X).')
+                , question('Jules eats anything that is nutritious or tasty', 'eat(jules, X) :- nutritious(X) ; tasty(X).')
+                ]
     , assesses-[ execute('syntax of a fact') % taught exemplify, understand ⊑ apply ∴ if can apply, can infer understand
                , execute('syntax of a rule')
                , execute('syntax for conjunction')
@@ -293,7 +300,7 @@ frame('1.3.5',
     ]
 ).
 
-frame('1.3.6',
+frame('1.3.7',
     [ ako-'AssessmentArtifact'
     , title-"Answering Queries"
     , type-'MCQ'
@@ -312,7 +319,7 @@ frame('1.3.6',
     ]
 ).
 
-frame('1.3.7',
+frame('1.3.8',
     [ ako-'AssessmentArtifact'
     , title-"Unifying Queries"
     , type-'MCQ'

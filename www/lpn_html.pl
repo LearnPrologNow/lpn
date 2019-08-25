@@ -46,10 +46,14 @@ reply_lpn_section(N, R) :-
 
 % Body will be included
 body(lpn_base(N), Body) -->
-        html(body([ \navbar(N),
-        main([role(main), class([container, row])], [div([class([collapse, nav, 'flex-column', 'col-xs-6', 'col-sm-3', 'mb-2']), id(sidenav)], \sidenav), div(class('col'), Body)]),
-                    \scripts(N)
-                  ])).
+        html(body([ \navbar(N)
+                  , div(class(row),
+                  [ div([class([collapse, nav, 'flex-column', 'col-xs-6', 'col-sm-3', 'mb-2', 'ml-2']), id(sidenav)], \sidenav)
+                        , div(class(col), main([role(main), class([container])], Body))
+                        ])
+                  , \scripts(N)
+                  ])
+              ).
 
 % A Page whose purpose is to point to it's children
 navigation_artifact(Number, Title) -->
