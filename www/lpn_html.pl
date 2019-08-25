@@ -17,7 +17,25 @@ say_hi(_R) :-
         , link([href("/static/css/lpn.css"), rel(stylesheet)])
         , link([href("/static/css/prism.css"), rel(stylesheet)])
         ],
-        [ div(class(container), [h1("Under Development"), a(href('/section/1'), "Jump to Book, Chapter 1") ])
+        [ div(class([container, 'bg-dark', 'text-white', 'p-5']),
+            [ h1("Under Development")
+            , p(class(lead), [ "Welcom to the demo for this interactive version of "
+                             , em("Learn Prolog Now!")
+                             ])
+            , h2(class(['text-center', 'bg-light', 'p-3']), a([href('/section/1'), class('text-primary')], "Jump to demo: Chapter 1"))
+            , p("Many thanks to the authors:")
+            , ul(class('list-group'),
+                [ li(class('list-group-item bg-secondary'), a([href('http://www.patrickblackburn.org/'), target('_blank')], "Patrick Blackburn"))
+                , li(class('list-group-item bg-secondary'), a([href('http://www.let.rug.nl/bos/'), target('_blank')], "Johan Bos"))
+                , li(class('list-group-item bg-secondary'), a([href('http://cs.union.edu/~striegnk/'), target('_blank')], "Kristina Striegnitz"))
+                ])
+            , p(class('mt-2'), [ "This project is licensed under "
+                , a([href('https://creativecommons.org/licenses/by-sa/4.0/'), target('_blank')], "Creative Commons License Attribution-ShareAlike 4.0 International")
+                ])
+            , p([" Source Code, Development and License available at "
+                , a([href('https://github.com/PaulBrownMagic/lpn/tree/master/www/html_components'), target('_blank')], "this fork of lpn on GitHub")
+                ])
+            ])
         ]
     ).
 
