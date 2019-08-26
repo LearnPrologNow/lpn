@@ -14,25 +14,16 @@ function parse_query(code, qid, answer_list) {
     if (query_parsed !== true) { dom_answer(query_parsed) }
 }
 
-function button_key(char, code, qid, elem) {
-    // TODO make it work again
-    // if (char == 59) {
-    //     query(code, qid)
-    // }
-    // if (char == 46) {
-    //     const query_form = elem.offsetParent.parentElement
-    //     answer_list = query_form.lastChild
-    //     if (elem.value === "Clear Answers") {
-    //         query(code, qid, elem)
-    //     }
-    //     else {
-    //         $('<li class="list-group-item list-group-item-warning"></li>').appendTo(answer_list)
-    //         elem.value = "Clear Answers"
-    //         if ($(elem.parentElement.lastChild).hasClass('btn-warning')) {
-    //             elem.parentElement.lastChild.remove()
-    //         }
-    //     }
-    // }
+function button_key(char, code, qid, btn) {
+    // TODO it should be a better way instead of comparing strings
+    if (char == 59 && $(btn).val() !== 'Clear Answers') {
+        // Semicolon
+        query(code, qid)
+    }
+    if (char == 46) {
+        // Period
+        clear_button(qid)
+    }
 }
 
 function query(code, qid) {
@@ -50,31 +41,31 @@ function query(code, qid) {
 }
 
 function clear_button(qid) {
-    $(`#query-${qid.id}`).show()
-    $(`#next-${qid.id}`).hide()
+    $(`#query-${qid.id}`).val("Run Query").show()
     $(`#clear-${qid.id}`).hide()
     $(`#results-${qid.id}`).hide().children(':not(.d-none)').remove()
+    $(qid).prop("disabled", false)
 }
 
 function pl_answer($answers, qid) {
     return function (answer) {
         let msg = pl.format_answer(answer)
-        const $next = $(`#next-${qid.id}`)
         const $clear = $(`#clear-${qid.id}`)
-        $(`#query-${qid.id}`).hide()
+        const $query = $(`#query-${qid.id}`)
         if(answer) {
             if (answer.links && $.isEmptyObject(answer.links)) { msg = "yes." }
             $answers.find('.template.success').clone().text(msg).removeClass('d-none').appendTo($answers)
-            $next.show()
-            $clear.removeClass('btn-primary').addClass('btn-warning').show()
+            $clear.show()
+            $query.val('Next Answer')
             // Do not allow user change the query in the middle of the session
             $(qid).prop("disabled", true)
         } else {
             if (answer == false) { msg = "no." }
             $answers.find('.template.warning').clone().text(msg).removeClass('d-none').appendTo($answers)
-            //  No more answers, hide next and make clear primary
-            $next.hide()
-            $clear.removeClass('btn-warning').addClass('btn-primary').show()
+            //  No more answers, next time query is clicked answers will be cleared
+            // TODO it should be a better way instead of first querying and then calling clear
+            $query.val('Clear Answers').one('click', function () {clear_button(qid)})
+            $clear.hide()
         }
         $answers.show()
     }
