@@ -1,7 +1,7 @@
 const sessions = {}
 
-function parse_query(code, qid, elem, answer_list) {
-    const dom_answer = pl_answer(answer_list, elem)
+function parse_query(code, qid, answer_list) {
+    const dom_answer = pl_answer(answer_list, qid)
 
     sessions[qid.id] = pl.create(1000)
 
@@ -15,81 +15,67 @@ function parse_query(code, qid, elem, answer_list) {
 }
 
 function button_key(char, code, qid, elem) {
-    if (char == 59) {
-        query(code, qid, elem)
-    }
-    if (char == 46) {
-        const query_form = elem.offsetParent.parentElement
-        answer_list = query_form.lastChild
-        if (elem.value === "Clear Answers") {
-            query(code, qid, elem)
-        }
-        else {
-            $('<li class="list-group-item list-group-item-warning"></li>').appendTo(answer_list)
-            elem.value = "Clear Answers"
-            if ($(elem.parentElement.lastChild).hasClass('btn-warning')) {
-                elem.parentElement.lastChild.remove()
-            }
-        }
-    }
+    // TODO make it work again
+    // if (char == 59) {
+    //     query(code, qid)
+    // }
+    // if (char == 46) {
+    //     const query_form = elem.offsetParent.parentElement
+    //     answer_list = query_form.lastChild
+    //     if (elem.value === "Clear Answers") {
+    //         query(code, qid, elem)
+    //     }
+    //     else {
+    //         $('<li class="list-group-item list-group-item-warning"></li>').appendTo(answer_list)
+    //         elem.value = "Clear Answers"
+    //         if ($(elem.parentElement.lastChild).hasClass('btn-warning')) {
+    //             elem.parentElement.lastChild.remove()
+    //         }
+    //     }
+    // }
 }
 
-function query(code, qid, elem) {
-    // Get DOM element for answers setup
-
-    const query_form = elem.offsetParent.parentElement
-    let answer_list = $('<ul class="list-group mb-2"></ul>')
-
-    // Answer list already exists
-    if ($(query_form.lastChild).prop("tagName") === "UL") {
-        // Still successful answers
-        if ($(query_form.lastChild.lastChild).hasClass("list-group-item-success")) {
-            answer_list = query_form.lastChild
-        }
-        // No more answers or error
-        else {
-            query_form.lastChild.remove() // ul
-            $(qid).prop("disabled", false)
-            elem.value = "Run Query"
-            return
-        }
-    }
-    // No Answer list yet
-    else {
-        answer_list.appendTo(query_form)
-        parse_query(code.value, qid, elem, answer_list)
+function query(code, qid) {
+    const answer_list = $(`#results-${qid.id}`)
+    
+    // invoked on the first query to create the session
+    // TODO change it to not tie UI with initiation logic
+    if (!answer_list.children(':visible').length) {
+        parse_query(code.value, qid, answer_list)
     }
 
-    const dom_answer = pl_answer(answer_list, qid, elem)
+    const dom_answer = pl_answer(answer_list, qid)
     // Answer
     sessions[qid.id].answer(dom_answer)
 }
 
-function clear_button(elem, qid) {
-    elem.offsetParent.parentElement.lastChild.remove() // ul
-    $(elem).prev()[0].value = "Run Query"
-    $(qid).prop("disabled", false)
-    elem.remove()
+function clear_button(qid) {
+    $(`#query-${qid.id}`).show()
+    $(`#next-${qid.id}`).hide()
+    $(`#clear-${qid.id}`).hide()
+    $(`#results-${qid.id}`).hide().children(':not(.d-none)').remove()
 }
 
-function pl_answer(answers, qid, elem) {
+function pl_answer($answers, qid) {
     return function (answer) {
         let msg = pl.format_answer(answer)
+        const $next = $(`#next-${qid.id}`)
+        const $clear = $(`#clear-${qid.id}`)
+        $(`#query-${qid.id}`).hide()
         if(answer) {
             if (answer.links && $.isEmptyObject(answer.links)) { msg = "yes." }
-            $(`<li class="list-group-item list-group-item-success">${msg}</li>`).appendTo(answers)
-            elem.value = "Next Answer"
+            $answers.find('.template.success').clone().text(msg).removeClass('d-none').appendTo($answers)
+            $next.show()
+            $clear.removeClass('btn-primary').addClass('btn-warning').show()
+            // Do not allow user change the query in the middle of the session
             $(qid).prop("disabled", true)
-            if (!$(elem.parentElement.lastChild).hasClass('btn-warning')) {
-                $(`<input type="button" class="btn btn-warning" value="Clear Answers" onclick="clear_button(this, ${qid.id})"></input>`).appendTo(elem.parentElement)
-            }
         } else {
             if (answer == false) { msg = "no." }
-            $(`<li class="list-group-item list-group-item-warning">${msg}</li>`).appendTo(answers)
-            elem.value = "Clear Answers"
-            if ($(elem.parentElement.lastChild).hasClass('btn-warning')) {
-                elem.parentElement.lastChild.remove()
-            }
+            $answers.find('.template.warning').clone().text(msg).removeClass('d-none').appendTo($answers)
+            //  No more answers, hide next and make clear primary
+            $next.hide()
+            $clear.removeClass('btn-warning').addClass('btn-primary').show()
         }
+        $answers.show()
     }
 }
