@@ -14,15 +14,20 @@ function parse_query(code, qid, answer_list) {
     if (query_parsed !== true) { dom_answer(query_parsed) }
 }
 
-function button_key(char, code, qid, btn) {
-    // TODO it should be a better way instead of comparing strings
-    if (char == 59 && $(btn).val() !== 'Clear Answers') {
-        // Semicolon
-        query(code, qid)
+function onActionBtnKeyDown(self, event, code, input) {
+    if (event.key === ';' && $(self).data('role') === 'query') {
+        query(code, input)
+    } else if (event.key === '.') {
+        clear_button(input)
     }
-    if (char == 46) {
-        // Period
-        clear_button(qid)
+}
+
+function onActionBtnClick(self, code, input) {
+    const role = $(self).data('role') 
+    if (role === 'clear') {
+        clear_button(input);
+    } else if (role === 'query') {
+        query(code, input);
     }
 }
 
@@ -41,7 +46,7 @@ function query(code, qid) {
 }
 
 function clear_button(qid) {
-    $(`#query-${qid.id}`).val("Run Query").show()
+    $(`#action-${qid.id}`).data('role', 'query').val("Run Query").show()
     $(`#clear-${qid.id}`).hide()
     $(`#results-${qid.id}`).hide().children(':not(.d-none)').remove()
     $(qid).prop("disabled", false)
@@ -51,20 +56,19 @@ function pl_answer($answers, qid) {
     return function (answer) {
         let msg = pl.format_answer(answer)
         const $clear = $(`#clear-${qid.id}`)
-        const $query = $(`#query-${qid.id}`)
+        const $action = $(`#action-${qid.id}`)
         if(answer) {
             if (answer.links && $.isEmptyObject(answer.links)) { msg = "yes." }
             $answers.find('.template.success').clone().text(msg).removeClass('template d-none').appendTo($answers)
             $clear.show()
-            $query.val('Next Answer')
+            $action.data('role', 'query').val('Next Answer')
             // Do not allow user change the query in the middle of the session
             $(qid).prop("disabled", true)
         } else {
             if (answer == false) { msg = "no." }
             $answers.find('.template.warning').clone().text(msg).removeClass('template d-none').appendTo($answers)
             //  No more answers, next time query is clicked answers will be cleared
-            // TODO it should be a better way instead of first querying and then calling clear
-            $query.val('Clear Answers').one('click', function () {clear_button(qid)})
+            $action.data('role', 'clear').val('Clear Answers')
             $clear.hide()
         }
         $answers.show()
