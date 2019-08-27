@@ -19,7 +19,7 @@ code_query(ID, Query) --> {random_id(UID)},
                 div(class('input-group-prepend'), pre(class('query_prompt input-group-text'), "?-")),
                 input([class([query, 'form-control', 'text-monospace']), value(Query), placeholder(Query), type(text), id(UID)]),
                 div(class('input-group-append'), [
-                    input([class('btn btn-warning'), style='display:none', type(button), id("clear-~q"-[UID]), value("Clear Answers"), onclick("clear_button(~q)"-[UID])]),
+                    input([class('btn btn-warning'), style='display:none', type(button), id("clear-~q"-[UID]), value("Clear Answers"), onclick("clear_answers(~q)"-[UID])]),
                     input([class('btn btn-primary'), type(button), id("action-~q"-[UID]), data-role='query', value("Run Query"), onclick("onActionBtnClick(this, ~w, ~q)"-[ID, UID]), onkeydown("onActionBtnKeyDown(this, event, ~w, ~q)"-[ID, UID])])
                 ])
             ]),
